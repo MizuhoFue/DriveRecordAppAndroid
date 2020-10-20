@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="paraName">
+        <item>レンタカー代</item>
+        <item>ガソリン代</item>
+        <item>高速・有料道路代</item>
+        <item>駐車場代</item>
+        <item>その他</item>
+    </string-array>
+    <string-array name="hutann">
+        <item>秋葉太郎</item>
+        <item>秋葉次郎</item>
+        <item>秋葉三郎</item>
+    </string-array>
+</resources>
