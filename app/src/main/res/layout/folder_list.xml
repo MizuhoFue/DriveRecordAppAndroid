@@ -24,26 +24,25 @@
         tools:layout_editor_absoluteX="-1dp"
         tools:layout_editor_absoluteY="1dp">
 
-        <TextView
-            android:id="@+id/date"
-            android:layout_width="91dp"
-            android:layout_height="40dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="223dp"
-            android:layout_marginBottom="88dp"
-            android:text="@string/day"
+        <Button
+            android:id="@+id/returnMap"
+            android:layout_width="123dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="154dp"
+            android:text="@string/go_map"
             android:textSize="30sp"
-            app:layout_constraintBottom_toTopOf="@+id/returnMap"
-            app:layout_constraintEnd_toStartOf="@+id/gomi"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tripname" />
 
         <TextView
             android:id="@+id/tripname"
-            android:layout_width="184dp"
-            android:layout_height="56dp"
-            android:layout_marginTop="249dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="77dp"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="271dp"
+            android:layout_marginEnd="54dp"
+            android:layout_marginBottom="195dp"
             android:text="@string/tripname"
             android:textSize="30sp"
             app:layout_constraintBottom_toTopOf="@+id/returnMap"
@@ -51,63 +50,60 @@
             app:layout_constraintStart_toEndOf="@+id/date"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <TextView
+            android:id="@+id/date"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="27dp"
+            android:text="@string/day"
+            android:textSize="30sp"
+            app:layout_constraintBaseline_toBaselineOf="@+id/tripname"
+            app:layout_constraintEnd_toStartOf="@+id/tripname"
+            app:layout_constraintStart_toStartOf="parent" />
+
         <Button
             android:id="@+id/gomi"
-            android:layout_width="60dp"
-            android:layout_height="54dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="88dp"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginEnd="25dp"
+            android:layout_marginBottom="71dp"
             android:layout_weight="1"
             android:text="@string/gomi"
             android:textSize="24sp"
-            app:layout_constraintBottom_toTopOf="@+id/returnMap"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/date" />
-
-        <Button
-            android:id="@+id/returnMap"
-            android:layout_width="150dp"
-            android:layout_height="57dp"
-            android:layout_marginStart="122dp"
-            android:layout_marginBottom="155dp"
-            android:text="@string/go_map"
-            android:textSize="30sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/date"
-            app:layout_constraintTop_toBottomOf="@+id/tripname" />
-
-        <Button
-            android:id="@+id/settings"
-            android:layout_width="72dp"
-            android:layout_height="0dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="4dp"
-            android:layout_marginBottom="257dp"
-            android:backgroundTint="#F6F3F3"
-            android:text="@string/settings"
-            android:textSize="30sp"
             app:layout_constraintBottom_toTopOf="@+id/addFolder"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/gomi"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintStart_toEndOf="@+id/tripname"
+            app:layout_constraintTop_toBottomOf="@+id/settings" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/addFolder"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="24dp"
-            android:layout_marginBottom="221dp"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="277dp"
             android:clickable="true"
             app:backgroundTint="#FBF9F9"
             app:fabSize="auto"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/settings"
+            app:layout_constraintEnd_toEndOf="@+id/gomi"
+            app:layout_constraintStart_toStartOf="@+id/settings"
+            app:layout_constraintTop_toBottomOf="@+id/gomi"
             app:maxImageSize="50dp"
             app:srcCompat="@android:drawable/ic_menu_add" />
+
+        <Button
+            android:id="@+id/settings"
+            android:layout_width="68dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="12dp"
+            android:layout_marginBottom="185dp"
+            android:backgroundTint="#F6F3F3"
+            android:text="@string/settings"
+            android:textSize="30sp"
+            app:layout_constraintBottom_toTopOf="@+id/gomi"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

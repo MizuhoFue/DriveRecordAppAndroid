@@ -15,13 +15,28 @@
         <activity android:name=".CameraXActivity"></activity>
         <activity android:name=".DaoActivity" />
         <activity android:name=".FolderDetail" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity"/>
+        <activity android:name=".SplashActivity"/>
+        <activity android:name=".FolderList">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".FolderCreate"
+            android:label="@string/main"></activity>
+        <activity
+            android:name=".Map"
+            android:label="@string/main"></activity>
+        <activity
+            android:name=".Support"
+            android:label="@string/main"></activity>
+        <activity
+            android:name=".Convention"
+            android:label="@string/main"></activity>
     </application>
 
 </manifest>

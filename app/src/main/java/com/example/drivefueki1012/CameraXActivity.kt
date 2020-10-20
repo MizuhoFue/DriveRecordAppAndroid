@@ -42,10 +42,10 @@ class CameraXActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
 
-        if (!hasPermissions(applicationContext)){
+        /*if (!hasPermissions(applicationContext)){
 
             ActivityCompat.requestPermissions
-        }
+        }*/
 
 
 

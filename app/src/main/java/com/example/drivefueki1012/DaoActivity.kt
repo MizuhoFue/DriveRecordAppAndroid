@@ -30,7 +30,7 @@ class DaoActivity : AppCompatActivity() {
         //データベース初期作成イベント
         override fun onCreate(database: SQLiteDatabase?) {
 
-            database?.execSQL("CREATE TABLE IF NOT EXISTS FolderInfo(folderid integer primary key autoincrement ,title string, date integer,member1 string ,member2 string default null,member3 string default null,member4 string default null,member5 string default null, member6 string default null)");
+            database?.execSQL("CREATE TABLE IF NOT EXISTS FolderInfo(folderid integer primary key autoincrement ,title text(100), date numeric not null,member1 text(30) not null ,member2 text(30) default null,member3 text(30) default null,member4 text(30) default null,member5 text(30) default null, member6 text(30) default null)");
 
         }
 
@@ -55,10 +55,7 @@ class DaoActivity : AppCompatActivity() {
 
 
             //insert用文
-            fun insertData(
-                folderid: Int, title: String, date: Int, member1: String,
-                member2: String, member3: String, member4: String, member5: String, member6: String
-            ) {
+
 
                 try {
 
@@ -66,11 +63,17 @@ class DaoActivity : AppCompatActivity() {
                     val database = dbHelper.writableDatabase
                     //初期データをinsertしたい
                     val values = ContentValues()
-                    values.put("旅行", title)
-                    values.put("20201019", date)
-                    values.put("太郎", member1)
+                    values.put("title","旅行")
+                    values.put("date","20201020")
+                    values.put("member1","太郎")
                     //クエリ実行？
-                    database.insertOrThrow(tableName, null, values)
+
+                    val result = database.insertOrThrow(tableName, null, values)
+                    if (result == (0).toLong()) {
+                        Log.d("", "失敗")
+                    } else {
+                        Log.d("", "成功")
+                    }
 
 
                 } catch (exception: Exception) {
@@ -84,7 +87,7 @@ class DaoActivity : AppCompatActivity() {
         }
 
 
-    }
+
 
 
 
