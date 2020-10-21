@@ -63,7 +63,7 @@ class DaoActivity : AppCompatActivity() {
                     val database = dbHelper.writableDatabase
                     //初期データをinsertしたい
                     val values = ContentValues()
-                    values.put("title","旅行")
+                    values.put("title","title")
                     values.put("date","20201020")
                     values.put("member1","太郎")
                     //クエリ実行？

@@ -19,7 +19,6 @@
     <string name="dbaction">Go</string>
 
 
-
     <string name="splash">ドラログ</string>
 
     <string name="button">ドラログ</string>
@@ -107,6 +106,7 @@
 以上
 
 </string>
+    <string name="title_activity_maps">Map</string>
 
 
 </resources>

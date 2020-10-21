@@ -16,7 +16,7 @@ class FolderList : AppCompatActivity() {
 
 
         returnMap.setOnClickListener {
-            val intent2 = Intent(application, Map::class.java)
+            val intent2 = Intent(this@FolderList, MapsActivity::class.java)
             startActivity(intent2)
         }
 
