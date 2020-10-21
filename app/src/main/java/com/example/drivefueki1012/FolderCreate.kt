@@ -15,5 +15,9 @@ class FolderCreate : AppCompatActivity() {
             val intent = Intent(application, FolderList::class.java)
             startActivity(intent)
         }
+            createEnd.setOnClickListener {
+                val touroku = Intent(this@FolderCreate, DaoActivity::class.java)
+                startActivity(touroku)
+            }
     }
 }

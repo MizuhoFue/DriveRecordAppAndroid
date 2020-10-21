@@ -26,7 +26,7 @@ class FolderList : AppCompatActivity() {
         }
 
         addFolder.setOnClickListener {
-            val addFolder = Intent(application, FolderCreate::class.java)
+            val addFolder = Intent(this@FolderList, FolderCreate::class.java)
             startActivity(addFolder)
         }
 

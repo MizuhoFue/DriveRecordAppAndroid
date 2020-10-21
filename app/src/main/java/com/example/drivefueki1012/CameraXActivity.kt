@@ -1,4 +1,6 @@
-package com.example.driveandroid
+package com.example.drivefueki1012
+
+/*
 
 import android.Manifest
 import android.content.ContentValues
@@ -145,3 +147,4 @@ override fun onRequestPermissionsResult(
 setContentView(R.layout.activity_camera_x)
 }
 }
+*/
