@@ -32,7 +32,7 @@
         -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="@string/google_maps_key" />
+            android:value="AIzaSyAz_Sk4alo2-nv6rRZcDhMTLGY5I_MV0nk" />
 
         <activity
             android:name=".MapsActivity"
@@ -53,14 +53,13 @@
             android:name=".FolderCreate"
             android:label="@string/main" />
         <activity
-            android:name=".Map"
-            android:label="@string/main" />
-        <activity
             android:name=".Support"
             android:label="@string/main" />
         <activity
             android:name=".Convention"
             android:label="@string/main" />
+
+
     </application>
 
 </manifest>
