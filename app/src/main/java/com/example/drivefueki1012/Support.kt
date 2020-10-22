@@ -22,5 +22,9 @@ class Support : AppCompatActivity() {
             startActivity(kiyaku)
         }
 
+        appliEnd.setOnClickListener{
+            val finish = Intent(this@Support,FinishActivity::class.java)
+        }
+
     }
 }

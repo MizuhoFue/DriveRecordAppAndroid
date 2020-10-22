@@ -20,7 +20,7 @@ import java.util.*
 import java.util.concurrent.*
 
 
-private const val PERMISSION_REQUEST_CODE=1234
+/*private const val PERMISSION_REQUEST_CODE=1234
 
 private val PERMISSION_REQUIRED=arrayOf(
 
@@ -176,7 +176,7 @@ class CameraXActivity : AppCompatActivity() {
 
     }
 
-}
+}*/
 
 
 

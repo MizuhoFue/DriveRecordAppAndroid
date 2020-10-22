@@ -5,7 +5,11 @@ import android.os.Bundle
 import android.content.Intent
 import kotlinx.android.synthetic.main.folder_create.*
 
+
+
 class FolderCreate : AppCompatActivity() {
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

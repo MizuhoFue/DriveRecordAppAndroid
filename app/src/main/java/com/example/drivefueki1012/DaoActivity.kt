@@ -10,81 +10,97 @@ import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.widget.TextView
-import kotlinx.android.synthetic.main.activity_folder_detail.*
+import android.widget.EditText
+import androidx.appcompat.app.AppCompatActivity
+import kotlinx.android.synthetic.main.folder_create.*
+
 
 class DaoActivity : AppCompatActivity() {
 
 
-    private val dbName: String = "drivedb"
-    private val tableName: String = "FolderInfo"
-    private val dbVersion: Int = 1
+	private val dbName: String = "drivedb"
+	private val tableName: String = "FolderInfo"
+	private val dbVersion: Int = 1
 
-    //DriveDBHelper定義
-    private  class DriveDBHelper(context: Context, databaseName:String, factory: SQLiteDatabase.CursorFactory?, version:Int):
-        SQLiteOpenHelper(context,databaseName, factory,version) {
-
-        //データベース初期作成イベント
-        override fun onCreate(database: SQLiteDatabase?) {
-
-            database?.execSQL("CREATE TABLE IF NOT EXISTS FolderInfo(folderid integer primary key autoincrement ,title text(100), date numeric not null,member1 text(30) not null ,member2 text(30) default null,member3 text(30) default null,member4 text(30) default null,member5 text(30) default null, member6 text(30) default null)");
-
-        }
-
-        //更新イベント
-        override fun onUpgrade(database: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
-            if (oldVersion < newVersion) {
-
-                database?.execSQL("alter table drivedb add column deleteFlag integer default 0")
-
-            }
-        }
+	//DriveDBHelper定義
+	private class DriveDBHelper(
+		context: Context,
+		databaseName: String,
+		factory: SQLiteDatabase.CursorFactory?,
+		version: Int
+	) :
+		SQLiteOpenHelper(context, databaseName, factory, version) {
 
 
-    }
+		//データベース初期作成イベント
+		override fun onCreate(database: SQLiteDatabase?) {
 
-
-
-    //最初に実行
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_dao)
-
-
-            //insert用文
-
-
-                try {
-
-                    val dbHelper = DriveDBHelper(applicationContext, dbName, null, dbVersion)
-                    val database = dbHelper.writableDatabase
-                    //初期データをinsertしたい
-                    val values = ContentValues()
-                    values.put("title","title")
-                    values.put("date","20201020")
-                    values.put("member1","太郎")
-                    //クエリ実行？
-
-                    val result = database.insertOrThrow(tableName, null, values)
-                    if (result == (0).toLong()) {
-                        Log.d("", "失敗")
-                    } else {
-                        Log.d("", "成功")
-                    }
-
-
-                } catch (exception: Exception) {
-                    Log.e("InsertData", exception.toString())
-
-                }
-
-            }
-
+			database?.execSQL("CREATE TABLE IF NOT EXISTS FolderInfo(folderid integer primary key autoincrement ,title text(100), date numeric not null,member1 text(30) not null ,member2 text(30) default null,member3 text(30) default null,member4 text(30) default null,member5 text(30) default null, member6 text(30) default null)")
 
         }
+
+		//更新イベント
+		override fun onUpgrade(database: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
+			if (oldVersion < newVersion) {
+
+				database?.execSQL("alter table drivedb add column deleteFlag integer default 0")
+
+			}
+		}
+
+
+	}
+
+
+	//最初に実行
+	override fun onCreate(savedInstanceState: Bundle?) {
+		super.onCreate(savedInstanceState)
+		setContentView(R.layout.activity_dao)
+
+       // var title: EditText
+       // var date: EditText
+
+        //title = this.findViewById<EditText>(R.id.title)
+       // date = this.findViewById<EditText>(R.id.date)
+       // var member1 : EditText = this.findViewById<EditText>(R.id.member1)
+
+		//val title = findViewById(R.id.title) as EditText
+
+
+
+        //insert用文
+
+
+		try {
+
+			val dbHelper = DriveDBHelper(applicationContext, dbName, null, dbVersion)
+			val database = dbHelper.writableDatabase
+			//初期データをinsertしたい
+			val values = ContentValues()
+			values.put("title", "")
+			values.put("date", "")
+			values.put("member1", "")
+			//クエリ実行？
+
+			val result = database.insertOrThrow(tableName, null, values)
+			if (result == (0).toLong()) {
+				Log.d("", "失敗")
+			} else {
+				Log.d("", "成功")
+			}
+
+
+		} catch (exception: Exception) {
+			Log.e("InsertData", exception.toString())
+
+		}
+
+	}
+
+
+}
 
 
 
