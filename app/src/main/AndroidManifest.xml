@@ -82,7 +82,7 @@
 <!--<<<<<<< HEAD-->
            <activity android:name=".Support"/>
 =======
-            android:name="com.example.driveandroid.Map"
+           <activity android:name="com.example.driveandroid.Map"
             android:label="@string/main" />
 
 
