@@ -5,6 +5,7 @@
 
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+<<<<<<< HEAD
     android:tooltipText="@string/map">
 
     <RelativeLayout
@@ -34,3 +35,6 @@
 
 
 
+=======
+    tools:context="com.example.driveandroid.MapsActivity" />
+>>>>>>> feature/camera

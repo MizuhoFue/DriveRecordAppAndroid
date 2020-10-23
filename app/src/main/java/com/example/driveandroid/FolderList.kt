@@ -1,8 +1,9 @@
-package com.example.drivefueki1012
+package com.example.driveandroid
 
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.example.drivefueki1012.R
 import kotlinx.android.synthetic.main.folder_list.*
 
 class FolderList : AppCompatActivity() {

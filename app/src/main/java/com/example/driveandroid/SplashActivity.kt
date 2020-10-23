@@ -1,9 +1,10 @@
-package com.example.drivefueki1012
+package com.example.driveandroid
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
+import com.example.drivefueki1012.R
 
 class SplashActivity : AppCompatActivity() {
 

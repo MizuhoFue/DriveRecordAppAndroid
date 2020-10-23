@@ -1,8 +1,9 @@
-package com.example.drivefueki1012
+package com.example.driveandroid
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.content.Intent
+import com.example.drivefueki1012.R
 import kotlinx.android.synthetic.main.folder_create.*
 
 

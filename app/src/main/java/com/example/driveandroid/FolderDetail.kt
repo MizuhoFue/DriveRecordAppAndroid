@@ -1,9 +1,10 @@
-package com.example.drivefueki1012
+package com.example.driveandroid
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
+import com.example.drivefueki1012.R
 
 class FolderDetail : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -17,7 +18,8 @@ class FolderDetail : AppCompatActivity() {
 
     share.setOnClickListener{//押したら
         //Intent作成 MainActivityの金額入力からフォルダー詳細に遷移
-        val intent3 = Intent(this@FolderDetail,DaoActivity::class.java)
+        val intent3 = Intent(this@FolderDetail,
+            DaoActivity::class.java)
         startActivity(intent3)
     }
 

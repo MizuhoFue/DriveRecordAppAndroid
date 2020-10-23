@@ -7,7 +7,7 @@
     android:background="#FDFCFC"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context=".FolderCreate"
+    tools:context="com.example.driveandroid.FolderCreate"
     tools:ignore="MissingDefaultResource">
 
     <LinearLayout

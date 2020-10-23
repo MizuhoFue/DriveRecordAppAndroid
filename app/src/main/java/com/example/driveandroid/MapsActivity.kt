@@ -1,8 +1,13 @@
-package com.example.drivefueki1012
+package com.example.driveandroid
 
 import android.content.Intent
 import android.os.Bundle
+<<<<<<< HEAD:app/src/main/java/com/example/drivefueki1012/MapsActivity.kt
 import androidx.appcompat.app.AppCompatActivity
+=======
+import com.example.drivefueki1012.R
+
+>>>>>>> feature/camera:app/src/main/java/com/example/driveandroid/MapsActivity.kt
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
