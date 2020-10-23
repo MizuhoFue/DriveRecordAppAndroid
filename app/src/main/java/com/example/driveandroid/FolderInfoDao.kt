@@ -1,4 +1,4 @@
-package com.example.drivefueki1012
+package com.example.driveandroid
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
@@ -17,10 +17,10 @@ interface FolderInfoDao {
     suspend fun insert(folderinfo : FolderInfo)
 
     @Update
-    suspend fun update(folderinfo:FolderInfo)
+    suspend fun update(folderinfo: FolderInfo)
 
     @Delete
-    suspend fun delete(folderinfo:FolderInfo)
+    suspend fun delete(folderinfo: FolderInfo)
 
 
 }

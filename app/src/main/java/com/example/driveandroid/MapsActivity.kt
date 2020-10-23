@@ -1,7 +1,8 @@
-package com.example.drivefueki1012
+package com.example.driveandroid
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.example.drivefueki1012.R
 
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap

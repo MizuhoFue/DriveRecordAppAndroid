@@ -4,7 +4,7 @@
 * 更新日：20201019
 * */
 
-package com.example.drivefueki1012
+package com.example.driveandroid
 
 import android.content.ContentValues
 import android.content.Context
@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.TextView
+
 import kotlinx.android.synthetic.main.activity_folder_detail.*
 
 class DaoActivity : AppCompatActivity() {
@@ -69,7 +70,13 @@ class DaoActivity : AppCompatActivity() {
 
                 try {
 
-                    val dbHelper = DriveDBHelper(applicationContext, dbName, null, dbVersion)
+                    val dbHelper =
+                        DriveDBHelper(
+                            applicationContext,
+                            dbName,
+                            null,
+                            dbVersion
+                        )
                     val database = dbHelper.writableDatabase
                     //初期データをinsertしたい
                     val values = ContentValues()

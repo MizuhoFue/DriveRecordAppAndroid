@@ -1,4 +1,4 @@
-package com.example.drivefueki1012
+package com.example.driveandroid
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -8,6 +8,7 @@ import android.widget.AdapterView
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Spinner
+
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -43,7 +44,8 @@ class MainActivity : AppCompatActivity() {
         button.setOnClickListener{//押したら
 
             //Intent作成 MainActivityの金額入力からフォルダー詳細に遷移
-            val intent = Intent(this@MainActivity,CameraActivity::class.java)
+            val intent = Intent(this@MainActivity,
+                CameraActivity::class.java)
             startActivity(intent)
         }
 
@@ -51,7 +53,7 @@ class MainActivity : AppCompatActivity() {
 
         camerabutton.setOnClickListener{
 
-            val intentcamera=Intent(this@MainActivity,CameraXActivity::class.java)
+            val intentcamera=Intent(this@MainActivity,CameraActivity::class.java)
             startActivity(intentcamera)
         }
 

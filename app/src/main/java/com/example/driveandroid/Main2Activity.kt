@@ -1,4 +1,4 @@
-package com.example.drivefueki1012
+package com.example.driveandroid
 
 import android.content.ContentValues
 import android.content.Context
@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteOpenHelper
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import com.example.drivefueki1012.R
 
 class Main2Activity : AppCompatActivity() {
     private val dbName: String = "drivedb"
@@ -38,7 +39,12 @@ class Main2Activity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.folder_create)
         try {
-            val dbHelper = DriveDBHelper(applicationContext, dbName, null, dbVersion)
+            val dbHelper = DriveDBHelper(
+                applicationContext,
+                dbName,
+                null,
+                dbVersion
+            )
             val database = dbHelper.writableDatabase
 
 

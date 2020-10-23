@@ -8,7 +8,7 @@
     android:background="#F9FBFA"
     android:gravity="center|top"
     android:orientation="horizontal"
-    tools:context=".FolderCreate">
+    tools:context="com.example.driveandroid.FolderCreate">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

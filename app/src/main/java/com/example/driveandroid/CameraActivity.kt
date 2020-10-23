@@ -1,10 +1,10 @@
 /*
 * 画面名：CameraActivity 端末カメラ起動のためのActivity
-* 金額入力画面に組み込んですぐカメラを起動させるようにする？
+* 金額入力画面に組み込んですぐカメラを起動させるようにする
 * 作成者：笛木瑞歩
 * 更新日：2020年10月22日
 * */
-package com.example.drivefueki1012
+package com.example.driveandroid
 import android.Manifest
 import android.app.Activity
 import android.content.Intent
@@ -16,6 +16,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+
 import kotlinx.android.synthetic.main.activity_camera.*
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -60,7 +61,9 @@ class CameraActivity : AppCompatActivity() {
             addCategory(Intent.CATEGORY_DEFAULT)
         }
 
-        startActivityForResult(intent, CAMERA_REQUEST_CODE)
+        startActivityForResult(intent,
+            CAMERA_REQUEST_CODE
+        )
     }
 
     private fun checkCameraPermission() = PackageManager.PERMISSION_GRANTED ==
@@ -70,7 +73,8 @@ class CameraActivity : AppCompatActivity() {
     private fun grantCameraPermission() =
         ActivityCompat.requestPermissions(this,
             arrayOf(Manifest.permission.CAMERA),
-            CAMERA_PERMISSION_REQUEST_CODE)
+            CAMERA_PERMISSION_REQUEST_CODE
+        )
 
 
     override fun onRequestPermissionsResult(requestCode: Int,

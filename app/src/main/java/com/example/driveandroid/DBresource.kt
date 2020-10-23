@@ -1,16 +1,17 @@
-package com.example.drivefueki1012
+/*
+* DBのテーブル
+*Room用なのでいらなくなった
+* 更新日：2020年10月15日
+* 作成者：笛木瑞歩
+* */
+
+package com.example.driveandroid
 
 import android.icu.lang.UCharacter
 import android.os.Parcel
 import android.os.Parcelable
 import androidx.room.*
 
-/*
-* DBのテーブル
-*
-* 更新日：2020年10月15日
-* 作成者：笛木瑞歩
-* */
 
 //FolderInfoテーブル
 @Entity
