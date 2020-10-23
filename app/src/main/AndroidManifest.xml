@@ -6,7 +6,7 @@
          Google Maps Android API v2, but you must specify either coarse or fine
          location permissions for the "MyLocation" functionality.
     -->
-<<<<<<< HEAD
+<!--<<<<<<< HEAD-->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <!--新しく追加-->
@@ -60,20 +60,15 @@
         <activity
             android:name="com.example.driveandroid.MapsActivity"
             android:label="@string/title_activity_maps" />
-<<<<<<< HEAD
+<!--<<<<<<< HEAD-->
         <activity android:name=".DaoActivity" />
         <activity android:name=".FolderDetail" />
         <activity android:name=".MainActivity" />
         <activity android:name=".FolderList" />
         <activity android:name=".SplashActivity">
-=======
-        <activity android:name="com.example.driveandroid.DaoActivity" />
-        <activity android:name="com.example.driveandroid.FolderDetail" />
-        <activity android:name=".CameraXActivity" />
-        <activity android:name="com.example.driveandroid.SplashActivity" />
-        <activity android:name="com.example.driveandroid.FolderList" />
-        <activity android:name="com.example.driveandroid.MainActivity">
->>>>>>> feature/camera
+<!--=======-->
+
+<!--&gt;>>>>>> feature/camera-->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -83,16 +78,17 @@
         <activity
             android:name="com.example.driveandroid.FolderCreate"
             android:label="@string/main" />
-        <activity
-<<<<<<< HEAD
-            android:name=".Support"
+
+<!--<<<<<<< HEAD-->
+           <activity android:name=".Support"/>
 =======
             android:name="com.example.driveandroid.Map"
             android:label="@string/main" />
-        <activity
-            android:name="com.example.driveandroid.Support"
->>>>>>> feature/camera
-            android:label="@string/main" />
+
+
+<!--        Support<activity android:label="@string/main" />-->
+<!--&gt;>>>>>> feature/camera-->
+
         <activity
             android:name="com.example.driveandroid.Convention"
             android:label="@string/main" />
