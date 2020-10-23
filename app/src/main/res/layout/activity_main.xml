@@ -15,7 +15,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinner2" />
+        app:layout_constraintTop_toBottomOf="@+id/camera" />
 
     <Spinner
         android:id="@+id/spinner"
@@ -52,7 +52,7 @@
         android:layout_height="0dp"
         android:layout_marginStart="32dp"
         android:layout_marginEnd="29dp"
-        android:layout_marginBottom="98dp"
+        android:layout_marginBottom="99dp"
         android:text="@string/kinngaku"
         android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/textView4"
@@ -64,8 +64,8 @@
         android:id="@+id/editTextNumber"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginEnd="15dp"
-        android:layout_marginBottom="73dp"
+        android:layout_marginEnd="14dp"
+        android:layout_marginBottom="74dp"
         android:autofillHints=""
         android:ems="10"
         android:inputType="number"
@@ -94,11 +94,22 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginEnd="15dp"
-        android:layout_marginBottom="255dp"
+        android:layout_marginBottom="58dp"
         android:entries="@array/hutann"
-        app:layout_constraintBottom_toTopOf="@+id/inputComp"
+        app:layout_constraintBottom_toTopOf="@+id/camera"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textView4"
         app:layout_constraintTop_toBottomOf="@+id/editTextNumber" />
+
+    <Button
+        android:id="@+id/camera"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="25dp"
+        android:layout_marginBottom="148dp"
+        android:text="@string/camerabutton"
+        app:layout_constraintBottom_toTopOf="@+id/inputComp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spinner2" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -3,7 +3,8 @@
     <string name="koumoku">項目</string>
     <string name="kinngaku">金額</string>
     <string name="hutann">負担者</string>
-    <string name="inputComplete">入力完了</string>
+    <string name="inputComplete">端末カメラ</string>
+    <string name="camerabutton">CameraX</string>
     <!--folderDetail-->
     <string name="hiduke">日付</string>
     <string name="title">タイトル</string>
@@ -107,6 +108,7 @@
 
 </string>
     <string name="title_activity_maps">Map</string>
-
+    <!--CameraActivity-->
+    <string name="launch_camera">端末カメラ起動</string>
 
 </resources>

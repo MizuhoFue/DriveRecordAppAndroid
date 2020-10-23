@@ -23,11 +23,13 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
-     //   compileOption{
-       //     sourceCompatibility JavaVersion.VERSION_1_8
-         //   targetCompatibility JavaVersion.VERSION_1_8
-       // }
 
+
+
+    }
+    compileOptions{
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 }
 
@@ -68,7 +70,7 @@ dependencies {
     implementation "androidx.camera:camera-camera2:$camerax_version"
 // CameraX Lifecycle Library
     implementation "androidx.camera:camera-lifecycle:$camerax_version"
-// CameraX View class
+// CameraX View class　
     implementation "androidx.camera:camera-view:1.0.0-alpha14"
 
 

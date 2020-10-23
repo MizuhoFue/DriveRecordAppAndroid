@@ -18,10 +18,13 @@ import kotlinx.android.synthetic.main.activity_folder_detail.*
 
 class DaoActivity : AppCompatActivity() {
 
-
+    //DB名
     private val dbName: String = "drivedb"
+    //FolderInfo テーブル名
     private val tableName: String = "FolderInfo"
     private val dbVersion: Int = 1
+    //ParagraphInfo テーブル名　
+    private val tableName2: String="ParagraphInfo"
 
     //DriveDBHelper定義
     private  class DriveDBHelper(context: Context, databaseName:String, factory: SQLiteDatabase.CursorFactory?, version:Int):
@@ -34,6 +37,13 @@ class DaoActivity : AppCompatActivity() {
 
         }
 
+//
+//        override fun onCreate(database:SQLiteDatabase?){
+//
+//            database?.execSQL("CREATE TABLE IF NOT EXISTS ParagraphInfo(FOREIGN KEY(folderid) references FolderInfo(folderid)");
+//        }
+//
+
         //更新イベント
         override fun onUpgrade(database: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
             if (oldVersion < newVersion) {
@@ -44,8 +54,8 @@ class DaoActivity : AppCompatActivity() {
         }
 
 
-    }
 
+    }
 
 
     //最初に実行

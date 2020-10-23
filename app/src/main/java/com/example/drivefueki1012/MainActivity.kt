@@ -43,8 +43,16 @@ class MainActivity : AppCompatActivity() {
         button.setOnClickListener{//押したら
 
             //Intent作成 MainActivityの金額入力からフォルダー詳細に遷移
-            val intent = Intent(this@MainActivity,FolderDetail::class.java)
+            val intent = Intent(this@MainActivity,CameraActivity::class.java)
             startActivity(intent)
+        }
+
+        val camerabutton: Button=findViewById<Button>(R.id.camera)
+
+        camerabutton.setOnClickListener{
+
+            val intentcamera=Intent(this@MainActivity,CameraXActivity::class.java)
+            startActivity(intentcamera)
         }
 
     }
