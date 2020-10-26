@@ -7,15 +7,10 @@
 
 package com.example.driveandroid
 
-import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
-import android.os.Bundle
-import android.util.Log
-import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
-import kotlinx.android.synthetic.main.folder_create.*
 
 
 //import android.widget.TextView
