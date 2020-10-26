@@ -5,7 +5,7 @@
 
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-<<<<<<< HEAD
+
     android:tooltipText="@string/map">
 
     <RelativeLayout
@@ -22,7 +22,7 @@
             tools:context=".MapsActivity" />
 
         <Button
-            android:id="@+id/returnHome"
+            android:id="@+id/mapsReturnHome"
             android:layout_width="125dp"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
@@ -33,8 +33,3 @@
 </LinearLayout>
 
 
-
-
-=======
-    tools:context="com.example.driveandroid.MapsActivity" />
->>>>>>> feature/camera

@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteOpenHelper
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import com.example.drivefueki1012.R
+
 
 class Main2Activity : AppCompatActivity() {
     private val dbName: String = "drivedb"

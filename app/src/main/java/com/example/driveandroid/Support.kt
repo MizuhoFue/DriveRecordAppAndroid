@@ -3,7 +3,8 @@ package com.example.driveandroid
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.content.Intent
-import com.example.drivefueki1012.R
+import com.example.drivefueki1012.FinishActivity
+
 
 import kotlinx.android.synthetic.main.support.*
 
@@ -24,7 +25,7 @@ class Support : AppCompatActivity() {
         }
 
         appliEnd.setOnClickListener{
-            val finish = Intent(this@Support,FinishActivity::class.java)
+            val finish = Intent(this@Support, FinishActivity::class.java)
         }
 
     }
