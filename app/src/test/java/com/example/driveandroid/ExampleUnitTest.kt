@@ -1,4 +1,4 @@
-package com.example.drivefueki1012
+package com.example.driveandroid
 
 import org.junit.Test
 

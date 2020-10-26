@@ -19,8 +19,6 @@ import androidx.core.content.ContextCompat
 
 import kotlinx.android.synthetic.main.activity_camera.*
 
-
-
 class CameraActivity : AppCompatActivity() {
     companion object {
         const val CAMERA_REQUEST_CODE = 1

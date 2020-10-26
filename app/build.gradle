@@ -9,7 +9,7 @@ android {
     buildToolsVersion "30.0.2"
 
     defaultConfig {
-        applicationId "com.example.drivefueki1012"
+        applicationId "com.example.driveandroid"
         minSdkVersion 27
         targetSdkVersion 30
         versionCode 1
