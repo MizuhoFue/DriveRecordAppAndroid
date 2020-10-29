@@ -1,10 +1,12 @@
 <resources>
+    <!--MoneyInsert-->
     <string name="app_name">ドラログ</string>
     <string name="koumoku">項目</string>
     <string name="kinngaku">金額</string>
     <string name="hutann">負担者</string>
-    <string name="inputComplete">端末カメラ</string>
-    <string name="camerabutton">CameraX</string>
+    <string name="inputComplete">入力完了</string>
+    <string name="camerabutton">📷</string>
+    <string name="yenn">円</string>
     <!--folderDetail-->
     <string name="hiduke">日付</string>
     <string name="title">タイトル</string>

@@ -11,32 +11,124 @@
         android:id="@+id/inputComp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="37dp"
+        android:layout_marginBottom="26dp"
         android:text="@string/inputComplete"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/camera" />
+        app:layout_constraintTop_toBottomOf="@+id/hutannsyaSpinner" />
 
 
-    <Spinner
-        android:id="@+id/spinner"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="85dp"
-        android:layout_marginEnd="19dp"
-        android:layout_marginBottom="80dp"
-        android:entries="@array/paraName"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/editTextNumber"
+    <!--項目スピナーダイアログモード-->
+
+    <Button
+        android:id="@+id/camera"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="41dp"
+        android:layout_marginBottom="268dp"
+        android:text="@string/camerabutton"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/textview"
+        app:layout_constraintTop_toBottomOf="@+id/yenn" />
+
+    <TextView
+        android:id="@+id/koumoku"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="37dp"
+        android:layout_marginTop="81dp"
+        android:layout_marginEnd="60dp"
+        android:layout_marginBottom="84dp"
+        android:text="@string/koumoku"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/kinngakuInput"
+        app:layout_constraintEnd_toStartOf="@+id/koumokuSpinner"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <!--負担者スピナーダイアログモード-->
 
+    <Spinner
+        android:id="@+id/koumokuSpinner"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="81dp"
+        android:layout_marginEnd="120dp"
+        android:layout_marginBottom="80dp"
+        android:spinnerMode="dialog"
+        app:layout_constraintBottom_toTopOf="@+id/kinngakuInput"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/koumoku"
+        app:layout_constraintTop_toTopOf="parent" />
 
+    <TextView
+        android:id="@+id/kinngaku"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="39dp"
+        android:layout_marginEnd="261dp"
+        android:text="@string/kinngaku"
+        android:textSize="24sp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/kinngakuInput"
+        app:layout_constraintEnd_toStartOf="@+id/yenn"
+        app:layout_constraintStart_toStartOf="parent" />
 
+    <EditText
+        android:id="@+id/kinngakuInput"
+        android:layout_width="157dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginBottom="145dp"
+        android:ems="10"
+        android:inputType="number"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/hutannsyaSpinner"
+        app:layout_constraintEnd_toStartOf="@+id/yenn"
+        app:layout_constraintTop_toBottomOf="@+id/koumokuSpinner" />
+<!--円だけ上に行っちゃうのどうにかしたい-->
+    <TextView
+        android:id="@+id/yenn"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="202dp"
+        android:layout_marginEnd="6dp"
 
+        android:layout_marginBottom="47dp"
+        android:text="@string/yenn"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/camera"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/kinngaku"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Spinner
+        android:id="@+id/hutannsyaSpinner"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="51dp"
+        android:layout_marginEnd="120dp"
+        android:layout_marginBottom="115dp"
+        android:spinnerMode="dialog"
+        app:layout_constraintBottom_toTopOf="@+id/inputComp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/hutann"
+        app:layout_constraintTop_toBottomOf="@+id/kinngakuInput" />
+
+    <TextView
+        android:id="@+id/hutann"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="39dp"
+        android:layout_marginEnd="51dp"
+        android:text="@string/hutann"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toStartOf="@+id/hutannsyaSpinner"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/hutannsyaSpinner" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

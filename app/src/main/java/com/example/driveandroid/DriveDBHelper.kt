@@ -31,7 +31,7 @@ import kotlinx.android.synthetic.main.activity_folder_detail.*
         //データベース初期作成イベント
         override fun onCreate(database: SQLiteDatabase?) {
 
-            database?.execSQL("CREATE TABLE IF NOT EXISTS FolderInfo(folderid integer primary key autoincrement ,title text(100), date numeric not null,member1 text(30) not null ,member2 text(30) default null,member3 text(30) default null,member4 text(30) default null,member5 text(30) default null, member6 text(30) default null)");
+            database?.execSQL("CREATE TABLE IF NOT EXISTS FolderInfo(folderid integer primary key autoincrement  ,title text(100), date numeric not null,member1 text(30) not null ,member2 text(30) default null,member3 text(30) default null,member4 text(30) default null,member5 text(30) default null, member6 text(30) default null)");
         }
         //更新イベント
         override fun onUpgrade(database: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
@@ -50,11 +50,15 @@ import kotlinx.android.synthetic.main.activity_folder_detail.*
 
        //データベース初期作成イベント
        override fun onCreate(database: SQLiteDatabase?) {
-           database?.execSQL("CREATE TABLE IF NOT EXISTS ParagraphInfo()");
+           database?.execSQL("CREATE TABLE IF NOT EXISTS ParagraphInfo( folderid  integer not null ,paraNum  integer primary key autoincrement ,  paraName TEXT(30) not null, paraCost integer not null, repayer TEXT(30) not null,FOREIGN KEY(folderid) REFERENCES FolderInfo(folderid))");
        }
 
-       override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
-           TODO("Not yet implemented")
+       override fun onUpgrade(database: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
+           if (oldVersion< newVersion){
+
+               database?.execSQL("alter table drivedb add column deleteFlag integer default 0")
+
+           }
        }
    }
 
@@ -63,7 +67,7 @@ import kotlinx.android.synthetic.main.activity_folder_detail.*
 
 
 
-//        //insert用文
+//        //insert用文FolderInfo用　
 //        fun insertData(
 //            folderid: Int, title: String, date: Int, member1: String,
 //            member2: String, member3: String, member4: String, member5: String, member6: String
@@ -84,6 +88,12 @@ import kotlinx.android.synthetic.main.activity_folder_detail.*
 //            }
 //        }
 //
+//    insert用文ParagraphInfo用
+//    fun insertPara()
+
+
+
+
 
 
 

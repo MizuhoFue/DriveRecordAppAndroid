@@ -55,18 +55,3 @@ class DaoActivity : AppCompatActivity() {
 
 
 
-
-
-
-
-//			if (oldVersion < newVersion) {
-//
-//			}
-
-//
-//        override fun onCreate(database:SQLiteDatabase?){
-//
-//            database?.execSQL("CREATE TABLE IF NOT EXISTS ParagraphInfo(FOREIGN KEY(folderid) references FolderInfo(folderid)");
-//        }
-//
-

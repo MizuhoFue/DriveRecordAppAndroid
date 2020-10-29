@@ -24,7 +24,7 @@
         android:layout_marginTop="85dp"
         android:layout_marginEnd="19dp"
         android:layout_marginBottom="80dp"
-        android:entries="@array/paraName"
+        android:entries="@array/koumokuSpinner"
         android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/editTextNumber"
         app:layout_constraintEnd_toEndOf="parent"
