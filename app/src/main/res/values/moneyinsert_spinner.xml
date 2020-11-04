@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array name="koumokuSpinner">
+    <string-array name="paragraphSpinner">
         <item>レンタカー代</item>
         <item>ガソリン代</item>
         <item>高速・有料道路代</item>
         <item>駐車場代</item>
         <item>その他</item>
     </string-array><!--負担者はきっとActivityの方でデータベースから引っ張ると思うのでここのはいらなそう-->
-    <string-array name="hutann">
+    <string-array name="payerSpinner">
         <item>秋葉太郎</item>
         <item>秋葉次郎</item>
         <item>秋葉三郎</item>
