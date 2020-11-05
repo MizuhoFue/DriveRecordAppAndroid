@@ -3,25 +3,21 @@ package com.example.driveandroid
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.content.Intent
-import kotlinx.android.synthetic.main.folder_create.*
+import kotlinx.android.synthetic.main.activity_folder_create.*
 
-
-
-class FolderCreate : AppCompatActivity() {
-
-
+class FolderCreateActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.folder_create)
+        setContentView(R.layout.activity_folder_create)
 
         createEnd.setOnClickListener {
-            val intent = Intent(application, FolderList::class.java)
+            val intent = Intent(this@FolderCreateActivity, FolderListActivity::class.java)
             startActivity(intent)
         }
             createEnd.setOnClickListener {
-                val touroku = Intent(this@FolderCreate, DaoActivity::class.java)
-                startActivity(touroku)
+                val intent = Intent(this@FolderCreateActivity, DaoActivity::class.java)
+                startActivity(intent)
             }
     }
 }

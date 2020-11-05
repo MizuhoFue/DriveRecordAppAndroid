@@ -29,17 +29,17 @@
 
     <string name="day">日付</string>
     <string name="tripname">旅行名</string>
-    <string name="gomi">🗑</string>
+    <string name="trash">🗑</string>
     <string name="go_map">MAPへ</string>
     <string name="settings">⚙</string>
 
     <string name="map">地図</string>
     <string name="returnHome">戻る</string>
 
-    <string name="kiyaku">利用規約</string>
+    <string name="rules">利用規約</string>
     <string name="appliEnd">アプリを終了</string>
 
-    <string name="kiyakuBun">
+    <string name="convention">
 
 この利用規約（以下，「本規約」といいます。）は，株式会社シムテック（以下，「当社」といいます。）がこのアプリ上で提供するサービス、「ドラログ」（以下，「本サービス」といいます。）の利用条件を定めるものです。登録ユーザーの皆さま（以下，「ユーザー」といいます。）には，本規約に従って，本サービスをご利用いただきます。\n \n
         第1条（適用）\n
@@ -110,5 +110,10 @@
     <string name="title_activity_maps">Map</string>
     <!--CameraActivity-->
     <string name="launch_camera">端末カメラ起動</string>
+
+    <!--アプリ終了のダイアログ-->
+    <string name="finish_message">アプリを終了しますか？</string>
+    <string name="yes">はい</string>
+    <string name="no">いいえ</string>
 
 </resources>
