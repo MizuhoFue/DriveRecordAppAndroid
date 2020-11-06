@@ -1,8 +1,8 @@
-<?xml version="1.0" encoding="utf-8"?><!--MoneyInsertのレイアウト
-task
-・カメラをImageButtonにする
-更新日：2020年11月4日
-更新者：笛木瑞歩-->
+<?xml version="1.0" encoding="utf-8"?>
+<!--MoneyInsertのレイアウト-->
+<!--task-->
+<!--更新日：2020年11月6日-->
+<!--更新者：笛木瑞歩-->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -16,7 +16,7 @@ task
         android:layout_marginTop="60dp"
         android:orientation="horizontal">
 
-        <!--    項目名-->
+        <!--項目名-->
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/paragraph_name"
             android:layout_width="wrap_content"
@@ -26,15 +26,16 @@ task
             android:gravity="center"
             android:text="@string/paragraph_name"
             android:textSize="28sp" />
-        <!--    スピナー-->
+
+        <!--スピナー-->
         <androidx.appcompat.widget.AppCompatSpinner
             android:id="@+id/paragraphSpinner"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:gravity="center"
             android:spinnerMode="dialog"
-            android:entries="@array/paragraphSpinner"
-            />
+            android:entries="@array/paragraphSpinner" />
+
     </LinearLayout>
 
     <LinearLayout
@@ -42,7 +43,8 @@ task
         android:layout_height="50dp"
         android:layout_marginTop="60dp"
         android:orientation="horizontal">
-        <!--    金額-->
+
+        <!--金額-->
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/cost_name"
             android:layout_width="wrap_content"
@@ -52,6 +54,7 @@ task
             android:gravity="center"
             android:text="@string/cost_name"
             android:textSize="28sp" />
+
         <!--金額入力部分-->
         <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/cost"
@@ -60,7 +63,8 @@ task
             android:ems="10"
             android:gravity="center"
             android:inputType="number"
-            android:textSize="28sp"/>
+            android:textSize="28sp" />
+
         <!--円-->
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/yen"
@@ -69,11 +73,11 @@ task
             android:layout_marginStart="40dp"
             android:gravity="center"
             android:text="@string/yen"
-            android:textSize="28sp"
-            />
+            android:textSize="28sp" />
+
     </LinearLayout>
 
-    <!--    カメラボタン-->
+    <!--カメラボタン-->
     <androidx.appcompat.widget.AppCompatImageButton
         android:id="@+id/camera"
         android:layout_width="60dp"
@@ -81,8 +85,7 @@ task
         android:layout_marginStart="290dp"
         android:layout_marginTop="60dp"
         android:src="@drawable/camerabutton_orange_mdpi"
-        android:background="@null"
-        />
+        android:background="@null" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -90,7 +93,7 @@ task
         android:layout_marginTop="40dp"
         android:orientation="horizontal">
 
-        <!--    負担者-->
+        <!--負担者-->
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/payer_name"
             android:layout_width="wrap_content"
@@ -100,15 +103,17 @@ task
             android:gravity="center"
             android:text="@string/payer_name"
             android:textSize="28sp" />
-        <!--        負担者スピナー-->
+
+        <!--負担者スピナー-->
         <androidx.appcompat.widget.AppCompatSpinner
             android:id="@+id/payerSpinner"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:spinnerMode="dialog"
-            />
+            android:spinnerMode="dialog" />
+
     </LinearLayout>
+
     <!--入力完了ボタン-->
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/inputComp"

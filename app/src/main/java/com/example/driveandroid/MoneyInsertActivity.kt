@@ -8,7 +8,7 @@
 *ボタンメモ：入力完了：id:inputComp　
 *
 * やること:ダイアログ遷移を入れる→入力完了を押して遷移先決めたらinsert呼び出し、登録して遷移、データベース接続、　とりあえず選択された値を変数に入れられるようにするのが先？
-* Numberの値変数に入れるのはすぐできそうな感じ
+* Numberの値変数に入れるのはすぐできそうな感じ ダイアログに「キャンセル」追加
 * */
 package com.example.driveandroid
 
@@ -24,10 +24,17 @@ import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_money_insert.*
 
 class MoneyInsertActivity : AppCompatActivity() {
+//    //カメラ準備 static役割
+//    companion object {
+//        const val CAMERA_REQUEST_CODE = 1
+//        const val CAMERA_PERMISSION_REQUEST_CODE = 2
+//    }
+
     //負担者スピナーSpinner用の仮の値をひとまず配列payerSpinnerに入れておく　実装はデータベースから引っ張ってきたものを配列にいれる
     //private var <> Array<payerSpinner>.onItemSelectedListener: AdapterView.OnItemSelectedListener
     //    get() {}
     //    set() {}
+
     //負担者スピナーの配列　アダプター使用　仮データを配列に入れる
     val payerList = arrayListOf<String>("神田太郎", "シム太郎", "秋葉三郎", "新橋花子", "渋谷さくら", "千代田葉子")
 
@@ -37,27 +44,25 @@ class MoneyInsertActivity : AppCompatActivity() {
         setContentView(R.layout.activity_money_insert)
         //項目スピナー設定 ダイアログ表示、選択項目Spinnerスペースへの表示ができない↓
         paragraphSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-
             override fun onItemSelected(
                 parent: AdapterView<*>?,
                 view: View?,
                 position: Int,
                 id: Long
             ) {
-                //選択された項目名を変数paragraphに代入
+                //選択された項目名を変数paraNameに代入
                 val spinner1 = parent as? Spinner
-                val paragraph = spinner1?.selectedItem as? String
-
+                val paraName = spinner1?.selectedItem as? String
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {}
+            //ignore
         }
 
         //アダプターに負担者配列リストを設定
         val Adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, payerList)
         //Spinnerにアダプター設定
         payerSpinner.adapter = Adapter
-
         //プルダウンをクリックした時ダイアログを表示
         payerSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
 
@@ -73,32 +78,43 @@ class MoneyInsertActivity : AppCompatActivity() {
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {}
+            //ignore
         }
 
         //カメラボタンをクリックするとCameraActivityに遷移
         camera.setOnClickListener {
+
             val intentCamera = Intent(this@MoneyInsertActivity, CameraActivity::class.java)
             startActivity(intentCamera)
+
         }
 
         //入力完了を押した際にダイアログを表示
         inputComp.setOnClickListener {//押した
-
-            //insert処理を入れる　ここでparagraph,payerを使うが関数自体はParagrarphDBHelperに入れる？
-
-            //ダイアログのタイトル、メッセージ、各ボタンの処理を設定
-            AlertDialog.Builder(this).setTitle("入力完了").setMessage("どちらに移動しますか？")
+            //ダイアログのメッセージ、各ボタンの処理を設定　「詳細」/「ホーム」遷移、入力修正のための「キャンセル」　
+            AlertDialog.Builder(this)
+                .setMessage("どちらに移動しますか？")
                 .setPositiveButton(
                     "詳細",
-                    DialogInterface.OnClickListener { dialog, which ->      //なぜ波線ついてる？
+                    DialogInterface.OnClickListener { dialog, which ->      //なぜグレー波線ついてる？
+                        //insert処理を入れる
+                        //
                         val intent = Intent(
                             this@MoneyInsertActivity, FolderDetailActivity::class.java
                         )
                         startActivity(intent)
                     })
-                .setNegativeButton("ホーム", DialogInterface.OnClickListener { dialog, which ->
-                    val intent = Intent(this@MoneyInsertActivity, FolderListActivity::class.java)
-                    startActivity(intent)   //こちらはfinish()処理を入れたほうがよいかも
+                .setNegativeButton(
+                    "ホーム",
+                    DialogInterface.OnClickListener { dialog, which ->//なぜグレー波線ついてる？
+                        //insert処理を入れる
+                        //
+                        val intent =
+                            Intent(this@MoneyInsertActivity, FolderListActivity::class.java)
+                        startActivity(intent)   //こちらはfinish()処理を入れたほうがよいかも
+                    })
+                .setNeutralButton("キャンセル", DialogInterface.OnClickListener { dialog, which ->
+
                 })
                 .show() //またはcreate() ?
         }
