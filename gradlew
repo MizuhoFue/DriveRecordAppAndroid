@@ -9,8 +9,7 @@
 # Attempt to set APP_HOME
 # Resolve links: $0 may be a link
 PRG="$0"
-# Need this for
-# relative symlinks.
+# Need this for relative symlinks.
 while [ -h "$PRG" ] ; do
     ls=`ls -ld "$PRG"`
     link=`expr "$ls" : '.*-> \(.*\)$'`
@@ -45,7 +44,7 @@ die () {
     exit 1
 }
 
-# OS specific activity_support (must be 'true' or 'false').
+# OS specific support (must be 'true' or 'false').
 cygwin=false
 msys=false
 darwin=false

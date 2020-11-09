@@ -3,17 +3,20 @@ package com.example.driveandroid
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.content.Intent
-import kotlinx.android.synthetic.main.activity_convention.*
 
-class ConventionActivity : AppCompatActivity() {
+
+import kotlinx.android.synthetic.main.convention.*
+
+
+class Convention : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_convention)
+        setContentView(R.layout.convention)
 
         returnSupport.setOnClickListener {
-            val intent = Intent(this@ConventionActivity, SupportActivity::class.java)
-            startActivity(intent)
+            val returnSupport = Intent(application, Support::class.java)
+            startActivity(returnSupport)
         }
     }
 }
