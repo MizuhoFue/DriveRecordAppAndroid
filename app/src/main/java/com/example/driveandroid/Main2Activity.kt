@@ -8,7 +8,6 @@ import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 
-
 class Main2Activity : AppCompatActivity() {
     private val dbName: String = "drivedb"
     private val tableName: String = "folderinfo"
@@ -26,7 +25,6 @@ class Main2Activity : AppCompatActivity() {
             database?.execSQL("create table if not exists folderinfo (folderid integer PRIMARY KEY autoincrement, title TEXT(100), date numeric NOT NULL, member1 text(30) NOT NULL, member2 text(30), member3 text(30), member4 text(30), member5 text(30), member6 text(30))");
         }
 
-
         //更新時
         override fun onUpgrade(database: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
             if (oldVersion < newVersion) {
@@ -37,7 +35,7 @@ class Main2Activity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.folder_create)
+        setContentView(R.layout.activity_folder_create)
         try {
             val dbHelper = DriveDBHelper(
                 applicationContext,
