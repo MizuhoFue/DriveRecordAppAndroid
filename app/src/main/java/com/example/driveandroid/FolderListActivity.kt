@@ -18,11 +18,11 @@ class FolderListActivity : AppCompatActivity() {
         setTheme(R.style.AppTheme)
         setContentView(R.layout.activity_folder_list)
 
-        //recyclerviewの中身
+//        //recyclerviewの中身
 //        viewManager = LinearLayoutManager(this)
 //        //viewAdapter = MyAdapter(myDataset)
 //
-//        recyclerView = findViewById<RecyclerView>(R.id.folderList).apply {
+//        recyclerView.apply {
 //            // use this setting to improve performance if you know that changes
 //            // in content do not change the layout size of the RecyclerView
 //            setHasFixedSize(true)

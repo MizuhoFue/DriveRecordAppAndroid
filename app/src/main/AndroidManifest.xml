@@ -41,21 +41,14 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyDg-tSWdxnQIEO0Zmg-KFITaCHTLdxQDGM" />
 
-
         <activity
             android:name="com.example.driveandroid.MapsActivity"
             android:label="@string/title_activity_maps" />
 
-
         <activity android:name=".DaoActivity" />
         <activity android:name=".FolderDetail" />
         <activity android:name=".MainActivity" />
-
         <activity android:name=".FolderListActivity" />
-        <activity android:name=".FinishActivity"
-            tools:ignore="Instantiatable" />
-
-
         <activity android:name=".SplashActivity">
 
             <intent-filter>

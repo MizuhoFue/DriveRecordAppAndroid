@@ -5,8 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FDFCFC"
-    tools:context="com.example.driveandroid.FolderCreateActivity"
-    tools:ignore="MissingDefaultResource">
+    tools:context="com.example.driveandroid.FolderCreateActivity">
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/settings"
@@ -19,12 +18,10 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/folderList"
-        android:scrollbars="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="50dp" >
-
-        </androidx.recyclerview.widget.RecyclerView>
+        android:layout_height="204dp"
+        android:layout_marginTop="50dp"
+        android:scrollbars="vertical" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/addFolder"

@@ -1,10 +1,7 @@
 package com.example.driveandroid
 
-import android.content.Intent
 import android.os.Bundle
-
 import androidx.appcompat.app.AppCompatActivity
-
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -12,7 +9,6 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import kotlinx.android.synthetic.main.activity_maps.*
-import kotlinx.android.synthetic.main.activity_support.*
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
@@ -22,12 +18,11 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_maps)
 
-
-            mapsReturnHome.setOnClickListener {
-                //val intent3 = Intent(this@MapsActivity, FolderListActivity::class.java)
-                //startActivity(intent3)
-                this.finish()
-            }
+        mapsReturnHome.setOnClickListener {
+            //val intent3 = Intent(this@MapsActivity, FolderListActivity::class.java)
+            //startActivity(intent3)
+            this.finish()
+        }
 
         val mapFragment = supportFragmentManager
             .findFragmentById(R.id.map) as SupportMapFragment

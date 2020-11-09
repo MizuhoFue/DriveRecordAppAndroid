@@ -1,10 +1,9 @@
 package com.example.driveandroid
 
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
 import android.content.Intent
-import android.widget.Toast
+import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_support.*
 
 class SupportActivity : AppCompatActivity() {
@@ -17,12 +16,10 @@ class SupportActivity : AppCompatActivity() {
             val intent = Intent(this@SupportActivity, FolderListActivity::class.java)
             startActivity(intent)
         }
-
         rules.setOnClickListener {
             val intent = Intent(this@SupportActivity, ConventionActivity::class.java)
             startActivity(intent)
         }
-
         setupViews()
     }
 

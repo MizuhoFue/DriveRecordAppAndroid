@@ -29,9 +29,10 @@
 
     <string name="day">日付</string>
     <string name="tripname">旅行名</string>
-    <string name="trash">🗑</string>
     <string name="go_map">MAPへ</string>
     <string name="settings">⚙</string>
+    <string name="members">人数</string>
+    <string name="human">人</string>
 
     <string name="map">地図</string>
     <string name="returnHome">戻る</string>
