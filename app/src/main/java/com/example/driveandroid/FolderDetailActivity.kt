@@ -12,7 +12,7 @@ class FolderDetailActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_folder_detail)
-        
+
         home.setOnClickListener {//押したら
             //Intent作成 MainActivityの金額入力からフォルダー詳細に遷移
             val intent = Intent(
