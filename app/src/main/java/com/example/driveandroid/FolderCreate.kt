@@ -16,7 +16,7 @@ class FolderCreate : AppCompatActivity() {
         setContentView(R.layout.folder_create)
 
         createEnd.setOnClickListener {
-            val intent = Intent(application, FolderList::class.java)
+            val intent = Intent(application, FolderListActivity::class.java)
             startActivity(intent)
         }
             createEnd.setOnClickListener {

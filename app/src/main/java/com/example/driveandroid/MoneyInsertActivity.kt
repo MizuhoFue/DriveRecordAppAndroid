@@ -42,7 +42,7 @@ class MoneyInsertActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_money_insert)
-        //項目スピナー設定 ダイアログ表示、選択項目Spinnerスペースへの表示ができない↓
+        //項目スピナー設定 ダイアログ表示、選択項目Spinnerスペースへの表示
         paragraphSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
                 parent: AdapterView<*>?,
@@ -55,8 +55,9 @@ class MoneyInsertActivity : AppCompatActivity() {
                 val paraName = spinner1?.selectedItem as? String
             }
 
-            override fun onNothingSelected(parent: AdapterView<*>?) {}
-            //ignore
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                //ignore
+            }
         }
 
         //アダプターに負担者配列リストを設定
@@ -77,28 +78,27 @@ class MoneyInsertActivity : AppCompatActivity() {
                 var payer = spinner2?.selectedItem as? String
             }
 
-            override fun onNothingSelected(parent: AdapterView<*>?) {}
-            //ignore
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                //ignore
+            }
         }
 
         //カメラボタンをクリックするとCameraActivityに遷移
         camera.setOnClickListener {
-
             val intentCamera = Intent(this@MoneyInsertActivity, CameraActivity::class.java)
             startActivity(intentCamera)
-
         }
 
         //入力完了を押した際にダイアログを表示
-        inputComp.setOnClickListener {//押した
+        inputComp.setOnClickListener {//押したら
             //ダイアログのメッセージ、各ボタンの処理を設定　「詳細」/「ホーム」遷移、入力修正のための「キャンセル」　
             AlertDialog.Builder(this)
                 .setMessage("どちらに移動しますか？")
                 .setPositiveButton(
                     "詳細",
-                    DialogInterface.OnClickListener { dialog, which ->      //なぜグレー波線ついてる？
+                    DialogInterface.OnClickListener { dialog, which ->
+                        //ignore
                         //insert処理を入れる
-                        //
                         val intent = Intent(
                             this@MoneyInsertActivity, FolderDetailActivity::class.java
                         )
@@ -106,15 +106,15 @@ class MoneyInsertActivity : AppCompatActivity() {
                     })
                 .setNegativeButton(
                     "ホーム",
-                    DialogInterface.OnClickListener { dialog, which ->//なぜグレー波線ついてる？
+                    DialogInterface.OnClickListener { dialog, which ->
+                        //ignore
                         //insert処理を入れる
-                        //
                         val intent =
                             Intent(this@MoneyInsertActivity, FolderListActivity::class.java)
                         startActivity(intent)   //こちらはfinish()処理を入れたほうがよいかも
                     })
-                .setNeutralButton("キャンセル", DialogInterface.OnClickListener { dialog, which ->
-
+                .setNeutralButton("キャンセル", DialogInterface.OnClickListener { _, _ ->
+                    //ignore
                 })
                 .show() //またはcreate() ?
         }

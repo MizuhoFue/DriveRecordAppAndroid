@@ -5,7 +5,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.folder_list.*
 
-class FolderList : AppCompatActivity() {
+class FolderListActivity : AppCompatActivity() {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -16,7 +16,7 @@ class FolderList : AppCompatActivity() {
 
 
         returnMap.setOnClickListener {
-            val intent2 = Intent(this@FolderList, MapsActivity::class.java)
+            val intent2 = Intent(this@FolderListActivity, MapsActivity::class.java)
             startActivity(intent2)
         }
 
@@ -26,7 +26,7 @@ class FolderList : AppCompatActivity() {
         }
 
         addFolder.setOnClickListener {
-            val addFolder = Intent(this@FolderList, FolderCreate::class.java)
+            val addFolder = Intent(this@FolderListActivity, FolderCreate::class.java)
             startActivity(addFolder)
         }
 

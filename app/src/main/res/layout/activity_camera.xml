@@ -8,6 +8,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="com.example.driveandroid.CameraActivity">
+
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/cameraImage"
         android:layout_width="match_parent"
@@ -18,6 +19,6 @@
         android:layout_width="80dp"
         android:layout_height="wrap_content"
         android:text="@string/launch_camera"
-        android:layout_gravity="center"/>
+        android:layout_gravity="center" />
 
 </LinearLayout>

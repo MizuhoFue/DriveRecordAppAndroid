@@ -2,9 +2,7 @@ package com.example.driveandroid
 
 import android.content.Intent
 import android.os.Bundle
-
 import androidx.appcompat.app.AppCompatActivity
-
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -12,7 +10,6 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import kotlinx.android.synthetic.main.activity_maps.*
-import kotlinx.android.synthetic.main.support.*
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
@@ -24,10 +21,10 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         //mapView.onCreate(savedInstanceState)
         //mapView.getMapAsync(this)
 
-            mapsReturnHome.setOnClickListener {
-                val intent3 = Intent(this@MapsActivity, FolderList::class.java)
-                startActivity(intent3)
-            }
+        mapsReturnHome.setOnClickListener {
+            val intent3 = Intent(this@MapsActivity, FolderListActivity::class.java)
+            startActivity(intent3)
+        }
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         val mapFragment = supportFragmentManager
@@ -37,41 +34,41 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     }
 
- /*   override fun onStart() {
-        super.onStart()
-        mapView.onStart()
-    }
+    /*   override fun onStart() {
+           super.onStart()
+           mapView.onStart()
+       }
 
-    override fun onResume() {
-        super.onResume()
-        mapView.onResume()
-    }
+       override fun onResume() {
+           super.onResume()
+           mapView.onResume()
+       }
 
-    override fun onPause() {
-        super.onPause()
-        mapView.onPause()
-    }
+       override fun onPause() {
+           super.onPause()
+           mapView.onPause()
+       }
 
-    override fun onStop() {
-        super.onStop()
-        mapView.onStop()
-    }
+       override fun onStop() {
+           super.onStop()
+           mapView.onStop()
+       }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        mapView.onDestroy()
-    }
+       override fun onDestroy() {
+           super.onDestroy()
+           mapView.onDestroy()
+       }
 
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        mapView.onSaveInstanceState(outState)
-    }
+       override fun onSaveInstanceState(outState: Bundle) {
+           super.onSaveInstanceState(outState)
+           mapView.onSaveInstanceState(outState)
+       }
 
-    override fun onLowMemory() {
-        super.onLowMemory()
-        mapView.onLowMemory()
-    }
-*/
+       override fun onLowMemory() {
+           super.onLowMemory()
+           mapView.onLowMemory()
+       }
+   */
 
 
     /**

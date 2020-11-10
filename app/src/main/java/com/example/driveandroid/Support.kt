@@ -14,7 +14,7 @@ class Support : AppCompatActivity() {
         setContentView(R.layout.support)
 
         returnHome.setOnClickListener {
-            val support = Intent(application, FolderList::class.java)
+            val support = Intent(application, FolderListActivity::class.java)
             startActivity(support)
         }
 
