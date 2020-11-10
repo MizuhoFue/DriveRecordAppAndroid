@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--ボタン位置修正-->
+<!--2020年11月5日笛木更新-->
+<!--撮影後プレビューの画質が悪いのはエミュレーターのせい？-->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -6,14 +9,16 @@
     android:orientation="vertical"
     tools:context="com.example.driveandroid.CameraActivity">
 
-    <Button
-        android:id="@+id/btnLaunchCamera"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/launch_camera" />
-
-    <ImageView
+    <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/cameraImage"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="570dp" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnLaunchCamera"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:text="@string/launch_camera"
+        android:layout_gravity="center" />
+
 </LinearLayout>

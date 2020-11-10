@@ -4,7 +4,6 @@
 * 作成者：笛木
 * 更新日：20201019
 * */
-
 package com.example.driveandroid
 
 import android.content.Context
@@ -54,19 +53,4 @@ class DaoActivity : AppCompatActivity() {
 
 
 
-
-
-
-
-
-//			if (oldVersion < newVersion) {
-//
-//			}
-
-//
-//        override fun onCreate(database:SQLiteDatabase?){
-//
-//            database?.execSQL("CREATE TABLE IF NOT EXISTS ParagraphInfo(FOREIGN KEY(folderid) references FolderInfo(folderid)");
-//        }
-//
 

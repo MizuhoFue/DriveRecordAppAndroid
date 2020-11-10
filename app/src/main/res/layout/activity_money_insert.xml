@@ -1,42 +1,127 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<!--MoneyInsertのレイアウト-->
+<!--task-->
+<!--更新日：2020年11月10日-->
+<!--更新者：笛木瑞歩-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.example.driveandroid.MoneyInsertActivity">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="60dp"
+        android:orientation="horizontal">
 
-    <Button
+        <!--項目名-->
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/paragraph_name"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginStart="50dp"
+            android:layout_marginEnd="70dp"
+            android:gravity="center"
+            android:text="@string/paragraph_name"
+            android:textSize="28sp" />
+
+        <!--スピナー-->
+        <androidx.appcompat.widget.AppCompatSpinner
+            android:id="@+id/paragraphSpinner"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:spinnerMode="dialog"
+            android:entries="@array/paragraphSpinner" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="60dp"
+        android:orientation="horizontal">
+
+        <!--金額-->
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/cost_name"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginStart="50dp"
+            android:layout_marginEnd="60dp"
+            android:gravity="center"
+            android:text="@string/cost_name"
+            android:textSize="28sp" />
+
+        <!--金額入力部分-->
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/cost"
+            android:layout_width="130dp"
+            android:layout_height="match_parent"
+            android:ems="10"
+            android:gravity="center"
+            android:inputType="number"
+            android:textSize="28sp" />
+
+        <!--円-->
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/yen"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginStart="40dp"
+            android:gravity="center"
+            android:text="@string/yen"
+            android:textSize="28sp" />
+
+    </LinearLayout>
+
+    <!--カメラボタン-->
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/camera"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="290dp"
+        android:layout_marginTop="60dp"
+        android:src="@drawable/camerabutton_orange_mdpi"
+        android:background="@null" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="40dp"
+        android:orientation="horizontal">
+
+        <!--負担者-->
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/payer_name"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginStart="50dp"
+            android:layout_marginEnd="70dp"
+            android:gravity="center"
+            android:text="@string/payer_name"
+            android:textSize="28sp" />
+
+        <!--負担者スピナー-->
+        <androidx.appcompat.widget.AppCompatSpinner
+            android:id="@+id/payerSpinner"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:spinnerMode="dialog" />
+
+    </LinearLayout>
+
+    <!--入力完了ボタン-->
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/inputComp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="37dp"
-        android:text="@string/inputComplete"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/camera" />
+        android:layout_gravity="center"
+        android:layout_marginTop="120dp"
+        android:gravity="center"
+        android:text="@string/inputComplete" />
 
-
-    <Spinner
-        android:id="@+id/spinner"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="85dp"
-        android:layout_marginEnd="19dp"
-        android:layout_marginBottom="80dp"
-        android:entries="@array/paraName"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/editTextNumber"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/textview"
-        app:layout_constraintTop_toTopOf="parent" />
-
-
-
-
-
-
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

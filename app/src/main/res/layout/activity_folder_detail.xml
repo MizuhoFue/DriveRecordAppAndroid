@@ -1,215 +1,435 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<!--フォルダ詳細レイアウト-->
+<!--タスク：リサイクラービューいれる-->
+<!--更新者：笛木瑞歩-->
+<!--更新日：2020年11月10日-->
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.driveandroid.FolderDetail">
+    tools:context="com.example.driveandroid.FolderDetailActivity">
 
-    <ScrollView
-        android:id="@+id/scrollView2"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="50dp"
+            android:layout_marginTop="40dp"
+            android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/textView14"
+            <!--日付-->
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/date_name"
+                android:text="@string/date"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
-                android:layout_marginTop="29dp"
-                android:text="@string/hutann"
-                android:textSize="20sp"
-                app:layout_constraintStart_toStartOf="@+id/textView13"
-                app:layout_constraintTop_toBottomOf="@+id/textView13" />
-
-            <TextView
-                android:id="@+id/textView5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="47dp"
-                android:text="@string/title"
-                android:textSize="24sp"
-                app:layout_constraintBaseline_toBaselineOf="@+id/textView6"
-                app:layout_constraintStart_toStartOf="parent" />
-
-            <TextView
-                android:id="@+id/textView7"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="43dp"
-                android:text="@string/member_name"
-                android:textSize="24sp"
-                app:layout_constraintBaseline_toBaselineOf="@+id/textView8"
-                app:layout_constraintStart_toStartOf="parent" />
-
-            <TextView
-                android:id="@+id/textView15"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="7dp"
-                android:layout_marginBottom="29dp"
-                android:text="TextView"
-                android:textSize="24sp"
-                app:layout_constraintBottom_toTopOf="@+id/textView17"
-                app:layout_constraintStart_toStartOf="@+id/textView17" />
-
-            <TextView
-                android:id="@+id/textView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginStart="50dp"
-                android:layout_marginTop="71dp"
-                android:text="@string/hiduke"
+                android:layout_marginEnd="70dp"
+                android:gravity="center"
+                android:textSize="24sp" />
+
+            <!--日付表示 -->
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/dateView"
+                tools:text="日付表示"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:textSize="24sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="20dp">
+
+            <!--タイトル-->
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/title_name"
+                android:text="@string/title"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="50dp"
+                android:layout_marginEnd="20dp"
+                android:gravity="center"
+                android:textSize="24sp" />
+
+            <!--タイトル表示-->
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/titleView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
                 android:textSize="24sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                tools:text="あいうえおかきくけ" />
 
-            <TextView
-                android:id="@+id/textView11"
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal"
+            android:layout_marginTop="20dp">
+
+            <!--人数-->
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/member_numName"
+                android:text="@string/member_num"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="46dp"
-                android:layout_marginEnd="13dp"
-                android:text="@string/shiyoukoumoku"
+                android:layout_height="match_parent"
+                android:layout_marginStart="50dp"
+                android:layout_marginEnd="70dp"
+                android:gravity="center"
+                android:textSize="24sp" />
+
+            <!--人数表示-->
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/member_numView"
+                tools:text="人数表示"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="30dp"
+                android:gravity="center"
+                android:textSize="28sp" />
+
+            <!--人-->
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/member_paraName"
+                android:text="@string/member_numPara"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:textSize="24sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal"
+            android:layout_marginTop="30dp">
+
+            <!--メンバー名-->
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/member_name"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="45dp"
+                android:text="@string/member_name"
+                android:gravity="center"
+                android:textSize="24sp" />
+
+            <!--全部一行にする-->
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/member1"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="50dp"
+                android:layout_marginEnd="20dp"
+                tools:text="神田太郎さん"
+                android:gravity="center"
+                android:textSize="20sp" />
+
+        </LinearLayout>
+
+
+        <!--メンバー2-->
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/member2"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            tools:text="シム太郎さん"
+            android:gravity="center"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="215dp"
+            android:textSize="20sp" />
+
+        <!--メンバー3-->
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/member3"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_marginStart="215dp"
+            android:layout_marginTop="20dp"
+            tools:text="秋葉三郎さん"
+            android:gravity="center"
+            android:textSize="20sp" />
+
+        <!--メンバー4-->
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/member4"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            tools:text="新橋花子さん"
+            android:layout_marginStart="215dp"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:textSize="20sp" />
+
+        <!--メンバー5-->
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/member5"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_marginStart="215dp"
+            android:layout_marginTop="20dp"
+            tools:text="渋谷さくらさん"
+            android:gravity="center"
+            android:textSize="20sp" />
+
+        <!--メンバー6-->
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/member6"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            tools:text="千代田葉子さん"
+            android:layout_marginStart="215dp"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:textSize="20sp" />
+
+        <!--使用項目-->
+        <TextView
+            android:id="@+id/usedParagraph"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:layout_marginStart="50dp"
+            android:text="@string/paragraph_used"
+            android:gravity="center"
+            android:textSize="24sp" />
+
+
+        <!--使用項目名が入る-->
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/paraName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="35dp"
+            android:layout_marginStart="50dp"
+            tools:text="使用項目"
+            android:gravity="center"
+            android:textSize="22sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp">
+
+            <!--金額-->
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/cost_name"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="50dp"
+                android:layout_marginEnd="85dp"
+                android:text="@string/cost_name"
+                android:gravity="center"
+                android:textSize="20sp" />
+
+            <!--金額表示-->
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/costView"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                tools:text="金額表示"
+                android:layout_marginEnd="50dp"
+                android:gravity="center"
+                android:textSize="20sp" />
+
+            <!--円-->
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="@string/yen"
+                android:gravity="center"
+                android:textSize="20sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp">
+
+            <!--1人当たり-->
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/perParson"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="50dp"
+                android:layout_marginEnd="35dp"
+                android:text="@string/perParson"
+                android:gravity="center"
+                android:textSize="20sp" />
+
+            <!--1人当たり金額表示-->
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/perParson_costView"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="50dp"
+                tools:text="金額表示"
+                android:gravity="center"
+                android:textSize="20sp" />
+
+            <!--円-->
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/yen"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="@string/yen"
+                android:gravity="center"
+                android:textSize="20sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp">
+
+            <!--負担者-->
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="50dp"
+                android:layout_marginEnd="70dp"
+                android:text="@string/payer_name"
+                android:gravity="center"
+                android:textSize="20sp" />
+
+            <!--負担者表示-->
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/payerView"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="50dp"
+                tools:text="負担者表示"
+                android:textSize="20sp" />
+
+        </LinearLayout>
+
+        <!--ゴミ箱ボタン-->
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/trashBox"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="340dp"
+            android:src="@drawable/trashbox_mdpi"
+            android:background="@null" />
+
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/moneyInsert"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:layout_gravity="center"
+            android:text="@string/money_insert" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal"
+            android:layout_marginTop="20dp">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/total_name"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="@string/total_name"
+                android:gravity="center"
+                android:textSize="24sp" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
                 android:textSize="24sp"
-                app:layout_constraintEnd_toEndOf="@+id/textView12"
-                app:layout_constraintTop_toBottomOf="@+id/textView7" />
+                tools:text="合計表示" />
 
-            <TextView
-                android:id="@+id/textView8"
+            <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="61dp"
-                android:text="TextView"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:layout_weight="1"
                 android:textSize="24sp"
-                app:layout_constraintStart_toStartOf="@+id/textView6"
-                app:layout_constraintTop_toBottomOf="@+id/textView6" />
+                tools:text="@string/yen" />
 
-            <TextView
-                android:id="@+id/textView9"
+        </LinearLayout>
+
+        <!--合計のほうに合わせるか迷う-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp">
+
+            <!--一人当たり-->
+            <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="26dp"
-                android:text="TextView"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="@string/perParson"
+                android:gravity="center"
+                android:textSize="24sp" />
+
+            <!--一人当たり金額表示-->
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                tools:text="金額表示"
+                android:gravity="center"
+                android:textSize="24sp" />
+
+            <!--円-->
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:layout_weight="1"
                 android:textSize="24sp"
-                app:layout_constraintBottom_toTopOf="@+id/textView10"
-                app:layout_constraintStart_toStartOf="@+id/textView10" />
+                android:text="@string/yen" />
 
-            <TextView
-                android:id="@+id/textView13"
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal"
+            android:layout_marginTop="30dp">
+
+            <!--ホームボタン-->
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/home"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="58dp"
-                android:text="@string/hitori"
-                android:textSize="20sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/textView10" />
+                android:layout_marginStart="85dp"
+                android:text="@string/home" />
 
-            <TextView
-                android:id="@+id/textView6"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="74dp"
-                android:text="TextView"
-                android:textSize="24sp"
-                app:layout_constraintEnd_toEndOf="@+id/textView9"
-                app:layout_constraintStart_toStartOf="@+id/textView9"
-                app:layout_constraintTop_toBottomOf="@+id/textView2" />
-
-            <TextView
-                android:id="@+id/textView10"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:layout_marginBottom="24dp"
-                android:text="TextView"
-                android:textSize="24sp"
-                app:layout_constraintBottom_toTopOf="@+id/textView15"
-                app:layout_constraintEnd_toEndOf="@+id/textView15" />
-
-            <Button
-                android:id="@+id/Trashbox"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
-                android:layout_marginBottom="72dp"
-                android:text="@string/trashbox"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
-
-            <Button
-                android:id="@+id/button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="93dp"
-                android:text="@string/home"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
-
-            <TextView
-                android:id="@+id/textView12"
-                android:layout_width="69dp"
-                android:layout_height="28dp"
-                android:layout_marginStart="25dp"
-                android:layout_marginTop="58dp"
-                android:layout_marginBottom="57dp"
-                android:text="@string/kinngaku"
-                android:textSize="20sp"
-                app:layout_constraintBottom_toBottomOf="@+id/textView13"
-                app:layout_constraintStart_toStartOf="@+id/textView13"
-                app:layout_constraintTop_toTopOf="@+id/textView11" />
-
-            <TextView
-                android:id="@+id/textView17"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="19dp"
-                android:text="TextView"
-                app:layout_constraintBottom_toTopOf="@+id/Trashbox"
-                app:layout_constraintEnd_toStartOf="@+id/Trashbox"
-                app:layout_constraintTop_toTopOf="@+id/Trashbox" />
-
-            <TextView
-                android:id="@+id/textView2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="71dp"
-                android:text="TextView"
-                android:textSize="24sp"
-                app:layout_constraintEnd_toEndOf="@+id/textView6"
-                app:layout_constraintStart_toStartOf="@+id/textView6"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/textView16"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="39dp"
-                android:layout_marginEnd="5dp"
-                android:text="@string/total"
-                android:textSize="24sp"
-                app:layout_constraintEnd_toEndOf="@+id/textView14"
-                app:layout_constraintTop_toBottomOf="@+id/textView14" />
-
-            <Button
+            <!--共有ボタン-->
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/share"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="78dp"
-                android:layout_marginEnd="78dp"
-                android:text="@string/share"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@+id/Trashbox"
-                app:layout_constraintStart_toEndOf="@+id/textView14" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </ScrollView>
+                android:layout_marginStart="80dp"
+                android:text="@string/share" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+
+</ScrollView>
