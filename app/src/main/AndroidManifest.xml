@@ -1,14 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.driveandroid">
-    <!--
-         The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
-         Google Maps Android API v2, but you must specify either coarse or fine
-         location permissions for the "MyLocation" functionality.
-    -->
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-
     <!--新しく追加-->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -41,18 +36,10 @@
         android:theme="@style/AppTheme">
         <activity android:name="com.example.driveandroid.MoneyInsertActivity"></activity>
         <activity android:name="com.example.driveandroid.CameraActivity" />
-        <!--
-             The API key for Google Maps-based APIs is defined as a string resource.
-             (See the file "res/values/google_maps_api.xml").
-             Note that the API key is linked to the encryption key used to sign the APK.
-             You need a different API key for each encryption key, including the release key that is used to
-             sign the APK for publishing.
-             You can define the keys for the debug and release targets in src/debug/ and src/release/.
-        -->
+
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyAz_Sk4alo2-nv6rRZcDhMTLGY5I_MV0nk" />
-
+            android:value="AIzaSyDg-tSWdxnQIEO0Zmg-KFITaCHTLdxQDGM" />
 
         <activity
             android:name="com.example.driveandroid.MapsActivity"
@@ -71,13 +58,13 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.example.driveandroid.FolderCreate"
+            android:name="com.example.driveandroid.FolderCreateActivity"
             android:label="@string/main" />
 
-           <activity android:name=".Support"/>
+           <activity android:name=".SupportActivity"/>
 
         <activity
-            android:name="com.example.driveandroid.Convention"
+            android:name="com.example.driveandroid.ConventionActivity"
             android:label="@string/main" />
 
     </application>
