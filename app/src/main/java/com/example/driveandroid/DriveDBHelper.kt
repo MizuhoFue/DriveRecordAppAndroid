@@ -11,9 +11,9 @@ import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 
 private val dbName: String = "drivedb"
-    private val tableName1: String = "FolderInfo"
-    private val dbVersion: Int = 1
-    private val tableName2: String = "ParagraphInfo"
+private val tableName1: String = "FolderInfo"
+private val dbVersion: Int = 1
+private val tableName2: String = "ParagraphInfo"
 
 //DriveDBHelper定義
 private class FolderInfoDBHelper(
@@ -27,6 +27,7 @@ private class FolderInfoDBHelper(
     override fun onCreate(database: SQLiteDatabase?) {
         database?.execSQL("CREATE TABLE IF NOT EXISTS FolderInfo(folderid integer primary key autoincrement, title text(100), date numeric not null, member1 text(30) not null, member2 text(30) default null, member3 text(30) default null, member4 text(30) default null, member5 text(30) default null, member6 text(30) default null)");
     }
+
     //更新イベント
     override fun onUpgrade(database: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
         if (oldVersion < newVersion) {

@@ -96,7 +96,7 @@ class MoneyInsertActivity : AppCompatActivity() {
                 .setMessage("どちらに移動しますか？")
                 .setPositiveButton(
                     "詳細",
-                    DialogInterface.OnClickListener { dialog, which ->
+                    DialogInterface.OnClickListener { _, _ ->
                         //ignore
                         //insert処理を入れる
                         val intent = Intent(
@@ -106,7 +106,7 @@ class MoneyInsertActivity : AppCompatActivity() {
                     })
                 .setNegativeButton(
                     "ホーム",
-                    DialogInterface.OnClickListener { dialog, which ->
+                    DialogInterface.OnClickListener { _, _ ->
                         //ignore
                         //insert処理を入れる
                         val intent =
