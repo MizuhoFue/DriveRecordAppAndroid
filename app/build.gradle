@@ -74,6 +74,8 @@ dependencies {
 // CameraX View class　
     implementation "androidx.camera:camera-view:1.0.0-alpha14"
 
+    //folderlist
+    implementation 'androidx.recyclerview:recyclerview:1.1.0'
 
 
 
