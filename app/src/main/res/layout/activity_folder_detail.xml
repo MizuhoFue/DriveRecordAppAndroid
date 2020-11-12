@@ -2,7 +2,7 @@
 <!--フォルダ詳細レイアウト-->
 <!--タスク：リサイクラービューいれる-->
 <!--更新者：笛木瑞歩-->
-<!--更新日：2020年11月10日-->
+<!--更新日：2020年11月12日-->
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -68,7 +68,6 @@
                 android:textSize="24sp"
                 tools:text="あいうえおかきくけ" />
 
-
         </LinearLayout>
 
         <LinearLayout
@@ -125,7 +124,7 @@
                 android:gravity="center"
                 android:textSize="24sp" />
 
-            <!--全部一行にする-->
+            <!--メンバー名表示-->
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/member1"
                 android:layout_width="wrap_content"
@@ -137,7 +136,6 @@
                 android:textSize="20sp" />
 
         </LinearLayout>
-
 
         <!--メンバー2-->
         <androidx.appcompat.widget.AppCompatTextView
@@ -205,8 +203,7 @@
             android:gravity="center"
             android:textSize="24sp" />
 
-
-        <!--使用項目名が入る-->
+        <!--使用項目名表示-->
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/paraName"
             android:layout_width="wrap_content"
@@ -236,7 +233,7 @@
 
             <!--金額表示-->
             <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/costView"
+                android:id="@+id/paracostView"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 tools:text="金額表示"
