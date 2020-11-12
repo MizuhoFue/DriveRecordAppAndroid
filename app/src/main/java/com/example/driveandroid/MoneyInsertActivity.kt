@@ -51,7 +51,7 @@ class MoneyInsertActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_money_insert)
 
-        //FolderDetail、FolderCreateから渡されたfolderidを変数に入れる
+        //FolderDetail、FolderCreateから渡されたfolderidを変数に入れる folderCreateからのものはどう受け取る？
         val intent = getIntent()
         val folderid =
             intent.extras?.getInt(FolderDetailActivity.extra_folderId) ?: 0 //valでいいのか？ 0を入れるは違う気もする
