@@ -12,9 +12,9 @@ class FolderListAdapter(private val folderList: Array<String>) :
 
     // ViewHolderクラス
     class CustomViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
-        val dateList = view.date_list
-        val titleList = view.title_list
-        val deleteList = view.delete_list
+        val date = view.date
+        val title = view.title
+        val delete = view.delete
     }
 
     // getItemCount onCreateViewHolder onBindViewHolderを実装
@@ -32,7 +32,7 @@ class FolderListAdapter(private val folderList: Array<String>) :
 
     // ViewHolderに表示するテキストを挿入
     override fun onBindViewHolder(holder: CustomViewHolder, position: Int) {
-        holder.view.title_list.text = folderList[position]
+        holder.title.text = folderList[position]
         holder.itemView.setOnClickListener(object : View.OnClickListener {
 
             //クリック時の処理
