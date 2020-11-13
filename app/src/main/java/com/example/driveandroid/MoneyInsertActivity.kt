@@ -1,7 +1,7 @@
 /*FolderCreate、FolderDetailから遷移
 *画面名：MoneyInsertActivity 金額入力画面　使用した金額や使用用途の入力・登録を行う　ひとまずMainActivityを参考につくって部品化　
 *
-* 整理：入力された値を変数に入れてSQL実行　一度に登録できるのは1項目　負担者参照する場合folderidで指定する感じになりそう
+*整理：入力された値を変数に入れてSQL実行　一度に登録できるのは1項目　負担者参照する場合folderidで指定する感じになりそう
 * 　　　遷移前のFolderListActivityから送ってもらう必要ありひとまずこれをやる
 *
 *遷移先：FolderList,FolderDetail ダイアログで選択、遷移する
@@ -23,13 +23,14 @@ import android.widget.ArrayAdapter
 import android.widget.Spinner
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import com.example.driveandroid.Constants.Companion.EXTRA_FOLDERID
 import kotlinx.android.synthetic.main.activity_money_insert.*
 
 class MoneyInsertActivity : AppCompatActivity() {
 
     //DB用変数用意　ParagraphInfoテーブル操作
     private val dbName: String = "drivedb"  //DB名
-    private val dbVersion: Int = 1  //これがいまいちわからない
+    private val dbVersion: Int = 1  //変わることはあるのか
     private val tableName2: String = "ParagraphInfo"    //テーブル名
     private var payer = ""  //負担者名、項目ごとに異なる可能性あり
     private var paraName = ""   //項目名　登録分によって複数あり
@@ -51,11 +52,11 @@ class MoneyInsertActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_money_insert)
 
-        //FolderDetail、FolderCreateから渡されたfolderidを変数に入れる folderCreateからのものはどう受け取る？
+        //FolderDetail、FolderCreateから渡されたfolderidを変数に入れる
         val intent = getIntent()
         val folderid =
-            intent.extras?.getInt(FolderDetailActivity.extra_folderId) ?: 0 //valでいいのか？ 0を入れるは違う気もする
-        Log.d("folderid受け渡し", "${folderid}")
+            intent.extras?.getInt(EXTRA_FOLDERID) ?: 0 //valでいいのか？ 0を入れるは違う気もする
+        Log.d("受け渡されたfolderid", "${folderid}")
 
         //項目スピナー設定 ダイアログ表示、選択項目Spinnerスペースへの表示
         paragraphSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
@@ -75,8 +76,6 @@ class MoneyInsertActivity : AppCompatActivity() {
                 //ignore
             }
         }
-
-
         //アダプターに負担者配列リストを設定
         val Adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, payerList)
         //Spinnerにアダプター設定
@@ -92,7 +91,7 @@ class MoneyInsertActivity : AppCompatActivity() {
             ) {
                 //選択されたアイテムを負担者payerに代入
                 var spinner2 = parent as? Spinner
-                payer = spinner2?.selectedItem as? String ?: ""
+                payer = spinner2?.selectedItem as? String ?: "" //nullだった場合""を入れる
                 Log.d("payerの値", "${payer}")
             }
 
@@ -131,7 +130,7 @@ class MoneyInsertActivity : AppCompatActivity() {
                         values.put("paraName", paraName)//項目Spinnerダイアログで選択された値
                         values.put("paraCost", paraCost) //入力金額
                         values.put("payer", payer)        //負担者Spinnerダイアログで選択された値
-                        val result = database.insertOrThrow(tableName2, null, values)
+                        //val result = database.insertOrThrow(tableName2, null, values)
 
                         val intent = Intent(
                             this@MoneyInsertActivity, FolderDetailActivity::class.java
@@ -157,22 +156,14 @@ class MoneyInsertActivity : AppCompatActivity() {
             val intentCamera = Intent(this@MoneyInsertActivity, CameraActivity::class.java)
             startActivity(intentCamera)
         }
-
-
     }
 }
 
 ////////////////////////////メモ↓//////////////////////////////////////////////////////////////////////////////////
 
-//    //各入力項目変数用意
-//    val paraName: String = "Spinnerで選択された項目名"
-//    val paraCost: Int = 200 //入力された値段　
-//    val repayer = "選択された負担者の値"
-//
-//
 //    //各項目入力、変数に入れる
 //   //ボタンを押したら入力チェック
-//
+//     insert用メソッドはonCreate外で定義しておいた方がよさそう
 //    fun checkInsert(view: View) {
 //
 //        //チェック事項は　各変数の空白、不整値　種類は？　 模擬開発演習コードなどを参考
@@ -180,7 +171,7 @@ class MoneyInsertActivity : AppCompatActivity() {
 //
 //    }
 //
-//    //問題なければinsert文呼び出し　
+//    //問題なければinsert文呼び出し　みたいな　
 //    fun ParaInsert() {
 // }
 //

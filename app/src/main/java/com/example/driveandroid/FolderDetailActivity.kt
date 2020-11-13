@@ -11,20 +11,16 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import com.example.driveandroid.Constants.Companion.EXTRA_FOLDERID
 import kotlinx.android.synthetic.main.activity_folder_detail.*
 
 class FolderDetailActivity : AppCompatActivity() {
-    //値受け渡しのキー設定
-    companion object {
-        const val extra_folderId = "com.example.driveandroid.FolderId"
-    }
 
     //ActivityResult用　後ほど使うかも
     private val resultActivity = 1000
 
     //FolderDetailから送るfolderidとして仮データ代入 本来はFolderListから引っ張られてくる
     private var folderid = 1
-
     //DB用変数用意
     private var date = 2020 / 11 / 12 //日付（仮）
     private var title = "熱海旅行" //タイトル（仮）
@@ -52,7 +48,7 @@ class FolderDetailActivity : AppCompatActivity() {
                 this@FolderDetailActivity, MoneyInsertActivity::class.java
             )
             intent.putExtra(
-                extra_folderId,
+                EXTRA_FOLDERID,
                 folderid
             ) //このフォルダの追加項目なのでextra_folderIdキーとしてfolderidをMoneyInsertに渡す
             startActivityForResult(intent, resultActivity)
@@ -74,7 +70,7 @@ class FolderDetailActivity : AppCompatActivity() {
         if (resultCode == Activity.RESULT_OK &&
             requestCode == resultActivity && intent != null
         ) {
-            val res = intent.extras?.getString(extra_folderId) ?: 0
+            val res = intent.extras?.getString(EXTRA_FOLDERID) ?: 0
             Log.d("folderid再度送信", "${res}")
         }
     }

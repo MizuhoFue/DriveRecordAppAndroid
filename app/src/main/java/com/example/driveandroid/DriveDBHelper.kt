@@ -10,13 +10,8 @@ import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 
-private val dbName: String = "drivedb"
-private val tableName1: String = "FolderInfo"
-private val dbVersion: Int = 1
-private val tableName2: String = "ParagraphInfo"
-
 //DriveDBHelper定義
-private class FolderInfoDBHelper(
+class FolderInfoDBHelper(
     context: Context,
     databaseName: String,
     factory: SQLiteDatabase.CursorFactory?,
