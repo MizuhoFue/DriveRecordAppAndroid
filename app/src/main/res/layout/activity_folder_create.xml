@@ -60,6 +60,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="end"
             android:ems="10"
+            tools:text=""
             android:inputType="textPersonName"
             android:textSize="18sp" />
 
@@ -176,7 +177,7 @@
             android:layout_weight="1"
             android:layout_gravity="end"
             android:textSize="30sp"
-            tools:Text="3"/>
+            tools:Text="3" />
 
         <TextView
             android:id="@+id/memberCount2"
