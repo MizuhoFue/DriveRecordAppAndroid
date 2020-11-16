@@ -107,50 +107,51 @@ class MoneyInsertActivity : AppCompatActivity() {
             //id:costで入力された数値を文字にして数値にする nullと空文字、スペースが入っているとtrue
             if (!cost.text.isNullOrEmpty()) {
                 paraCost = cost.text.toString().toInt()
-                Log.d("項目名", "${paraCost}")
+                Log.d("項目の金額", "${paraCost}")
                 //ダイアログ表示する
-            } else {
-                //エラーダイアログ、エラーを確認して再入力させる
+                //ダイアログのメッセージ、各ボタンの処理を設定　「詳細」/「ホーム」遷移、入力修正のための「キャンセル」　
+                AlertDialog.Builder(this)
+                    .setMessage("どちらに移動しますか？")
+                    .setPositiveButton(
+                        "詳細",
+                        DialogInterface.OnClickListener { _, _ ->
+                            //ignore
+                            //insert処理を入れる
+                            val dbHelper =
+                                ParagraphInfoDBHelper(applicationContext, dbName, null, dbVersion)
+                            val database = dbHelper.writableDatabase
+                            val values = ContentValues()
+                            values.put("folderid", folderid) //代入したい項目,変数
+                            values.put("paraName", paraName)//項目Spinnerダイアログで選択された値
+                            values.put("paraCost", paraCost) //入力金額
+                            values.put("payer", payer)        //負担者Spinnerダイアログで選択された値
+                            //val result = database.insertOrThrow(tableName2, null, values)
 
+                            val intent = Intent(
+                                this@MoneyInsertActivity, FolderDetailActivity::class.java
+                            )
+                            startActivity(intent)
+                        })
+                    .setNegativeButton(
+                        "ホーム",
+                        DialogInterface.OnClickListener { _, _ ->
+                            //ignore
+                            //insert処理を入れる
+                            val intent =
+                                Intent(this@MoneyInsertActivity, FolderListActivity::class.java)
+                            startActivity(intent)   //こちらはfinish()処理を入れたほうがよいかも
+                        })
+                    .setNeutralButton("キャンセル", DialogInterface.OnClickListener { _, _ ->
+                        //ignore
+                    })
+                    .show() //またはcreate() ?
             }
 
-            //ダイアログのメッセージ、各ボタンの処理を設定　「詳細」/「ホーム」遷移、入力修正のための「キャンセル」　
-            AlertDialog.Builder(this)
-                .setMessage("どちらに移動しますか？")
-                .setPositiveButton(
-                    "詳細",
-                    DialogInterface.OnClickListener { _, _ ->
-                        //ignore
-                        //insert処理を入れる
-                        val dbHelper =
-                            ParagraphInfoDBHelper(applicationContext, dbName, null, dbVersion)
-                        val database = dbHelper.writableDatabase
-                        val values = ContentValues()
-                        values.put("folderid", folderid) //代入したい項目,変数
-                        values.put("paraName", paraName)//項目Spinnerダイアログで選択された値
-                        values.put("paraCost", paraCost) //入力金額
-                        values.put("payer", payer)        //負担者Spinnerダイアログで選択された値
-                        //val result = database.insertOrThrow(tableName2, null, values)
-
-                        val intent = Intent(
-                            this@MoneyInsertActivity, FolderDetailActivity::class.java
-                        )
-                        startActivity(intent)
-                    })
-                .setNegativeButton(
-                    "ホーム",
-                    DialogInterface.OnClickListener { _, _ ->
-                        //ignore
-                        //insert処理を入れる
-                        val intent =
-                            Intent(this@MoneyInsertActivity, FolderListActivity::class.java)
-                        startActivity(intent)   //こちらはfinish()処理を入れたほうがよいかも
-                    })
-                .setNeutralButton("キャンセル", DialogInterface.OnClickListener { _, _ ->
-                    //ignore
-                })
-                .show() //またはcreate() ?
         }
+        //else { エラーダイアログ、エラーを確認して入力内容破棄、再入力させる 後ほど付け足し
+        //
+        //            }
+
         //カメラボタンをクリックするとCameraActivityに遷移
         camera.setOnClickListener {
             val intentCamera = Intent(this@MoneyInsertActivity, CameraActivity::class.java)
