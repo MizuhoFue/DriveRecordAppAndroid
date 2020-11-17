@@ -1,8 +1,8 @@
 package com.example.driveandroid
 
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
 import android.content.Intent
+import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_convention.*
 
 class ConventionActivity : AppCompatActivity() {
@@ -13,7 +13,10 @@ class ConventionActivity : AppCompatActivity() {
 
         returnSupport.setOnClickListener {
             val intent = Intent(this@ConventionActivity, SupportActivity::class.java)
+            //クリアタスクしてサポート画面へ
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
             startActivity(intent)
+            finish()
         }
     }
 }

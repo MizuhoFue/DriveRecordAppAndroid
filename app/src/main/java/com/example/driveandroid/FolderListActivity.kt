@@ -1,3 +1,8 @@
+/*
+* 画面：フォルダ一覧 FolderList
+* 更新者：笛木
+* 更新日：2020年11月16日
+* */
 package com.example.driveandroid
 
 import android.content.Intent
@@ -28,18 +33,22 @@ class FolderListActivity : AppCompatActivity() {
         folderList.adapter = adapter
         folderList.setHasFixedSize(true)
 
+        //マップへ遷移
         returnMap.setOnClickListener {
             val intent = Intent(this@FolderListActivity, MapsActivity::class.java)
             startActivity(intent)
         }
 
+        //サポート画面へ遷移
         settings.setOnClickListener {
             val intent = Intent(this@FolderListActivity, SupportActivity::class.java)
             startActivity(intent)
         }
 
+        //フォルダ作成へ遷移　フィニッシュなし　セレクトして詳細を表示するにはここでfolderidを渡す必要あり？
         addFolder.setOnClickListener {
             val intent = Intent(this@FolderListActivity, FolderCreateActivity::class.java)
+            //intent.putExtra(Constants.EXTRA_FOLDERID, folderid)
             startActivity(intent)
         }
     }

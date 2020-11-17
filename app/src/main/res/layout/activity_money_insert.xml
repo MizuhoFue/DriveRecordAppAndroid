@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--MoneyInsertのレイアウト-->
+<?xml version="1.0" encoding="utf-8"?><!--MoneyInsertのレイアウト-->
 <!--task-->
 <!--更新日：2020年11月10日-->
 <!--更新者：笛木瑞歩-->
@@ -86,6 +85,7 @@
         android:src="@drawable/camerabutton_orange_mdpi"
         android:background="@null" />
 
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
@@ -122,5 +122,14 @@
         android:layout_marginTop="120dp"
         android:gravity="center"
         android:text="@string/inputComplete" />
+
+    <!--×ボタン仮置き-->
+    <androidx.appcompat.widget.AppCompatImageView
+        android:layout_width="wrap_content"
+        android:id="@+id/exit"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="20dp"
+        android:src="@drawable/exit" />
 
 </LinearLayout>

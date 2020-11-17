@@ -1,8 +1,14 @@
+/*
+* 画面：サポート画面
+* タスク：アプリ終了をライセンス表示にする
+* 変更：アプリ終了処理を削除
+* 更新日：2020年11月17日
+* 更新者：笛木
+* */
 package com.example.driveandroid
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_support.*
 
@@ -12,33 +18,17 @@ class SupportActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_support)
 
+        //ホームへ戻る
         returnHome.setOnClickListener {
             val intent = Intent(this@SupportActivity, FolderListActivity::class.java)
+            //クリアタスクしてフォルダ一覧へ
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
             startActivity(intent)
         }
+        //利用規約
         rules.setOnClickListener {
             val intent = Intent(this@SupportActivity, ConventionActivity::class.java)
             startActivity(intent)
-        }
-        setupViews()
-    }
-
-    private fun setupViews() {
-        // appliEndがタップされたときにダイアログを表示
-        appliEnd.setOnClickListener {
-            // BuilderからAlertDialogを作成
-            val dialog = AlertDialog.Builder(this)
-                .setTitle(R.string.finish_message) // タイトル
-                .setPositiveButton(R.string.yes) { dialog, which -> // OK
-                    finish()
-                    moveTaskToBack(true)
-                }
-                .setNegativeButton(R.string.no) { dialog, which -> //no
-                    Intent(this@SupportActivity, this::class.java)
-                }
-                .create()
-            // AlertDialogを表示
-            dialog.show()
         }
     }
 }
