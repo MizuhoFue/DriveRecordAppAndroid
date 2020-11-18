@@ -3,7 +3,7 @@
 * 日付は入力した時点でフォーマットをかけてinsert フォーマットはyyyy/MM/dd ボタンダイアログは画面左上ツールバーで×を押すと破棄してホームに戻るか聞くもの
 * タスク：文字数入力チェックを入れる
 * ?：端末の戻るボタンの挙動・・・MoneyInsertから戻るボタンでホームに戻るようにしてある
-* 更新日2020年11月17日
+* 更新日2020年11月18日
 * 更新者：笛木
 * */
 package com.example.driveandroid
@@ -60,9 +60,8 @@ class FolderCreateActivity : AppCompatActivity() {
             //val result = database.insertOrThrow(tableName1, null, values)
 
             val intent = Intent(this@FolderCreateActivity, FolderListActivity::class.java)
-            //クリアタスクしてフォルダ一覧画面へ
-            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
             startActivity(intent)
+            //クリアタスクなし・リスト遷移後はフォルダ作成を閉じる
             finish()
         }
 
@@ -84,9 +83,8 @@ class FolderCreateActivity : AppCompatActivity() {
             //ダイアログ表示して破棄して戻るかやっぱり登録するのか選ぶ
             //遷移
             val intent = Intent(this@FolderCreateActivity, FolderListActivity::class.java)
-            //クリアタスクしてサポート画面へ
-            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
             startActivity(intent)
+            //クリアタスクなし・フォルダ作成を閉じる
             finish()
         }
     }

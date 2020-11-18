@@ -1,8 +1,8 @@
 /*
 * 画面：サポート画面
-* タスク：アプリ終了をライセンス表示にする
+* タスク：ライセンス表示処理をいれる
 * 変更：アプリ終了処理を削除
-* 更新日：2020年11月17日
+* 更新日：2020年11月18日
 * 更新者：笛木
 * */
 package com.example.driveandroid
@@ -18,13 +18,17 @@ class SupportActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_support)
 
-        //ホームへ戻る
-        returnHome.setOnClickListener {
+        //設定を開いた画面へ戻る
+        back.setOnClickListener {
             val intent = Intent(this@SupportActivity, FolderListActivity::class.java)
-            //クリアタスクしてフォルダ一覧へ
-            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
             startActivity(intent)
+            finish()    //サポートを閉じる
         }
+
+        license.setOnClickListener {
+            //ライセンス表示処理
+        }
+
         //利用規約
         rules.setOnClickListener {
             val intent = Intent(this@SupportActivity, ConventionActivity::class.java)

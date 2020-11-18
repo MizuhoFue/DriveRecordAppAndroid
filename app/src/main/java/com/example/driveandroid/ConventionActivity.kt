@@ -13,10 +13,8 @@ class ConventionActivity : AppCompatActivity() {
 
         returnSupport.setOnClickListener {
             val intent = Intent(this@ConventionActivity, SupportActivity::class.java)
-            //クリアタスクしてサポート画面へ
-            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
             startActivity(intent)
-            finish()
+            finish()    //finishしてサポートへ
         }
     }
 }

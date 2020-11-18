@@ -9,7 +9,7 @@
 * やること:ダイアログ遷移を入れる→入力完了を押して遷移先決めたらinsert呼び出し、登録して遷移、データベース接続、　とりあえず選択された値を変数に入れられるようにするのが先？
 * Numberの値変数に入れるのはすぐできそうな感じ ダイアログに「キャンセル」追加
 * 更新者：笛木
-* 更新日：2020年11月17日
+* 更新日：2020年11月18日
 * */
 package com.example.driveandroid
 
@@ -129,9 +129,6 @@ class MoneyInsertActivity : AppCompatActivity() {
                             //val result = database.insertOrThrow(tableName2, null, values)
                             val intent =
                                 Intent(this@MoneyInsertActivity, FolderDetailActivity::class.java)
-                            //クリアタスクして遷移
-                            intent.flags =
-                                Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
                             startActivity(intent)
                             finish()
                         })
@@ -161,13 +158,12 @@ class MoneyInsertActivity : AppCompatActivity() {
         camera.setOnClickListener {
             val intentCamera = Intent(this@MoneyInsertActivity, CameraActivity::class.java)
             startActivity(intentCamera)
+            //フィニッシュせずに遷移
         }
 
         //仮置き×ボタンexitの動作
         exit.setOnClickListener {
             val intent = Intent(this@MoneyInsertActivity, FolderListActivity::class.java)
-            //クリアタスクしてフォルダ一覧へ
-            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
             startActivity(intent)
             finish()
         }

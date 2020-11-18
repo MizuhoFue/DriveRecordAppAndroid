@@ -1,5 +1,5 @@
 /*画面：フォルダ詳細
-*更新日：2020年11月17日
+*更新日：2020年11月18日
 *更新者：笛木瑞歩
 *前回からの変更：18行目からMoneyInsertに受け渡す値、DBセレクトに必要な値を設定
 *ここでセレクトしたidをMoneyInsertに遷移したときに渡す
@@ -52,7 +52,7 @@ class FolderDetailActivity : AppCompatActivity() {
                 folderid
             ) //このフォルダの追加項目なのでextra_folderIdキーとしてfolderidをMoneyInsertに渡す
             startActivityForResult(intent, resultActivity)
-            //クリアタスクなし・MoneyInsertで戻るボタンを押すと再び詳細が確認できるようになっている
+            //クリアタスク、フィニッシュなし・MoneyInsertで戻るボタンを押すと再び詳細が確認できるようになっている
         }
 
         //ホームへ戻る
