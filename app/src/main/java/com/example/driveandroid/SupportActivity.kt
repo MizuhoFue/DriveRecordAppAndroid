@@ -30,8 +30,8 @@ class SupportActivity : AppCompatActivity() {
         }
 
         //利用規約
-        rules.setOnClickListener {
-            val intent = Intent(this@SupportActivity, ConventionActivity::class.java)
+        policies.setOnClickListener {
+            val intent = Intent(this@SupportActivity, PolicyActivity::class.java)
             startActivity(intent)
         }
     }

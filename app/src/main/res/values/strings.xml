@@ -41,8 +41,8 @@
     <!--SupportActivity-->
     <string name="rules">利用規約</string>
     <string name="license">ライセンス</string>
-    <!--ConventionActivity-->
-    <string name="convention">
+    <!--PolicyActivity-->
+    <string name="policy">
 
 この利用規約（以下，「本規約」といいます。）は，株式会社シムテック（以下，「当社」といいます。）がこのアプリ上で提供するサービス、「ドラログ」（以下，「本サービス」といいます。）の利用条件を定めるものです。登録ユーザーの皆さま（以下，「ユーザー」といいます。）には，本規約に従って，本サービスをご利用いただきます。\n \n
         第1条（適用）\n
