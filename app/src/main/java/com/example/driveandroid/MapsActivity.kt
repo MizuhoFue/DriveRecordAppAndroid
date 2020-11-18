@@ -1,5 +1,6 @@
 package com.example.driveandroid
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -18,10 +19,12 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_maps)
 
-        mapsReturnHome.setOnClickListener {
-            //val intent3 = Intent(this@MapsActivity, FolderListActivity::class.java)
-            //startActivity(intent3)
-            this.finish()
+        //タイトルラベルの左側のナビゲーションアイテムの設置
+        drive_toolbar.setNavigationIcon(android.R.drawable.ic_menu_directions)
+        //ナビゲーションアイテムのリスナー
+        drive_toolbar.setNavigationOnClickListener {
+            val intent = Intent(this@MapsActivity, FolderListActivity::class.java)
+            startActivity(intent)
         }
 
         val mapFragment = supportFragmentManager

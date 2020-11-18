@@ -1,5 +1,6 @@
 package com.example.driveandroid
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -13,13 +14,14 @@ class FolderListActivity : AppCompatActivity() {
     private lateinit var viewAdapter: RecyclerView.Adapter<*>
     private lateinit var viewManager: RecyclerView.LayoutManager
 
+    @SuppressLint("ResourceType")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setTheme(R.style.AppTheme)
         setContentView(R.layout.activity_folder_list)
 
         // 表示するテキスト配列を作る [テキスト１, テキスト２, ....]
-        val list = Array<String>(10) { "テキスト$it" }
+        val list = Array<String>(10) { "タイトル$it" }
         val adapter = FolderListAdapter(list)
         val layoutManager = LinearLayoutManager(this)
 
@@ -33,14 +35,16 @@ class FolderListActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        settings.setOnClickListener {
-            val intent = Intent(this@FolderListActivity, SupportActivity::class.java)
-            startActivity(intent)
-        }
-
         addFolder.setOnClickListener {
             val intent = Intent(this@FolderListActivity, FolderCreateActivity::class.java)
             startActivity(intent)
         }
+
+        setting.setOnClickListener {
+            val intent = Intent(this@FolderListActivity, SupportActivity::class.java)
+            startActivity(intent)
+        }
+
     }
+
 }

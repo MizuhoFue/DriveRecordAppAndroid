@@ -11,7 +11,7 @@ class SplashActivity : AppCompatActivity() {
     private val runnable = Runnable {
 
         // 今はMoneyInsertActivityに遷移させる
-        val intent = Intent(this@SplashActivity, FolderCreateActivity::class.java)
+        val intent = Intent(this@SplashActivity, FolderListActivity::class.java)
         startActivity(intent)
 
         // ここでfinish()を呼ばないとMainActivityでAndroidの戻るボタンを押すとスプラッシュ画面に戻ってしまう

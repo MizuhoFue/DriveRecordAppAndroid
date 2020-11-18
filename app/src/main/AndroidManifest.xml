@@ -47,7 +47,6 @@
 
         <activity android:name=".DaoActivity" />
         <activity android:name=".FolderDetailActivity" />
-        <activity android:name=".MainActivity" />
         <activity android:name=".FolderListActivity" />
         <activity android:name=".SplashActivity">
 

@@ -24,7 +24,10 @@ import android.widget.Spinner
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.example.driveandroid.Constants.Companion.EXTRA_FOLDERID
+import kotlinx.android.synthetic.main.activity_folder_create.*
+import kotlinx.android.synthetic.main.activity_folder_create.drive_toolbar
 import kotlinx.android.synthetic.main.activity_money_insert.*
+import kotlinx.android.synthetic.main.activity_folder_create.setting as setting1
 
 class MoneyInsertActivity : AppCompatActivity() {
 
@@ -156,6 +159,34 @@ class MoneyInsertActivity : AppCompatActivity() {
         camera.setOnClickListener {
             val intentCamera = Intent(this@MoneyInsertActivity, CameraActivity::class.java)
             startActivity(intentCamera)
+        }
+
+        //タイトルラベルの左側のナビゲーションアイテムの設置
+        drive_toolbar.setNavigationIcon(android.R.drawable.ic_delete)
+        //ナビゲーションアイテムのリスナー
+        drive_toolbar.setNavigationOnClickListener {
+//            val intent = Intent(this@FolderCreateActivity, FolderListActivity::class.java)
+//            startActivity(intent)
+
+            // BuilderからAlertDialogを作成
+            val dialog = AlertDialog.Builder(this)
+                .setTitle(R.string.finish_message) // タイトル
+                .setPositiveButton(R.string.yes) { dialog, which -> // OK
+                    //moveTaskToBack(true)
+                    val intent = Intent(this@MoneyInsertActivity, FolderListActivity::class.java)
+                    startActivity(intent)
+                }
+                .setNegativeButton(R.string.no) { dialog, which -> //no
+                    Intent(this@MoneyInsertActivity, this::class.java)
+                }
+                .create()
+            // AlertDialogを表示
+            dialog.show()
+        }
+
+        setting.setOnClickListener {
+            val intent = Intent(this@MoneyInsertActivity, SupportActivity::class.java)
+            startActivity(intent)
         }
     }
 }

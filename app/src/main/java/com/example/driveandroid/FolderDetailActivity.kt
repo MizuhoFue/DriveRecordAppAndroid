@@ -13,6 +13,8 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.example.driveandroid.Constants.Companion.EXTRA_FOLDERID
 import kotlinx.android.synthetic.main.activity_folder_detail.*
+import kotlinx.android.synthetic.main.activity_folder_detail.setting
+import kotlinx.android.synthetic.main.activity_folder_list.*
 
 class FolderDetailActivity : AppCompatActivity() {
 
@@ -59,6 +61,11 @@ class FolderDetailActivity : AppCompatActivity() {
             val intent = Intent(
                 this@FolderDetailActivity, FolderListActivity::class.java
             )
+            startActivity(intent)
+        }
+
+        setting.setOnClickListener {
+            val intent = Intent(this@FolderDetailActivity, SupportActivity::class.java)
             startActivity(intent)
         }
     }
