@@ -52,10 +52,7 @@ class FolderDetailActivity : AppCompatActivity() {
 
         //ホームへ戻る
         home.setOnClickListener {//押したら
-            //Intent作成 のMoneyInsert金額入力からFolderListフォルダー一覧に遷移
-            val intent = Intent(this@FolderDetailActivity, FolderListActivity::class.java)
-            //クリアタスクして遷移
-            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+        finish()
         }
     }
 

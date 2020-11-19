@@ -130,13 +130,19 @@ class MoneyInsertActivity : AppCompatActivity() {
                             values.put("paraCost", paraCost) //入力金額
                             values.put("payer", payer)        //負担者Spinnerダイアログで選択された値
                             //val result = database.insertOrThrow(tableName2, null, values)
-                            val intent =
-                                Intent(this@MoneyInsertActivity, FolderDetailActivity::class.java)
+
                             //FolderCreate→Moneyの場合：startしてfinish()　　
                             // FolderDetail→MoneyInsertの場合：finish()のみ
-
                             //Createからの遷移の場合
-                            if ("FolderCreateActivity".equals(fromActivity)) {
+//                            "FolderCreateActivity".equals(fromActivity)
+
+                            if (fromActivity.equals(FolderCreateActivity::class.java.simpleName)) {
+
+                                val intent =
+                                    Intent(
+                                        this@MoneyInsertActivity,
+                                        FolderDetailActivity::class.java
+                                    )
                                 startActivity(intent)
                                 finish()
                             } else {
@@ -153,6 +159,7 @@ class MoneyInsertActivity : AppCompatActivity() {
                             //クリアタスクして遷移
                             intent.flags =
                                 Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                            startActivity(intent)
                         })
                     .setNeutralButton("キャンセル", DialogInterface.OnClickListener { _, _ ->
                         //ignore
@@ -172,7 +179,7 @@ class MoneyInsertActivity : AppCompatActivity() {
 
         //仮置き×ボタンexitの動作
         exit.setOnClickListener {
-            val intent = Intent(this@MoneyInsertActivity, FolderListActivity::class.java)
+            //ダイアログを出してOKが選ばれたらfinish()
             finish()
         }
     }

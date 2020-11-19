@@ -59,8 +59,6 @@ class FolderCreateActivity : AppCompatActivity() {
             values.put("member5", member5)
             values.put("member6", member6)
             //val result = database.insertOrThrow(tableName1, null, values)
-
-            val intent = Intent(this@FolderCreateActivity, FolderListActivity::class.java)
             //リスト遷移後はフォルダ作成を閉じる=startActivityでフォルダ一覧を作成しなくてもよい
             finish()
         }
@@ -83,9 +81,7 @@ class FolderCreateActivity : AppCompatActivity() {
         //仮置きバツボタン（exit）の処理
         exit.setOnClickListener {
             //ダイアログ表示して破棄して戻るかやっぱり登録するのか選ぶ
-            //遷移
-            val intent = Intent(this@FolderCreateActivity, FolderListActivity::class.java)
-            //クリアタスクなし・フォルダ作成を閉じるだけ=startActivityいらない
+            //クリアタスクなし・フォルダ作成を閉じるだけ=intent, startActivityいらない
             finish()
         }
     }

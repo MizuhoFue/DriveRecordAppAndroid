@@ -20,7 +20,6 @@ class SupportActivity : AppCompatActivity() {
 
         //設定を開いた画面へ戻る
         back.setOnClickListener {
-            val intent = Intent(this@SupportActivity, FolderListActivity::class.java)
             finish()    //サポートを閉じる startActivityいらない
         }
 
