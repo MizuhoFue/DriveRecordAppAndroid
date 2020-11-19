@@ -134,15 +134,11 @@ class MoneyInsertActivity : AppCompatActivity() {
                             //FolderCreate→Moneyの場合：startしてfinish()　　
                             // FolderDetail→MoneyInsertの場合：finish()のみ
                             //Createからの遷移の場合
-//                            "FolderCreateActivity".equals(fromActivity)
-
                             if (fromActivity.equals(FolderCreateActivity::class.java.simpleName)) {
-
-                                val intent =
-                                    Intent(
-                                        this@MoneyInsertActivity,
-                                        FolderDetailActivity::class.java
-                                    )
+                                val intent = Intent(
+                                    this@MoneyInsertActivity,
+                                    FolderDetailActivity::class.java
+                                )
                                 startActivity(intent)
                                 finish()
                             } else {

@@ -52,8 +52,7 @@ class FolderDetailActivity : AppCompatActivity() {
 
         //ホームへ戻る
         home.setOnClickListener {//押したら
-        finish()
+            finish()
         }
     }
-
 }
