@@ -1,8 +1,14 @@
+/*
+* 画面：サポート画面
+* タスク：ライセンス表示処理をいれる
+* 変更：アプリ終了処理を削除
+* 更新日：2020年11月18日
+* 更新者：笛木
+* */
 package com.example.driveandroid
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_support.*
 
@@ -12,33 +18,19 @@ class SupportActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_support)
 
-        returnHome.setOnClickListener {
-            val intent = Intent(this@SupportActivity, FolderListActivity::class.java)
-            startActivity(intent)
+        //設定を開いた画面へ戻る
+        back.setOnClickListener {
+            finish()    //サポートを閉じる startActivityいらない
         }
-        rules.setOnClickListener {
-            val intent = Intent(this@SupportActivity, ConventionActivity::class.java)
-            startActivity(intent)
-        }
-        setupViews()
-    }
 
-    private fun setupViews() {
-        // appliEndがタップされたときにダイアログを表示
-        appliEnd.setOnClickListener {
-            // BuilderからAlertDialogを作成
-            val dialog = AlertDialog.Builder(this)
-                .setTitle(R.string.finish_message) // タイトル
-                .setPositiveButton(R.string.yes) { dialog, which -> // OK
-                    finish()
-                    moveTaskToBack(true)
-                }
-                .setNegativeButton(R.string.no) { dialog, which -> //no
-                    Intent(this@SupportActivity, this::class.java)
-                }
-                .create()
-            // AlertDialogを表示
-            dialog.show()
+        license.setOnClickListener {
+            //ライセンス表示処理
+        }
+
+        //利用規約
+        policies.setOnClickListener {
+            val intent = Intent(this@SupportActivity, PolicyActivity::class.java)
+            startActivity(intent)
         }
     }
 }

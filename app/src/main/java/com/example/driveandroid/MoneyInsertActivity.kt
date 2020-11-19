@@ -1,14 +1,13 @@
 /*FolderCreate、FolderDetailから遷移
 *画面名：MoneyInsertActivity 金額入力画面　使用した金額や使用用途の入力・登録を行う　ひとまずMainActivityを参考につくって部品化　
-*
 *整理：入力された値を変数に入れてSQL実行　一度に登録できるのは1項目　負担者参照する場合folderidで指定する感じになりそう
-* 　　　遷移前のFolderListActivityから送ってもらう必要ありひとまずこれをやる
-*
+* 　　　遷移前のFolderListActivityから送ってもらう必要あり
 *遷移先：FolderList,FolderDetail ダイアログで選択、遷移する
 *ボタンメモ：入力完了：id:inputComp　
-*
 * やること:ダイアログ遷移を入れる→入力完了を押して遷移先決めたらinsert呼び出し、登録して遷移、データベース接続、　とりあえず選択された値を変数に入れられるようにするのが先？
 * Numberの値変数に入れるのはすぐできそうな感じ ダイアログに「キャンセル」追加
+* 更新者：笛木
+* 更新日：2020年11月18日
 * */
 package com.example.driveandroid
 
@@ -23,6 +22,7 @@ import android.widget.ArrayAdapter
 import android.widget.Spinner
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import com.example.driveandroid.Constants.Companion.EXTRA_ACTIVITYNAME
 import com.example.driveandroid.Constants.Companion.EXTRA_FOLDERID
 import kotlinx.android.synthetic.main.activity_money_insert.*
 
@@ -56,7 +56,11 @@ class MoneyInsertActivity : AppCompatActivity() {
         val intent = getIntent()
         val folderid =
             intent.extras?.getInt(EXTRA_FOLDERID) ?: 0 //valでいいのか？ 0を入れるは違う気もする
+        val fromActivity =
+            intent.extras?.getString(EXTRA_ACTIVITYNAME) ?: ""
+
         Log.d("受け渡されたfolderid", "${folderid}")
+        Log.d("どこから遷移", "{$fromActivity}")
 
         //項目スピナー設定 ダイアログ表示、選択項目Spinnerスペースへの表示
         paragraphSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
@@ -127,10 +131,19 @@ class MoneyInsertActivity : AppCompatActivity() {
                             values.put("payer", payer)        //負担者Spinnerダイアログで選択された値
                             //val result = database.insertOrThrow(tableName2, null, values)
 
-                            val intent = Intent(
-                                this@MoneyInsertActivity, FolderDetailActivity::class.java
-                            )
-                            startActivity(intent)
+                            //FolderCreate→Moneyの場合：startしてfinish()　　
+                            // FolderDetail→MoneyInsertの場合：finish()のみ
+                            //Createからの遷移の場合
+                            if (fromActivity.equals(FolderCreateActivity::class.java.simpleName)) {
+                                val intent = Intent(
+                                    this@MoneyInsertActivity,
+                                    FolderDetailActivity::class.java
+                                )
+                                startActivity(intent)
+                                finish()
+                            } else {
+                                finish()
+                            }
                         })
                     .setNegativeButton(
                         "ホーム",
@@ -139,23 +152,31 @@ class MoneyInsertActivity : AppCompatActivity() {
                             //insert処理を入れる
                             val intent =
                                 Intent(this@MoneyInsertActivity, FolderListActivity::class.java)
-                            startActivity(intent)   //こちらはfinish()処理を入れたほうがよいかも
+                            //クリアタスクして遷移
+                            intent.flags =
+                                Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                            startActivity(intent)
                         })
                     .setNeutralButton("キャンセル", DialogInterface.OnClickListener { _, _ ->
                         //ignore
                     })
                     .show() //またはcreate() ?
             }
-
         }
         //else { エラーダイアログ、エラーを確認して入力内容破棄、再入力させる 後ほど付け足し
         //
         //            }
-
         //カメラボタンをクリックするとCameraActivityに遷移
         camera.setOnClickListener {
             val intentCamera = Intent(this@MoneyInsertActivity, CameraActivity::class.java)
             startActivity(intentCamera)
+            //フィニッシュせずに遷移
+        }
+
+        //仮置き×ボタンexitの動作
+        exit.setOnClickListener {
+            //ダイアログを出してOKが選ばれたらfinish()
+            finish()
         }
     }
 }

@@ -5,35 +5,35 @@
     android:layout_gravity="center_horizontal"
     android:orientation="vertical">
 
-        <Button
-            android:id="@+id/rules"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="100dp"
-            android:layout_marginBottom="92dp"
-            android:layout_marginStart="160dp"
-            android:layout_alignParentBottom="true"
-            android:gravity="center_vertical"
-            android:text="@string/rules" />
+    <Button
+        android:id="@+id/policies"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:layout_marginBottom="92dp"
+        android:layout_marginStart="160dp"
+        android:layout_alignParentBottom="true"
+        android:gravity="center_vertical"
+        android:text="@string/rules" />
 
-        <Button
-            android:id="@+id/appliEnd"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="50dp"
-            android:layout_marginStart="150dp"
-            android:layout_alignParentBottom="true"
-            android:gravity="center_vertical"
-            android:text="@string/appliEnd" />
+    <Button
+        android:id="@+id/license"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="50dp"
+        android:layout_marginStart="150dp"
+        android:layout_alignParentBottom="true"
+        android:gravity="center_vertical"
+        android:text="@string/license" />
 
-        <Button
-            android:id="@+id/returnHome"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="200dp"
-            android:layout_marginBottom="5dp"
-            android:layout_alignParentBottom="true"
-            android:text="@string/returnHome" />
+    <Button
+        android:id="@+id/back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="200dp"
+        android:layout_marginBottom="5dp"
+        android:layout_alignParentBottom="true"
+        android:text="@string/returnHome" />
 
 </LinearLayout>

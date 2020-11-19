@@ -1,3 +1,8 @@
+/*
+* 画面：フォルダ一覧 FolderList
+* 更新者：笛木
+* 更新日：2020年11月18日
+* */
 package com.example.driveandroid
 
 import android.content.Intent
@@ -17,9 +22,14 @@ class FolderListActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setTheme(R.style.AppTheme)
         setContentView(R.layout.activity_folder_list)
+    }
+
+    //Resume処理
+    override fun onResume() {
+        super.onResume()
 
         // 表示するテキスト配列を作る [テキスト１, テキスト２, ....]
-        val list = Array<String>(10) { "テキスト$it" }
+        val list = Array<String>(10) { "タイトル$it" }
         val adapter = FolderListAdapter(list)
         val layoutManager = LinearLayoutManager(this)
 
@@ -28,19 +38,25 @@ class FolderListActivity : AppCompatActivity() {
         folderList.adapter = adapter
         folderList.setHasFixedSize(true)
 
+        //マップへ遷移
         returnMap.setOnClickListener {
             val intent = Intent(this@FolderListActivity, MapsActivity::class.java)
             startActivity(intent)
         }
 
+        //サポート画面へ遷移
         settings.setOnClickListener {
             val intent = Intent(this@FolderListActivity, SupportActivity::class.java)
             startActivity(intent)
         }
 
+        //フォルダ作成へ遷移　フィニッシュなし　セレクトして詳細を表示するにはここでfolderidを渡す必要あり？
         addFolder.setOnClickListener {
             val intent = Intent(this@FolderListActivity, FolderCreateActivity::class.java)
+            //intent.putExtra(Constants.EXTRA_FOLDERID, folderid)
             startActivity(intent)
         }
     }
+
 }
+

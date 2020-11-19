@@ -11,7 +11,7 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/rules"
+            android:id="@+id/policies"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="155dp"
@@ -30,10 +30,10 @@
             android:layout_marginBottom="150dp">
 
             <TextView
-                android:id="@+id/convention"
+                android:id="@+id/policy"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/convention" />
+                android:text="@string/policy" />
 
         </ScrollView>
 
