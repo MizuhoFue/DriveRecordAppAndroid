@@ -14,7 +14,6 @@ class FolderListActivity : AppCompatActivity() {
     private lateinit var viewAdapter: RecyclerView.Adapter<*>
     private lateinit var viewManager: RecyclerView.LayoutManager
 
-    @SuppressLint("ResourceType")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setTheme(R.style.AppTheme)
@@ -44,7 +43,5 @@ class FolderListActivity : AppCompatActivity() {
             val intent = Intent(this@FolderListActivity, SupportActivity::class.java)
             startActivity(intent)
         }
-
     }
-
 }

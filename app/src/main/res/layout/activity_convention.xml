@@ -7,27 +7,25 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:gravity="center_vertical"
         android:orientation="vertical">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/drive_toolbar"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
+            android:layout_height="wrap_content"
             android:background="?attr/colorPrimary"
-            android:elevation="4dp"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+            android:minHeight="?attr/actionBarSize"
             app:theme="@style/ThemeOverlay.AppCompat.ActionBar"
             app:titleTextColor="@color/colorPrimary">
 
             <TextView
                 android:id="@+id/toolbar_title"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="110dp"
                 android:layout_marginTop="10dp"
-                android:layout_weight="1.9"
                 android:text="@string/rules"
                 android:textAlignment="center"
                 android:textColor="@color/colorAccent"
@@ -50,8 +48,8 @@
             android:id="@+id/scrollView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
             android:layout_marginStart="1dp"
+            android:layout_marginTop="20dp"
             android:layout_marginEnd="1dp"
             android:layout_marginBottom="150dp">
 
