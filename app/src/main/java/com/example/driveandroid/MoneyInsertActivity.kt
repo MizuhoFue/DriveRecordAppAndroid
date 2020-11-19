@@ -2,10 +2,8 @@
 *画面名：MoneyInsertActivity 金額入力画面　使用した金額や使用用途の入力・登録を行う　ひとまずMainActivityを参考につくって部品化　
 *整理：入力された値を変数に入れてSQL実行　一度に登録できるのは1項目　負担者参照する場合folderidで指定する感じになりそう
 * 　　　遷移前のFolderListActivityから送ってもらう必要あり
-*
 *遷移先：FolderList,FolderDetail ダイアログで選択、遷移する
 *ボタンメモ：入力完了：id:inputComp　
-*
 * やること:ダイアログ遷移を入れる→入力完了を押して遷移先決めたらinsert呼び出し、登録して遷移、データベース接続、　とりあえず選択された値を変数に入れられるようにするのが先？
 * Numberの値変数に入れるのはすぐできそうな感じ ダイアログに「キャンセル」追加
 * 更新者：笛木
@@ -24,6 +22,7 @@ import android.widget.ArrayAdapter
 import android.widget.Spinner
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import com.example.driveandroid.Constants.Companion.EXTRA_ACTIVITYNAME
 import com.example.driveandroid.Constants.Companion.EXTRA_FOLDERID
 import kotlinx.android.synthetic.main.activity_money_insert.*
 
@@ -57,7 +56,11 @@ class MoneyInsertActivity : AppCompatActivity() {
         val intent = getIntent()
         val folderid =
             intent.extras?.getInt(EXTRA_FOLDERID) ?: 0 //valでいいのか？ 0を入れるは違う気もする
+        val fromActivity =
+            intent.extras?.getString(EXTRA_ACTIVITYNAME) ?: ""
+
         Log.d("受け渡されたfolderid", "${folderid}")
+        Log.d("どこから遷移", "{$fromActivity}")
 
         //項目スピナー設定 ダイアログ表示、選択項目Spinnerスペースへの表示
         paragraphSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
@@ -129,8 +132,16 @@ class MoneyInsertActivity : AppCompatActivity() {
                             //val result = database.insertOrThrow(tableName2, null, values)
                             val intent =
                                 Intent(this@MoneyInsertActivity, FolderDetailActivity::class.java)
-                            startActivity(intent)
-                            finish()
+                            //FolderCreate→Moneyの場合：startしてfinish()　　
+                            // FolderDetail→MoneyInsertの場合：finish()のみ
+
+                            //Createからの遷移の場合
+                            if ("FolderCreateActivity".equals(fromActivity)) {
+                                startActivity(intent)
+                                finish()
+                            } else {
+                                finish()
+                            }
                         })
                     .setNegativeButton(
                         "ホーム",
@@ -142,7 +153,6 @@ class MoneyInsertActivity : AppCompatActivity() {
                             //クリアタスクして遷移
                             intent.flags =
                                 Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-                            startActivity(intent)
                         })
                     .setNeutralButton("キャンセル", DialogInterface.OnClickListener { _, _ ->
                         //ignore
@@ -163,7 +173,6 @@ class MoneyInsertActivity : AppCompatActivity() {
         //仮置き×ボタンexitの動作
         exit.setOnClickListener {
             val intent = Intent(this@MoneyInsertActivity, FolderListActivity::class.java)
-            startActivity(intent)
             finish()
         }
     }

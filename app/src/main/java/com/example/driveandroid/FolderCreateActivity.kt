@@ -13,6 +13,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import com.example.driveandroid.Constants.Companion.EXTRA_ACTIVITYNAME
 import com.example.driveandroid.Constants.Companion.EXTRA_FOLDERID
 import kotlinx.android.synthetic.main.activity_folder_create.*
 
@@ -60,8 +61,7 @@ class FolderCreateActivity : AppCompatActivity() {
             //val result = database.insertOrThrow(tableName1, null, values)
 
             val intent = Intent(this@FolderCreateActivity, FolderListActivity::class.java)
-            startActivity(intent)
-            //クリアタスクなし・リスト遷移後はフォルダ作成を閉じる
+            //リスト遷移後はフォルダ作成を閉じる=startActivityでフォルダ一覧を作成しなくてもよい
             finish()
         }
 
@@ -72,7 +72,9 @@ class FolderCreateActivity : AppCompatActivity() {
             folderid = 2
             Log.d("folderidの値確認", "${folderid}")
             val intent = Intent(this@FolderCreateActivity, MoneyInsertActivity::class.java)
+            //idとActivity名をMoneyInsertに送る
             intent.putExtra(EXTRA_FOLDERID, folderid)
+            intent.putExtra(EXTRA_ACTIVITYNAME, this::class.java.simpleName)
             startActivity(intent)
             //クリアタスクなし・金額入力画面遷移後はフォルダ作成をフィニッシュ
             finish()
@@ -83,8 +85,7 @@ class FolderCreateActivity : AppCompatActivity() {
             //ダイアログ表示して破棄して戻るかやっぱり登録するのか選ぶ
             //遷移
             val intent = Intent(this@FolderCreateActivity, FolderListActivity::class.java)
-            startActivity(intent)
-            //クリアタスクなし・フォルダ作成を閉じる
+            //クリアタスクなし・フォルダ作成を閉じるだけ=startActivityいらない
             finish()
         }
     }
