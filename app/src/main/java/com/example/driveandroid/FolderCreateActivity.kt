@@ -12,6 +12,7 @@ import android.content.ContentValues
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.example.driveandroid.Constants.Companion.EXTRA_ACTIVITYNAME
 import com.example.driveandroid.Constants.Companion.EXTRA_FOLDERID
@@ -39,6 +40,34 @@ class FolderCreateActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_folder_create)
+
+        setting.setOnClickListener {
+            val intent = Intent(this@FolderCreateActivity, SupportActivity::class.java)
+            startActivity(intent)
+        }
+
+        //タイトルラベルの左側のナビゲーションアイテムの設置
+        drive_toolbar.setNavigationIcon(android.R.drawable.ic_delete)
+        //ナビゲーションアイテムのリスナー
+        drive_toolbar.setNavigationOnClickListener {
+//            val intent = Intent(this@FolderCreateActivity, FolderListActivity::class.java)
+//            startActivity(intent)
+
+            // BuilderからAlertDialogを作成
+            val dialog = AlertDialog.Builder(this)
+                .setTitle(R.string.finish_message) // タイトル
+                .setPositiveButton(R.string.yes) { dialog, which -> // OK
+                    //moveTaskToBack(true)
+                    val intent = Intent(this@FolderCreateActivity, FolderListActivity::class.java)
+                    startActivity(intent)
+                }
+                .setNegativeButton(R.string.no) { dialog, which -> //no
+                    Intent(this@FolderCreateActivity, this::class.java)
+                }
+                .create()
+            // AlertDialogを表示
+            dialog.show()
+        }
 
         //memberNumをtextwatchで数えて表示する処理をいれる
 

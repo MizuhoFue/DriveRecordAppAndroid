@@ -1,14 +1,56 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--MoneyInsertのレイアウト-->
+<?xml version="1.0" encoding="utf-8"?><!--MoneyInsertのレイアウト-->
 <!--task-->
 <!--更新日：2020年11月10日-->
 <!--更新者：笛木瑞歩-->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="com.example.driveandroid.MoneyInsertActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/drive_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        app:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:titleTextColor="@color/colorPrimary">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center">
+
+            <TextView
+                android:id="@+id/toolbar_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/app_name"
+                android:textColor="@color/colorAccent"
+                android:textSize="20dp" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right">
+
+            <ImageButton
+                android:id="@+id/setting"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                app:backgroundTint="#0000"
+                app:fabSize="auto"
+                app:maxImageSize="20dp"
+                app:srcCompat="@android:drawable/ic_menu_manage" />
+
+        </RelativeLayout>
+
+    </androidx.appcompat.widget.Toolbar>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -32,9 +74,9 @@
             android:id="@+id/paragraphSpinner"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:entries="@array/paragraphSpinner"
             android:gravity="center"
-            android:spinnerMode="dialog"
-            android:entries="@array/paragraphSpinner" />
+            android:spinnerMode="dialog" />
 
     </LinearLayout>
 
@@ -83,8 +125,8 @@
         android:layout_height="60dp"
         android:layout_marginStart="290dp"
         android:layout_marginTop="60dp"
-        android:src="@drawable/camerabutton_orange_mdpi"
-        android:background="@null" />
+        android:background="@null"
+        android:src="@drawable/camerabutton_orange_mdpi" />
 
 
     <LinearLayout

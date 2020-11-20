@@ -1,8 +1,7 @@
 package com.example.driveandroid
 
-import android.content.Intent
-import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
 import kotlinx.android.synthetic.main.activity_policy.*
 
 class PolicyActivity : AppCompatActivity() {
@@ -11,9 +10,10 @@ class PolicyActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_policy)
 
-        returnSupport.setOnClickListener {
-            val intent = Intent(this@PolicyActivity, SupportActivity::class.java)
-            startActivity(intent)
+        //タイトルラベルの左側のナビゲーションアイテムの設置
+        drive_toolbar.setNavigationIcon(android.R.drawable.ic_menu_directions)
+        //ナビゲーションアイテムのリスナー
+        drive_toolbar.setNavigationOnClickListener {
             finish()    //finishしてサポートへ
         }
     }

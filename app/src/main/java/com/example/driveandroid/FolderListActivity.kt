@@ -5,6 +5,7 @@
 * */
 package com.example.driveandroid
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -44,19 +45,16 @@ class FolderListActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        //サポート画面へ遷移
-        settings.setOnClickListener {
-            val intent = Intent(this@FolderListActivity, SupportActivity::class.java)
-            startActivity(intent)
-        }
-
         //フォルダ作成へ遷移　フィニッシュなし　セレクトして詳細を表示するにはここでfolderidを渡す必要あり？
         addFolder.setOnClickListener {
             val intent = Intent(this@FolderListActivity, FolderCreateActivity::class.java)
             //intent.putExtra(Constants.EXTRA_FOLDERID, folderid)
             startActivity(intent)
         }
+
+        setting.setOnClickListener {
+            val intent = Intent(this@FolderListActivity, SupportActivity::class.java)
+            startActivity(intent)
+        }
     }
-
 }
-

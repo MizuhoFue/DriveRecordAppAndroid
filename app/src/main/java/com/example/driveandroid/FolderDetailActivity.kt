@@ -7,17 +7,20 @@
 */
 package com.example.driveandroid
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.driveandroid.Constants.Companion.EXTRA_ACTIVITYNAME
 import com.example.driveandroid.Constants.Companion.EXTRA_FOLDERID
 import kotlinx.android.synthetic.main.activity_folder_detail.*
+import kotlinx.android.synthetic.main.activity_folder_detail.setting
+import kotlinx.android.synthetic.main.activity_folder_list.*
 
 class FolderDetailActivity : AppCompatActivity() {
 
     //FolderDetailから送るfolderidとして仮データ代入 本来はFolderListから引っ張られてくる
-    private var folderid = 2
+    private var folderid = 1
 
     //DB用変数用意
     private var date = 2020 / 11 / 12 //日付（仮）
@@ -48,6 +51,11 @@ class FolderDetailActivity : AppCompatActivity() {
             intent.putExtra(EXTRA_ACTIVITYNAME, this::class.java.simpleName)
             startActivity(intent)
             //クリアタスク、フィニッシュなし・MoneyInsertで戻るボタンを押すと再び詳細が確認できるようになっている
+        }
+
+        setting.setOnClickListener {
+            val intent = Intent(this@FolderDetailActivity, SupportActivity::class.java)
+            startActivity(intent)
         }
 
         //ホームへ戻る
