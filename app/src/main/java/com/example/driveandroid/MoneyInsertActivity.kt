@@ -1,13 +1,12 @@
 /*FolderCreate、FolderDetailから遷移
 *画面名：MoneyInsertActivity 金額入力画面　使用した金額や使用用途の入力・登録を行う　ひとまずMainActivityを参考につくって部品化　
-*整理：入力された値を変数に入れてSQL実行　一度に登録できるのは1項目　負担者参照する場合folderidで指定する感じになりそう
-* 　　　遷移前のFolderListActivityから送ってもらう必要あり
+*整理：入力された値を変数に入れてSQL実行　一度に登録できるのは1項目
 *遷移先：FolderList,FolderDetail ダイアログで選択、遷移する
 *ボタンメモ：入力完了：id:inputComp　
 * やること:ダイアログ遷移を入れる→入力完了を押して遷移先決めたらinsert呼び出し、登録して遷移、データベース接続、　とりあえず選択された値を変数に入れられるようにするのが先？
 * Numberの値変数に入れるのはすぐできそうな感じ ダイアログに「キャンセル」追加
 * 更新者：笛木
-* 更新日：2020年11月18日
+* 更新日：2020年11月20日
 * */
 package com.example.driveandroid
 
@@ -31,13 +30,14 @@ class MoneyInsertActivity : AppCompatActivity() {
     //DB用変数用意　ParagraphInfoテーブル操作
     private val dbName: String = "drivedb"  //DB名
     private val dbVersion: Int = 1  //変わることはあるのか
+    private val tableName1 = "FolderInfo"
     private val tableName2: String = "ParagraphInfo"    //テーブル名
     private var payer = ""  //負担者名、項目ごとに異なる可能性あり
     private var paraName = ""   //項目名　登録分によって複数あり
     private var paraCost = 0    //項目の金額　登録分によって複数あり
 
-    //負担者スピナーの配列　アダプター使用　仮データを配列に入れ　実装はデータベースから引っ張ってきたものを配列にいれる
-    val payerList = arrayListOf<String>("神田太郎", "シム太郎", "秋葉三郎", "新橋花子", "渋谷さくら", "千代田葉子")
+    // 負担者スピナーの配列　アダプター使用　
+    val payerList = arrayListOf<String>()
 
 //    //カメラ準備 static役割
 //    companion object {
@@ -55,12 +55,16 @@ class MoneyInsertActivity : AppCompatActivity() {
         //FolderDetail、FolderCreateから渡されたfolderidを変数に入れる
         val intent = getIntent()
         val folderid =
-            intent.extras?.getInt(EXTRA_FOLDERID) ?: 0 //valでいいのか？ 0を入れるは違う気もする
+            intent.extras?.getInt(EXTRA_FOLDERID) ?: 0 //valでいいのか？ 0の場合はMoneyInsert自体できないようにする？
+        //FolderDetail、FolderCreateのどちらから遷移したかのfromActivityを変数に入れる
         val fromActivity =
-            intent.extras?.getString(EXTRA_ACTIVITYNAME) ?: ""
+            intent.extras?.getString(EXTRA_ACTIVITYNAME) ?: "" //""が入る場合はエラー？
 
         Log.d("受け渡されたfolderid", "${folderid}")
         Log.d("どこから遷移", "{$fromActivity}")
+
+        //このタイミングでidを元にselect、selectメソッド内で空チェックを行う予定
+        val payers = selectData(folderid)
 
         //項目スピナー設定 ダイアログ表示、選択項目Spinnerスペースへの表示
         paragraphSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
@@ -80,8 +84,9 @@ class MoneyInsertActivity : AppCompatActivity() {
                 //ignore
             }
         }
+
         //アダプターに負担者配列リストを設定
-        val Adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, payerList)
+        val Adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, payers)
         //Spinnerにアダプター設定
         payerSpinner.adapter = Adapter
         //プルダウンをクリックした時ダイアログを表示
@@ -112,7 +117,7 @@ class MoneyInsertActivity : AppCompatActivity() {
             if (!cost.text.isNullOrEmpty()) {
                 paraCost = cost.text.toString().toInt()
                 Log.d("項目の金額", "${paraCost}")
-                //ダイアログ表示する
+
                 //ダイアログのメッセージ、各ボタンの処理を設定　「詳細」/「ホーム」遷移、入力修正のための「キャンセル」　
                 AlertDialog.Builder(this)
                     .setMessage("どちらに移動しますか？")
@@ -120,16 +125,8 @@ class MoneyInsertActivity : AppCompatActivity() {
                         "詳細",
                         DialogInterface.OnClickListener { _, _ ->
                             //ignore
-                            //insert処理を入れる
-                            val dbHelper =
-                                ParagraphInfoDBHelper(applicationContext, dbName, null, dbVersion)
-                            val database = dbHelper.writableDatabase
-                            val values = ContentValues()
-                            values.put("folderid", folderid) //代入したい項目,変数
-                            values.put("paraName", paraName)//項目Spinnerダイアログで選択された値
-                            values.put("paraCost", paraCost) //入力金額
-                            values.put("payer", payer)        //負担者Spinnerダイアログで選択された値
-                            //val result = database.insertOrThrow(tableName2, null, values)
+                            //insert処理を入れる　うまくいかない↓
+                            //insertPara(folderid,paraName,paraCost,payer)
 
                             //FolderCreate→Moneyの場合：startしてfinish()　　
                             // FolderDetail→MoneyInsertの場合：finish()のみ
@@ -141,7 +138,7 @@ class MoneyInsertActivity : AppCompatActivity() {
                                 )
                                 startActivity(intent)
                                 finish()
-                            } else {
+                            } else {    //Detailから遷移の場合
                                 finish()
                             }
                         })
@@ -149,7 +146,8 @@ class MoneyInsertActivity : AppCompatActivity() {
                         "ホーム",
                         DialogInterface.OnClickListener { _, _ ->
                             //ignore
-                            //insert処理を入れる
+                            //insert処理を入れたい　うまくいかない↓
+                            //insertPara(folderid,paraName,paraCost,payer)
                             val intent =
                                 Intent(this@MoneyInsertActivity, FolderListActivity::class.java)
                             //クリアタスクして遷移
@@ -163,9 +161,10 @@ class MoneyInsertActivity : AppCompatActivity() {
                     .show() //またはcreate() ?
             }
         }
-        //else { エラーダイアログ、エラーを確認して入力内容破棄、再入力させる 後ほど付け足し
+        //else { エラーダイアログ、エラーを確認して入力内容破棄、再入力させる 後回し
         //
         //            }
+
         //カメラボタンをクリックするとCameraActivityに遷移
         camera.setOnClickListener {
             val intentCamera = Intent(this@MoneyInsertActivity, CameraActivity::class.java)
@@ -175,26 +174,66 @@ class MoneyInsertActivity : AppCompatActivity() {
 
         //仮置き×ボタンexitの動作
         exit.setOnClickListener {
-            //ダイアログを出してOKが選ばれたらfinish()
+            //ダイアログを出してOKが選ばれたらfinish() 星野さんのツールバー処理優先
             finish()
         }
     }
+
+    fun selectData(
+        folderid: Int
+    ): ArrayList<String> {
+
+        try {
+            val dbHelper = DriveDBHelper(applicationContext, dbName, null, dbVersion)
+            val database = dbHelper.readableDatabase
+            val values = ContentValues()
+
+            //select文　たった今insertした内容と一致するもののfolderidのみ受け取る
+            val sql =
+                "SELECT * FROM ${tableName1} WHERE folderid=${folderid}"
+
+            //クエリ実行 cursorで結果セット受け取り？
+            val cursor = database.rawQuery(sql, null)
+            if (cursor.count > 0) {
+                Log.d("該当件数1のはず：", "${cursor.count}")
+                cursor.moveToFirst()
+                while (!cursor.isAfterLast) {
+                    payerList.add(cursor.getString(3))//memberの値を入れていく
+                    payerList.add(cursor.getString(4))
+                    payerList.add(cursor.getString(5))
+                    payerList.add(cursor.getString(6))
+                    payerList.add(cursor.getString(7))
+                    payerList.add(cursor.getString(8))
+                    cursor.moveToNext()
+                }
+            }
+        } catch (exception: Exception) {
+            Log.e("SelectData", exception.toString())
+        }
+        //メンバー全員入れる
+        return payerList
+    }//selectData閉じ
+
+    //うまくいかないinsertPara
+//    fun insertPara(folderid: Int, paraName: String, paraCost: Int, payer: String) {
+//        try {
+//            val dbHelper = ParagraphInfoDBHelper(applicationContext, dbName, null, dbVersion)
+//            val database = dbHelper.writableDatabase
+//            val values = ContentValues()
+//            values.put("folderid", folderid) //代入したい項目,変数 とりあえずdatabaseに合わせて3
+//            values.put("paraName", paraName)//項目Spinnerダイアログで選択された値
+//            values.put("paraCost", paraCost) //入力金額
+//            values.put("payer", payer)        //負担者Spinnerダイアログで選択された値
+//           //ParagraphInfoテーブルにinsert
+//            val result = database.insertOrThrow(tableName2, null, values)
+//            //入力した中身を確認
+//            Log.d(
+//                "insertした中身", "folderid:${folderid} paraName:${paraName} paraCost:${paraCost} " +
+//                        "payer:${payer}"
+//            )
+//        } catch (exception: Exception) {
+//            Log.e("InsertData", exception.toString())
+//        }
+//        }
 }
-
 ////////////////////////////メモ↓//////////////////////////////////////////////////////////////////////////////////
-
-//    //各項目入力、変数に入れる
-//   //ボタンを押したら入力チェック
-//     insert用メソッドはonCreate外で定義しておいた方がよさそう
-//    fun checkInsert(view: View) {
-//
-//        //チェック事項は　各変数の空白、不整値　種類は？　 模擬開発演習コードなどを参考
-//
-//
-//    }
-//
-//    //問題なければinsert文呼び出し　みたいな　
-//    fun ParaInsert() {
-// }
-//
-

@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--変更点：editTextのidを変数と区別するためputやinputを付け加えました-->
+<!--更新者：笛木-->
+<!--更新日：2020年11月17日-->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/FolderCreate"
@@ -27,7 +30,7 @@
             android:textSize="30sp" />
 
         <EditText
-            android:id="@+id/date"
+            android:id="@+id/putDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
@@ -55,7 +58,7 @@
             android:textSize="30sp" />
 
         <EditText
-            android:id="@+id/title"
+            android:id="@+id/putTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
@@ -84,7 +87,7 @@
             android:textSize="25sp" />
 
         <EditText
-            android:id="@+id/member1"
+            android:id="@+id/putMember1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
@@ -96,7 +99,7 @@
     </LinearLayout>
 
     <EditText
-        android:id="@+id/member2"
+        android:id="@+id/putMember2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="end"
@@ -108,7 +111,7 @@
         android:text="" />
 
     <EditText
-        android:id="@+id/member3"
+        android:id="@+id/putMember3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="end"
@@ -120,7 +123,7 @@
         android:text="" />
 
     <EditText
-        android:id="@+id/member4"
+        android:id="@+id/putMember4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="end"
@@ -132,7 +135,7 @@
         android:text="" />
 
     <EditText
-        android:id="@+id/member5"
+        android:id="@+id/putMember5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="end"
@@ -144,7 +147,7 @@
         android:text="" />
 
     <EditText
-        android:id="@+id/member6"
+        android:id="@+id/putMember6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="end"
