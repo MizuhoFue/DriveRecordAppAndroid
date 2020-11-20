@@ -7,5 +7,6 @@ class Constants {
     //folderid値受け渡しのキー設定
     companion object {
         const val EXTRA_FOLDERID = "extra_folderid"
+        const val EXTRA_ACTIVITYNAME = "extra_foldername"
     }
 }

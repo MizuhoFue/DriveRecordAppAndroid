@@ -1,16 +1,17 @@
-//画面：フォルダ詳細
-//更新日：2020年11月12日
-//更新者：笛木瑞歩
-//前回からの変更：18行目からMoneyInsertに受け渡す値、DBセレクトに必要な値を設定
-//ここでセレクトしたidをMoneyInsertに遷移したときに渡す
-//戻る動作にも入れる？
+/*画面：フォルダ詳細
+*更新日：2020年11月18日
+*更新者：笛木瑞歩
+*前回からの変更：18行目からMoneyInsertに受け渡す値、DBセレクトに必要な値を設定
+*ここでセレクトしたidをMoneyInsertに遷移したときに渡す
+* 戻る動作にも入れる？
+*/
 package com.example.driveandroid
 
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import com.example.driveandroid.Constants.Companion.EXTRA_ACTIVITYNAME
 import com.example.driveandroid.Constants.Companion.EXTRA_FOLDERID
 import kotlinx.android.synthetic.main.activity_folder_detail.*
 import kotlinx.android.synthetic.main.activity_folder_detail.setting
@@ -18,11 +19,9 @@ import kotlinx.android.synthetic.main.activity_folder_list.*
 
 class FolderDetailActivity : AppCompatActivity() {
 
-    //ActivityResult用　後ほど使うかも
-    private val resultActivity = 1000
-
     //FolderDetailから送るfolderidとして仮データ代入 本来はFolderListから引っ張られてくる
     private var folderid = 1
+
     //DB用変数用意
     private var date = 2020 / 11 / 12 //日付（仮）
     private var title = "熱海旅行" //タイトル（仮）
@@ -46,39 +45,22 @@ class FolderDetailActivity : AppCompatActivity() {
 
         moneyInsert.setOnClickListener {//新規追加項目ボタン押したら
             //Intent作成 FolderDetailフォルダ詳細からMoneyInsert金額入力に遷移
-            val intent = Intent(
-                this@FolderDetailActivity, MoneyInsertActivity::class.java
-            )
-            intent.putExtra(
-                EXTRA_FOLDERID,
-                folderid
-            ) //このフォルダの追加項目なのでextra_folderIdキーとしてfolderidをMoneyInsertに渡す
-            startActivityForResult(intent, resultActivity)
-        }
-
-        home.setOnClickListener {//押したら
-            //Intent作成 のMoneyInsert金額入力からFolderListフォルダー一覧に遷移
-            val intent = Intent(
-                this@FolderDetailActivity, FolderListActivity::class.java
-            )
+            val intent = Intent(this@FolderDetailActivity, MoneyInsertActivity::class.java)
+            //このフォルダの追加項目なのでfolderidをMoneyInsertへ　finish処理用にActivity名も送る
+            intent.putExtra(EXTRA_FOLDERID, folderid)
+            intent.putExtra(EXTRA_ACTIVITYNAME, this::class.java.simpleName)
             startActivity(intent)
+            //クリアタスク、フィニッシュなし・MoneyInsertで戻るボタンを押すと再び詳細が確認できるようになっている
         }
 
         setting.setOnClickListener {
             val intent = Intent(this@FolderDetailActivity, SupportActivity::class.java)
             startActivity(intent)
         }
-    }
 
-    //MoneyInsertActivityに「戻る」処理でデータを返す際はこれを使う　これは後ほど端末ボタンの設定で使うかも？
-    override fun onActivityResult(requestCode: Int, resultCode: Int, intent: Intent?) {
-        super.onActivityResult(requestCode, resultCode, intent)
-
-        if (resultCode == Activity.RESULT_OK &&
-            requestCode == resultActivity && intent != null
-        ) {
-            val res = intent.extras?.getString(EXTRA_FOLDERID) ?: 0
-            Log.d("folderid再度送信", "${res}")
+        //ホームへ戻る
+        home.setOnClickListener {//押したら
+            finish()
         }
     }
 }

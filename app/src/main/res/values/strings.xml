@@ -23,26 +23,26 @@
     <string name="dbaction">Go</string>
     <!--Splash画面-->
     <string name="splash">ドラログ</string>
-
+    <!--FolderCreate-->
     <string name="button">ドラログ</string>
     <string name="main">ドラログ</string>
     <string name="move">作成完了</string>
     <string name="money">金額入力</string>
-
+    <!--FolderList-->
     <string name="day">日付</string>
     <string name="tripname">旅行名</string>
     <string name="go_map">MAPへ</string>
     <string name="settings">⚙</string>
     <string name="members">人数</string>
     <string name="human">人</string>
-
+    <!--MapsActivity-->
     <string name="map">地図</string>
-
+    <string name="returnHome">戻る</string>
     <!--SupportActivity-->
     <string name="rules">利用規約</string>
     <string name="license">ライセンス</string>
-
-    <string name="convention">
+    <!--PolicyActivity-->
+    <string name="policy">
 
 この利用規約（以下，「本規約」といいます。）は，株式会社シムテック（以下，「当社」といいます。）がこのアプリ上で提供するサービス、「ドラログ」（以下，「本サービス」といいます。）の利用条件を定めるものです。登録ユーザーの皆さま（以下，「ユーザー」といいます。）には，本規約に従って，本サービスをご利用いただきます。\n \n
         第1条（適用）\n
