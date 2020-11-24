@@ -30,7 +30,6 @@ class DriveDBHelper(
     override fun onUpgrade(database: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
         if (oldVersion < newVersion) {
             database?.execSQL("alter table drivedb add column deleteFlag integer default 0")
-
         }
     }
 }

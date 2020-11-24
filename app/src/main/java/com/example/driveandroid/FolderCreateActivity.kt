@@ -19,7 +19,6 @@ import kotlinx.android.synthetic.main.activity_folder_create.*
 import java.text.SimpleDateFormat
 
 class FolderCreateActivity : AppCompatActivity() {
-
     //DB用変数用意　ParagraphInfoテーブル操作
     private val dbName: String = "drivedb"  //DB名
     private val dbVersion: Int = 1  //これがいまいちわからない
@@ -52,7 +51,6 @@ class FolderCreateActivity : AppCompatActivity() {
             //checkData的なメソッドでまとめたい
             //checkDate(putDate,putTitle,putMember1,putMember2,putMember3,putMember4,putMember5,putMember6)
             if (!putDate.text.isNullOrEmpty()) {
-
                 date = putDate.text.toString().toInt()
                 Log.d("日付の値", "${date}")
             }
@@ -188,8 +186,7 @@ class FolderCreateActivity : AppCompatActivity() {
         val member1: String,
         val member2: String,
         val member3: String,
-        val
-        member4: String,
+        val member4: String,
         val member5: String,
         val member6: String
     )
@@ -220,7 +217,7 @@ class FolderCreateActivity : AppCompatActivity() {
     ) {
         try {
             val dbHelper =
-                DriveDBHelper(applicationContext, dbName, null, dbVersion) //この時点でテーブルが作られてる
+                DriveDBHelper(this, dbName, null, dbVersion) //この時点でテーブルが作られてる
             val database = dbHelper.writableDatabase
             val values = ContentValues()
             values.put("date", date)
@@ -249,10 +246,9 @@ class FolderCreateActivity : AppCompatActivity() {
         member2: String?, member3: String?, member4: String?, member5: String?, member6: String?
     ): ArrayList<Int> {
         try {
-            val dbHelper = DriveDBHelper(applicationContext, dbName, null, dbVersion)
+            val dbHelper = DriveDBHelper(this, dbName, null, dbVersion)
             val database = dbHelper.readableDatabase
             val values = ContentValues()
-
             //select文　たった今insertした内容と一致するもののfolderidのみ受け取る
             val sql =   //String型の変数はシングルクオテーションで囲むのを忘れずに
                 "SELECT * FROM ${tableName1} WHERE date=${date} AND title='${title}'AND member1='${member1}' AND " +

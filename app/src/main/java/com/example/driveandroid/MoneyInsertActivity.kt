@@ -189,10 +189,9 @@ class MoneyInsertActivity : AppCompatActivity() {
         folderid: Int
     ): ArrayList<String> {
         try {
-            val dbHelper = DriveDBHelper(applicationContext, dbName, null, dbVersion)
+            val dbHelper = DriveDBHelper(this, dbName, null, dbVersion)
             val database = dbHelper.readableDatabase
             val values = ContentValues()
-
             //select文　たった今insertした内容と一致するもののfolderidのみ受け取る
             val sql =
                 "SELECT * FROM ${tableName1} WHERE folderid=${folderid}"
