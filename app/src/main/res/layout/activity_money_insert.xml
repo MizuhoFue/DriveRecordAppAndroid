@@ -166,13 +166,4 @@
         android:gravity="center"
         android:text="@string/inputComplete" />
 
-    <!--×ボタン仮置き-->
-    <androidx.appcompat.widget.AppCompatImageView
-        android:layout_width="wrap_content"
-        android:id="@+id/exit"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="20dp"
-        android:src="@drawable/exit" />
-
 </LinearLayout>

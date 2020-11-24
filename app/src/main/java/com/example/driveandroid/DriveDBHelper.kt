@@ -20,11 +20,12 @@ class DriveDBHelper(
     SQLiteOpenHelper(context, databaseName, factory, version) {
     //データベース初期作成イベント
     override fun onCreate(database: SQLiteDatabase?) {
+        //FolderInfoテーブル
         database?.execSQL("CREATE TABLE IF NOT EXISTS FolderInfo(folderid integer primary key autoincrement, title text(10), date numeric not null, member1 text(10) not null, member2 text(10) default null, member3 text(10) default null, member4 text(10) default null, member5 text(10) default null, member6 text(10) default null)")
-        //うまくいかない↓
-        //database?.execSQL("CREATE TABLE IF NOT EXISTS ParagraphInfo( folderid integer not null,　paraNum integer primary key autoincrement, paraName TEXT(10) not null, paraCost integer not null, payer TEXT(10) not null,　FOREIGN KEY(folderid) REFERENCES FolderInfo(folderid))")
+        //ParagraphInfoテーブル
+        database?.execSQL("CREATE TABLE IF NOT EXISTS ParagraphInfo(folderid integer not null, paraNum INTEGER primary key autoincrement, paraName TEXT(10) NOT NULL, paraCost INTEGER NOT NULL, payer TEXT(10) NOT NULL, FOREIGN KEY(folderid) REFERENCES FolderInfo(folderid))")
+
     }
-    //iOSはデータベース+テーブル設定がセット
 
     //更新イベント
     override fun onUpgrade(database: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
