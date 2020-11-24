@@ -7,15 +7,12 @@
 */
 package com.example.driveandroid
 
-import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.driveandroid.Constants.Companion.EXTRA_ACTIVITYNAME
 import com.example.driveandroid.Constants.Companion.EXTRA_FOLDERID
 import kotlinx.android.synthetic.main.activity_folder_detail.*
-import kotlinx.android.synthetic.main.activity_folder_detail.setting
-import kotlinx.android.synthetic.main.activity_folder_list.*
 
 class FolderDetailActivity : AppCompatActivity() {
 

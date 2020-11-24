@@ -1,4 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?><!--ボタン位置修正-->
+<?xml version="1.0" encoding="utf-8"?>
+<!--ボタン位置修正-->
 <!--2020年11月5日笛木更新-->
 <!--撮影後プレビューの画質が悪いのはエミュレーターのせい？-->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"

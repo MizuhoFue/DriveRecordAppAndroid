@@ -11,10 +11,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_maps.*
-import kotlinx.android.synthetic.main.activity_policy.*
 import kotlinx.android.synthetic.main.activity_support.*
-import kotlinx.android.synthetic.main.activity_support.policies
-import kotlinx.android.synthetic.main.activity_policy.drive_toolbar as drive_toolbar1
 import kotlinx.android.synthetic.main.activity_support.drive_toolbar as drive_toolbar1
 
 class SupportActivity : AppCompatActivity() {
@@ -36,8 +33,7 @@ class SupportActivity : AppCompatActivity() {
         drive_toolbar.setNavigationIcon(android.R.drawable.ic_menu_directions)
         //ナビゲーションアイテムのリスナー
         drive_toolbar.setNavigationOnClickListener {
-            val intent = Intent(this@SupportActivity, FolderListActivity::class.java)
-            startActivity(intent)
+            finish()
         }
     }
 }

@@ -9,7 +9,6 @@ class PolicyActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_policy)
-
         //タイトルラベルの左側のナビゲーションアイテムの設置
         drive_toolbar.setNavigationIcon(android.R.drawable.ic_menu_directions)
         //ナビゲーションアイテムのリスナー
