@@ -12,9 +12,8 @@ class PolicyActivity : AppCompatActivity() {
         setContentView(R.layout.activity_policy)
 
         returnSupport.setOnClickListener {
-            val intent = Intent(this@PolicyActivity, SupportActivity::class.java)
-            startActivity(intent)
-            finish()    //finishしてサポートへ
+            //閉じるだけでSupportにもどれる気がする
+            finish()    //finish
         }
     }
 }

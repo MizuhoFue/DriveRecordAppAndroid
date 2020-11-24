@@ -1,9 +1,9 @@
 /*FolderCreateActivity フォルダ作成画面
 * folderid　一列登録した情報　全一致のものをセレクトして配列に入れた上でidだけMoneyInsertActivityに送る
 * 日付は入力した時点でフォーマットをかけてinsert フォーマットはyyyy/MM/dd ボタンダイアログは画面左上ツールバーで×を押すと破棄してホームに戻るか聞くもの
-* タスク：文字数入力チェックを入れる→関数化試み中
+* タスク：文字数入力チェックを入れる→関数化試み中だが後回し
 * ?：
-* 更新日2020年11月20日
+* 更新日2020年11月24日
 * 更新者：笛木
 * */
 package com.example.driveandroid
@@ -51,7 +51,6 @@ class FolderCreateActivity : AppCompatActivity() {
         createEnd.setOnClickListener {
             //checkData的なメソッドでまとめたい
             //checkDate(putDate,putTitle,putMember1,putMember2,putMember3,putMember4,putMember5,putMember6)
-
             if (!putDate.text.isNullOrEmpty()) {
 
                 date = putDate.text.toString().toInt()
@@ -111,7 +110,6 @@ class FolderCreateActivity : AppCompatActivity() {
             //空チェックして各変数にいれる　ログで確認　関数にしたいがid.textの型がいまいちわからないので引数設定が難しそう
             //日付が空じゃない場合dateに入れる
             if (!putDate.text.isNullOrEmpty()) {
-
                 date = putDate.text.toString().toInt()
                 Log.d("日付の値", "${date}")
             }
@@ -156,8 +154,8 @@ class FolderCreateActivity : AppCompatActivity() {
             )
             //insertメソッド呼び出し
             insertData(date, title, member1, member2, member3, member4, member5, member6)
-                //MoneyInsert用SELECT
-                //insertできたか確認したらたった今入れたものをセレクトという処理をいれたい if(result)?
+            //MoneyInsert用SELECT
+            //insertできたか確認したらたった今入れたものをセレクトという処理をいれたい if(result)?
             val result =
                 selectData(date, title, member1, member2, member3, member4, member5, member6)
 
@@ -168,7 +166,7 @@ class FolderCreateActivity : AppCompatActivity() {
             val intent = Intent(this@FolderCreateActivity, MoneyInsertActivity::class.java)
             //idとActivity名をMoneyInsertに送る
             intent.putExtra(EXTRA_FOLDERID, folderid)
-            intent.putExtra(EXTRA_ACTIVITYNAME, this::class.java.simpleName) 
+            intent.putExtra(EXTRA_ACTIVITYNAME, this::class.java.simpleName)
             startActivity(intent)
             //クリアタスクなし・金額入力画面遷移後はフォルダ作成をフィニッシュ
             finish()
@@ -183,19 +181,19 @@ class FolderCreateActivity : AppCompatActivity() {
 
     }
 
-//    //checkData戻り値用　配列だとどうなる・・・？
-//    data class checkArray(
-//        val date: Int,
-//        val title: String,
-//        val member1: String,
-//        val member2: String,
-//        val member3: String,
-//        val
-//        member4: String,
-//        val member5: String,
-//        val member6: String
-//    )
-//    //ここでeditableで引数設定
+    //checkData戻り値用　配列だとどうなる・・・？
+    data class checkArray(
+        val date: Int,
+        val title: String,
+        val member1: String,
+        val member2: String,
+        val member3: String,
+        val
+        member4: String,
+        val member5: String,
+        val member6: String
+    )
+    //ここでeditableで引数設定
 //    fun checkData(
 //        putDate: Editable,
 //        putTitle: Editable,
@@ -204,18 +202,15 @@ class FolderCreateActivity : AppCompatActivity() {
 //        putMember3: Editable,
 //        putMember4: Editable,
 //        putMember5: Editable,
-//        putMemeber6: Editable
+//        putMemeber6: Editable  //isNullOrEmpty
 //    ):checkArray {
-//        //textがコンパイルエラーになる
-//        if(!putDate.text.isNullOrEmpty()) {
-//
-//            date = putDate.text.toString().toInt()
+//        //textがコンパイルエラーになる　length?　一旦保留、ParagraphInfo優先
+//        if(!putDate.length.) {
+//            date = putDate.length.toString().toInt()
 //            Log.d("日付の値", "${date}")
 //        }
-//
 //        val checkArray=checkArray(date,member1,member2,member3,member4,member5,member6)
 //        return checkArray
-//
 //    }
 
     //insert用文FolderInfo用　ひとまずDBBrowserの方で確認できた
@@ -224,7 +219,8 @@ class FolderCreateActivity : AppCompatActivity() {
         member2: String?, member3: String?, member4: String?, member5: String?, member6: String?
     ) {
         try {
-            val dbHelper = DriveDBHelper(applicationContext, dbName, null, dbVersion)
+            val dbHelper =
+                DriveDBHelper(applicationContext, dbName, null, dbVersion) //この時点でテーブルが作られてる
             val database = dbHelper.writableDatabase
             val values = ContentValues()
             values.put("date", date)
@@ -247,12 +243,11 @@ class FolderCreateActivity : AppCompatActivity() {
         }
     }
 
-    //select用関数　引数はinsertしたばかりのデータ　戻り値はArray<Int>型 folderidそのままの方がよい？ folderidしか使わない
+    //select用関数　引数はinsertしたばかりのデータ　戻り値はArray<Int>型
     fun selectData(
         date: Int, title: String, member1: String,
         member2: String?, member3: String?, member4: String?, member5: String?, member6: String?
     ): ArrayList<Int> {
-
         try {
             val dbHelper = DriveDBHelper(applicationContext, dbName, null, dbVersion)
             val database = dbHelper.readableDatabase
@@ -278,7 +273,7 @@ class FolderCreateActivity : AppCompatActivity() {
         } catch (exception: Exception) {
             Log.e("SelectData", exception.toString())
         }
-//ひとまず配列返してみる それともこの時点でfolderidだけ返した方がいい？
+        //idが入った配列を返す
         return arrayFolderId
     }//selectData閉じ
 }
