@@ -1,51 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <LinearLayout
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/drive_toolbar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center_vertical"
-        android:orientation="vertical">
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        app:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:titleTextColor="@color/colorPrimary">
 
-        <TextView
-            android:id="@+id/policies"
+        <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="155dp"
-            android:layout_marginTop="18dp"
-            android:layout_marginBottom="15dp"
-            android:gravity="center"
-            android:text="@string/rules"
-            android:textSize="24sp" />
-
-        <ScrollView
-            android:id="@+id/scrollView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="1dp"
-            android:layout_marginEnd="1dp"
-            android:layout_marginBottom="150dp">
+            android:layout_gravity="center">
 
             <TextView
-                android:id="@+id/policy"
-                android:layout_width="match_parent"
+                android:id="@+id/toolbar_title"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/policy" />
+                android:text="@string/rules"
+                android:textColor="@color/colorAccent"
+                android:textSize="20dp" />
 
-        </ScrollView>
+        </RelativeLayout>
 
-    </LinearLayout>
+    </androidx.appcompat.widget.Toolbar>
 
-    <Button
-        android:id="@+id/returnSupport"
-        android:layout_width="wrap_content"
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginEnd="5dp"
-        android:layout_marginBottom="5dp"
-        android:text="@string/returnHome" />
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="1dp">
 
-</RelativeLayout>
+        <TextView
+            android:id="@+id/convention"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/policy" />
+
+    </ScrollView>
+
+</LinearLayout>

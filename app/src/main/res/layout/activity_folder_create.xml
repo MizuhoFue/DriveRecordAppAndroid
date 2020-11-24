@@ -3,15 +3,57 @@
 <!--更新者：笛木-->
 <!--更新日：2020年11月17日-->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/FolderCreate"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginEnd="10dp"
     android:background="#F9FBFA"
     android:gravity="center_horizontal"
     android:orientation="vertical"
     tools:context="com.example.driveandroid.FolderCreateActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/drive_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        app:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:titleTextColor="@color/colorPrimary">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center">
+
+            <TextView
+                android:id="@+id/toolbar_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/app_name"
+                android:textColor="@color/colorAccent"
+                android:textSize="20dp" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right">
+
+            <ImageButton
+                android:id="@+id/setting"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                app:backgroundTint="#0000"
+                app:fabSize="auto"
+                app:maxImageSize="20dp"
+                app:srcCompat="@android:drawable/ic_menu_manage" />
+
+        </RelativeLayout>
+
+    </androidx.appcompat.widget.Toolbar>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -23,8 +65,8 @@
             android:id="@+id/dateDisplay"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
             android:layout_gravity="bottom"
+            android:layout_marginStart="24dp"
             android:layout_weight="1"
             android:text="@string/day"
             android:textSize="30sp" />
@@ -52,8 +94,8 @@
             android:id="@+id/title_display"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:layout_gravity="bottom"
+            android:layout_weight="1"
             android:text="@string/title"
             android:textSize="30sp" />
 
@@ -63,9 +105,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="end"
             android:ems="10"
-            tools:text=""
             android:inputType="textPersonName"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            tools:text="" />
 
     </LinearLayout>
 
@@ -80,9 +122,9 @@
             android:id="@+id/member"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
             android:layout_marginBottom="5dp"
             android:layout_weight="1"
-            android:layout_gravity="bottom"
             android:text="@string/member_name"
             android:textSize="25sp" />
 
@@ -105,10 +147,10 @@
         android:layout_gravity="end"
         android:layout_marginEnd="30dp"
         android:layout_marginBottom="5dp"
-        android:visibility="visible"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="" />
+        android:text=""
+        android:visibility="visible" />
 
     <EditText
         android:id="@+id/putMember3"
@@ -117,10 +159,10 @@
         android:layout_gravity="end"
         android:layout_marginEnd="30dp"
         android:layout_marginBottom="5dp"
-        android:visibility="visible"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="" />
+        android:text=""
+        android:visibility="visible" />
 
     <EditText
         android:id="@+id/putMember4"
@@ -129,10 +171,10 @@
         android:layout_gravity="end"
         android:layout_marginEnd="30dp"
         android:layout_marginBottom="5dp"
-        android:visibility="visible"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="" />
+        android:text=""
+        android:visibility="visible" />
 
     <EditText
         android:id="@+id/putMember5"
@@ -141,10 +183,10 @@
         android:layout_gravity="end"
         android:layout_marginEnd="30dp"
         android:layout_marginBottom="5dp"
-        android:visibility="visible"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="" />
+        android:text=""
+        android:visibility="visible" />
 
     <EditText
         android:id="@+id/putMember6"
@@ -153,10 +195,10 @@
         android:layout_gravity="end"
         android:layout_marginEnd="30dp"
         android:layout_marginBottom="5dp"
-        android:visibility="visible"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="" />
+        android:text=""
+        android:visibility="visible" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -177,8 +219,8 @@
             android:id="@+id/inputMember"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_weight="1"
             android:layout_gravity="end"
+            android:layout_weight="1"
             android:textSize="30sp"
             tools:Text="3" />
 
@@ -202,32 +244,28 @@
             android:id="@+id/createEnd"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
             android:layout_marginStart="40dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="5dp"
+            android:layout_weight="1"
             android:gravity="center_horizontal"
             android:text="@string/move"
-            android:textSize="30sp" />
+            android:textSize="25sp" />
 
         <Button
             android:id="@+id/money"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
             android:layout_marginStart="40dp"
-            android:layout_marginEnd="16dp"
+            android:layout_marginEnd="20dp"
             android:layout_marginBottom="5dp"
+            android:layout_weight="1"
             android:gravity="center_horizontal"
             android:text="@string/money"
-            android:textSize="30sp" />
+            android:textSize="25sp" />
 
     </LinearLayout>
-
-    <!--×ボタン仮置き-->
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/exit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:src="@drawable/exit" />
 
 </LinearLayout>

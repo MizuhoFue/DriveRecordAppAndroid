@@ -27,7 +27,6 @@ class SplashActivity : AppCompatActivity() {
 
     override fun onStop() {
         super.onStop()
-
         // スプラッシュ画面中にアプリを落とした時にはrunnableが呼ばれないようにする
         // これがないとアプリを消した後にまた表示される
         handler.removeCallbacks(runnable)

@@ -10,7 +10,9 @@ package com.example.driveandroid
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import kotlinx.android.synthetic.main.activity_maps.*
 import kotlinx.android.synthetic.main.activity_support.*
+import kotlinx.android.synthetic.main.activity_support.drive_toolbar as drive_toolbar1
 
 class SupportActivity : AppCompatActivity() {
 
@@ -18,19 +20,20 @@ class SupportActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_support)
 
-        //設定を開いた画面へ戻る
-        back.setOnClickListener {
-            finish()    //サポートを閉じる startActivityいらない
-        }
-
         license.setOnClickListener {
             //ライセンス表示処理
         }
 
-        //利用規約
         policies.setOnClickListener {
             val intent = Intent(this@SupportActivity, PolicyActivity::class.java)
             startActivity(intent)
+        }
+
+        //タイトルラベルの左側のナビゲーションアイテムの設置
+        drive_toolbar.setNavigationIcon(android.R.drawable.ic_menu_directions)
+        //ナビゲーションアイテムのリスナー
+        drive_toolbar.setNavigationOnClickListener {
+            finish()
         }
     }
 }

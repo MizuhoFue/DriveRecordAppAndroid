@@ -4,7 +4,7 @@
 *遷移先：FolderList,FolderDetail ダイアログで選択、遷移する
 *ボタンメモ：入力完了：id:inputComp　
 * やること:ダイアログ遷移を入れる→入力完了を押して遷移先決めたらinsert呼び出し、登録して遷移、データベース接続、　とりあえず選択された値を変数に入れられるようにするのが先？
-* Numberの値変数に入れるのはすぐできそうな感じ ダイアログに「キャンセル」追加
+* Numberの値変数に入れるのはすぐできそうな感じ ダイアログに「キャンセル」追加　設定から戻る時に
 * 更新者：笛木
 * 更新日：2020年11月21日
 * */
@@ -23,10 +23,13 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.example.driveandroid.Constants.Companion.EXTRA_ACTIVITYNAME
 import com.example.driveandroid.Constants.Companion.EXTRA_FOLDERID
+import kotlinx.android.synthetic.main.activity_folder_create.*
+import kotlinx.android.synthetic.main.activity_folder_create.drive_toolbar
 import kotlinx.android.synthetic.main.activity_money_insert.*
+import kotlinx.android.synthetic.main.activity_folder_create.setting as setting1
+//↑グレーアウトしている folderCreateのツールバーをインポートしているせい？
 
 class MoneyInsertActivity : AppCompatActivity() {
-
     //DB用変数用意　ParagraphInfoテーブル操作
     private val dbName: String = "drivedb"  //DB名
     private val dbVersion: Int = 1  //変わることはあるのか
@@ -178,10 +181,29 @@ class MoneyInsertActivity : AppCompatActivity() {
             //フィニッシュせずに遷移
         }
 
-        //仮置き×ボタンexitの動作
-        exit.setOnClickListener {
-            //ダイアログを出してOKが選ばれたらfinish() 星野さんのツールバー処理優先
-            finish()
+        //タイトルラベルの左側のナビゲーションアイテムの設置
+        drive_toolbar.setNavigationIcon(android.R.drawable.ic_delete)
+        //ナビゲーションアイテムのリスナー
+        drive_toolbar.setNavigationOnClickListener {
+
+            // BuilderからAlertDialogを作成
+            val dialog = AlertDialog.Builder(this)
+                .setTitle(R.string.finish_message) // タイトル
+                .setPositiveButton(R.string.yes) { dialog, which -> // OK
+                    //moveTaskToBack(true)
+                  finish()
+                }
+                .setNegativeButton(R.string.no) { dialog, which -> //no
+                    Intent(this@MoneyInsertActivity, this::class.java)
+                }
+                .create()
+            // AlertDialogを表示
+            dialog.show()
+        }
+
+        setting.setOnClickListener {
+            val intent = Intent(this@MoneyInsertActivity, SupportActivity::class.java)
+            startActivity(intent)
         }
     }
 
@@ -221,7 +243,7 @@ class MoneyInsertActivity : AppCompatActivity() {
     //    うまくいかないinsertPara
     fun insertPara(folderid: Int, paraName: String, paraCost: Int, payer: String) {
         try {
-            val dbHelper = ParagraphInfoDBHelper(applicationContext, dbName, null, dbVersion)
+            val dbHelper = ParagraphInfoDBHelper(this, dbName, null, dbVersion)
             val database = dbHelper.writableDatabase
             val values = ContentValues()
             values.put("folderid", folderid) //代入したい項目,変数 とりあえずdatabaseに合わせて3
