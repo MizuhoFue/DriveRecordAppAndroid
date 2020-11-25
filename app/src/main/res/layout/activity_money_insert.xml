@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?><!--MoneyInsertのレイアウト-->
 <!--task-->
-<!--更新日：2020年11月10日-->
+<!--更新日：2020年11月25日-->
 <!--更新者：笛木瑞歩-->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -39,7 +39,7 @@
             android:layout_gravity="right">
 
             <ImageButton
-                android:id="@+id/setting"
+                android:id="@+id/settings"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
@@ -165,14 +165,5 @@
         android:layout_marginTop="120dp"
         android:gravity="center"
         android:text="@string/inputComplete" />
-
-    <!--×ボタン仮置き-->
-    <androidx.appcompat.widget.AppCompatImageView
-        android:layout_width="wrap_content"
-        android:id="@+id/exit"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="20dp"
-        android:src="@drawable/exit" />
 
 </LinearLayout>

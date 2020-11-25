@@ -1,7 +1,7 @@
 /*画面：フォルダ詳細
-*更新日：2020年11月18日
+*更新日：2020年11月25日
 *更新者：笛木瑞歩
-*前回からの変更：18行目からMoneyInsertに受け渡す値、DBセレクトに必要な値を設定
+*前回からの変更：FolderListかMoneyInsertから渡される値をはじめに受け取る処理追加
 *ここでセレクトしたidをMoneyInsertに遷移したときに渡す
 * 戻る動作にも入れる？
 */
@@ -9,6 +9,7 @@ package com.example.driveandroid
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.example.driveandroid.Constants.Companion.EXTRA_ACTIVITYNAME
 import com.example.driveandroid.Constants.Companion.EXTRA_FOLDERID
@@ -17,7 +18,7 @@ import kotlinx.android.synthetic.main.activity_folder_detail.*
 class FolderDetailActivity : AppCompatActivity() {
 
     //FolderDetailから送るfolderidとして仮データ代入 本来はFolderListから引っ張られてくる
-    private var folderid = 1
+    private var folderid = 0
 
     //DB用変数用意
     private var date = 2020 / 11 / 12 //日付（仮）
@@ -39,6 +40,15 @@ class FolderDetailActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_folder_detail)
+
+        //FolderListまたはMoneyInsertから渡されたfolderid、遷移元ファイル名を変数に入れる
+        val intent = getIntent()
+        val folderid =
+            intent.extras?.getInt(EXTRA_FOLDERID) ?: 0 // 0の場合はMoneyInsert自体できないようにするか
+        val fromActivity =
+            intent.extras?.getString(EXTRA_ACTIVITYNAME) ?: "" //""が入る場合はエラー？
+        Log.d("どこから遷移", fromActivity)
+        Log.d("受け取ったfolderid", "${folderid}")
 
         moneyInsert.setOnClickListener {//新規追加項目ボタン押したら
             //Intent作成 FolderDetailフォルダ詳細からMoneyInsert金額入力に遷移

@@ -1,12 +1,12 @@
 /*FolderCreate、FolderDetailから遷移
-*画面名：MoneyInsertActivity 金額入力画面　使用した金額や使用用途の入力・登録を行う　ひとまずMainActivityを参考につくって部品化　
+*画面名：MoneyInsertActivity 金額入力画面　使用した金額や使用用途の入力・登録を行う　
 *整理：入力された値を変数に入れてSQL実行　一度に登録できるのは1項目
-*遷移先：FolderList,FolderDetail ダイアログで選択、遷移する
-*ボタンメモ：入力完了：id:inputComp　
-* やること:ダイアログ遷移を入れる→入力完了を押して遷移先決めたらinsert呼び出し、登録して遷移、データベース接続、　とりあえず選択された値を変数に入れられるようにするのが先？
-* Numberの値変数に入れるのはすぐできそうな感じ ダイアログに「キャンセル」追加　設定から戻る時に
-* 更新者：笛木
-* 更新日：2020年11月21日
+*遷移先：FolderList,FolderDetail ダイアログで選択、登録して遷移、データベース接続
+*ボタンメモ：入力完了：id:inputComp　設定:settings
+*やること:ダイアログ遷移を入れる→入力完了を押して遷移先決めたらinsert呼び出し、
+*ダイアログに「キャンセル」追加
+*更新者：笛木
+*更新日：2020年11月25日
 * */
 package com.example.driveandroid
 
@@ -21,46 +21,41 @@ import android.widget.ArrayAdapter
 import android.widget.Spinner
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import com.example.driveandroid.Constants.Companion.DB_NAME
+import com.example.driveandroid.Constants.Companion.DB_VERSION
 import com.example.driveandroid.Constants.Companion.EXTRA_ACTIVITYNAME
 import com.example.driveandroid.Constants.Companion.EXTRA_FOLDERID
-import kotlinx.android.synthetic.main.activity_folder_create.*
+import com.example.driveandroid.Constants.Companion.FOLDER_INFO
+import com.example.driveandroid.Constants.Companion.PARAGRAPH_INFO
 import kotlinx.android.synthetic.main.activity_folder_create.drive_toolbar
 import kotlinx.android.synthetic.main.activity_money_insert.*
-import kotlinx.android.synthetic.main.activity_folder_create.setting as setting1
-//↑グレーアウトしている folderCreateのツールバーをインポートしているせい？
 
 class MoneyInsertActivity : AppCompatActivity() {
-    //DB用変数用意　ParagraphInfoテーブル操作
-    private val dbName: String = "drivedb"  //DB名
-    private val dbVersion: Int = 1  //変わることはあるのか
-    private val tableName1 = "FolderInfo"
-    private val tableName2: String = "ParagraphInfo"    //テーブル名
+
     private var payer = ""  //負担者名、項目ごとに異なる可能性あり
     private var paraName = ""   //項目名　登録分によって複数あり
     private var paraCost = 0    //項目の金額　登録分によって複数あり
 
     // 負担者スピナーの配列　アダプター使用　
     val payerList = arrayListOf<String>()
-
     //カメラ準備 static役割
-//    companion object {
-//        const val CAMERA_REQUEST_CODE = 1
-//        const val CAMERA_PERMISSION_REQUEST_CODE = 2
-//    }
-// private var <> Array<payerSpinner>.onItemSelectedListener: AdapterView.OnItemSelectedListener
-//    get() {}
-//    set() {}
+    //companion object {
+    //const val CAMERA_REQUEST_CODE = 1
+    //const val CAMERA_PERMISSION_REQUEST_CODE = 2
+    //}
+    // private var <> Array<payerSpinner>.onItemSelectedListener: AdapterView.OnItemSelectedListener
+    //    get() {}
+    //    set() {}
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_money_insert)
 
-        //この時点でdbHelper呼び出し？（うまくいかない/戻り値がない）
-        val dbHelper = ParagraphInfoDBHelper(applicationContext, dbName, null, dbVersion)
-        Log.d("dbHelperの中身", "${dbHelper}")
-//        if (dbHelper = true) {
-
-//        }
+        //id名変えました
+        settings.setOnClickListener {
+            val intent = Intent(this@MoneyInsertActivity, SupportActivity::class.java)
+            startActivity(intent)
+        }
         //FolderDetail、FolderCreateから渡されたfolderidを変数に入れる
         val intent = getIntent()
         val folderid =
@@ -72,7 +67,7 @@ class MoneyInsertActivity : AppCompatActivity() {
         Log.d("受け渡されたfolderid", "${folderid}")
         Log.d("どこから遷移", "{$fromActivity}")
 
-        //このタイミングでidを元にselect、selectメソッド内で空チェックを行う予定
+        //このタイミングでidを元にselect  selectメソッド内で空チェックを行う予定
         val payers = selectData(folderid)
 
         //項目スピナー設定 ダイアログ表示、選択項目Spinnerスペースへの表示
@@ -93,14 +88,12 @@ class MoneyInsertActivity : AppCompatActivity() {
                 //ignore
             }
         }
-
         //アダプターに負担者配列リストを設定
         val Adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, payers)
         //Spinnerにアダプター設定
         payerSpinner.adapter = Adapter
         //プルダウンをクリックした時ダイアログを表示
         payerSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-
             override fun onItemSelected(
                 parent: AdapterView<*>?,
                 view: View?,
@@ -136,7 +129,6 @@ class MoneyInsertActivity : AppCompatActivity() {
                             //ignore
                             //insert処理を入れる　うまくいかない↓
                             insertPara(folderid, paraName, paraCost, payer)
-
                             //FolderCreate→Moneyの場合：startしてfinish()　　
                             // FolderDetail→MoneyInsertの場合：finish()のみ
                             //Createからの遷移の場合
@@ -185,13 +177,12 @@ class MoneyInsertActivity : AppCompatActivity() {
         drive_toolbar.setNavigationIcon(android.R.drawable.ic_delete)
         //ナビゲーションアイテムのリスナー
         drive_toolbar.setNavigationOnClickListener {
-
             // BuilderからAlertDialogを作成
             val dialog = AlertDialog.Builder(this)
                 .setTitle(R.string.finish_message) // タイトル
                 .setPositiveButton(R.string.yes) { dialog, which -> // OK
                     //moveTaskToBack(true)
-                  finish()
+                    finish()
                 }
                 .setNegativeButton(R.string.no) { dialog, which -> //no
                     Intent(this@MoneyInsertActivity, this::class.java)
@@ -200,23 +191,18 @@ class MoneyInsertActivity : AppCompatActivity() {
             // AlertDialogを表示
             dialog.show()
         }
-
-        setting.setOnClickListener {
-            val intent = Intent(this@MoneyInsertActivity, SupportActivity::class.java)
-            startActivity(intent)
-        }
     }
 
     fun selectData(
         folderid: Int
     ): ArrayList<String> {
         try {
-            val dbHelper = DriveDBHelper(this, dbName, null, dbVersion)
+            val dbHelper = DriveDBHelper(this, DB_NAME, null, DB_VERSION)
             val database = dbHelper.readableDatabase
             val values = ContentValues()
             //select文　たった今insertした内容と一致するもののfolderidのみ受け取る
             val sql =
-                "SELECT * FROM ${tableName1} WHERE folderid=${folderid}"
+                "SELECT * FROM ${FOLDER_INFO} WHERE folderid=${folderid}"
 
             //クエリ実行 cursorで結果セット受け取り
             val cursor = database.rawQuery(sql, null)
@@ -240,19 +226,19 @@ class MoneyInsertActivity : AppCompatActivity() {
         return payerList
     }//selectData閉じ
 
-    //    うまくいかないinsertPara
+    //ParagraphInfoにinsert
     fun insertPara(folderid: Int, paraName: String, paraCost: Int, payer: String) {
         try {
-            val dbHelper = ParagraphInfoDBHelper(this, dbName, null, dbVersion)
+            val dbHelper = DriveDBHelper(this, DB_NAME, null, DB_VERSION)
             val database = dbHelper.writableDatabase
             val values = ContentValues()
-            values.put("folderid", folderid) //代入したい項目,変数 とりあえずdatabaseに合わせて3
+            values.put("folderid", folderid) //最初に受け取ったfolderid
             values.put("paraName", paraName)//項目Spinnerダイアログで選択された値
             values.put("paraCost", paraCost) //入力金額
-            values.put("payer", payer)        //負担者Spinnerダイアログで選択された値
+            values.put("payer", payer)       //負担者Spinnerダイアログで選択された値
             //ParagraphInfoテーブルにinsert
-            val result = database.insertOrThrow(tableName2, null, values)
-            //resultで成功か失敗かif文判断
+            val result = database.insertOrThrow(PARAGRAPH_INFO, null, values)
+            //resultで成功か失敗かif文判断?
             //入力した中身を確認
             Log.d(
                 "insertした中身", "folderid:${folderid} paraName:${paraName} paraCost:${paraCost} " +

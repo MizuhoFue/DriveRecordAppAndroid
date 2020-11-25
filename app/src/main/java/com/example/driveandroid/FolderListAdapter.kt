@@ -1,3 +1,9 @@
+/*
+* FolderListAdapter
+* 更新者：笛木
+* 更新日：2020年11月25日
+* 内容：ViewHolder内、Detailに遷移する際に仮folderid渡し
+* */
 package com.example.driveandroid
 
 import android.content.Intent
@@ -5,11 +11,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.driveandroid.Constants.Companion.EXTRA_FOLDERID
 import kotlinx.android.synthetic.main.recyclerview_item.view.*
 
-class FolderListAdapter(private val folderList: Array<String>) :
-    RecyclerView.Adapter<FolderListAdapter.CustomViewHolder>() {
-
+//日付配列とタイトル配列を表示+Delete処理のゴミ箱imageView
+class FolderListAdapter(
+    private var dateList: ArrayList<Int>,
+    private var titleList: ArrayList<String>
+) : RecyclerView.Adapter<FolderListAdapter.CustomViewHolder>() {
     // ViewHolderクラス
     class CustomViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
         val date = view.date
@@ -27,20 +36,27 @@ class FolderListAdapter(private val folderList: Array<String>) :
 
     // recyclerViewのコンテンツのサイズ
     override fun getItemCount(): Int {
-        return folderList.size
+        return titleList.size
     }
 
     // ViewHolderに表示するテキストを挿入
     override fun onBindViewHolder(holder: CustomViewHolder, position: Int) {
-        holder.title.text = folderList[position]
-        holder.itemView.setOnClickListener(object : View.OnClickListener {
-
-            //クリック時の処理
-            override fun onClick(v: View) {
-                //ここにアイテムをクリックした際の挙動を記載
-                var context = v.context
-                context.startActivity(Intent(context, FolderDetailActivity::class.java))
-            }
-        })
+        with(holder) {
+            date.text =
+                dateList[position].toString() //positionつけたらコンパイルエラー、String型  TODO スラッシュ付けてフォーマットyyyy/MM/dd
+            title.text = titleList[position]
+            //星野さんがdeleteのリスナー書いてる
+            itemView.setOnClickListener(object : View.OnClickListener {
+                //クリック時の処理 TODO select処理実装
+                override fun onClick(v: View) {
+                    //遷移先
+                    var intent = Intent(v.context, FolderDetailActivity::class.java)
+                    //ここでfolderidをselectか何かで調べてfolderidに入れる　今は仮folderid
+                    var folderid = 17
+                    intent.putExtra(EXTRA_FOLDERID, folderid) //選択されたバーのfolderidどうやって知る？
+                    v.context.startActivity(intent)
+                }
+            })
+        }
     }
 }

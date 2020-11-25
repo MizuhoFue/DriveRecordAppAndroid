@@ -14,17 +14,15 @@ import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import com.example.driveandroid.Constants.Companion.DB_NAME
+import com.example.driveandroid.Constants.Companion.DB_VERSION
 import com.example.driveandroid.Constants.Companion.EXTRA_ACTIVITYNAME
 import com.example.driveandroid.Constants.Companion.EXTRA_FOLDERID
+import com.example.driveandroid.Constants.Companion.FOLDER_INFO
 import kotlinx.android.synthetic.main.activity_folder_create.*
 import java.text.SimpleDateFormat
 
 class FolderCreateActivity : AppCompatActivity() {
-    //DB用変数用意　ParagraphInfoテーブル操作
-    private val dbName: String = "drivedb"  //DB名
-    private val dbVersion: Int = 1  //これがいまいちわからない
-    private val tableName1: String = "FolderInfo"    //テーブル名
-
     //値を格納する変数用意
     //完全一致するものはひとつしかないと思うけれどひとまずfolderid用配列
     private var arrayFolderId: ArrayList<Int> = arrayListOf()
@@ -182,6 +180,7 @@ class FolderCreateActivity : AppCompatActivity() {
             //insertできたか確認したらたった今入れたものをセレクトという処理をいれたい if(result)?
             val result =
                 selectData(date, title, member1, member2, member3, member4, member5, member6)
+            Log.d("result", "${result}")
 
             //一個しか入らないと思うから0番目？
             folderid = result[0]
@@ -235,7 +234,7 @@ class FolderCreateActivity : AppCompatActivity() {
     ) {
         try {
             val dbHelper =
-                DriveDBHelper(this, dbName, null, dbVersion) //この時点でテーブルが作られてる
+                DriveDBHelper(this, DB_NAME, null, DB_VERSION) //この時点でテーブルが作られてる
             val database = dbHelper.writableDatabase
             val values = ContentValues()
             values.put("date", date)
@@ -247,7 +246,7 @@ class FolderCreateActivity : AppCompatActivity() {
             values.put("member5", member5)
             values.put("member6", member6)
             //クエリ実行
-            val result = database.insertOrThrow(tableName1, null, values)
+            val result = database.insertOrThrow(FOLDER_INFO, null, values)
             //入力した中身を確認
             Log.d(
                 "insertした中身", "date:${date} title:${title} member1:${member1} " +
@@ -264,14 +263,14 @@ class FolderCreateActivity : AppCompatActivity() {
         member2: String?, member3: String?, member4: String?, member5: String?, member6: String?
     ): ArrayList<Int> {
         try {
-            val dbHelper = DriveDBHelper(this, dbName, null, dbVersion)
+            val dbHelper = DriveDBHelper(this, DB_NAME, null, DB_VERSION)
             val database = dbHelper.readableDatabase
-            val values = ContentValues()
+
             //select文　たった今insertした内容と一致するもののfolderidのみ受け取る
             val sql =   //String型の変数はシングルクオテーションで囲むのを忘れずに
-                "SELECT * FROM ${tableName1} WHERE date=${date} AND title='${title}'AND member1='${member1}' AND " +
+                "SELECT * FROM ${FOLDER_INFO} WHERE date=${date} AND title='${title}'AND member1='${member1}' AND " +
                         "member2='${member2}' AND member3='${member3}' AND member4='${member4}' AND member5='${member5}' AND member6='${member6}'"
-
+            Log.d("SQL実行", sql)
             //クエリ実行 cursorで結果セット受け取り？
             val cursor = database.rawQuery(sql, null)
             if (cursor.count > 0) {
