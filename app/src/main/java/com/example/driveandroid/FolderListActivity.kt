@@ -1,8 +1,8 @@
 /*
 * 画面：フォルダ一覧 FolderList
 * 更新者：笛木
-* 更新日：2020年11月20日
-* 内容：日付、タイトルの表示処理追加
+* 更新日：2020年11月25日
+* 内容：フォーマット整理
 * */
 package com.example.driveandroid
 
@@ -22,8 +22,10 @@ class FolderListActivity : AppCompatActivity() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var viewAdapter: RecyclerView.Adapter<*>
     private lateinit var viewManager: RecyclerView.LayoutManager
+
     //DB用日付配列初期化 finish()から戻ってきた時中身が空にならない
     private var dates: ArrayList<Int> = arrayListOf()
+
     //DB用タイトル配列初期化
     private var titles: ArrayList<String> = arrayListOf()
 
@@ -32,6 +34,7 @@ class FolderListActivity : AppCompatActivity() {
         setTheme(R.style.AppTheme)
         setContentView(R.layout.activity_folder_list)
     }
+
     //Resume処理
     override fun onResume() {
         super.onResume()
@@ -58,13 +61,11 @@ class FolderListActivity : AppCompatActivity() {
             val intent = Intent(this@FolderListActivity, MapsActivity::class.java)
             startActivity(intent)
         }
-
         //サポート画面へ遷移
         setting.setOnClickListener {
             val intent = Intent(this@FolderListActivity, SupportActivity::class.java)
             startActivity(intent)
         }
-
         //フォルダ作成へ遷移　フィニッシュなし
         addFolder.setOnClickListener {
             val intent = Intent(this@FolderListActivity, FolderCreateActivity::class.java)
@@ -72,7 +73,6 @@ class FolderListActivity : AppCompatActivity() {
             startActivity(intent)
         }
     }
-
     //FolderInfoテーブルを全件セレクト　戻り値は日付配列とタイトル配列
     fun selectFolder(): Pair<ArrayList<Int>, ArrayList<String>> {
         try {
@@ -101,11 +101,6 @@ class FolderListActivity : AppCompatActivity() {
         //二つの配列を返す
         return Pair(dates, titles)//arrayFolderId
     }
-
-
-
-
-
 
 }
 

@@ -2,9 +2,9 @@
 *画面名：MoneyInsertActivity 金額入力画面　使用した金額や使用用途の入力・登録を行う　
 *整理：入力された値を変数に入れてSQL実行　一度に登録できるのは1項目
 *遷移先：FolderList,FolderDetail ダイアログで選択、登録して遷移、データベース接続
-*ボタンメモ：入力完了：id:inputComp　
+*ボタンメモ：入力完了：id:inputComp　設定:settings
 *やること:ダイアログ遷移を入れる→入力完了を押して遷移先決めたらinsert呼び出し、
-*ダイアログに「キャンセル」追加、settingがおかしい
+*ダイアログに「キャンセル」追加
 *更新者：笛木
 *更新日：2020年11月25日
 * */
@@ -27,18 +27,15 @@ import com.example.driveandroid.Constants.Companion.EXTRA_ACTIVITYNAME
 import com.example.driveandroid.Constants.Companion.EXTRA_FOLDERID
 import com.example.driveandroid.Constants.Companion.FOLDER_INFO
 import com.example.driveandroid.Constants.Companion.PARAGRAPH_INFO
-import kotlinx.android.synthetic.main.activity_folder_create.*
 import kotlinx.android.synthetic.main.activity_folder_create.drive_toolbar
 import kotlinx.android.synthetic.main.activity_money_insert.*
-import kotlinx.android.synthetic.main.activity_money_insert.setting as setting1
-
-//↑グレーアウトしている なぜ
 
 class MoneyInsertActivity : AppCompatActivity() {
 
     private var payer = ""  //負担者名、項目ごとに異なる可能性あり
     private var paraName = ""   //項目名　登録分によって複数あり
     private var paraCost = 0    //項目の金額　登録分によって複数あり
+
     // 負担者スピナーの配列　アダプター使用　
     val payerList = arrayListOf<String>()
     //カメラ準備 static役割
@@ -53,12 +50,12 @@ class MoneyInsertActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_money_insert)
-        //グレーアウトしているimportでコンパイルエラー回避中
-        setting.setOnClickListener {
+
+        //id名変えました
+        settings.setOnClickListener {
             val intent = Intent(this@MoneyInsertActivity, SupportActivity::class.java)
             startActivity(intent)
         }
-
         //FolderDetail、FolderCreateから渡されたfolderidを変数に入れる
         val intent = getIntent()
         val folderid =
@@ -70,7 +67,7 @@ class MoneyInsertActivity : AppCompatActivity() {
         Log.d("受け渡されたfolderid", "${folderid}")
         Log.d("どこから遷移", "{$fromActivity}")
 
-        //このタイミングでidを元にselect、selectメソッド内で空チェックを行う予定
+        //このタイミングでidを元にselect  selectメソッド内で空チェックを行う予定
         val payers = selectData(folderid)
 
         //項目スピナー設定 ダイアログ表示、選択項目Spinnerスペースへの表示
@@ -86,6 +83,7 @@ class MoneyInsertActivity : AppCompatActivity() {
                 paraName = spinner1?.selectedItem as? String ?: "" //nullだった場合””を入れる
                 Log.d("paraNameの値", "${paraName}")
             }
+
             override fun onNothingSelected(parent: AdapterView<*>?) {
                 //ignore
             }
@@ -107,6 +105,7 @@ class MoneyInsertActivity : AppCompatActivity() {
                 payer = spinner2?.selectedItem as? String ?: "" //nullだった場合""を入れる
                 Log.d("payerの値", "${payer}")
             }
+
             override fun onNothingSelected(parent: AdapterView<*>?) {
                 //ignore
             }

@@ -1,7 +1,7 @@
 /*画面：フォルダ詳細
-*更新日：2020年11月18日
+*更新日：2020年11月25日
 *更新者：笛木瑞歩
-*前回からの変更：18行目からMoneyInsertに受け渡す値、DBセレクトに必要な値を設定
+*前回からの変更：FolderListかMoneyInsertから渡される値をはじめに受け取る処理追加
 *ここでセレクトしたidをMoneyInsertに遷移したときに渡す
 * 戻る動作にも入れる？
 */
@@ -41,11 +41,14 @@ class FolderDetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_folder_detail)
 
-        //FolderListから渡されたfolderidを変数に入れる
+        //FolderListまたはMoneyInsertから渡されたfolderid、遷移元ファイル名を変数に入れる
         val intent = getIntent()
         val folderid =
             intent.extras?.getInt(EXTRA_FOLDERID) ?: 0 // 0の場合はMoneyInsert自体できないようにするか
-        Log.d("受け取ったfolderid","${folderid}")
+        val fromActivity =
+            intent.extras?.getString(EXTRA_ACTIVITYNAME) ?: "" //""が入る場合はエラー？
+        Log.d("どこから遷移", fromActivity)
+        Log.d("受け取ったfolderid", "${folderid}")
 
         moneyInsert.setOnClickListener {//新規追加項目ボタン押したら
             //Intent作成 FolderDetailフォルダ詳細からMoneyInsert金額入力に遷移
