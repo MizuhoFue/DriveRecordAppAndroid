@@ -9,6 +9,7 @@ package com.example.driveandroid
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.example.driveandroid.Constants.Companion.EXTRA_ACTIVITYNAME
 import com.example.driveandroid.Constants.Companion.EXTRA_FOLDERID
@@ -17,7 +18,7 @@ import kotlinx.android.synthetic.main.activity_folder_detail.*
 class FolderDetailActivity : AppCompatActivity() {
 
     //FolderDetailから送るfolderidとして仮データ代入 本来はFolderListから引っ張られてくる
-    private var folderid = 1
+    private var folderid = 0
 
     //DB用変数用意
     private var date = 2020 / 11 / 12 //日付（仮）
@@ -39,6 +40,12 @@ class FolderDetailActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_folder_detail)
+
+        //FolderListから渡されたfolderidを変数に入れる
+        val intent = getIntent()
+        val folderid =
+            intent.extras?.getInt(EXTRA_FOLDERID) ?: 0 // 0の場合はMoneyInsert自体できないようにするか
+        Log.d("受け取ったfolderid","${folderid}")
 
         moneyInsert.setOnClickListener {//新規追加項目ボタン押したら
             //Intent作成 FolderDetailフォルダ詳細からMoneyInsert金額入力に遷移

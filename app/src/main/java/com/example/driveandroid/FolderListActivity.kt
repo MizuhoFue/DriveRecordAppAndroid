@@ -101,5 +101,11 @@ class FolderListActivity : AppCompatActivity() {
         //二つの配列を返す
         return Pair(dates, titles)//arrayFolderId
     }
+
+
+
+
+
+
 }
 

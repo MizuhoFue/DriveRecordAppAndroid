@@ -1,7 +1,7 @@
 /*
 * FolderListAdapter
 * 更新者：笛木
-* 更新日：2020年11月20日
+* 更新日：2020年11月25日
 * 内容：日付、タイトルの表示処理
 * */
 package com.example.driveandroid
@@ -11,6 +11,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.driveandroid.Constants.Companion.EXTRA_FOLDERID
 import kotlinx.android.synthetic.main.recyclerview_item.view.*
 
 //日付配列とタイトル配列を表示+Delete処理のゴミ箱imageView
@@ -34,7 +35,8 @@ class FolderListAdapter(
     }
     // recyclerViewのコンテンツのサイズ
     override fun getItemCount(): Int {
-        return titleList.size   //サイズ足りる？titleが基準？
+        return titleList.size
+        return dateList.size//サイズ足りる？titleが基準？
     }
     // ViewHolderに表示するテキストを挿入
     override fun onBindViewHolder(holder: CustomViewHolder, position: Int) {
@@ -42,11 +44,14 @@ class FolderListAdapter(
             date.text = dateList[position].toString() //positionつけたらコンパイルエラー、String型
             title.text = titleList[position]
             itemView.setOnClickListener(object : View.OnClickListener {
-                //クリック時の処理 　セレクトして詳細を表示するにはここでfolderidを渡す必要あり putExtraしたい・・・
+                //クリック時の処理 　セレクトして詳細を表示するにはここでfolderidを渡す必要あり
                 override fun onClick(v: View) {
-                    //ここにアイテムをクリックした際の挙動を記載
-                    var context = v.context
-                    context.startActivity(Intent(context, FolderDetailActivity::class.java))
+                    //遷移先
+                    var intent=Intent(v.context,FolderDetailActivity::class.java)
+                    //ここでfolderidをselectか何かで調べてfolderidに入れる　今は仮folderid
+                    var folderid=17
+                    intent.putExtra(EXTRA_FOLDERID,folderid) //選択されたバーのfolderidどうやって知る？
+                    v.context.startActivity(intent)
                 }
             })
         }
