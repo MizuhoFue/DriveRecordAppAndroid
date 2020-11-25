@@ -21,9 +21,9 @@ class FolderListAdapter(
 ) : RecyclerView.Adapter<FolderListAdapter.CustomViewHolder>() {
     // ViewHolderクラス
     class CustomViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
-        var date = view.date
-        var title = view.title
-        var delete = view.delete
+        val date = view.date
+        val title = view.title
+        val delete = view.delete
     }
 
     // getItemCount onCreateViewHolder onBindViewHolderを実装
@@ -42,7 +42,8 @@ class FolderListAdapter(
     // ViewHolderに表示するテキストを挿入
     override fun onBindViewHolder(holder: CustomViewHolder, position: Int) {
         with(holder) {
-            date.text = dateList[position].toString() //positionつけたらコンパイルエラー、String型
+            date.text =
+                dateList[position].toString() //positionつけたらコンパイルエラー、String型 スラッシュ付けてフォーマットyyyy/MM/dd
             title.text = titleList[position]
             //星野さんがdeleteのリスナー書いてる
             itemView.setOnClickListener(object : View.OnClickListener {

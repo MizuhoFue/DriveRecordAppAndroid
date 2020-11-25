@@ -73,6 +73,7 @@ class FolderListActivity : AppCompatActivity() {
             startActivity(intent)
         }
     }
+
     //FolderInfoテーブルを全件セレクト　戻り値は日付配列とタイトル配列
     fun selectFolder(): Pair<ArrayList<Int>, ArrayList<String>> {
         try {
@@ -101,6 +102,4 @@ class FolderListActivity : AppCompatActivity() {
         //二つの配列を返す
         return Pair(dates, titles)//arrayFolderId
     }
-
 }
-
