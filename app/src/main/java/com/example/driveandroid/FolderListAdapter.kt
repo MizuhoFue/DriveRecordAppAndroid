@@ -43,11 +43,11 @@ class FolderListAdapter(
     override fun onBindViewHolder(holder: CustomViewHolder, position: Int) {
         with(holder) {
             date.text =
-                dateList[position].toString() //positionつけたらコンパイルエラー、String型 スラッシュ付けてフォーマットyyyy/MM/dd
+                dateList[position].toString() //positionつけたらコンパイルエラー、String型  TODO スラッシュ付けてフォーマットyyyy/MM/dd
             title.text = titleList[position]
             //星野さんがdeleteのリスナー書いてる
             itemView.setOnClickListener(object : View.OnClickListener {
-                //クリック時の処理 　セレクトして詳細を表示するにはここでfolderidを渡す必要あり
+                //クリック時の処理 TODO select処理実装
                 override fun onClick(v: View) {
                     //遷移先
                     var intent = Intent(v.context, FolderDetailActivity::class.java)
