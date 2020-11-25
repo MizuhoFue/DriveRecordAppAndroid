@@ -6,15 +6,14 @@
 * */
 package com.example.driveandroid
 
-import android.content.ContentValues
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.driveandroid.Constants.Companion.DB_NAME
 import com.example.driveandroid.Constants.Companion.DB_VERSION
-import com.example.driveandroid.Constants.Companion.EXTRA_FOLDERID
 import com.example.driveandroid.Constants.Companion.FOLDER_INFO
 import kotlinx.android.synthetic.main.activity_folder_list.*
 
@@ -23,10 +22,8 @@ class FolderListActivity : AppCompatActivity() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var viewAdapter: RecyclerView.Adapter<*>
     private lateinit var viewManager: RecyclerView.LayoutManager
-
-    //DB用日付配列初期化
+    //DB用日付配列初期化 finish()から戻ってきた時中身が空にならない
     private var dates: ArrayList<Int> = arrayListOf()
-
     //DB用タイトル配列初期化
     private var titles: ArrayList<String> = arrayListOf()
 
@@ -35,12 +32,13 @@ class FolderListActivity : AppCompatActivity() {
         setTheme(R.style.AppTheme)
         setContentView(R.layout.activity_folder_list)
     }
-
     //Resume処理
     override fun onResume() {
         super.onResume()
-
-        //ここでセレクト、戻り値を入れる
+        //中身を空にする
+        dates = arrayListOf()
+        titles = arrayListOf()
+        //FolderInfo全件セレクト
         val selectResult = selectFolder()
         //戻り値をそれぞれ配列に入れ　
         val dateList = selectResult.first
@@ -77,16 +75,17 @@ class FolderListActivity : AppCompatActivity() {
 
     //FolderInfoテーブルを全件セレクト　戻り値は日付配列とタイトル配列
     fun selectFolder(): Pair<ArrayList<Int>, ArrayList<String>> {
-
         try {
-            val dbHelper = DriveDBHelper(this, FOLDER_INFO, null, DB_VERSION)
+            val dbHelper = DriveDBHelper(this, DB_NAME, null, DB_VERSION)
             val database = dbHelper.readableDatabase
             //select文　FolderInfoテーブルセレクト
-            val sql = "SELECT date,title FROM ${FOLDER_INFO}" //sql文OK
+            val sql = "SELECT date, title FROM FolderInfo" //sql文OK
+            val cursor =
+                database.query(FOLDER_INFO, arrayOf("date", "title"), null, null, null, null, null)
+            Log.d("登録件数", "${cursor.count}")
 
             //クエリ実行 cursorで結果セット受け取り
-            val cursor = database.rawQuery(sql, null)
-            if (cursor.count > 0) { //なんでindexが0?
+            if (cursor.count > 0) {
                 Log.d("テーブルの登録件数", "${cursor.count}")
                 cursor.moveToFirst()
                 while (!cursor.isAfterLast) {

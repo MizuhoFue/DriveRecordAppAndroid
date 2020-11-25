@@ -23,7 +23,6 @@ import kotlinx.android.synthetic.main.activity_folder_create.*
 import java.text.SimpleDateFormat
 
 class FolderCreateActivity : AppCompatActivity() {
-
     //値を格納する変数用意
     //完全一致するものはひとつしかないと思うけれどひとまずfolderid用配列
     private var arrayFolderId: ArrayList<Int> = arrayListOf()
@@ -181,7 +180,7 @@ class FolderCreateActivity : AppCompatActivity() {
             //insertできたか確認したらたった今入れたものをセレクトという処理をいれたい if(result)?
             val result =
                 selectData(date, title, member1, member2, member3, member4, member5, member6)
-            Log.d("result","${result}")
+            Log.d("result", "${result}")
 
             //一個しか入らないと思うから0番目？
             folderid = result[0]
@@ -264,14 +263,14 @@ class FolderCreateActivity : AppCompatActivity() {
         member2: String?, member3: String?, member4: String?, member5: String?, member6: String?
     ): ArrayList<Int> {
         try {
-            val dbHelper = DriveDBHelper(this, FOLDER_INFO, null, DB_VERSION)
+            val dbHelper = DriveDBHelper(this, DB_NAME, null, DB_VERSION)
             val database = dbHelper.readableDatabase
 
             //select文　たった今insertした内容と一致するもののfolderidのみ受け取る
             val sql =   //String型の変数はシングルクオテーションで囲むのを忘れずに
                 "SELECT * FROM ${FOLDER_INFO} WHERE date=${date} AND title='${title}'AND member1='${member1}' AND " +
                         "member2='${member2}' AND member3='${member3}' AND member4='${member4}' AND member5='${member5}' AND member6='${member6}'"
-                Log.d("SQL実行",sql)
+            Log.d("SQL実行", sql)
             //クエリ実行 cursorで結果セット受け取り？
             val cursor = database.rawQuery(sql, null)
             if (cursor.count > 0) {

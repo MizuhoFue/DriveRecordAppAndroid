@@ -15,16 +15,15 @@ import kotlinx.android.synthetic.main.recyclerview_item.view.*
 
 //日付配列とタイトル配列を表示+Delete処理のゴミ箱imageView
 class FolderListAdapter(
-    private val dateList: ArrayList<Int>,
-    private val titleList: ArrayList<String>
-) :
-    RecyclerView.Adapter<FolderListAdapter.CustomViewHolder>() {
+    private var dateList: ArrayList<Int>,
+    private var titleList: ArrayList<String>
+) : RecyclerView.Adapter<FolderListAdapter.CustomViewHolder>() {
 
     // ViewHolderクラス
     class CustomViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
-        val date = view.date
-        val title = view.title
-        val delete = view.delete
+        var date = view.date
+        var title = view.title
+        var delete = view.delete
     }
     // getItemCount onCreateViewHolder onBindViewHolderを実装
     // 上記のViewHolderクラスを使ってViewHolderを作成
@@ -33,12 +32,10 @@ class FolderListAdapter(
         val item = layoutInflater.inflate(R.layout.recyclerview_item, parent, false)
         return CustomViewHolder(item)
     }
-
     // recyclerViewのコンテンツのサイズ
     override fun getItemCount(): Int {
         return titleList.size   //サイズ足りる？titleが基準？
     }
-
     // ViewHolderに表示するテキストを挿入
     override fun onBindViewHolder(holder: CustomViewHolder, position: Int) {
         with(holder) {
