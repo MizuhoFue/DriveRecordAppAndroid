@@ -1,31 +1,17 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?><!--フォーマット整理と不要コード削除、カメラ用コードを付け足しました。笛木より-->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.driveandroid">
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <!--新しく追加-->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
-
-    <!--カメラ用-->
-    <!--<uses-feature android:name="android.hardware.camera"
-        android:glEsVersion="0x00020000"
-        android:required="true"/>
-
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" /> <!- カメラ用 -->
+    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" /> <!-- カメラ用 -->
     <uses-feature android:name="android.hardware.camera.any" />
-
     <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> <!-- カメラ許可 -->
     <uses-feature
         android:name="android.hardware.camera"
         android:required="true" /> <!-- 端末カメラ起動 -->
-    <uses-feature
-        android:name="android.hardware.camera"
-        android:required="true" />
 
     <application
         android:allowBackup="true"
@@ -34,38 +20,41 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.example.driveandroid.MoneyInsertActivity"></activity>
-        <activity android:name="com.example.driveandroid.CameraActivity" />
+        <activity android:name=".MoneyInsertActivity" />
+        <!--カメラ保存用処理 supportとつくものは基本的に古いらしい-->
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="com.example.driveandroid"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyDg-tSWdxnQIEO0Zmg-KFITaCHTLdxQDGM" />
 
         <activity
-            android:name="com.example.driveandroid.MapsActivity"
+            android:name=".MapsActivity"
             android:label="@string/title_activity_maps" />
-
         <activity android:name=".DaoActivity" />
         <activity android:name=".FolderDetailActivity" />
         <activity android:name=".FolderListActivity" />
         <activity android:name=".SplashActivity">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
-            android:name="com.example.driveandroid.FolderCreateActivity"
+            android:name=".FolderCreateActivity"
             android:label="@string/main" />
-
-           <activity android:name=".SupportActivity"/>
-
+        <activity android:name=".SupportActivity" />
         <activity
-            android:name="com.example.driveandroid.PolicyActivity"
+            android:name=".PolicyActivity"
             android:label="@string/main" />
-
     </application>
 
 </manifest>
