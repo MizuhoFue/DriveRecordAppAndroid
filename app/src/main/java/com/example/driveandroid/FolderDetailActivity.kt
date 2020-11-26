@@ -23,7 +23,7 @@ class FolderDetailActivity : AppCompatActivity() {
     private var folderid = 0
 
     //DB用変数用意
-    private var date = "2020 / 11 / 12" //日付（仮）
+    private var date = 20201112 //日付（仮）
     private var title = "熱海旅行" //タイトル（仮）
     private var memberNum = 5    //人数（仮）
     private var member1 = ""    //メンバー名

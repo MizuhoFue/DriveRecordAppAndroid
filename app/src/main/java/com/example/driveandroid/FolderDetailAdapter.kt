@@ -70,7 +70,6 @@ class FolderDetailAdapter(private val folderDetail: Array<String>) :
         val payer_name = view.payer_name
         val payerView = view.payerView
         val trashbox = view.trashBox
-
     }
 
     // getItemCount onCreateViewHolder onBindViewHolderを実装
