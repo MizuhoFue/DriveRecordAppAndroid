@@ -79,7 +79,6 @@
                     android:text="@string/date"
                     android:textSize="24sp" />
 
-
                 <!--日付表示 -->
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/dateView"
