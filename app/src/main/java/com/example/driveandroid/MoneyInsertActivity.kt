@@ -3,7 +3,7 @@
 *整理：入力された値を変数に入れてSQL実行　一度に登録できるのは1項目
 *遷移先：FolderList,FolderDetail ダイアログで選択、登録して遷移、データベース接続
 *ボタンメモ：入力完了：id:inputComp　設定:settings
-*やること:ダイアログ遷移を入れる→入力完了を押して遷移先決めたらinsert呼び出し、
+*TODO プレースホルダー、金額入力の空白チェック・エラー処理・ダイアログ、カメラを許可しなかった場合の処理
 *ダイアログに「キャンセル」追加
 *更新者：笛木
 *更新日：2020年11月26日
@@ -72,7 +72,7 @@ class MoneyInsertActivity : AppCompatActivity() {
         //FolderDetail、FolderCreateから渡されたfolderidを変数に入れる
         val intent = getIntent()
         val folderid =
-            intent.extras?.getInt(EXTRA_FOLDERID) ?: 0 //0の場合はMoneyInsert自体できないようにするか
+            intent.extras?.getInt(EXTRA_FOLDERID) ?: -1 //0の場合はMoneyInsert自体できないようにするか
         //FolderDetail、FolderCreateのどちらから遷移したかのfromActivityを変数に入れる
         val fromActivity =
             intent.extras?.getString(EXTRA_ACTIVITYNAME) ?: "" //""が入る場合はエラー？
@@ -190,7 +190,6 @@ class MoneyInsertActivity : AppCompatActivity() {
                     grantCameraPermission()
                 }
             } ?: Toast.makeText(this, "カメラを扱うアプリがありません", Toast.LENGTH_LONG).show()
-
         }
         //タイトルラベルの左側のナビゲーションアイテムの設置
         drive_toolbar.setNavigationIcon(android.R.drawable.ic_delete)
@@ -243,7 +242,6 @@ class MoneyInsertActivity : AppCompatActivity() {
         } catch (ex: IOException) {
             null
         }
-        // Continue only if the File was successfully created
         photoFile?.also {
             val photoURI: Uri = FileProvider.getUriForFile(
                 this,
