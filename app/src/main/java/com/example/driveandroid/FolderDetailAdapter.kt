@@ -115,7 +115,6 @@ class FolderDetailAdapter(private val folderDetail: Array<String>) :
 //                    dialog.show()
 
                 }
-
             })
         }
     }

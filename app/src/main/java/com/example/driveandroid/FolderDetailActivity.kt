@@ -44,16 +44,7 @@ class FolderDetailActivity : AppCompatActivity() {
     private lateinit var viewManager: RecyclerView.LayoutManager
 
     //配列初期化
-    private var paraNames: ArrayList<String> = arrayListOf()
-    private var costNames: ArrayList<String> = arrayListOf()
-    private var paraCosts: ArrayList<Int> = arrayListOf()
-    private var total_yen: ArrayList<String> = arrayListOf()
-    private var perParson: ArrayList<String> = arrayListOf()
-    private var perParsonCosts: ArrayList<Int> = arrayListOf()
-    private var cost: ArrayList<String> = arrayListOf()
-    private var payer_name: ArrayList<String> = arrayListOf()
-    private var payers: ArrayList<String> = arrayListOf()
-    private var trashbox: ArrayList<String> = arrayListOf()
+    val ItemToUseList = ArrayList<ItemToUse>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -71,11 +62,11 @@ class FolderDetailActivity : AppCompatActivity() {
 //        val dateList = selectResult.first
 //        val titleList = selectResult.second
 
-        //ユーザーリストでデーターを追加
+        //ユーザーリストでデーターを追加、仮データ反映
         val list = Array<String>(10) { "項目" }
 
         //配列を表示させる
-        val adapter = FolderDetailAdapter(list)
+        val adapter = FolderDetailAdapter(list) //仮データ代入
         val layoutManager = LinearLayoutManager(this)
 
         // アダプターとレイアウトマネージャーをセット folderDetailはRecyclerViewのid
@@ -84,7 +75,7 @@ class FolderDetailActivity : AppCompatActivity() {
         folderDetail.setHasFixedSize(true)
 
         //FolderListまたはMoneyInsertから渡されたfolderid、遷移元ファイル名を変数に入れる
-        val intent = getIntent()
+        val intent = Intent()
         val folderid =
             intent.extras?.getInt(EXTRA_FOLDERID) ?: 0 // 0の場合はMoneyInsert自体できないようにするか
         val fromActivity =
