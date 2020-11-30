@@ -3,7 +3,7 @@
 *整理：入力された値を変数に入れてSQL実行　一度に登録できるのは1項目
 *遷移先：FolderList,FolderDetail ダイアログで選択、登録して遷移、データベース接続
 *ボタンメモ：入力完了：id:inputComp　設定:settings
-*TODO プレースホルダー、金額入力の空白チェック・エラー処理・ダイアログ、カメラを許可しなかった場合の処理
+*プレースホルダー、金額入力の空白チェック・エラー処理・ダイアログ、カメラを許可しなかった場合の処理
 *ダイアログに「キャンセル」追加
 *更新者：笛木
 *更新日：2020年11月26日
@@ -227,7 +227,7 @@ class MoneyInsertActivity : AppCompatActivity() {
         }
     }
 
-    //カメラ許可
+    //カメラ許可 TODO 許可しなかった場合の処理
     private fun checkPermission(): Boolean {
         val cameraPermission = PackageManager.PERMISSION_GRANTED ==
                 ContextCompat.checkSelfPermission(applicationContext, Manifest.permission.CAMERA)
