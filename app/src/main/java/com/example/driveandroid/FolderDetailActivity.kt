@@ -41,10 +41,10 @@ class FolderDetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_folder_detail)
 
-        //FolderListまたはMoneyInsertから渡されたfolderid、遷移元ファイル名を変数に入れる
-        val intent = getIntent()
+        //FolderListまたはMoneyInsertから渡されたfolderid、遷移元ファイル名を変数に入れる intent作らなくても受け取れた
+        //星野さんも修正しているので星野さん優先
         val folderid =
-            intent.extras?.getInt(EXTRA_FOLDERID) ?: 0 // 0の場合はMoneyInsert自体できないようにするか
+            intent.extras?.getInt(EXTRA_FOLDERID) ?: -1 // 0の場合はMoneyInsert自体できないようにするか
         val fromActivity =
             intent.extras?.getString(EXTRA_ACTIVITYNAME) ?: "" //""が入る場合はエラー？
         Log.d("どこから遷移", fromActivity)

@@ -3,10 +3,12 @@
 * 更新者：笛木
 * 更新日：2020年11月25日
 * 内容：ViewHolder内、Detailに遷移する際に仮folderid渡し
+* TODO Detailに該当値遅れているか確認
 * */
 package com.example.driveandroid
 
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,8 +18,7 @@ import kotlinx.android.synthetic.main.recyclerview_item.view.*
 
 //日付配列とタイトル配列を表示+Delete処理のゴミ箱imageView
 class FolderListAdapter(
-    private var dateList: ArrayList<Int>,
-    private var titleList: ArrayList<String>
+    private var folderList: ArrayList<FolderInfo>
 ) : RecyclerView.Adapter<FolderListAdapter.CustomViewHolder>() {
     // ViewHolderクラス
     class CustomViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
@@ -36,24 +37,23 @@ class FolderListAdapter(
 
     // recyclerViewのコンテンツのサイズ
     override fun getItemCount(): Int {
-        return titleList.size
+        return folderList.size
     }
 
     // ViewHolderに表示するテキストを挿入
     override fun onBindViewHolder(holder: CustomViewHolder, position: Int) {
         with(holder) {
             date.text =
-                dateList[position].toString() //positionつけたらコンパイルエラー、String型  TODO スラッシュ付けてフォーマットyyyy/MM/dd
-            title.text = titleList[position]
+                folderList[position].date.toString() //positionつけたらコンパイルエラー、String型  TODO スラッシュ付けてフォーマットyyyy/MM/dd
+            title.text = folderList[position].title
             //星野さんがdeleteのリスナー書いてる
             itemView.setOnClickListener(object : View.OnClickListener {
                 //クリック時の処理 TODO select処理実装
                 override fun onClick(v: View) {
+                    Log.d("positionの値","${position}")
                     //遷移先
                     var intent = Intent(v.context, FolderDetailActivity::class.java)
-                    //ここでfolderidをselectか何かで調べてfolderidに入れる　今は仮folderid
-                    var folderid = 17
-                    intent.putExtra(EXTRA_FOLDERID, folderid) //選択されたバーのfolderidどうやって知る？
+                    intent.putExtra(EXTRA_FOLDERID, position) //position=folderid なのでこれで詳細に渡す 確認ずみ
                     v.context.startActivity(intent)
                 }
             })
