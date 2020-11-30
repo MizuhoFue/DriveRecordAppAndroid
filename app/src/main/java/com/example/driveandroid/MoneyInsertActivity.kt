@@ -72,7 +72,7 @@ class MoneyInsertActivity : AppCompatActivity() {
         //FolderDetail、FolderCreateから渡されたfolderidを変数に入れる
         val intent = getIntent()
         val folderid =
-            intent.extras?.getInt(EXTRA_FOLDERID) ?: -1 //0の場合はMoneyInsert自体できないようにするか
+            intent.extras?.getInt(EXTRA_FOLDERID) ?: -1 //-1の場合はエラーを出す
         //FolderDetail、FolderCreateのどちらから遷移したかのfromActivityを変数に入れる
         val fromActivity =
             intent.extras?.getString(EXTRA_ACTIVITYNAME) ?: "" //""が入る場合はエラー？
