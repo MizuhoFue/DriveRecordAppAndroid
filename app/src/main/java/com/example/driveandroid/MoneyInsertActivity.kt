@@ -3,24 +3,34 @@
 *整理：入力された値を変数に入れてSQL実行　一度に登録できるのは1項目
 *遷移先：FolderList,FolderDetail ダイアログで選択、登録して遷移、データベース接続
 *ボタンメモ：入力完了：id:inputComp　設定:settings
-*やること:ダイアログ遷移を入れる→入力完了を押して遷移先決めたらinsert呼び出し、
+*プレースホルダー、金額入力の空白チェック・エラー処理・ダイアログ、カメラを許可しなかった場合の処理
 *ダイアログに「キャンセル」追加
 *更新者：笛木
-*更新日：2020年11月25日
+*更新日：2020年11月26日
 * */
 package com.example.driveandroid
 
+import android.Manifest
+import android.app.Activity
 import android.content.ContentValues
 import android.content.DialogInterface
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Bundle
+import android.os.Environment
+import android.provider.MediaStore
 import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Spinner
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
+import androidx.core.content.FileProvider
 import com.example.driveandroid.Constants.Companion.DB_NAME
 import com.example.driveandroid.Constants.Companion.DB_VERSION
 import com.example.driveandroid.Constants.Companion.EXTRA_ACTIVITYNAME
@@ -29,6 +39,10 @@ import com.example.driveandroid.Constants.Companion.FOLDER_INFO
 import com.example.driveandroid.Constants.Companion.PARAGRAPH_INFO
 import kotlinx.android.synthetic.main.activity_folder_create.drive_toolbar
 import kotlinx.android.synthetic.main.activity_money_insert.*
+import java.io.File
+import java.io.IOException
+import java.text.SimpleDateFormat
+import java.util.*
 
 class MoneyInsertActivity : AppCompatActivity() {
 
@@ -38,20 +52,19 @@ class MoneyInsertActivity : AppCompatActivity() {
 
     // 負担者スピナーの配列　アダプター使用　
     val payerList = arrayListOf<String>()
-    //カメラ準備 static役割
-    //companion object {
-    //const val CAMERA_REQUEST_CODE = 1
-    //const val CAMERA_PERMISSION_REQUEST_CODE = 2
-    //}
-    // private var <> Array<payerSpinner>.onItemSelectedListener: AdapterView.OnItemSelectedListener
-    //    get() {}
-    //    set() {}
+
+    //カメラ許可用コード準備
+    companion object {
+        const val CAMERA_REQUEST_CODE = 1
+        const val CAMERA_PERMISSION_REQUEST_CODE = 2
+    }
+
+    lateinit var currentPhotoPath: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_money_insert)
 
-        //id名変えました
         settings.setOnClickListener {
             val intent = Intent(this@MoneyInsertActivity, SupportActivity::class.java)
             startActivity(intent)
@@ -59,7 +72,7 @@ class MoneyInsertActivity : AppCompatActivity() {
         //FolderDetail、FolderCreateから渡されたfolderidを変数に入れる
         val intent = getIntent()
         val folderid =
-            intent.extras?.getInt(EXTRA_FOLDERID) ?: 0 //valでいいのか？ 0の場合はMoneyInsert自体できないようにするか
+            intent.extras?.getInt(EXTRA_FOLDERID) ?: -1 //0の場合はMoneyInsert自体できないようにするか
         //FolderDetail、FolderCreateのどちらから遷移したかのfromActivityを変数に入れる
         val fromActivity =
             intent.extras?.getString(EXTRA_ACTIVITYNAME) ?: "" //""が入る場合はエラー？
@@ -92,6 +105,7 @@ class MoneyInsertActivity : AppCompatActivity() {
         val Adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, payers)
         //Spinnerにアダプター設定
         payerSpinner.adapter = Adapter
+
         //プルダウンをクリックした時ダイアログを表示
         payerSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
@@ -166,13 +180,17 @@ class MoneyInsertActivity : AppCompatActivity() {
         //
         //            }
 
-        //カメラボタンをクリックするとCameraActivityに遷移
+        //カメラボタンをクリックするとそのままカメラ起動
         camera.setOnClickListener {
-            val intentCamera = Intent(this@MoneyInsertActivity, CameraActivity::class.java)
-            startActivity(intentCamera)
-            //フィニッシュせずに遷移
+            // カメラ機能を実装したアプリが存在するかチェック
+            Intent(MediaStore.ACTION_IMAGE_CAPTURE).resolveActivity(packageManager)?.let {
+                if (checkPermission()) {
+                    takePicture()
+                } else {
+                    grantCameraPermission()
+                }
+            } ?: Toast.makeText(this, "カメラを扱うアプリがありません", Toast.LENGTH_LONG).show()
         }
-
         //タイトルラベルの左側のナビゲーションアイテムの設置
         drive_toolbar.setNavigationIcon(android.R.drawable.ic_delete)
         //ナビゲーションアイテムのリスナー
@@ -193,7 +211,96 @@ class MoneyInsertActivity : AppCompatActivity() {
         }
     }
 
-    fun selectData(
+    /////////カメラ用メソッド////////////////////////////
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == CAMERA_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
+            Log.d("メッセージ", "カメラ保存できた")
+
+            val contentValues = ContentValues().apply {
+                put(MediaStore.Images.Media.MIME_TYPE, "image/jpeg")
+                put("_data", currentPhotoPath)
+            }
+            contentResolver.insert(
+                MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues
+            )
+        }
+    }
+
+    //カメラ許可 TODO 許可しなかった場合の処理
+    private fun checkPermission(): Boolean {
+        val cameraPermission = PackageManager.PERMISSION_GRANTED ==
+                ContextCompat.checkSelfPermission(applicationContext, Manifest.permission.CAMERA)
+        val extraStoragePermission = PackageManager.PERMISSION_GRANTED ==
+                ContextCompat.checkSelfPermission(applicationContext, Manifest.permission.CAMERA)
+        return cameraPermission && extraStoragePermission
+    }
+
+    private fun takePicture() {
+        val photoFile: File? = try {
+            createImageFile()
+        } catch (ex: IOException) {
+            null
+        }
+        photoFile?.also {
+            val photoURI: Uri = FileProvider.getUriForFile(
+                this,
+                "com.example.driveandroid",
+                it
+            )
+            val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE).apply {
+                addCategory(Intent.CATEGORY_DEFAULT)
+                putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
+            }
+            startActivityForResult(intent, CAMERA_REQUEST_CODE)
+        }
+    }
+
+    private fun grantCameraPermission() =
+        ActivityCompat.requestPermissions(
+            this,
+            arrayOf(Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE),
+            CAMERA_PERMISSION_REQUEST_CODE
+        )
+
+    private fun createImageFile(): File {
+        val timeStamp = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.JAPAN).format(Date())
+        val imageFileName = "JPEG_${timeStamp}_"
+        val storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES)
+        return File.createTempFile(imageFileName, ".jpg", storageDir).apply {
+            currentPhotoPath = absolutePath
+        }
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        var isGranted = true
+        if (requestCode == MoneyInsertActivity.CAMERA_PERMISSION_REQUEST_CODE) {
+            if (grantResults.isNotEmpty()) {
+                grantResults.forEach {
+                    if (it != PackageManager.PERMISSION_GRANTED) {
+                        isGranted = false
+                    }
+                }
+            } else {
+                isGranted = false
+            }
+        } else {
+            isGranted = false
+        }
+
+        if (isGranted) {
+            takePicture()
+        } else {
+            grantCameraPermission()
+        }
+    }
+
+    /////////////////カメラ用メソッド終わり/////////////////////////////////////
+    fun selectData( // TODO FolderInfoデータクラスを使ってhelperにまとめる
         folderid: Int
     ): ArrayList<String> {
         try {
@@ -226,7 +333,7 @@ class MoneyInsertActivity : AppCompatActivity() {
         return payerList
     }//selectData閉じ
 
-    //ParagraphInfoにinsert
+    //ParagraphInfoにinsert TODO ParagraphInfoデータクラスを使ってコンパクトに helperにまとめる
     fun insertPara(folderid: Int, paraName: String, paraCost: Int, payer: String) {
         try {
             val dbHelper = DriveDBHelper(this, DB_NAME, null, DB_VERSION)
@@ -249,4 +356,3 @@ class MoneyInsertActivity : AppCompatActivity() {
         }
     }
 }
-////////////////////////////メモ↓//////////////////////////////////////////////////////////////////////////////////
