@@ -88,19 +88,18 @@ class FolderDetailAdapter(private val folderDetail: Array<String>) :
     // ViewHolderに表示するテキストを挿入
     override fun onBindViewHolder(holder: CustomViewHolder, position: Int) {
         with(holder) {
-            paraName.text = folderDetail[position].toString()
-            cost_name.text = folderDetail[position].toString()
-            paracostView.text = folderDetail[position].toString()
-            total_yen.text = folderDetail[position].toString()
-            perPerson.text = folderDetail[position].toString()
-            perPerson_costView.text = folderDetail[position].toString()
-            yen.text = folderDetail[position].toString()
-            payer_name.text = folderDetail[position].toString()
-            payerView.text = folderDetail[position].toString()
+            paraName.text = folderDetail[position]
+            cost_name.text = folderDetail[position]
+            paracostView.text = folderDetail[position]
+            total_yen.text = folderDetail[position]
+            perPerson.text = folderDetail[position]
+            perPerson_costView.text = folderDetail[position]
+            yen.text = folderDetail[position]
+            payer_name.text = folderDetail[position]
+            payerView.text = folderDetail[position]
             trashbox.setOnClickListener(object : View.OnClickListener {
                 override fun onClick(v: View?) {
-
-                    //削除処理
+                    //TODO削除処理
 //                    // BuilderからAlertDialogを作成
 //                    val dialog = AlertDialog.Builder(this)
 //                        .setTitle(R.string.finish_message) // タイトル
@@ -113,7 +112,6 @@ class FolderDetailAdapter(private val folderDetail: Array<String>) :
 //                        .create()
 //                    // AlertDialogを表示
 //                    dialog.show()
-
                 }
             })
         }

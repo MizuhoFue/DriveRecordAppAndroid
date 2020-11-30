@@ -67,69 +67,84 @@
 
         </RelativeLayout>
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_height="wrap_content">
 
             <!--1人当たり-->
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/perParson"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="50dp"
                 android:layout_marginEnd="35dp"
                 android:gravity="center"
                 android:text="@string/perParson"
                 android:textSize="20sp" />
 
-            <!--1人当たり金額表示-->
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/perParson_costView"
+            <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginEnd="50dp"
-                android:gravity="center"
-                android:textSize="20sp"
-                tools:text="金額表示" />
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:orientation="horizontal">
 
-            <!--円-->
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/yen"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:text="@string/yen"
-                android:textSize="20sp" />
+                <!--1人当たり金額表示-->
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/perParson_costView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="20dp"
+                    android:gravity="center"
+                    android:textSize="20sp"
+                    tools:text="金額表示" />
 
-        </LinearLayout>
+                <!--円-->
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/yen"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="10dp"
+                    android:gravity="center"
+                    android:text="@string/yen"
+                    android:textSize="20sp" />
 
-        <LinearLayout
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_height="wrap_content">
 
             <!--負担者-->
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/payer_name"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="50dp"
                 android:layout_marginEnd="70dp"
                 android:gravity="center"
                 android:text="@string/payer_name"
                 android:textSize="20sp" />
 
-            <!--負担者表示-->
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/payerView"
+            <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginEnd="50dp"
-                android:textSize="20sp"
-                tools:text="負担者表示" />
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:orientation="horizontal">
 
-        </LinearLayout>
+                <!--負担者表示-->
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/payerView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="10dp"
+                    android:textSize="20sp"
+                    tools:text="負担者表示" />
+
+            </LinearLayout>
+
+        </RelativeLayout>
 
     </LinearLayout>
 

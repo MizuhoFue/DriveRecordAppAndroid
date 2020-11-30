@@ -48,7 +48,6 @@ class FolderDetailActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setTheme(R.style.AppTheme)
         setContentView(R.layout.activity_folder_detail)
     }
 
@@ -75,9 +74,8 @@ class FolderDetailActivity : AppCompatActivity() {
         folderDetail.setHasFixedSize(true)
 
         //FolderListまたはMoneyInsertから渡されたfolderid、遷移元ファイル名を変数に入れる
-        val intent = Intent()
         val folderid =
-            intent.extras?.getInt(EXTRA_FOLDERID) ?: 0 // 0の場合はMoneyInsert自体できないようにするか
+            intent.extras?.getInt(EXTRA_FOLDERID) ?: -1 // 0だと0番目の配列と被るため-1に設定
         val fromActivity =
             intent.extras?.getString(EXTRA_ACTIVITYNAME) ?: "" //""が入る場合はエラー？
         Log.d("どこから遷移", fromActivity)
@@ -103,5 +101,4 @@ class FolderDetailActivity : AppCompatActivity() {
             finish()
         }
     }
-
 }

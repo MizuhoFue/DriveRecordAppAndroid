@@ -256,7 +256,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="70dp"
-                android:layout_marginBottom="100dp"
+                android:layout_marginBottom="150dp"
                 android:scrollbars="vertical" />
 
             <androidx.appcompat.widget.AppCompatButton
@@ -264,7 +264,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="50dp"
                 android:text="@string/money_insert" />
 
             <LinearLayout
