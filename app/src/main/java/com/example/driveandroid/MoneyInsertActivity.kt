@@ -149,8 +149,9 @@ class MoneyInsertActivity : AppCompatActivity() {
                             if (fromActivity.equals(FolderCreateActivity::class.java.simpleName)) {
                                 val intent = Intent(
                                     this@MoneyInsertActivity,
-                                    FolderDetailActivity::class.java
-                                )
+                                    FolderDetailActivity::class.java)
+                                intent.putExtra(EXTRA_FOLDERID,folderid)
+                                intent.putExtra(EXTRA_ACTIVITYNAME,MoneyInsertActivity::class.java.simpleName)
                                 startActivity(intent)
                                 finish()
                             } else {    //Detailから遷移の場合
