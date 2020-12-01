@@ -127,22 +127,15 @@
                 android:text="@string/payer_name"
                 android:textSize="20sp" />
 
-            <LinearLayout
+            <!--負担者表示-->
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/payerView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
-                android:orientation="horizontal">
-
-                <!--負担者表示-->
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/payerView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginEnd="10dp"
-                    android:textSize="20sp"
-                    tools:text="負担者表示" />
-
-            </LinearLayout>
+                android:layout_marginEnd="10dp"
+                android:textSize="20sp"
+                tools:text="負担者表示" />
 
         </RelativeLayout>
 
