@@ -251,135 +251,19 @@
                 android:text="@string/paragraph_used"
                 android:textSize="24sp" />
 
-            <!--使用項目名表示-->
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/paraName"
-                android:layout_width="wrap_content"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/folderDetail"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="50dp"
-                android:layout_marginTop="35dp"
-                android:gravity="center"
-                android:textSize="22sp"
-                tools:text="使用項目" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:layout_marginTop="10dp"
-                android:orientation="horizontal">
-
-                <!--金額-->
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/cost_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginStart="50dp"
-                    android:layout_marginEnd="85dp"
-                    android:gravity="center"
-                    android:text="@string/cost_name"
-                    android:textSize="20sp" />
-
-                <!--金額表示-->
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/paracostView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginEnd="50dp"
-                    android:gravity="center"
-                    android:textSize="20sp"
-                    tools:text="金額表示" />
-
-                <!--円-->
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:text="@string/yen"
-                    android:textSize="20sp" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:layout_marginTop="10dp"
-                android:orientation="horizontal">
-
-                <!--1人当たり-->
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/perParson"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginStart="50dp"
-                    android:layout_marginEnd="35dp"
-                    android:gravity="center"
-                    android:text="@string/perParson"
-                    android:textSize="20sp" />
-
-                <!--1人当たり金額表示-->
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/perParson_costView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginEnd="50dp"
-                    android:gravity="center"
-                    android:textSize="20sp"
-                    tools:text="金額表示" />
-
-                <!--円-->
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/yen"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:text="@string/yen"
-                    android:textSize="20sp" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:layout_marginTop="10dp"
-                android:orientation="horizontal">
-
-                <!--負担者-->
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginStart="50dp"
-                    android:layout_marginEnd="70dp"
-                    android:gravity="center"
-                    android:text="@string/payer_name"
-                    android:textSize="20sp" />
-
-                <!--負担者表示-->
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/payerView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginEnd="50dp"
-                    android:textSize="20sp"
-                    tools:text="負担者表示" />
-
-            </LinearLayout>
-
-            <!--ゴミ箱ボタン-->
-            <androidx.appcompat.widget.AppCompatImageButton
-                android:id="@+id/trashBox"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_marginStart="340dp"
-                android:background="@null"
-                android:src="@drawable/trashbox_mdpi" />
-
+                android:layout_marginTop="70dp"
+                android:layout_marginBottom="150dp"
+                android:scrollbars="vertical" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/moneyInsert"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="50dp"
                 android:text="@string/money_insert" />
 
             <LinearLayout

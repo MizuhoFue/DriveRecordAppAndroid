@@ -1,9 +1,8 @@
 /*FolderCreateActivity フォルダ作成画面
 * folderid　一列登録した情報　全一致のものをセレクトして配列に入れた上でidだけMoneyInsertActivityに送る
 * 日付は入力した時点でフォーマットをかけてinsert フォーマットはyyyy/MM/dd ボタンダイアログは画面左上ツールバーで×を押すと破棄してホームに戻るか聞くもの
-* タスク：文字数入力チェックを入れる→関数化試み中だが後回し
-* ?：
-* 更新日2020年11月24日
+* タスク：文字数入力チェックを入れる DatePickerを入れる
+* 更新日2020年12月1日
 * 更新者：笛木
 * */
 package com.example.driveandroid
@@ -20,12 +19,18 @@ import com.example.driveandroid.Constants.Companion.EXTRA_ACTIVITYNAME
 import com.example.driveandroid.Constants.Companion.EXTRA_FOLDERID
 import com.example.driveandroid.Constants.Companion.FOLDER_INFO
 import kotlinx.android.synthetic.main.activity_folder_create.*
-import java.text.SimpleDateFormat
 
 class FolderCreateActivity : AppCompatActivity() {
-    //値を格納する変数用意
-    //完全一致するものはひとつしかないと思うけれどひとまずfolderid用配列
+
+    //DB用変数用意　ParagraphInfoテーブル操作
+    private val dbName: String = "drivedb"  //DB名
+    private val dbVersion: Int = 1  //これがいまいちわからない
+    private val tableName1: String = "FolderInfo"    //テーブル名
+
+    //セレクトメソッド戻り値用
     private var arrayFolderId: ArrayList<Int> = arrayListOf()
+
+    //値を格納する変数用意
     private var folderid = 0 //セレクトした後に入れる
     private var title = "" //タイトル
     private var date = 0 //日付　
@@ -37,10 +42,11 @@ class FolderCreateActivity : AppCompatActivity() {
     private var member6 = ""
     private var memberNum = 0
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_folder_create)
-        //歯車
+
         setting.setOnClickListener {
             val intent = Intent(this@FolderCreateActivity, SupportActivity::class.java)
             startActivity(intent)
@@ -50,11 +56,11 @@ class FolderCreateActivity : AppCompatActivity() {
         drive_toolbar.setNavigationIcon(android.R.drawable.ic_delete)
         //ナビゲーションアイテムのリスナー
         drive_toolbar.setNavigationOnClickListener {
+
             // BuilderからAlertDialogを作成
             val dialog = AlertDialog.Builder(this)
                 .setTitle(R.string.finish_message) // タイトル
                 .setPositiveButton(R.string.yes) { dialog, which -> // OK
-                    //moveTaskToBack(true)
                     finish()
                 }
                 .setNegativeButton(R.string.no) { dialog, which -> //no
@@ -65,13 +71,10 @@ class FolderCreateActivity : AppCompatActivity() {
             dialog.show()
         }
 
-        //memberNumをtextwatchで数えて表示する処理をいれる
-        //textWatcherにこれを入れると入力時すぐにフォーマットできる？余裕があったらやる　
-        val form = SimpleDateFormat("yyyy/MM/dd")
-        //memberNumをtextWatcherで数えて表示する処理をいれる
-
+        //TODO memberNumをtextwatchで数えて表示する処理をいれる
         //入力完了が押されたらinsert、値受け渡しの必要はないのでホームのフォルダーListに戻る
         createEnd.setOnClickListener {
+
             //checkData的なメソッドでまとめたい
             //checkDate(putDate,putTitle,putMember1,putMember2,putMember3,putMember4,putMember5,putMember6)
             if (!putDate.text.isNullOrEmpty()) {
@@ -127,7 +130,6 @@ class FolderCreateActivity : AppCompatActivity() {
         //金額入力が押されたら入力チェック、insert、selectしたものを配列に入れる、
         money.setOnClickListener {
             //入力チェック、エラーがある場合はダイアログ表示
-            //まずinsertする ひとまず仮をいれておく
 
             //空チェックして各変数にいれる　ログで確認　関数にしたいがid.textの型がいまいちわからないので引数設定が難しそう
             //日付が空じゃない場合dateに入れる
@@ -184,8 +186,8 @@ class FolderCreateActivity : AppCompatActivity() {
 
             //一個しか入らないと思うから0番目？
             folderid = result[0]
-            Log.d("folderidの値確認", "${folderid}")
 
+            Log.d("folderidの値確認", "${folderid}")
             val intent = Intent(this@FolderCreateActivity, MoneyInsertActivity::class.java)
             //idとActivity名をMoneyInsertに送る
             intent.putExtra(EXTRA_FOLDERID, folderid)
@@ -281,7 +283,6 @@ class FolderCreateActivity : AppCompatActivity() {
                     cursor.moveToNext()
                 }
             }
-            //folderidを取り出して変数に代入　どうやる
 
         } catch (exception: Exception) {
             Log.e("SelectData", exception.toString())
@@ -290,4 +291,5 @@ class FolderCreateActivity : AppCompatActivity() {
         return arrayFolderId
     }//selectData閉じ
 }
+
 
