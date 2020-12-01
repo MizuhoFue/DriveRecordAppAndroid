@@ -92,6 +92,7 @@ class FolderListActivity : AppCompatActivity() {
                     cursor.moveToNext()
                 }
             }
+            cursor.close()
             return folderList
         } catch (exception: Exception) {
             Log.e("SelectData", exception.toString())
