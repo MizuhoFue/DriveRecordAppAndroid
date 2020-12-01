@@ -26,7 +26,6 @@ class FolderCreateActivity : AppCompatActivity() {
     private val dbName: String = "drivedb"  //DB名
     private val dbVersion: Int = 1  //これがいまいちわからない
     private val tableName1: String = "FolderInfo"    //テーブル名
-
     //セレクトメソッド戻り値用
     private var arrayFolderId: ArrayList<Int> = arrayListOf()
 
@@ -283,7 +282,6 @@ class FolderCreateActivity : AppCompatActivity() {
                     cursor.moveToNext()
                 }
             }
-
         } catch (exception: Exception) {
             Log.e("SelectData", exception.toString())
         }
