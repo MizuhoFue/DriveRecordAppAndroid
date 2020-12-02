@@ -67,7 +67,7 @@ class FolderCreateActivity : AppCompatActivity() {
 
         //日付入力DatePicker
         datePick.setOnClickListener {
-            //現在の年月日を求めて初期値とする 
+            //現在の年月日を求めて初期値とする
             val onlyDate = LocalDate.now()
             Log.d("今の年月日", "$onlyDate")
             val datePickerDialog = DatePickerDialog(
@@ -263,7 +263,7 @@ class FolderCreateActivity : AppCompatActivity() {
     /**insertData FolderInfo insert用メソッド
      * @param insertInfo 入力項目
      */
-    fun insertData(
+   private fun insertData(
         insertInfo: InsertArray
     ) {
         try {
@@ -295,7 +295,7 @@ class FolderCreateActivity : AppCompatActivity() {
     /**selectData FolderInfo idをselect用メソッド
      * @param insertInfo insertしたばかりの入力項目
      * */
-    fun selectData(
+   private fun selectData(
         insertInfo: InsertArray
     ): ArrayList<Int> {
         try {
