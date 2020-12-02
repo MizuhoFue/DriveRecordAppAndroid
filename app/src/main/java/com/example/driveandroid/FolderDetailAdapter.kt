@@ -57,7 +57,6 @@ import kotlinx.android.synthetic.main.item_to_use.view.*
 class FolderDetailAdapter(private val folderDetail: Array<String>) :
 
     RecyclerView.Adapter<FolderDetailAdapter.CustomViewHolder>() {
-
     // ViewHolderクラス
     class CustomViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
         val paraName = view.paraName

@@ -85,7 +85,7 @@ class FolderDetailActivity : AppCompatActivity() {
             //Intent作成 FolderDetailフォルダ詳細からMoneyInsert金額入力に遷移
             val intent = Intent(this@FolderDetailActivity, MoneyInsertActivity::class.java)
             //このフォルダの追加項目なのでfolderidをMoneyInsertへ　finish処理用にActivity名も送る
-            //           intent.putExtra(EXTRA_FOLDERID, folderid)
+            intent.putExtra(EXTRA_FOLDERID, folderid)
             intent.putExtra(EXTRA_ACTIVITYNAME, this::class.java.simpleName)
             startActivity(intent)
             //クリアタスク、フィニッシュなし・MoneyInsertで戻るボタンを押すと再び詳細が確認できるようになっている

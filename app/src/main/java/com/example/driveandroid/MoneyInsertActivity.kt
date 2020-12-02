@@ -4,9 +4,9 @@
 *遷移先：FolderList,FolderDetail ダイアログで選択、登録して遷移、データベース接続
 *ボタンメモ：入力完了：id:inputComp　設定:settings
 *プレースホルダー、金額入力の空白チェック・エラー処理・ダイアログ、カメラを許可しなかった場合の処理
-*ダイアログに「キャンセル」追加
+*今回はリフォーマットの修正のみ、変数整理は他のブランチで行う
 *更新者：笛木
-*更新日：2020年11月26日
+*更新日：2020年12月2日
 * */
 package com.example.driveandroid
 
@@ -72,11 +72,10 @@ class MoneyInsertActivity : AppCompatActivity() {
         //FolderDetail、FolderCreateから渡されたfolderidを変数に入れる
         val intent = getIntent()
         val folderid =
-            intent.extras?.getInt(EXTRA_FOLDERID) ?: -1 //0の場合はMoneyInsert自体できないようにするか
+            intent.extras?.getInt(EXTRA_FOLDERID) ?: -1 //-1の場合はエラーを出す
         //FolderDetail、FolderCreateのどちらから遷移したかのfromActivityを変数に入れる
         val fromActivity =
             intent.extras?.getString(EXTRA_ACTIVITYNAME) ?: "" //""が入る場合はエラー？
-
         Log.d("受け渡されたfolderid", "${folderid}")
         Log.d("どこから遷移", "{$fromActivity}")
 
@@ -124,7 +123,6 @@ class MoneyInsertActivity : AppCompatActivity() {
                 //ignore
             }
         }
-
         //入力完了を押した際にダイアログを表示
         inputComp.setOnClickListener {//押したら
             Log.d("inputClick", "${paragraphSpinner}")
@@ -150,6 +148,10 @@ class MoneyInsertActivity : AppCompatActivity() {
                                 val intent = Intent(
                                     this@MoneyInsertActivity,
                                     FolderDetailActivity::class.java
+                                )
+                                intent.putExtra(EXTRA_FOLDERID, folderid)
+                                intent.putExtra(
+                                    EXTRA_ACTIVITYNAME, MoneyInsertActivity::class.java.simpleName
                                 )
                                 startActivity(intent)
                                 finish()
@@ -326,6 +328,7 @@ class MoneyInsertActivity : AppCompatActivity() {
                     cursor.moveToNext()
                 }
             }
+            cursor.close()
         } catch (exception: Exception) {
             Log.e("SelectData", exception.toString())
         }

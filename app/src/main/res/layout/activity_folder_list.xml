@@ -48,8 +48,9 @@
 
     </androidx.appcompat.widget.Toolbar>
 
+    <!--配列名と区別するためidを変えました-->
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/folderList"
+        android:id="@+id/folderListView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="70dp"
