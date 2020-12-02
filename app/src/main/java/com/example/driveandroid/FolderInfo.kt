@@ -1,4 +1,4 @@
-//FolderInfoデータクラス
+//FolderInfoデータクラスfolderidをnullableにする？
 package com.example.driveandroid
 
 data class FolderInfo(
