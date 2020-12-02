@@ -1,12 +1,13 @@
 /*FolderCreateActivity フォルダ作成画面
 * folderid　一列登録した情報　全一致のものをセレクトして配列に入れた上でidだけMoneyInsertActivityに送る
-* 日付は入力した時点でフォーマットをかけてinsert フォーマットはyyyy/MM/dd ボタンダイアログは画面左上ツールバーで×を押すと破棄してホームに戻るか聞くもの
-* タスク：文字数入力チェックを入れる DatePickerを入れる
-* 更新日2020年12月1日
+* タスク：文字数入力チェックを入れる DatePickerを入れる→数字のままでひとまず登録はできる状態 ListでStringにしてからsubStringでどうにかする？
+* insert周りをデータクラス使って整理
+* 更新日2020年12月2日
 * 更新者：笛木
 * */
 package com.example.driveandroid
 
+import android.app.DatePickerDialog
 import android.content.ContentValues
 import android.content.Intent
 import android.os.Bundle
@@ -19,6 +20,7 @@ import com.example.driveandroid.Constants.Companion.EXTRA_ACTIVITYNAME
 import com.example.driveandroid.Constants.Companion.EXTRA_FOLDERID
 import com.example.driveandroid.Constants.Companion.FOLDER_INFO
 import kotlinx.android.synthetic.main.activity_folder_create.*
+import java.time.LocalDate
 
 class FolderCreateActivity : AppCompatActivity() {
 
@@ -28,8 +30,22 @@ class FolderCreateActivity : AppCompatActivity() {
     private val tableName1: String = "FolderInfo"    //テーブル名
     //セレクトメソッド戻り値用
     private var arrayFolderId: ArrayList<Int> = arrayListOf()
+    //insert、selectの引数用
+    data class insertArray(
+        val date: Int,
+        val title: String,
+        val member1: String,
+        val member2: String?,
+        val member3: String?,
+        val member4: String?,
+        val member5: String?,
+        val member6: String?
+    )
+    //データクラスを使ってinsertInfoにまとめる　初期化？をしている
+    private var insertInfo =
+        insertArray(0, "", "", null, null, null, null, null)
 
-    //値を格納する変数用意
+    //入力した値を格納する変数用意 最終的にデータクラスにまとめる
     private var folderid = 0 //セレクトした後に入れる
     private var title = "" //タイトル
     private var date = 0 //日付　
@@ -39,8 +55,12 @@ class FolderCreateActivity : AppCompatActivity() {
     private var member4 = ""
     private var member5 = ""
     private var member6 = ""
-    private var memberNum = 0
+    private var memberNum = 0 //textwatcher用
 
+    //DatePicker用変数仮
+    private var dateYear = 0
+    private var dateMonth = 0
+    private var dateDayOfMonth = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,6 +69,24 @@ class FolderCreateActivity : AppCompatActivity() {
         setting.setOnClickListener {
             val intent = Intent(this@FolderCreateActivity, SupportActivity::class.java)
             startActivity(intent)
+        }
+
+        //タップした時の年月日を表示
+        datePick.setOnClickListener {
+            //現在の年月日を求めて初期値とする yearNow、monthNow、dateNow
+            val onlyDate = LocalDate.now()
+            Log.d("今の年月日", "${onlyDate}")
+            val datePickerDialog = DatePickerDialog(
+                this,
+                DatePickerDialog.OnDateSetListener() { view, year, month, dayOfMonth ->
+                    datePick.text = "${year}/${month + 1}/${dayOfMonth}" //ボタンのところに表示
+                    dateYear = year
+                    dateMonth = month + 1
+                    dateDayOfMonth = dayOfMonth
+                    Log.d("選択した年月日", "${dateYear},${dateMonth},${dateDayOfMonth}")
+                }, onlyDate.year, onlyDate.monthValue - 1, onlyDate.dayOfMonth //
+            )
+            datePickerDialog.show()
         }
 
         //タイトルラベルの左側のナビゲーションアイテムの設置
@@ -76,28 +114,30 @@ class FolderCreateActivity : AppCompatActivity() {
 
             //checkData的なメソッドでまとめたい
             //checkDate(putDate,putTitle,putMember1,putMember2,putMember3,putMember4,putMember5,putMember6)
-            if (!putDate.text.isNullOrEmpty()) {
-                date = putDate.text.toString().toInt()
-                Log.d("日付の値", "${date}")
+            //DatePickerで入力されたものをDB登録用変数に入れる 文字列で足してInt型にキャストすればデータベースに影響はなし folderListのこれ！にそれぞれ入れたい・・・
+            if (dateYear != 0 && dateMonth != 0 && dateDayOfMonth != 0) {//ちゃんと日付選択されているならば
+                val strDate = "${dateYear}" + "${dateMonth}" + "${dateDayOfMonth}"
+                date = Integer.parseInt(strDate)
+                Log.d("数字にできたか確認", "${insertInfo.date}")
             }
 
             if (!putTitle.text.isNullOrEmpty()) {
                 title = putTitle.text.toString()
-                Log.d("タイトル名", "${title}")
+                Log.d("タイトル名", "${insertInfo.title}")
             }
 
             if (!putMember1.text.isNullOrEmpty()) {
                 member1 = putMember1.text.toString()
-                Log.d("メンバー1", "${member1}")
+                Log.d("メンバー1", "${insertInfo.member1}")
             }
             if (!putMember2.text.isNullOrEmpty()) {
                 member2 = putMember2.text.toString()
-                Log.d("メンバー2", "${member2}")
+                Log.d("メンバー2", "${insertInfo.member2}")
             }
 
             if (!putMember3.text.isNullOrEmpty()) {
                 member3 = putMember3.text.toString()
-                Log.d("メンバー3", "${member3}")
+                Log.d("メンバー3", "${insertInfo.member3}")
             }
 
             if (!putMember4.text.isNullOrEmpty()) {
@@ -120,8 +160,12 @@ class FolderCreateActivity : AppCompatActivity() {
                 "入力した中身", "date:${date} title:${title} member1:${member1} " +
                         "member2:${member2} member3:${member3} member4:${member4} member5:${member5} member6:${member6}"
             )
+            //データクラスを使ってinsertInfoにまとめる
+            insertInfo =
+                insertArray(date, title, member1, member2, member3, member4, member5, member6)
+            Log.d("insertInfoの中身", "${insertInfo}")
             //insertメソッド呼び出し
-            insertData(date, title, member1, member2, member3, member4, member5, member6)
+            insertData(insertInfo)
             //リスト遷移後はフォルダ作成を閉じる=startActivityでフォルダ一覧を作成しなくてもよい
             finish()
         }
@@ -130,12 +174,10 @@ class FolderCreateActivity : AppCompatActivity() {
         money.setOnClickListener {
             //入力チェック、エラーがある場合はダイアログ表示
 
-            //空チェックして各変数にいれる　ログで確認　関数にしたいがid.textの型がいまいちわからないので引数設定が難しそう
-            //日付が空じゃない場合dateに入れる
-            if (!putDate.text.isNullOrEmpty()) {
-                date = putDate.text.toString().toInt()
-                Log.d("日付の値", "${date}")
-            }
+            //DatePickerで入力されたものをDB登録用変数に入れる 文字列で足してInt型にキャストすればデータベースに影響はなし
+            var strDate = "${dateYear}" + "${dateMonth}" + "${dateDayOfMonth}"
+            date = Integer.parseInt(strDate)
+            Log.d("数字にできたか確認", "${date}")
 
             if (!putTitle.text.isNullOrEmpty()) {
                 title = putTitle.text.toString()
@@ -175,12 +217,16 @@ class FolderCreateActivity : AppCompatActivity() {
                 "入力した中身", "date:${date} title:${title} member1:${member1} " +
                         "member2:${member2} member3:${member3} member4:${member4} member5:${member5} member6:${member6}"
             )
+            //データクラスを使ってinsertInfoにまとめる
+            insertInfo =
+                insertArray(date, title, member1, member2, member3, member4, member5, member6)
+            Log.d("insertInfoの中身", "${insertInfo}")
             //insertメソッド呼び出し
-            insertData(date, title, member1, member2, member3, member4, member5, member6)
+            insertData(insertInfo)
             //MoneyInsert用SELECT
             //insertできたか確認したらたった今入れたものをセレクトという処理をいれたい if(result)?
             val result =
-                selectData(date, title, member1, member2, member3, member4, member5, member6)
+                selectData(insertInfo)
             Log.d("result", "${result}")
 
             //一個しか入らないと思うから0番目？
@@ -197,17 +243,6 @@ class FolderCreateActivity : AppCompatActivity() {
         }
     }
 
-    //checkData戻り値用　配列だとどうなる・・・？
-    data class checkArray(
-        val date: Int,
-        val title: String,
-        val member1: String,
-        val member2: String,
-        val member3: String,
-        val member4: String,
-        val member5: String,
-        val member6: String
-    )
     //ここでeditableで引数設定
 //    fun checkData(
 //        putDate: Editable,
@@ -228,49 +263,51 @@ class FolderCreateActivity : AppCompatActivity() {
 //        return checkArray
 //    }
 
-    //insert用文FolderInfo用　ひとまずDBBrowserの方で確認できた
+    /**insertData FolderInfo insert用メソッド
+     * @param insertInfo 入力項目
+     */
     fun insertData(
-        date: Int, title: String, member1: String,
-        member2: String?, member3: String?, member4: String?, member5: String?, member6: String?
+        insertInfo: insertArray
     ) {
         try {
             val dbHelper =
                 DriveDBHelper(this, DB_NAME, null, DB_VERSION) //この時点でテーブルが作られてる
             val database = dbHelper.writableDatabase
             val values = ContentValues()
-            values.put("date", date)
-            values.put("title", title)
-            values.put("member1", member1)
-            values.put("member2", member2)
-            values.put("member3", member3)
-            values.put("member4", member4)
-            values.put("member5", member5)
-            values.put("member6", member6)
+            values.put("date", insertInfo.date)
+            values.put("title", insertInfo.title)
+            values.put("member1", insertInfo.member1)
+            values.put("member2", insertInfo.member2)
+            values.put("member3", insertInfo.member3)
+            values.put("member4", insertInfo.member4)
+            values.put("member5", insertInfo.member5)
+            values.put("member6", insertInfo.member6)
             //クエリ実行
             val result = database.insertOrThrow(FOLDER_INFO, null, values)
             //入力した中身を確認
             Log.d(
-                "insertした中身", "date:${date} title:${title} member1:${member1} " +
-                        "member2:${member2} member3:${member3} member4:${member4} member5:${member5} member6:${member6}"
+                "insertした中身",
+                "date:${insertInfo.date} title:${insertInfo.title} member1:${insertInfo.member1} " +
+                        "member2:${insertInfo.member2} member3:${insertInfo.member3} member4:${insertInfo.member4} member5:${insertInfo.member5} member6:${insertInfo.member6}"
             )
         } catch (exception: Exception) {
             Log.e("InsertData", exception.toString())
         }
     }
 
-    //select用関数　引数はinsertしたばかりのデータ　戻り値はArray<Int>型
+    /**selectData FolderInfo idをselect用メソッド
+     * @param insertInfo insertしたばかりの入力項目
+     * */
     fun selectData(
-        date: Int, title: String, member1: String,
-        member2: String?, member3: String?, member4: String?, member5: String?, member6: String?
+        insertInfo: insertArray
     ): ArrayList<Int> {
         try {
             val dbHelper = DriveDBHelper(this, DB_NAME, null, DB_VERSION)
             val database = dbHelper.readableDatabase
-
             //select文　たった今insertした内容と一致するもののfolderidのみ受け取る
             val sql =   //String型の変数はシングルクオテーションで囲むのを忘れずに
-                "SELECT * FROM ${FOLDER_INFO} WHERE date=${date} AND title='${title}'AND member1='${member1}' AND " +
-                        "member2='${member2}' AND member3='${member3}' AND member4='${member4}' AND member5='${member5}' AND member6='${member6}'"
+                "SELECT * FROM ${FOLDER_INFO} WHERE date=${insertInfo.date} AND title='${insertInfo.title}'AND member1='${insertInfo.member1}' AND " +
+                        "member2='${insertInfo.member2}' AND member3='${insertInfo.member3}' AND member4='${insertInfo.member4}' AND member5='${insertInfo.member5}' AND member6='${insertInfo.member6}'"
             Log.d("SQL実行", sql)
             //クエリ実行 cursorで結果セット受け取り？
             val cursor = database.rawQuery(sql, null)
@@ -281,6 +318,7 @@ class FolderCreateActivity : AppCompatActivity() {
                     arrayFolderId.add(cursor.getInt(0))//idだけでいい　
                     cursor.moveToNext()
                 }
+                cursor.close() //クローズ
             }
         } catch (exception: Exception) {
             Log.e("SelectData", exception.toString())
@@ -289,5 +327,3 @@ class FolderCreateActivity : AppCompatActivity() {
         return arrayFolderId
     }//selectData閉じ
 }
-
-

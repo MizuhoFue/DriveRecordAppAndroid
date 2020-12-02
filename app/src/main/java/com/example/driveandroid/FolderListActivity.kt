@@ -69,7 +69,7 @@ class FolderListActivity : AppCompatActivity() {
         try {
             val dbHelper = DriveDBHelper(this, DB_NAME, null, DB_VERSION)
             val database = dbHelper.readableDatabase
-            val folderList = ArrayList<FolderInfo>()
+            val folderList = ArrayList<FolderInfo>() //FolderInfo型の箱をつくる
             //select文　FolderInfoテーブルセレクト
             val sql = "SELECT * FROM FolderInfo" //sql文OK
             val cursor =
@@ -81,14 +81,14 @@ class FolderListActivity : AppCompatActivity() {
                 Log.d("テーブルの登録件数", "${cursor.count}")
                 cursor.moveToFirst()
                 while (!cursor.isAfterLast) {
-                    //folderInfoのdateクラスをfolderInfoに入れる
+                    //FolderInfo型クラスを使って結果の値を変数folderInfoに入れる
                     val folderInfo = FolderInfo(
                         cursor.getInt(0), cursor.getString(1),
                         cursor.getInt(2), cursor.getString(3), cursor.getString(4),
                         cursor.getString(5), cursor.getString(6), cursor.getString(7),
                         cursor.getString(8)
                     )
-                    folderList.add(folderInfo)
+                    folderList.add(folderInfo) //箱に型を入れる
                     cursor.moveToNext()
                 }
             }
