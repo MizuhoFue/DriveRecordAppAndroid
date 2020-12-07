@@ -1,7 +1,7 @@
 /*画面：フォルダ詳細
 *更新日：2020年12月7日
 *更新者：笛木瑞歩
-*前回からの変更：FolderInfoの該当データ表示、日付スラッシュ表示、id変更に合わせて修正、ArrayListからの取り出し方修正
+*前回からの変更：Createでスラッシュ入りにするのでこちらのスラッシュ表示処理を削除、selectFolderのdate部分をgetStringに
 *星野さんのもの参考
 */
 package com.example.driveandroid
@@ -31,6 +31,8 @@ class FolderDetailActivity : AppCompatActivity() {
     private var member4 = ""
     private var member5 = ""
     private var member6 = ""
+
+    //以下RecyclerView用変数
     private var paraName = ""   //項目名
     private var paraCost = 0    //項目の金額 項目によって異なる　
     private var perParsonCost = 0   //項目ごとの一人当たり金額
@@ -67,11 +69,7 @@ class FolderDetailActivity : AppCompatActivity() {
         val folderList: ArrayList<FolderInfo> = selectFolder(folderid)
         //日付をfolderListから取り出す
         val date = folderList[0].date
-        //日付を一回stringにしてスラッシュいれる
-        val strDate = "$date"
-        //yyyy / MM / DDの形
-        val slashDate = strDate.take(4) + "/" + strDate.substring(4, 6) + "/" + strDate.takeLast(2)
-        dateView.text = slashDate //文字列なので""で囲む必要なかった
+        dateView.text = date //スラッシュ表示削除
 
         //タイトル表示
         titleView.text = folderList[0].title
@@ -84,7 +82,7 @@ class FolderDetailActivity : AppCompatActivity() {
             memberNum++
             member1_view.text = member1
         }
-        //null許容しているため文字列とする getにグレー波線 なんかいいやり方ありますか
+        //null許容しているため文字列とする
         member2 = folderList[0].member2.toString()
         member3 = folderList[0].member3.toString()
         member4 = folderList[0].member4.toString()
@@ -188,7 +186,7 @@ class FolderDetailActivity : AppCompatActivity() {
                     val folderInfo = FolderInfo(
                         cursor.getInt(0),
                         cursor.getString(1),
-                        cursor.getInt(2),
+                        cursor.getString(2), //getStringに変更
                         cursor.getString(3),
                         cursor.getString(4),
                         cursor.getString(5),

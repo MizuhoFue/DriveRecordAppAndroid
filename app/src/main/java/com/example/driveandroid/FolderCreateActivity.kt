@@ -1,8 +1,8 @@
 /*FolderCreateActivity フォルダ作成画面
 * folderid　一列登録した情報　全一致のものをセレクトして配列に入れた上でidだけMoneyInsertActivityに送る
-* タスク：文字数入力チェックを入れる
-* 前回からの変更：日付の0埋め処理と変数格納を一つのif文にまとめました
-* 更新日2020年12月7日
+* タスク：文字数入力チェックを入れる、insert周りをデータクラス使って整理
+* 前回からの変更点：FolderInfoテーブルに登録するdateをString型に変更、moneyボタンリスナーでのdate0埋め処理もcreateEndと同様にしました
+* 更新日：2020年12月7日
 * 更新者：笛木
 * */
 package com.example.driveandroid
@@ -29,7 +29,7 @@ class FolderCreateActivity : AppCompatActivity() {
 
     //insert、selectの引数用 クラスは頭文字大文字
     data class InsertArray(
-        val date: Int,
+        val date: String,
         val title: String,
         val member1: String,
         val member2: String?,
@@ -43,7 +43,7 @@ class FolderCreateActivity : AppCompatActivity() {
     //入力した値を格納する変数用意 最終的にデータクラスにまとめる
     private var folderid = 0 //セレクトした後に入れる
     private var title = "" //タイトル
-    private var date = 0 //日付　
+    private var date = "" //日付もString型
     private var member1 = ""
     private var member2 = ""
     private var member3 = ""
@@ -107,15 +107,14 @@ class FolderCreateActivity : AppCompatActivity() {
         createEnd.setOnClickListener {
             //TODO エラーはif文にelseをつけてメッセージ設定
             //checkDate(putDate,putTitle,putMember1,putMember2,putMember3,putMember4,putMember5,putMember6)
-            //DatePickerで入力されたものをDB登録用変数に入れる 文字列で足してInt型にキャストすればデータベースに影響はなし folderListのこれ！にそれぞれ入れたい・・・
+            //DatePickerで入力されたものをDB登録用変数に入れる
             if (dateYear != 0 && dateMonth != 0 && dateDayOfMonth != 0) {//ちゃんと日付選択されているならば
                 //変数に格納、一桁の場合は0埋めを行う
                 val month = if ("$dateMonth".length == 1) "0$dateMonth" else "$dateMonth"
                 val day =
                     if ("$dateDayOfMonth".length == 1) "0$dateDayOfMonth" else "$dateDayOfMonth"
-                val strDate = "$dateYear" + month + day //文字列でくっつけて
-                date = Integer.parseInt(strDate)
-                Log.d("数字にできたか確認", "$date")
+                date = "$dateYear/$month/$day" //この時点でスラッシュ入りにしてString型としてdateに格納
+                Log.d("選択日付スラッシュ入り", date)
             }
 
             if (!putTitle.text.isNullOrEmpty()) {
@@ -173,10 +172,13 @@ class FolderCreateActivity : AppCompatActivity() {
             //入力チェック TODO エラーはelseでメッセージ設定
 
             //DatePickerで入力されたものをDB登録用変数に入れる 文字列で足してInt型にキャストすればデータベースに影響はなし
-            if (dateYear != 0 && dateMonth != 0 && dateDayOfMonth != 0) {//入力されているならば
-                val strDate = "$dateYear$dateMonth$dateDayOfMonth" //文字列にする
-                date = Integer.parseInt(strDate)
-                Log.d("数字にできたか確認", "$date")
+            if (dateYear != 0 && dateMonth != 0 && dateDayOfMonth != 0) {//ちゃんと日付選択されているならば
+                //変数に格納、一桁の場合は0埋めを行う
+                val month = if ("$dateMonth".length == 1) "0$dateMonth" else "$dateMonth"
+                val day =
+                    if ("$dateDayOfMonth".length == 1) "0$dateDayOfMonth" else "$dateDayOfMonth"
+                date = "$dateYear/$month/$day" //この時点でスラッシュ入りにしてString型としてdateに格納
+                Log.d("日付スラッシュ入り", date)
             }
 
             if (!putTitle.text.isNullOrEmpty()) {
@@ -287,7 +289,7 @@ class FolderCreateActivity : AppCompatActivity() {
             val result = database.insertOrThrow(FOLDER_INFO, null, values)
             //入力した中身を確認
             Log.d(
-                "insertした中身",
+                "insertできた中身",
                 "date:${insertInfo.date} title:${insertInfo.title} member1:${insertInfo.member1} " +
                         "member2:${insertInfo.member2} member3:${insertInfo.member3} member4:${insertInfo.member4} member5:${insertInfo.member5} member6:${insertInfo.member6}"
             )
@@ -307,7 +309,7 @@ class FolderCreateActivity : AppCompatActivity() {
             val database = dbHelper.readableDatabase
             //select文　たった今insertした内容と一致するもののfolderidのみ受け取る
             val sql =   //String型の変数はシングルクオテーションで囲むのを忘れずに
-                "SELECT * FROM $FOLDER_INFO WHERE date=${insertInfo.date} AND title='${insertInfo.title}'AND member1='${insertInfo.member1}' AND " +
+                "SELECT * FROM $FOLDER_INFO WHERE date='${insertInfo.date}' AND title='${insertInfo.title}'AND member1='${insertInfo.member1}' AND " +
                         "member2='${insertInfo.member2}' AND member3='${insertInfo.member3}' AND member4='${insertInfo.member4}' AND member5='${insertInfo.member5}' AND member6='${insertInfo.member6}'"
             Log.d("SQL実行", sql)
             //クエリ実行 cursorで結果セット受け取り？
