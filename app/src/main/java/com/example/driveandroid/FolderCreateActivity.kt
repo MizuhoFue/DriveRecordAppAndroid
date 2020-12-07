@@ -1,8 +1,8 @@
 /*FolderCreateActivity フォルダ作成画面
 * folderid　一列登録した情報　全一致のものをセレクトして配列に入れた上でidだけMoneyInsertActivityに送る
-* タスク：文字数入力チェックを入れる DatePickerを入れる→数字のままでひとまず登録はできる状態 ListでStringにしてからsubStringでどうにかする？
-* insert周りをデータクラス使って整理
-* 更新日2020年12月2日
+* タスク：文字数入力チェックを入れる
+* 前回からの変更：日付を0埋め処理
+* 更新日2020年12月3日
 * 更新者：笛木
 * */
 package com.example.driveandroid
@@ -38,6 +38,7 @@ class FolderCreateActivity : AppCompatActivity() {
         val member5: String?,
         val member6: String?
     )
+
     //データクラスはセットする時に初期化
     //入力した値を格納する変数用意 最終的にデータクラスにまとめる
     private var folderid = 0 //セレクトした後に入れる
@@ -64,7 +65,6 @@ class FolderCreateActivity : AppCompatActivity() {
             val intent = Intent(this@FolderCreateActivity, SupportActivity::class.java)
             startActivity(intent)
         }
-
         //日付入力DatePicker
         datePick.setOnClickListener {
             //現在の年月日を求めて初期値とする
@@ -109,7 +109,18 @@ class FolderCreateActivity : AppCompatActivity() {
             //checkDate(putDate,putTitle,putMember1,putMember2,putMember3,putMember4,putMember5,putMember6)
             //DatePickerで入力されたものをDB登録用変数に入れる 文字列で足してInt型にキャストすればデータベースに影響はなし folderListのこれ！にそれぞれ入れたい・・・
             if (dateYear != 0 && dateMonth != 0 && dateDayOfMonth != 0) {//ちゃんと日付選択されているならば
-                val strDate = "$dateYear$dateMonth$dateDayOfMonth" //文字列にする
+                var month = "$dateMonth" //桁数チェックのために文字にして
+                var day = "$dateDayOfMonth"
+
+                //0埋めチェック
+                if (month.length == 1) { //一桁だったら0つける
+                    month = "0$month"
+                }
+
+                if (day.length == 1) { //一桁だったら0つける
+                    day = "0$day"
+                }
+                val strDate = "$dateYear" + month + day //文字列でくっつけて
                 date = Integer.parseInt(strDate)
                 Log.d("数字にできたか確認", "$date")
             }
@@ -179,7 +190,6 @@ class FolderCreateActivity : AppCompatActivity() {
                 title = putTitle.text.toString()
                 Log.d("タイトル名", title)
             }
-
             if (!putMember1.text.isNullOrEmpty()) {
                 member1 = putMember1.text.toString()
                 Log.d("メンバー1", member1)
@@ -263,7 +273,7 @@ class FolderCreateActivity : AppCompatActivity() {
     /**insertData FolderInfo insert用メソッド
      * @param insertInfo 入力項目
      */
-   private fun insertData(
+    private fun insertData(
         insertInfo: InsertArray
     ) {
         try {
@@ -295,7 +305,7 @@ class FolderCreateActivity : AppCompatActivity() {
     /**selectData FolderInfo idをselect用メソッド
      * @param insertInfo insertしたばかりの入力項目
      * */
-   private fun selectData(
+    private fun selectData(
         insertInfo: InsertArray
     ): ArrayList<Int> {
         try {

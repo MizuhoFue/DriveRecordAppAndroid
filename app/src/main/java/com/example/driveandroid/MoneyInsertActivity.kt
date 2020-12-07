@@ -337,7 +337,7 @@ class MoneyInsertActivity : AppCompatActivity() {
     }//selectData閉じ
 
     //ParagraphInfoにinsert TODO ParagraphInfoデータクラスを使ってコンパクトに helperにまとめる
-    fun insertPara(folderid: Int, paraName: String, paraCost: Int, payer: String) {
+    private fun insertPara(folderid: Int, paraName: String, paraCost: Int, payer: String) {
         try {
             val dbHelper = DriveDBHelper(this, DB_NAME, null, DB_VERSION)
             val database = dbHelper.writableDatabase

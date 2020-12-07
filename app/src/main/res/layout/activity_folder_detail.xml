@@ -174,7 +174,7 @@
 
                 <!--メンバー名表示-->
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/member1"
+                    android:id="@+id/member1_View"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_marginStart="50dp"
@@ -187,7 +187,7 @@
 
             <!--メンバー2-->
             <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/member2"
+                android:id="@+id/member2_View"
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
                 android:layout_marginStart="215dp"
@@ -198,7 +198,7 @@
 
             <!--メンバー3-->
             <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/member3"
+                android:id="@+id/member3_View"
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
                 android:layout_marginStart="215dp"
@@ -209,7 +209,7 @@
 
             <!--メンバー4-->
             <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/member4"
+                android:id="@+id/member4_View"
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
                 android:layout_marginStart="215dp"
@@ -220,7 +220,7 @@
 
             <!--メンバー5-->
             <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/member5"
+                android:id="@+id/member5_View"
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
                 android:layout_marginStart="215dp"
@@ -231,7 +231,7 @@
 
             <!--メンバー6-->
             <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/member6"
+                android:id="@+id/member6_View"
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
                 android:layout_marginStart="215dp"
@@ -252,7 +252,7 @@
                 android:textSize="24sp" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/folderDetail"
+                android:id="@+id/folderDetailView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="70dp"

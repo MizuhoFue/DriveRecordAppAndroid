@@ -50,10 +50,10 @@ class FolderListAdapter(
             itemView.setOnClickListener(object : View.OnClickListener {
                 //クリック時の処理 TODO select処理実装
                 override fun onClick(v: View) {
-                    Log.d("positionの値","${position}")
+                    Log.d("送るFolderid", "${position + 1}")
                     //遷移先
                     var intent = Intent(v.context, FolderDetailActivity::class.java)
-                    intent.putExtra(EXTRA_FOLDERID, position) //position=folderid なのでこれで詳細に渡す 確認ずみ
+                    intent.putExtra(EXTRA_FOLDERID, position + 1)
                     v.context.startActivity(intent)
                 }
             })
