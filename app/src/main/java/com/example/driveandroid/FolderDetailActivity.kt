@@ -23,9 +23,8 @@ import kotlinx.android.synthetic.main.activity_folder_detail.*
 class FolderDetailActivity : AppCompatActivity() {
 
     //DB用変数用意
-    //private val date = 0
+    //dateとmemberNumはonResumeでの初期化に変更
     private var title = "" //TODO 漢字文字化けする
-    private var memberNum = 1   //人数 1がデフォルト
     private var member1 = ""  //メンバー名
     private var member2 = ""
     private var member3 = ""
@@ -66,7 +65,7 @@ class FolderDetailActivity : AppCompatActivity() {
         //FolderInfo全件セレクト
         //戻り値をfolderListにいれてそれぞれviewにセット
         val folderList: ArrayList<FolderInfo> = selectFolder(folderid)
-
+        //日付をfolderListから取り出す
         val date = folderList.get(0).date
         //日付を一回stringにしてスラッシュいれる
         val strDate = "$date"
@@ -76,10 +75,16 @@ class FolderDetailActivity : AppCompatActivity() {
 
         //タイトル表示
         titleView.text = folderList.get(0).title
-        //member数を足した合計
-        member_numView.text = "$memberNum"
+
+        //memberNum0にする
+        var memberNum = 0
         //member1表示
-        member1_View.text = folderList.get(0).member1
+        //member1_View.text = folderList.get(0).member1
+        member1 = folderList.get(0).member1
+        if (member1.isNotBlank()) {
+            memberNum++
+            member1_View.text = member1
+        }
         //null許容しているため文字列とする getにグレー波線 なんかいいやり方ありますか
         member2 = folderList.get(0).member2.toString()
         member3 = folderList.get(0).member3.toString()
