@@ -1,7 +1,7 @@
 /*画面：フォルダ詳細
-*更新日：2020年12月3日
+*更新日：2020年12月7日
 *更新者：笛木瑞歩
-*前回からの変更：FolderInfoの該当データ表示、日付スラッシュ表示
+*前回からの変更：FolderInfoの該当データ表示、日付スラッシュ表示、id変更に合わせて修正、ArrayListからの取り出し方修正
 *星野さんのもの参考
 */
 package com.example.driveandroid
@@ -66,70 +66,69 @@ class FolderDetailActivity : AppCompatActivity() {
         //戻り値をfolderListにいれてそれぞれviewにセット
         val folderList: ArrayList<FolderInfo> = selectFolder(folderid)
         //日付をfolderListから取り出す
-        val date = folderList.get(0).date
+        val date = folderList[0].date
         //日付を一回stringにしてスラッシュいれる
         val strDate = "$date"
         //yyyy / MM / DDの形
         val slashDate = strDate.take(4) + "/" + strDate.substring(4, 6) + "/" + strDate.takeLast(2)
-        dateView.text = "$slashDate"
+        dateView.text = slashDate //文字列なので""で囲む必要なかった
 
         //タイトル表示
-        titleView.text = folderList.get(0).title
+        titleView.text = folderList[0].title
 
         //memberNum0にする
         var memberNum = 0
         //member1表示
-        //member1_View.text = folderList.get(0).member1
-        member1 = folderList.get(0).member1
+        member1 = folderList[0].member1
         if (member1.isNotBlank()) {
             memberNum++
-            member1_View.text = member1
+            member1_view.text = member1
         }
         //null許容しているため文字列とする getにグレー波線 なんかいいやり方ありますか
-        member2 = folderList.get(0).member2.toString()
-        member3 = folderList.get(0).member3.toString()
-        member4 = folderList.get(0).member4.toString()
-        member5 = folderList.get(0).member5.toString()
-        member6 = folderList.get(0).member6.toString()
+        member2 = folderList[0].member2.toString()
+        member3 = folderList[0].member3.toString()
+        member4 = folderList[0].member4.toString()
+        member5 = folderList[0].member5.toString()
+        member6 = folderList[0].member6.toString()
 
         //登録されている場合はメンバー数変数をインクリメントして表示
         //登録されていない場合は領域をView.GONEで領域を詰める
         if (member2.isNotBlank()) {
             memberNum++
-            member2_View.text = member2
+            member2_view.text = member2
         } else {
-            member2_View.visibility = View.GONE
+            member2_view.visibility = View.GONE
         }
 
         if (member3.isNotBlank()) {
             memberNum++
-            member3_View.text = member3
+            member3_view.text = member3
         } else {
-            member3_View.visibility = View.GONE
+            member3_view.visibility = View.GONE
         }
 
         if (member4.isNotBlank()) {
             memberNum++
-            member4_View.text = member4
+            member4_view.text = member4
         } else {
-            member4_View.visibility = View.GONE
+            member4_view.visibility = View.GONE
         }
 
         if (member5.isNotBlank()) {
             memberNum++
-            member5_View.text = member5
+            member5_view.text = member5
         } else {
-            member5_View.visibility = View.GONE
+            member5_view.visibility = View.GONE
         }
 
         if (member6.isNotBlank()) {
             memberNum++
-            member6_View.text = member6
+            member6_view.text = member6
         } else {
-            member6_View.visibility = View.GONE
+            member6_view.visibility = View.GONE
         }
         //メンバー数表示
-        member_numView.text = "$memberNum"
+        member_num_view.text = "$memberNum"
 
         /////FolderInfoの中身表示終了//////////////
         //ParagraphInfoの表示↓
@@ -174,7 +173,6 @@ class FolderDetailActivity : AppCompatActivity() {
     private fun selectFolder(folderid: Int): ArrayList<FolderInfo> {
         try {
             val dbHelper = DriveDBHelper(this, DB_NAME, null, DB_VERSION)
-//            this, DB_NAME, null, DB_VERSION
             val database = dbHelper.readableDatabase
             val folderList = ArrayList<FolderInfo>() //FolderInfo型の箱をつくる
             //select文　FolderInfoテーブルセレクト
@@ -215,6 +213,6 @@ class FolderDetailActivity : AppCompatActivity() {
      *@return : ArrayList<ItemToUse>
      * */
     private fun selectPara(folderid: Int) {
-        //別ブランチで処理を書く
+        //別ブランチで星野さんが作成中
     }
 }

@@ -1,8 +1,8 @@
 /*FolderCreateActivity フォルダ作成画面
 * folderid　一列登録した情報　全一致のものをセレクトして配列に入れた上でidだけMoneyInsertActivityに送る
 * タスク：文字数入力チェックを入れる
-* 前回からの変更：日付を0埋め処理
-* 更新日2020年12月3日
+* 前回からの変更：日付の0埋め処理と変数格納を一つのif文にまとめました
+* 更新日2020年12月7日
 * 更新者：笛木
 * */
 package com.example.driveandroid
@@ -38,6 +38,7 @@ class FolderCreateActivity : AppCompatActivity() {
         val member5: String?,
         val member6: String?
     )
+
     //データクラスはセットする時に初期化
     //入力した値を格納する変数用意 最終的にデータクラスにまとめる
     private var folderid = 0 //セレクトした後に入れる
@@ -108,17 +109,10 @@ class FolderCreateActivity : AppCompatActivity() {
             //checkDate(putDate,putTitle,putMember1,putMember2,putMember3,putMember4,putMember5,putMember6)
             //DatePickerで入力されたものをDB登録用変数に入れる 文字列で足してInt型にキャストすればデータベースに影響はなし folderListのこれ！にそれぞれ入れたい・・・
             if (dateYear != 0 && dateMonth != 0 && dateDayOfMonth != 0) {//ちゃんと日付選択されているならば
-                var month = "$dateMonth" //桁数チェックのために文字にして
-                var day = "$dateDayOfMonth"
-
-                //0埋めチェック
-                if (month.length == 1) { //一桁だったら0つける
-                    month = "0$month"
-                }
-
-                if (day.length == 1) { //一桁だったら0つける
-                    day = "0$day"
-                }
+                //変数に格納、一桁の場合は0埋めを行う
+                val month = if ("$dateMonth".length == 1) "0$dateMonth" else "$dateMonth"
+                val day =
+                    if ("$dateDayOfMonth".length == 1) "0$dateDayOfMonth" else "$dateDayOfMonth"
                 val strDate = "$dateYear" + month + day //文字列でくっつけて
                 date = Integer.parseInt(strDate)
                 Log.d("数字にできたか確認", "$date")
