@@ -1,8 +1,8 @@
 /*
 * FolderListAdapter
 * 更新者：笛木
-* 更新日：2020年11月25日
-* 内容：ViewHolder内、Detailに遷移する際に仮folderid渡し
+* 更新日：2020年12月3日
+* 内容：Detailに送るfolderid、position＋1がfolderidだったため+1した
 *
 * */
 package com.example.driveandroid
@@ -50,10 +50,10 @@ class FolderListAdapter(
             itemView.setOnClickListener(object : View.OnClickListener {
                 //クリック時の処理 TODO select処理実装
                 override fun onClick(v: View) {
-                    Log.d("positionの値","${position}")
+                    Log.d("folderidの値", "${position + 1}")
                     //遷移先
                     var intent = Intent(v.context, FolderDetailActivity::class.java)
-                    intent.putExtra(EXTRA_FOLDERID, position) //position=folderid なのでこれで詳細に渡す 確認ずみ
+                    intent.putExtra(EXTRA_FOLDERID, position + 1) //position+1でfolderidだった
                     v.context.startActivity(intent)
                 }
             })
