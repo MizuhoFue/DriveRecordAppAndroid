@@ -16,7 +16,7 @@ class FolderDetailAdapter(
     class CustomViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
         val paraName = view.paraName
         val paracostView = view.paracostView
-//      val perPerson_costView = view.perParson_costView
+        //      val perPerson_costView = view.perParson_costView
         val payerView = view.payerView
         val trashbox = view.trashBox
     }
@@ -38,7 +38,7 @@ class FolderDetailAdapter(
     override fun onBindViewHolder(holder: CustomViewHolder, position: Int) {
         with(holder) {
             paraName.text = folderDetail[position].paraNames
-            paracostView.text = folderDetail[position].paraCosts.toString()
+            paracostView.text = folderDetail[position].paraCosts
 //            perPerson_costView.text = folderDetail[position].paraCosts.toString()
             payerView.text = folderDetail[position].payers
             trashbox.setOnClickListener(object : View.OnClickListener {

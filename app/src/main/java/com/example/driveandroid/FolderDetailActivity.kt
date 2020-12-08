@@ -1,9 +1,8 @@
 /*画面：フォルダ詳細
-*更新日：2020年11月25日
+*更新日：2020年12月7日
 *更新者：笛木瑞歩
-*前回からの変更：FolderListかMoneyInsertから渡される値をはじめに受け取る処理追加
-*ここでセレクトしたidをMoneyInsertに遷移したときに渡す
-* 戻る動作にも入れる？
+*前回からの変更：FolderInfoの該当データ表示、日付スラッシュ表示、id変更に合わせて修正、ArrayListからの取り出し方修正
+*星野さんのもの参考
 */
 package com.example.driveandroid
 
@@ -24,9 +23,7 @@ import kotlinx.android.synthetic.main.activity_folder_detail.*
 
 class FolderDetailActivity : AppCompatActivity() {
 
-    //FolderDetailから送るfolderidとして仮データ代入 本来はFolderListから引っ張られてくる
-    private var folderid = 0
-
+    //DB用変数用意
     //dateとmemberNumはonResumeでの初期化に変更
     private var title = "" //TODO 漢字文字化けする
     private var member1 = ""  //メンバー名
@@ -69,7 +66,6 @@ class FolderDetailActivity : AppCompatActivity() {
         //FolderInfo全件セレクト
         //戻り値をfolderListにいれてそれぞれviewにセット
         val folderList: ArrayList<FolderInfo> = selectFolder(folderid)
-
         //日付をfolderListから取り出す
         val date = folderList[0].date
         //日付を一回stringにしてスラッシュいれる
@@ -104,6 +100,7 @@ class FolderDetailActivity : AppCompatActivity() {
         } else {
             member2_view.visibility = View.GONE
         }
+
         if (member3.isNotBlank()) {
             memberNum++
             member3_view.text = member3
@@ -133,7 +130,7 @@ class FolderDetailActivity : AppCompatActivity() {
         }
 
         //メンバー数表示
-        member_numView.text = "$memberNum"
+        member_num_view.text = "$memberNum"
 
         //ユーザーリストでデーターを追加、仮データ反映
         val folderDetail = selectPara(folderid)
@@ -213,7 +210,11 @@ class FolderDetailActivity : AppCompatActivity() {
         }
     }
 
-    //ParagraphInfoテーブルをセレクト
+    /**selectPara folderidを元に該当データをParagraphInfoテーブルからセレクト
+     *
+     *@return : ArrayList<ItemToUse>
+     *     ItemToUse型の箱をつくる
+     * */
     private fun selectPara(folderid: Int): ArrayList<ItemToUse> {
         try {
             val dbHelper = DriveDBHelper(this, DB_NAME, null, DB_VERSION)
@@ -233,7 +234,7 @@ class FolderDetailActivity : AppCompatActivity() {
                         cursor.getInt(0),
                         cursor.getInt(1),
                         cursor.getString(2),
-                        cursor.getInt(3),
+                        cursor.getString(3),
                         cursor.getString(4)
                     )
                     folderDetail.add(paragraphInfo) //箱に型を入れる
