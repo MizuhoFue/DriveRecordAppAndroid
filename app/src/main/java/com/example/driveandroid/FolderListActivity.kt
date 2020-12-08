@@ -1,8 +1,8 @@
 /*
 * 画面：フォルダ一覧 FolderList
 * 更新者：笛木
-* 更新日：2020年12月7日
-* 更新内容：selectする時のselectFolderメソッドで日付部分をgetIntからgetStringに privateも付け足し
+* 更新日：2020年12月8日
+* 更新内容：selectする時のselectFolderメソッドで日付部分をgetIntからgetStringに privateも付け足し 不要コメント削除
 * */
 package com.example.driveandroid
 
@@ -59,7 +59,7 @@ class FolderListActivity : AppCompatActivity() {
         //フォルダ作成へ遷移　フィニッシュなし
         addFolder.setOnClickListener {
             val intent = Intent(this@FolderListActivity, FolderCreateActivity::class.java)
-            //intent.putExtra(Constants.EXTRA_FOLDERID, folderid)
+            //folderid送りいらないので削除
             startActivity(intent)
         }
     }

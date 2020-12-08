@@ -2,6 +2,7 @@
 *更新日：2020年12月7日
 *更新者：笛木瑞歩
 *前回からの変更：Createでスラッシュ入りにするのでこちらのスラッシュ表示処理を削除、selectFolderのdate部分をgetStringに
+* memberに登録がなかった場合nullが入るように変更 isNotBlank→isNullOrBlankチェックに変更
 *星野さんのもの参考
 */
 package com.example.driveandroid
@@ -23,14 +24,7 @@ import kotlinx.android.synthetic.main.activity_folder_detail.*
 class FolderDetailActivity : AppCompatActivity() {
 
     //DB用変数用意
-    //dateとmemberNumはonResumeでの初期化に変更
-    private var title = "" //TODO 漢字文字化けする
-    private var member1 = ""  //メンバー名
-    private var member2 = ""
-    private var member3 = ""
-    private var member4 = ""
-    private var member5 = ""
-    private var member6 = ""
+    //FolderInfo関連変数はonResume内で初期化
 
     //以下RecyclerView用変数
     private var paraName = ""   //項目名
@@ -72,54 +66,58 @@ class FolderDetailActivity : AppCompatActivity() {
         dateView.text = date //スラッシュ表示削除
 
         //タイトル表示
-        titleView.text = folderList[0].title
+        val title = folderList[0].title //TODO 漢字が文字化けする(例：熱海旅行の「海」)
+        titleView.text = title
 
-        //memberNum0にする
+        //memberNum0にする メンバーが増えるとインクリメント
         var memberNum = 0
         //member1表示
-        member1 = folderList[0].member1
+        val member1 = folderList[0].member1
+        //member1のチェック省略してもよい？ 入力必須のdate、titleは上の方でチェックしていない
         if (member1.isNotBlank()) {
             memberNum++
             member1_view.text = member1
         }
-        //null許容しているため文字列とする
-        member2 = folderList[0].member2.toString()
-        member3 = folderList[0].member3.toString()
-        member4 = folderList[0].member4.toString()
-        member5 = folderList[0].member5.toString()
-        member6 = folderList[0].member6.toString()
+
+        //文字が入っていない場合はnullが入っている
+        val member2 = folderList[0].member2
+        val member3 = folderList[0].member3
+        val member4 = folderList[0].member4
+        val member5 = folderList[0].member5
+        val member6 = folderList[0].member6
 
         //登録されている場合はメンバー数変数をインクリメントして表示
         //登録されていない場合は領域をView.GONEで領域を詰める
-        if (member2.isNotBlank()) {
+
+        if (!member2.isNullOrBlank()) {
             memberNum++
             member2_view.text = member2
         } else {
             member2_view.visibility = View.GONE
         }
 
-        if (member3.isNotBlank()) {
+        if (!member3.isNullOrBlank()) {
             memberNum++
             member3_view.text = member3
         } else {
             member3_view.visibility = View.GONE
         }
 
-        if (member4.isNotBlank()) {
+        if (!member4.isNullOrBlank()) {
             memberNum++
             member4_view.text = member4
         } else {
             member4_view.visibility = View.GONE
         }
 
-        if (member5.isNotBlank()) {
+        if (!member5.isNullOrBlank()) {
             memberNum++
             member5_view.text = member5
         } else {
             member5_view.visibility = View.GONE
         }
 
-        if (member6.isNotBlank()) {
+        if (!member6.isNullOrBlank()) {
             memberNum++
             member6_view.text = member6
         } else {
@@ -194,7 +192,7 @@ class FolderDetailActivity : AppCompatActivity() {
                         cursor.getString(7),
                         cursor.getString(8)
                     )
-                    folderList.add(folderInfo) //箱に型を入れる
+                    folderList.add(folderInfo)
                     cursor.moveToNext()
                 }
             }

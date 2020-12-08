@@ -46,7 +46,7 @@ class FolderListAdapter(
             date.text =
                 folderList[position].date //String型　すでにスラッシュ入り
             title.text = folderList[position].title
-            //星野さんがdeleteのリスナー書いてる
+            //TODO 星野さんがdeleteのリスナー書いてるので参考に別ブランチで作成
             itemView.setOnClickListener(object : View.OnClickListener {
                 //クリック時の処理 TODO select処理実装
                 override fun onClick(v: View) {
