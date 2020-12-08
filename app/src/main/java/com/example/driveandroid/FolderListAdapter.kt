@@ -1,8 +1,8 @@
 /*
 * FolderListAdapter
 * 更新者：笛木
-* 更新日：2020年11月25日
-* 内容：ViewHolder内、Detailに遷移する際に仮folderid渡し
+* 更新日：2020年12月3日
+* 内容：Detailに送るfolderid、position＋1がfolderidだったため+1した
 *
 * */
 package com.example.driveandroid
