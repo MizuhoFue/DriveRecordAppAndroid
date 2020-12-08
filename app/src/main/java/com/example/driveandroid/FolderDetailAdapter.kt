@@ -15,10 +15,10 @@ class FolderDetailAdapter(
     // ViewHolderクラス
     class CustomViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
         val paraName = view.paraName
-        val paracostView = view.paracostView
+        val paraCostView = view.para_cost_view
         //      val perPerson_costView = view.perParson_costView
         val payerView = view.payerView
-        val trashbox = view.trashBox
+        val trashBox = view.trash_box
     }
 
     // getItemCount onCreateViewHolder onBindViewHolderを実装
@@ -38,10 +38,10 @@ class FolderDetailAdapter(
     override fun onBindViewHolder(holder: CustomViewHolder, position: Int) {
         with(holder) {
             paraName.text = folderDetail[position].paraNames
-            paracostView.text = folderDetail[position].paraCosts
+            paraCostView.text = folderDetail[position].paraCosts
 //            perPerson_costView.text = folderDetail[position].paraCosts.toString()
             payerView.text = folderDetail[position].payers
-            trashbox.setOnClickListener(object : View.OnClickListener {
+            trashBox.setOnClickListener(object : View.OnClickListener {
                 override fun onClick(v: View?) {
                     //TODO 削除処理
 //                    // BuilderからAlertDialogを作成

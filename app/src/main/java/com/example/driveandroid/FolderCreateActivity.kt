@@ -184,10 +184,12 @@ class FolderCreateActivity : AppCompatActivity() {
                 title = putTitle.text.toString()
                 Log.d("タイトル名", title)
             }
+
             if (!putMember1.text.isNullOrEmpty()) {
                 member1 = putMember1.text.toString()
                 Log.d("メンバー1", member1)
             }
+
             if (!putMember2.text.isNullOrEmpty()) {
                 member2 = putMember2.text.toString()
                 Log.d("メンバー2", member2)
@@ -212,6 +214,7 @@ class FolderCreateActivity : AppCompatActivity() {
                 member6 = putMember6.text.toString()
                 Log.d("メンバー6", member6)
             }
+
             //TODO このタイミングでエラ〜メッセージをチェック　中身があったらエラーダイアログ表示
             //入力した中身を確認
             Log.d(

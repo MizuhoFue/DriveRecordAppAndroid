@@ -65,9 +65,9 @@ class FolderDetailActivity : AppCompatActivity() {
 
         //FolderInfo全件セレクト
         //戻り値をfolderListにいれてそれぞれviewにセット
-        val folderList: ArrayList<FolderInfo> = selectFolder(folderid)
+        val folderList: ArrayList<FolderInfo>? = selectFolder(folderid)
         //日付をfolderListから取り出す
-        val date = folderList[0].date
+        val date = folderList!![0].date //nonNull
         //日付を一回stringにしてスラッシュいれる
         val strDate = "$date"
         //yyyy / MM / DDの形
@@ -79,12 +79,14 @@ class FolderDetailActivity : AppCompatActivity() {
 
         //memberNum0にする
         var memberNum = 0
+        
         //member1表示
         member1 = folderList[0].member1
         if (member1.isNotBlank()) {
             memberNum++
             member1_view.text = member1
         }
+
         //null許容しているため文字列とする getにグレー波線 なんかいいやり方ありますか
         member2 = folderList[0].member2.toString()
         member3 = folderList[0].member3.toString()
@@ -136,8 +138,8 @@ class FolderDetailActivity : AppCompatActivity() {
         val folderDetail = selectPara(folderid)
 
         //配列を表示させる
-        folderDetail?.let {
-            val adapter = FolderDetailAdapter(it) //仮データ代入
+        folderDetail.let {
+            val adapter = FolderDetailAdapter(it!!) //nonNull
             val layoutManager = LinearLayoutManager(this)
 
             // アダプターとレイアウトマネージャーをセット folderDetailはRecyclerViewのid
@@ -168,17 +170,16 @@ class FolderDetailActivity : AppCompatActivity() {
     }
 
     /** selectFolder folderidを元に該当データをFolderInfoテーブルからセレクト
-     * @param folderid:Int
+     * @param folderId:Int
      * @return ArrayList<FolderInfo>
      * */
-    private fun selectFolder(folderid: Int): ArrayList<FolderInfo> {
+    private fun selectFolder(folderId: Int): ArrayList<FolderInfo>? {
         try {
             val dbHelper = DriveDBHelper(this, DB_NAME, null, DB_VERSION)
-//            this, DB_NAME, null, DB_VERSION
             val database = dbHelper.readableDatabase
             val folderList = ArrayList<FolderInfo>() //FolderInfo型の箱をつくる
             //select文　FolderInfoテーブルセレクト
-            val sql = "SELECT * FROM $FOLDER_INFO WHERE folderid=$folderid" //sql文OK
+            val sql = "SELECT * FROM $FOLDER_INFO WHERE folderid=$folderId" //sql文OK
             Log.d("SQL実行", sql)
             //cursorに結果をいれて
             val cursor =
@@ -206,7 +207,7 @@ class FolderDetailActivity : AppCompatActivity() {
             return folderList
         } catch (exception: Exception) {
             Log.e("SelectData", exception.toString())
-            return arrayListOf() //これでいいかわからないけどnullはコンパイルエラーでreturnできなかった
+            return null
         }
     }
 
@@ -215,13 +216,13 @@ class FolderDetailActivity : AppCompatActivity() {
      *@return : ArrayList<ItemToUse>
      *     ItemToUse型の箱をつくる
      * */
-    private fun selectPara(folderid: Int): ArrayList<ItemToUse> {
+    private fun selectPara(folderId: Int): ArrayList<ItemToUse>? {
         try {
             val dbHelper = DriveDBHelper(this, DB_NAME, null, DB_VERSION)
             val database = dbHelper.readableDatabase
             val folderDetail = ArrayList<ItemToUse>()
             //select文　ParagraphInfoテーブルセレクト
-            val sql = "SELECT * FROM $PARAGRAPH_INFO WHERE folderid=$folderid" //sql文OK
+            val sql = "SELECT * FROM $PARAGRAPH_INFO WHERE folderid=$folderId" //sql文OK
             Log.d("SQL実行", sql)
             //cursorに結果をいれて
             val cursor =
@@ -245,7 +246,7 @@ class FolderDetailActivity : AppCompatActivity() {
             return folderDetail
         } catch (exception: Exception) {
             Log.e("SelectData", exception.toString())
-            return arrayListOf() //nullはコンパイルエラーでreturnできなかった
+            return null
         }
     }
 }
