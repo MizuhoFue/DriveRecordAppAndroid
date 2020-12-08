@@ -219,7 +219,7 @@ class FolderDetailActivity : AppCompatActivity() {
         try {
             val dbHelper = DriveDBHelper(this, DB_NAME, null, DB_VERSION)
             val database = dbHelper.readableDatabase
-            val folderDetail = ArrayList<ItemToUse>() //FolderInfo型の箱をつくる
+            val folderDetail = ArrayList<ItemToUse>()
             //select文　ParagraphInfoテーブルセレクト
             val sql = "SELECT * FROM $PARAGRAPH_INFO WHERE folderid=$folderid" //sql文OK
             Log.d("SQL実行", sql)
