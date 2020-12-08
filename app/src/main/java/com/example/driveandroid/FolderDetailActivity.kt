@@ -27,12 +27,9 @@ class FolderDetailActivity : AppCompatActivity() {
     //FolderDetailから送るfolderidとして仮データ代入 本来はFolderListから引っ張られてくる
     private var folderid = 0
 
-    //DB用変数用意
-//    private var date = 20201112 //日付（仮）
-//    private var title = "熱海旅行" //タイトル（仮）
-
-    //    private var memberNum = 5    //人数（仮）
-    private var member1 = ""    //メンバー名
+    //dateとmemberNumはonResumeでの初期化に変更
+    private var title = "" //TODO 漢字文字化けする
+    private var member1 = ""  //メンバー名
     private var member2 = ""
     private var member3 = ""
     private var member4 = ""
@@ -67,74 +64,72 @@ class FolderDetailActivity : AppCompatActivity() {
         val fromActivity =
             intent.extras?.getString(EXTRA_ACTIVITYNAME) ?: "" //""が入る場合はエラー？
         Log.d("どこから遷移", fromActivity)
-        Log.d("受け取ったfolderid", "${folderid}")
+        Log.d("受け取ったfolderid", "$folderid")
 
         //FolderInfo全件セレクト
         //戻り値をfolderListにいれてそれぞれviewにセット
         val folderList: ArrayList<FolderInfo> = selectFolder(folderid)
 
-        val date = folderList.get(0).date
+        //日付をfolderListから取り出す
+        val date = folderList[0].date
         //日付を一回stringにしてスラッシュいれる
         val strDate = "$date"
         //yyyy / MM / DDの形
         val slashDate = strDate.take(4) + "/" + strDate.substring(4, 6) + "/" + strDate.takeLast(2)
-        dateView.text = "$slashDate"
+        dateView.text = slashDate //文字列なので""で囲む必要なかった
 
         //タイトル表示
-        titleView.text = folderList.get(0).title
+        titleView.text = folderList[0].title
 
         //memberNum0にする
         var memberNum = 0
         //member1表示
-        //member1_View.text = folderList.get(0).member1
-        member1 = folderList.get(0).member1
+        member1 = folderList[0].member1
         if (member1.isNotBlank()) {
             memberNum++
-            member1_View.text = member1
+            member1_view.text = member1
         }
-
         //null許容しているため文字列とする getにグレー波線 なんかいいやり方ありますか
-        member2 = folderList.get(0).member2.toString()
-        member3 = folderList.get(0).member3.toString()
-        member4 = folderList.get(0).member4.toString()
-        member5 = folderList.get(0).member5.toString()
-        member6 = folderList.get(0).member6.toString()
+        member2 = folderList[0].member2.toString()
+        member3 = folderList[0].member3.toString()
+        member4 = folderList[0].member4.toString()
+        member5 = folderList[0].member5.toString()
+        member6 = folderList[0].member6.toString()
 
         //登録されている場合はメンバー数変数をインクリメントして表示
-        // 登録されていない場合は領域をView.GONEで領域を詰める
+        //登録されていない場合は領域をView.GONEで領域を詰める
         if (member2.isNotBlank()) {
             memberNum++
-            member2_View.text = member2
+            member2_view.text = member2
         } else {
-            member2_View.visibility = View.GONE
+            member2_view.visibility = View.GONE
         }
-
         if (member3.isNotBlank()) {
             memberNum++
-            member3_View.text = member3
+            member3_view.text = member3
         } else {
-            member3_View.visibility = View.GONE
+            member3_view.visibility = View.GONE
         }
 
         if (member4.isNotBlank()) {
             memberNum++
-            member4_View.text = member4
+            member4_view.text = member4
         } else {
-            member4_View.visibility = View.GONE
+            member4_view.visibility = View.GONE
         }
 
         if (member5.isNotBlank()) {
             memberNum++
-            member5_View.text = member5
+            member5_view.text = member5
         } else {
-            member5_View.visibility = View.GONE
+            member5_view.visibility = View.GONE
         }
 
         if (member6.isNotBlank()) {
             memberNum++
-            member6_View.text = member6
+            member6_view.text = member6
         } else {
-            member6_View.visibility = View.GONE
+            member6_view.visibility = View.GONE
         }
 
         //メンバー数表示
@@ -218,8 +213,8 @@ class FolderDetailActivity : AppCompatActivity() {
         }
     }
 
-    //ParagraphInfoテーブルを全件セレクト
-    fun selectPara(folderid: Int): ArrayList<ItemToUse> {
+    //ParagraphInfoテーブルをセレクト
+    private fun selectPara(folderid: Int): ArrayList<ItemToUse> {
         try {
             val dbHelper = DriveDBHelper(this, DB_NAME, null, DB_VERSION)
             val database = dbHelper.readableDatabase

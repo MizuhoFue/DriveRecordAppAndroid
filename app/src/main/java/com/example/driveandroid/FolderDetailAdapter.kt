@@ -43,7 +43,7 @@ class FolderDetailAdapter(
             payerView.text = folderDetail[position].payers
             trashbox.setOnClickListener(object : View.OnClickListener {
                 override fun onClick(v: View?) {
-                    //TODO削除処理
+                    //TODO 削除処理
 //                    // BuilderからAlertDialogを作成
 //                    val dialog = AlertDialog.Builder(this)
 //                        .setTitle(R.string.finish_message) // タイトル
