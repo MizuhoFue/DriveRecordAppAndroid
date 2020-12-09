@@ -1,7 +1,8 @@
 /*画面：フォルダ詳細
-*更新日：2020年12月7日
+*更新日：2020年12月9日
 *更新者：笛木瑞歩
-*前回からの変更：FolderInfoの該当データ表示、日付スラッシュ表示、id変更に合わせて修正、ArrayListからの取り出し方修正
+*前回からの変更：Createでスラッシュ入りにするのでこちらのスラッシュ表示処理を削除、selectFolderのdate部分をgetStringに
+* memberに登録がなかった場合nullが入るように変更 isNotBlank→isNullOrBlankチェックに変更  変数名folderId キャメルケース チェック系メソッド化は別ブランチ
 *星野さんのもの参考
 */
 package com.example.driveandroid
@@ -24,26 +25,20 @@ import kotlinx.android.synthetic.main.activity_folder_detail.*
 class FolderDetailActivity : AppCompatActivity() {
 
     //DB用変数用意
-    //dateとmemberNumはonResumeでの初期化に変更
-    private var title = "" //TODO 漢字文字化けする
-    private var member1 = ""  //メンバー名
-    private var member2 = ""
-    private var member3 = ""
-    private var member4 = ""
-    private var member5 = ""
-    private var member6 = ""
+    //FolderInfo関連変数はonResume内で初期化
+    //以下RecyclerView用変数
     private var paraName = ""   //項目名
     private var paraCost = 0    //項目の金額 項目によって異なる　
-    private var perParsonCost = 0   //項目ごとの一人当たり金額 TODO 一人当たりの金額表示
+    private var perParsonCost = 0   //項目ごとの一人当たり金額
     private var payer = ""      //項目ごとの負担者名　項目によって異なる可能性あり
-    var totalCost = 0       //全ての項目の金額合計 TODO 合計金額表示
+    var totalCost = 0       //全ての項目の金額合計
     var parParsonTotalCost = 0   //全ての合計金額をメンバー人数で割った一人当たりの金額
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var viewAdapter: RecyclerView.Adapter<*>
     private lateinit var viewManager: RecyclerView.LayoutManager
 
-    //配列初期化
+    //配列初期化 paragraphInfoの中身用
     val ItemToUseList = ArrayList<ItemToUse>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -64,67 +59,66 @@ class FolderDetailActivity : AppCompatActivity() {
         Log.d("受け取ったfolderid", "$folderId")
 
         //FolderInfo全件セレクト
-        //戻り値をfolderListにいれてそれぞれviewにセット
+        //戻り値をfolderListにいれてそれぞれviewにセット nullableにしておく folderListの中身がnullでない場合は表示
         val folderList: ArrayList<FolderInfo>? = selectFolder(folderId)
+
         //日付をfolderListから取り出す
-        val date = folderList?.get(0)?.date //nullチェック
-        //日付を一回stringにしてスラッシュいれる
-        val strDate = "$date"
-        //yyyy / MM / DDの形
-        val slashDate = strDate.take(4) + "/" + strDate.substring(4, 6) + "/" + strDate.takeLast(2)
-        dateView.text = slashDate //文字列なので""で囲む必要なかった
+        val date = folderList?.get(0)?.date
+        dateView.text = date //スラッシュ表示削除
 
         //タイトル表示
-        titleView.text = folderList?.get(0)?.title
+        val title = folderList?.get(0)?.title //TODO 漢字が文字化けする(例：熱海旅行の「海」)
+        titleView.text = title
 
-        //memberNum0にする
+        //memberNum0にする メンバーが増えるとインクリメント
         var memberNum = 0
-
         //member1表示
-        member1 = folderList?.get(0)?.member1.toString()
-        if (member1.isNotBlank()) {
+        val member1 = folderList?.get(0)?.member1
+        //member1のチェック省略してもよい？ 入力必須のdate、titleは上の方でチェックしていない
+        if (!member1.isNullOrBlank()) { //?.　nullじゃない時にこの処理をやるよっていう書き方
             memberNum++
             member1_view.text = member1
         }
 
-        //null許容しているため文字列とする
-        member2 = folderList?.get(0)?.member2.toString()
-        member3 = folderList?.get(0)?.member3.toString()
-        member4 = folderList?.get(0)?.member4.toString()
-        member5 = folderList?.get(0)?.member5.toString()
-        member6 = folderList?.get(0)?.member6.toString()
+        //文字が入っていない場合はnullが入っている
+        val member2 = folderList?.get(0)?.member2
+        val member3 = folderList?.get(0)?.member3
+        val member4 = folderList?.get(0)?.member4
+        val member5 = folderList?.get(0)?.member5
+        val member6 = folderList?.get(0)?.member6
 
         //登録されている場合はメンバー数変数をインクリメントして表示
-        //登録されていない場合は領域をView.GONEで領域を詰める
-        if (member2.isNotBlank()) {
+        //登録されていない場合(null)は領域をView.GONEで領域を詰める
+
+        if (!member2.isNullOrBlank()) {
             memberNum++
             member2_view.text = member2
         } else {
             member2_view.visibility = View.GONE
         }
 
-        if (member3.isNotBlank()) {
+        if (!member3.isNullOrBlank()) {
             memberNum++
             member3_view.text = member3
         } else {
             member3_view.visibility = View.GONE
         }
 
-        if (member4.isNotBlank()) {
+        if (!member4.isNullOrBlank()) {
             memberNum++
             member4_view.text = member4
         } else {
             member4_view.visibility = View.GONE
         }
 
-        if (member5.isNotBlank()) {
+        if (!member5.isNullOrBlank()) {
             memberNum++
             member5_view.text = member5
         } else {
             member5_view.visibility = View.GONE
         }
 
-        if (member6.isNotBlank()) {
+        if (!member6.isNullOrBlank()) {
             memberNum++
             member6_view.text = member6
         } else {
@@ -167,7 +161,7 @@ class FolderDetailActivity : AppCompatActivity() {
         home.setOnClickListener {//押したら
             finish()
         }
-    }
+    } //onResume閉じ
 
     /** selectFolder folderidを元に該当データをFolderInfoテーブルからセレクト
      * @param folderId:Int
@@ -191,7 +185,7 @@ class FolderDetailActivity : AppCompatActivity() {
                     val folderInfo = FolderInfo(
                         cursor.getInt(0),
                         cursor.getString(1),
-                        cursor.getInt(2),
+                        cursor.getString(2), //getStringに変更
                         cursor.getString(3),
                         cursor.getString(4),
                         cursor.getString(5),
@@ -199,7 +193,7 @@ class FolderDetailActivity : AppCompatActivity() {
                         cursor.getString(7),
                         cursor.getString(8)
                     )
-                    folderList.add(folderInfo) //箱に型を入れる
+                    folderList.add(folderInfo)
                     cursor.moveToNext()
                 }
             }

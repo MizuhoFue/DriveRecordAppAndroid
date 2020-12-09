@@ -1,8 +1,8 @@
 /*
 * FolderListAdapter
 * 更新者：笛木
-* 更新日：2020年12月3日
-* 内容：Detailに送るfolderid、position＋1がfolderidだったため+1した
+* 更新日：2020年12月7日
+* 内容：BindViewHolder内、folderList[position].toString()のtoString()を削除 日付をStringにしたため
 *
 * */
 package com.example.driveandroid
@@ -44,9 +44,9 @@ class FolderListAdapter(
     override fun onBindViewHolder(holder: CustomViewHolder, position: Int) {
         with(holder) {
             date.text =
-                folderList[position].date.toString() //positionつけたらコンパイルエラー、String型  TODO スラッシュ付けてフォーマットyyyy/MM/dd
+                folderList[position].date //String型　すでにスラッシュ入り
             title.text = folderList[position].title
-            //星野さんがdeleteのリスナー書いてる
+            //TODO 星野さんがdeleteのリスナー書いてるので参考に別ブランチで作成
             itemView.setOnClickListener(object : View.OnClickListener {
                 //クリック時の処理 TODO select処理実装
                 override fun onClick(v: View) {

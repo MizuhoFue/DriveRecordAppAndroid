@@ -1,8 +1,8 @@
 /*
 * 画面：フォルダ一覧 FolderList
 * 更新者：笛木
-* 更新日：2020年12月1日
-* 内容：小林さん指導の元データ型クラスを使ってセレクト処理修正、カーソルクローズ処理追加
+* 更新日：2020年12月8日
+* 更新内容：selectする時のselectFolderメソッドで日付部分をgetIntからgetStringに privateも付け足し 不要コメント削除
 * */
 package com.example.driveandroid
 
@@ -59,13 +59,13 @@ class FolderListActivity : AppCompatActivity() {
         //フォルダ作成へ遷移　フィニッシュなし
         addFolder.setOnClickListener {
             val intent = Intent(this@FolderListActivity, FolderCreateActivity::class.java)
-            //intent.putExtra(Constants.EXTRA_FOLDERID, folderid)
+            //folderid送りいらないので削除
             startActivity(intent)
         }
     }
 
     //FolderInfoテーブルを全件セレクト　戻り値は日付配列とタイトル配列 TODO 後ほどDBHelperにまとめる
-    fun selectFolder(): ArrayList<FolderInfo>? {
+    private fun selectFolder(): ArrayList<FolderInfo>? {
         try {
             val dbHelper = DriveDBHelper(this, DB_NAME, null, DB_VERSION)
             val database = dbHelper.readableDatabase
@@ -84,7 +84,7 @@ class FolderListActivity : AppCompatActivity() {
                     //FolderInfo型クラスを使って結果の値を変数folderInfoに入れる
                     val folderInfo = FolderInfo(
                         cursor.getInt(0), cursor.getString(1),
-                        cursor.getInt(2), cursor.getString(3), cursor.getString(4),
+                        cursor.getString(2), cursor.getString(3), cursor.getString(4),
                         cursor.getString(5), cursor.getString(6), cursor.getString(7),
                         cursor.getString(8)
                     )
