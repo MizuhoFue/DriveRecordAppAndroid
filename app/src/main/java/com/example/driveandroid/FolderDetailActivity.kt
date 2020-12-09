@@ -56,18 +56,18 @@ class FolderDetailActivity : AppCompatActivity() {
         super.onResume()
 
         //FolderListまたはMoneyInsertから渡されたfolderid、遷移元ファイル名を変数に入れる
-        val folderid =
+        val folderId =
             intent.extras?.getInt(EXTRA_FOLDERID) ?: -1 // 0だと0番目の配列と被るため-1に設定
         val fromActivity =
             intent.extras?.getString(EXTRA_ACTIVITYNAME) ?: "" //""が入る場合はエラー？
         Log.d("どこから遷移", fromActivity)
-        Log.d("受け取ったfolderid", "$folderid")
+        Log.d("受け取ったfolderid", "$folderId")
 
         //FolderInfo全件セレクト
         //戻り値をfolderListにいれてそれぞれviewにセット
-        val folderList: ArrayList<FolderInfo>? = selectFolder(folderid)
+        val folderList: ArrayList<FolderInfo>? = selectFolder(folderId)
         //日付をfolderListから取り出す
-        val date = folderList!![0].date //nonNull
+        val date = folderList?.get(0)?.date //nullチェック
         //日付を一回stringにしてスラッシュいれる
         val strDate = "$date"
         //yyyy / MM / DDの形
@@ -75,24 +75,24 @@ class FolderDetailActivity : AppCompatActivity() {
         dateView.text = slashDate //文字列なので""で囲む必要なかった
 
         //タイトル表示
-        titleView.text = folderList[0].title
+        titleView.text = folderList?.get(0)?.title
 
         //memberNum0にする
         var memberNum = 0
-        
+
         //member1表示
-        member1 = folderList[0].member1
+        member1 = folderList?.get(0)?.member1.toString()
         if (member1.isNotBlank()) {
             memberNum++
             member1_view.text = member1
         }
 
-        //null許容しているため文字列とする getにグレー波線 なんかいいやり方ありますか
-        member2 = folderList[0].member2.toString()
-        member3 = folderList[0].member3.toString()
-        member4 = folderList[0].member4.toString()
-        member5 = folderList[0].member5.toString()
-        member6 = folderList[0].member6.toString()
+        //null許容しているため文字列とする
+        member2 = folderList?.get(0)?.member2.toString()
+        member3 = folderList?.get(0)?.member3.toString()
+        member4 = folderList?.get(0)?.member4.toString()
+        member5 = folderList?.get(0)?.member5.toString()
+        member6 = folderList?.get(0)?.member6.toString()
 
         //登録されている場合はメンバー数変数をインクリメントして表示
         //登録されていない場合は領域をView.GONEで領域を詰める
@@ -134,12 +134,12 @@ class FolderDetailActivity : AppCompatActivity() {
         //メンバー数表示
         member_num_view.text = "$memberNum"
 
-        //ユーザーリストでデーターを追加、仮データ反映
-        val folderDetail = selectPara(folderid)
+        //ユーザーリストでデーターを追加
+        val folderDetail = selectPara(folderId)
 
         //配列を表示させる
-        folderDetail.let {
-            val adapter = FolderDetailAdapter(it!!) //nonNull
+        folderDetail?.let {
+            val adapter = FolderDetailAdapter(it)
             val layoutManager = LinearLayoutManager(this)
 
             // アダプターとレイアウトマネージャーをセット folderDetailはRecyclerViewのid
@@ -152,7 +152,7 @@ class FolderDetailActivity : AppCompatActivity() {
             //Intent作成 FolderDetailフォルダ詳細からMoneyInsert金額入力に遷移
             val intent = Intent(this@FolderDetailActivity, MoneyInsertActivity::class.java)
             //このフォルダの追加項目なのでfolderidをMoneyInsertへ　finish処理用にActivity名も送る
-            intent.putExtra(EXTRA_FOLDERID, folderid)
+            intent.putExtra(EXTRA_FOLDERID, folderId)
             intent.putExtra(EXTRA_ACTIVITYNAME, this::class.java.simpleName)
             startActivity(intent)
             //クリアタスク、フィニッシュなし・MoneyInsertで戻るボタンを押すと再び詳細が確認できるようになっている
