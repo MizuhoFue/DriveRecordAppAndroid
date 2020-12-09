@@ -1,8 +1,8 @@
 /*画面：フォルダ詳細
-*更新日：2020年12月7日
+*更新日：2020年12月9日
 *更新者：笛木瑞歩
 *前回からの変更：Createでスラッシュ入りにするのでこちらのスラッシュ表示処理を削除、selectFolderのdate部分をgetStringに
-* memberに登録がなかった場合nullが入るように変更 isNotBlank→isNullOrBlankチェックに変更
+* memberに登録がなかった場合nullが入るように変更 isNotBlank→isNullOrBlankチェックに変更  変数名folderId キャメルケース チェック系メソッド化は別ブランチ
 *星野さんのもの参考
 */
 package com.example.driveandroid
@@ -25,7 +25,6 @@ class FolderDetailActivity : AppCompatActivity() {
 
     //DB用変数用意
     //FolderInfo関連変数はonResume内で初期化
-
     //以下RecyclerView用変数
     private var paraName = ""   //項目名
     private var paraCost = 0    //項目の金額 項目によって異なる　
@@ -51,43 +50,44 @@ class FolderDetailActivity : AppCompatActivity() {
         super.onResume()
 
         //FolderListまたはMoneyInsertから渡されたfolderid、遷移元ファイル名を変数に入れる
-        val folderid =
+        val folderId =
             intent.extras?.getInt(EXTRA_FOLDERID) ?: -1 // 0だと0番目の配列と被るため-1に設定
         val fromActivity =
             intent.extras?.getString(EXTRA_ACTIVITYNAME) ?: "" //""が入る場合はエラー？
         Log.d("どこから遷移", fromActivity)
-        Log.d("受け取ったfolderid", "$folderid")
+        Log.d("受け取ったfolderid", "$folderId")
 
         //FolderInfo全件セレクト
-        //戻り値をfolderListにいれてそれぞれviewにセット
-        val folderList: ArrayList<FolderInfo> = selectFolder(folderid)
+        //戻り値をfolderListにいれてそれぞれviewにセット nullableにしておく folderListの中身がnullでない場合は表示
+        val folderList: ArrayList<FolderInfo>? = selectFolder(folderId)
+
         //日付をfolderListから取り出す
-        val date = folderList[0].date
+        val date = folderList?.get(0)?.date
         dateView.text = date //スラッシュ表示削除
 
         //タイトル表示
-        val title = folderList[0].title //TODO 漢字が文字化けする(例：熱海旅行の「海」)
+        val title = folderList?.get(0)?.title //TODO 漢字が文字化けする(例：熱海旅行の「海」)
         titleView.text = title
 
         //memberNum0にする メンバーが増えるとインクリメント
         var memberNum = 0
         //member1表示
-        val member1 = folderList[0].member1
+        val member1 = folderList?.get(0)?.member1
         //member1のチェック省略してもよい？ 入力必須のdate、titleは上の方でチェックしていない
-        if (member1.isNotBlank()) {
+        if (!member1.isNullOrBlank()) { //?.　nullじゃない時にこの処理をやるよっていう書き方
             memberNum++
             member1_view.text = member1
         }
 
         //文字が入っていない場合はnullが入っている
-        val member2 = folderList[0].member2
-        val member3 = folderList[0].member3
-        val member4 = folderList[0].member4
-        val member5 = folderList[0].member5
-        val member6 = folderList[0].member6
+        val member2 = folderList?.get(0)?.member2
+        val member3 = folderList?.get(0)?.member3
+        val member4 = folderList?.get(0)?.member4
+        val member5 = folderList?.get(0)?.member5
+        val member6 = folderList?.get(0)?.member6
 
         //登録されている場合はメンバー数変数をインクリメントして表示
-        //登録されていない場合は領域をView.GONEで領域を詰める
+        //登録されていない場合(null)は領域をView.GONEで領域を詰める
 
         if (!member2.isNullOrBlank()) {
             memberNum++
@@ -145,7 +145,7 @@ class FolderDetailActivity : AppCompatActivity() {
             //Intent作成 FolderDetailフォルダ詳細からMoneyInsert金額入力に遷移
             val intent = Intent(this@FolderDetailActivity, MoneyInsertActivity::class.java)
             //このフォルダの追加項目なのでfolderidをMoneyInsertへ　finish処理用にActivity名も送る
-            intent.putExtra(EXTRA_FOLDERID, folderid)
+            intent.putExtra(EXTRA_FOLDERID, folderId)
             intent.putExtra(EXTRA_ACTIVITYNAME, this::class.java.simpleName)
             startActivity(intent)
             //クリアタスク、フィニッシュなし・MoneyInsertで戻るボタンを押すと再び詳細が確認できるようになっている
@@ -166,13 +166,13 @@ class FolderDetailActivity : AppCompatActivity() {
      * @param folderid:Int
      * @return ArrayList<FolderInfo>
      * */
-    private fun selectFolder(folderid: Int): ArrayList<FolderInfo> {
+    private fun selectFolder(folderId: Int): ArrayList<FolderInfo>? {
         try {
             val dbHelper = DriveDBHelper(this, DB_NAME, null, DB_VERSION)
             val database = dbHelper.readableDatabase
             val folderList = ArrayList<FolderInfo>() //FolderInfo型の箱をつくる
             //select文　FolderInfoテーブルセレクト
-            val sql = "SELECT * FROM $FOLDER_INFO WHERE folderid=$folderid" //sql文OK
+            val sql = "SELECT * FROM $FOLDER_INFO WHERE folderid=$folderId" //sql文OK
             Log.d("SQL実行", sql)
             //cursorに結果をいれて
             val cursor =
@@ -200,7 +200,7 @@ class FolderDetailActivity : AppCompatActivity() {
             return folderList
         } catch (exception: Exception) {
             Log.e("SelectData", exception.toString())
-            return arrayListOf() //これでいいかわからないけどnullはコンパイルエラーでreturnできなかった
+            return null //これでいいかわからないけどnullはコンパイルエラーでreturnできなかった
         }
     }
 
@@ -208,7 +208,7 @@ class FolderDetailActivity : AppCompatActivity() {
      *
      *@return : ArrayList<ItemToUse>
      * */
-    private fun selectPara(folderid: Int) {
+    private fun selectPara(folderId: Int) {
         //別ブランチで星野さんが作成中
     }
 }
