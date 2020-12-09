@@ -1,8 +1,10 @@
 /*FolderCreateActivity フォルダ作成画面
 * folderid　一列登録した情報　全一致のものをセレクトして配列に入れた上でidだけMoneyInsertActivityに送る
-* タスク：文字数入力チェックを入れる
-* 前回からの変更：日付の0埋め処理と変数格納を一つのif文にまとめました
-* 更新日2020年12月7日
+* タスク：（Listの完成後）文字数入力チェックを入れる、insert周りをデータクラス使って整理
+* 前回からの変更点：FolderInfoテーブルに登録するdateをString型に変更、moneyボタンリスナーでのdate0埋め処理もcreateEndと同様にしました
+* member2からmemberに登録がなかった場合nullが入るように変更  isNotBlank→isNullOrBlankチェックに変更 date、title、member1もonResume内で初期化、代入
+* チェック系メソッド化は別ブランチ
+* 更新日：2020年12月9日
 * 更新者：笛木
 * */
 package com.example.driveandroid
@@ -29,7 +31,7 @@ class FolderCreateActivity : AppCompatActivity() {
 
     //insert、selectの引数用 クラスは頭文字大文字
     data class InsertArray(
-        val date: Int,
+        val date: String,
         val title: String,
         val member1: String,
         val member2: String?,
@@ -40,17 +42,8 @@ class FolderCreateActivity : AppCompatActivity() {
     )
 
     //データクラスはセットする時に初期化
-    //入力した値を格納する変数用意 最終的にデータクラスにまとめる
-    private var folderid = 0 //セレクトした後に入れる
-    private var title = "" //タイトル
-    private var date = 0 //日付　
-    private var member1 = ""
-    private var member2 = ""
-    private var member3 = ""
-    private var member4 = ""
-    private var member5 = ""
-    private var member6 = ""
-    private var memberNum = 0 //textwatcher用
+    //DB用変数はその場でisNullOrBlankチェックした時に初期化、代入
+    private var memberNum = 0 //textWatcher用　後ほど使う
 
     //DatePicker用変数初期化
     private var dateYear = 0
@@ -102,55 +95,50 @@ class FolderCreateActivity : AppCompatActivity() {
             dialog.show()
         }
 
-        //TODO memberNumをtextwatcherで数えて表示する処理をいれる
+        //TODO memberNumをtextWatcherで数えて表示する処理をいれる
         //入力完了が押されたらinsert、値受け渡しの必要はないのでホームのフォルダーListに戻る
         createEnd.setOnClickListener {
-            //TODO エラーはif文にelseをつけてメッセージ設定
-            //checkDate(putDate,putTitle,putMember1,putMember2,putMember3,putMember4,putMember5,putMember6)
-            //DatePickerで入力されたものをDB登録用変数に入れる 文字列で足してInt型にキャストすればデータベースに影響はなし folderListのこれ！にそれぞれ入れたい・・・
-            if (dateYear != 0 && dateMonth != 0 && dateDayOfMonth != 0) {//ちゃんと日付選択されているならば
-                //変数に格納、一桁の場合は0埋めを行う
-                val month = if ("$dateMonth".length == 1) "0$dateMonth" else "$dateMonth"
-                val day =
-                    if ("$dateDayOfMonth".length == 1) "0$dateDayOfMonth" else "$dateDayOfMonth"
-                val strDate = "$dateYear" + month + day //文字列でくっつけて
-                date = Integer.parseInt(strDate)
-                Log.d("数字にできたか確認", "$date")
-            }
+            //エラーはif文にelseをつけてメッセージ設定?
+            //空の場合エラーメッセージを出すdate、titleとmember1 TODO エラーメッセージ用意
+            //DatePickerで入力されたものをDB登録用変数に入れる
+            val date =
+                if (dateYear != 0 && dateMonth != 0 && dateDayOfMonth != 0) { //ちゃんと日付選択されているならば
+                    //変数に格納、一桁の場合は0埋めを行う
+                    val month = if ("$dateMonth".length == 1) "0$dateMonth" else "$dateMonth"
+                    val day = if ("$dateDayOfMonth".length == 1) "0$dateDayOfMonth" else "$dateDayOfMonth"
+                    //この時点でスラッシュ入りにしてString型としてdateに格納
+                    "$dateYear/$month/$day"
+                } else {
+                    "" //日付選択されていない場合空白代入
+                }
 
-            if (!putTitle.text.isNullOrEmpty()) {
-                title = putTitle.text.toString()
-                Log.d("タイトル名", title)
-            }
+            //TODO ここでもう一度チェックして空だった場合はエラ〜メッセージ isEmptyなどで
+            Log.d("選択日付スラッシュ入り", date)
 
-            if (!putMember1.text.isNullOrEmpty()) {
-                member1 = putMember1.text.toString()
-                Log.d("メンバー1", member1)
-            }
-            if (!putMember2.text.isNullOrEmpty()) {
-                member2 = putMember2.text.toString()
-                Log.d("メンバー2", member2)
-            }
+            val title =
+                if (!putTitle.text.isNullOrBlank()) putTitle.text.toString() else "" //nullがダメなので空白？
+            Log.d("タイトル名", title)
 
-            if (!putMember3.text.isNullOrEmpty()) {
-                member3 = putMember3.text.toString()
-                Log.d("メンバー3", member3)
-            }
+            val member1 =
+                if (!putMember1.text.isNullOrBlank()) putMember1.text.toString() else ""//nullがダメなので空白？
+            Log.d("メンバー1", member1)
 
-            if (!putMember4.text.isNullOrEmpty()) {
-                member4 = putMember4.text.toString()
-                Log.d("メンバー4", member4)
-            }
+            //入力されていればmember変数に入力値格納、されていなければnull代入
+            val member2 = if (!putMember2.text.isNullOrBlank()) putMember2.text.toString() else null
+            Log.d("メンバー2", "$member2")
 
-            if (!putMember5.text.isNullOrEmpty()) {
-                member5 = putMember5.text.toString()
-                Log.d("メンバー5", member5)
-            }
+            val member3 = if (!putMember3.text.isNullOrBlank()) putMember3.text.toString() else null
+            Log.d("メンバー3", "$member3")
 
-            if (!putMember6.text.isNullOrEmpty()) {
-                member6 = putMember6.text.toString()
-                Log.d("メンバー6", member6)
-            }
+            val member4 = if (!putMember4.text.isNullOrBlank()) putMember4.text.toString() else null
+            Log.d("メンバー4", "$member4")
+
+            val member5 = if (!putMember5.text.isNullOrBlank()) putMember5.text.toString() else null
+            Log.d("メンバー5", "$member5")
+
+            val member6 = if (!putMember6.text.isNullOrBlank()) putMember6.text.toString() else null
+            Log.d("メンバー6", "$member6")
+
             //入力チェック終わり TODO このタイミングでエラーメッセージの中身を確認　あったらエラーダイアログ表示
 
             //入力、変数に入れた中身を確認
@@ -164,55 +152,51 @@ class FolderCreateActivity : AppCompatActivity() {
             Log.d("insertInfoの中身", "$insertInfo")
             //insertメソッド呼び出し
             insertData(insertInfo)
+            //TODO ここまでをメソッド化予定
             //リスト遷移後はフォルダ作成を閉じる=startActivityでフォルダ一覧を作成しなくてもよい
             finish()
         }
 
         //金額入力が押されたら入力チェック、insert、selectしたものを配列に入れる、
         money.setOnClickListener {
-            //入力チェック TODO エラーはelseでメッセージ設定
+            //入力チェック エラーはelseでメッセージ設定 上記inputCompとエラーチェック、insertまでの流れは同じ
+            val date =
+                if (dateYear != 0 && dateMonth != 0 && dateDayOfMonth != 0) {//ちゃんと日付選択されているならば
+                    //変数に格納、一桁の場合は0埋めを行う
+                    val month = if ("$dateMonth".length == 1) "0$dateMonth" else "$dateMonth"
+                    val day = if ("$dateDayOfMonth".length == 1) "0$dateDayOfMonth" else "$dateDayOfMonth"
+                    "$dateYear/$month/$day" //この時点でスラッシュ入りにしてString型としてdateに格納
+                } else {
+                    ""
+                }
+            //TODO ここでもう一度チェックして空だった場合はエラ〜メッセージ isEmptyなどで
+            Log.d("日付スラッシュ入り", date)
 
-            //DatePickerで入力されたものをDB登録用変数に入れる 文字列で足してInt型にキャストすればデータベースに影響はなし
-            if (dateYear != 0 && dateMonth != 0 && dateDayOfMonth != 0) {//入力されているならば
-                val strDate = "$dateYear$dateMonth$dateDayOfMonth" //文字列にする
-                date = Integer.parseInt(strDate)
-                Log.d("数字にできたか確認", "$date")
-            }
+            val title =
+                if (!putTitle.text.isNullOrBlank()) putTitle.text.toString() else "" //nullがダメなので空白？
+            Log.d("タイトル名", title)
 
-            if (!putTitle.text.isNullOrEmpty()) {
-                title = putTitle.text.toString()
-                Log.d("タイトル名", title)
-            }
+            val member1 =
+                if (!putMember1.text.isNullOrBlank()) putMember1.text.toString() else "" //nullがダメなので空白？
+            Log.d("メンバー1", member1)
 
-            if (!putMember1.text.isNullOrEmpty()) {
-                member1 = putMember1.text.toString()
-                Log.d("メンバー1", member1)
-            }
-            if (!putMember2.text.isNullOrEmpty()) {
-                member2 = putMember2.text.toString()
-                Log.d("メンバー2", member2)
-            }
+            //入力されていればmember変数に入力値格納、されていなければnull代入
+            val member2 = if (!putMember2.text.isNullOrBlank()) putMember2.text.toString() else null
+            Log.d("メンバー2", "$member2")
 
-            if (!putMember3.text.isNullOrEmpty()) {
-                member3 = putMember3.text.toString()
-                Log.d("メンバー3", member3)
-            }
+            val member3 = if (!putMember3.text.isNullOrBlank()) putMember3.text.toString() else null
+            Log.d("メンバー3", "$member3")
 
-            if (!putMember4.text.isNullOrEmpty()) {
-                member4 = putMember4.text.toString()
-                Log.d("メンバー4", member4)
-            }
+            val member4 = if (!putMember4.text.isNullOrBlank()) putMember4.text.toString() else null
+            Log.d("メンバー4", "$member4")
 
-            if (!putMember5.text.isNullOrEmpty()) {
-                member5 = putMember5.text.toString()
-                Log.d("メンバー5", member5)
-            }
+            val member5 = if (!putMember5.text.isNullOrBlank()) putMember5.text.toString() else null
+            Log.d("メンバー5", "$member5")
 
-            if (!putMember6.text.isNullOrEmpty()) {
-                member6 = putMember6.text.toString()
-                Log.d("メンバー6", member6)
-            }
-            //TODO このタイミングでエラ〜メッセージをチェック　中身があったらエラーダイアログ表示
+            val member6 = if (!putMember6.text.isNullOrBlank()) putMember6.text.toString() else null
+            Log.d("メンバー6", "$member6")
+
+            //TODO このタイミングでエラーメッセージをチェック　中身があったらエラーダイアログ表示
             //入力した中身を確認
             Log.d(
                 "入力した中身", "date:$date title:$title member1:$member1" +
@@ -224,19 +208,20 @@ class FolderCreateActivity : AppCompatActivity() {
             Log.d("insertInfoの中身", "$insertInfo")
             //insertメソッド呼び出し
             insertData(insertInfo)
+            //TODO　ここまでをメソッド化予定
             //MoneyInsert用SELECT
-            //insertできたか確認したらたった今入れたものをセレクトという処理をいれたい if(result)?
+            //insertできたか確認したらたった今入れたものをセレクト if(result)?
             val result =
                 selectData(insertInfo)
             Log.d("result", "$result")
 
-            //一個しか入らないと思うから0番目
-            folderid = result[0]
-            Log.d("folderidの値確認", "$folderid")
+            //一個しか入らないので0番目
+            val folderId = result[0]
+            Log.d("folderIdの値確認", "$folderId")
 
             val intent = Intent(this@FolderCreateActivity, MoneyInsertActivity::class.java)
             //idとActivity名をMoneyInsertに送る
-            intent.putExtra(EXTRA_FOLDERID, folderid)
+            intent.putExtra(EXTRA_FOLDERID, folderId)
             intent.putExtra(EXTRA_ACTIVITYNAME, this::class.java.simpleName)
             startActivity(intent)
             //クリアタスクなし・金額入力画面遷移後はフォルダ作成をフィニッシュ
@@ -287,7 +272,7 @@ class FolderCreateActivity : AppCompatActivity() {
             val result = database.insertOrThrow(FOLDER_INFO, null, values)
             //入力した中身を確認
             Log.d(
-                "insertした中身",
+                "insertできた中身",
                 "date:${insertInfo.date} title:${insertInfo.title} member1:${insertInfo.member1} " +
                         "member2:${insertInfo.member2} member3:${insertInfo.member3} member4:${insertInfo.member4} member5:${insertInfo.member5} member6:${insertInfo.member6}"
             )
@@ -307,7 +292,7 @@ class FolderCreateActivity : AppCompatActivity() {
             val database = dbHelper.readableDatabase
             //select文　たった今insertした内容と一致するもののfolderidのみ受け取る
             val sql =   //String型の変数はシングルクオテーションで囲むのを忘れずに
-                "SELECT * FROM $FOLDER_INFO WHERE date=${insertInfo.date} AND title='${insertInfo.title}'AND member1='${insertInfo.member1}' AND " +
+                "SELECT * FROM $FOLDER_INFO WHERE date='${insertInfo.date}' AND title='${insertInfo.title}'AND member1='${insertInfo.member1}' AND " +
                         "member2='${insertInfo.member2}' AND member3='${insertInfo.member3}' AND member4='${insertInfo.member4}' AND member5='${insertInfo.member5}' AND member6='${insertInfo.member6}'"
             Log.d("SQL実行", sql)
             //クエリ実行 cursorで結果セット受け取り？
