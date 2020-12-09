@@ -105,8 +105,7 @@ class FolderCreateActivity : AppCompatActivity() {
                 if (dateYear != 0 && dateMonth != 0 && dateDayOfMonth != 0) { //ちゃんと日付選択されているならば
                     //変数に格納、一桁の場合は0埋めを行う
                     val month = if ("$dateMonth".length == 1) "0$dateMonth" else "$dateMonth"
-                    val day =
-                        if ("$dateDayOfMonth".length == 1) "0$dateDayOfMonth" else "$dateDayOfMonth"
+                    val day = if ("$dateDayOfMonth".length == 1) "0$dateDayOfMonth" else "$dateDayOfMonth"
                     //この時点でスラッシュ入りにしてString型としてdateに格納
                     "$dateYear/$month/$day"
                 } else {
@@ -165,10 +164,8 @@ class FolderCreateActivity : AppCompatActivity() {
                 if (dateYear != 0 && dateMonth != 0 && dateDayOfMonth != 0) {//ちゃんと日付選択されているならば
                     //変数に格納、一桁の場合は0埋めを行う
                     val month = if ("$dateMonth".length == 1) "0$dateMonth" else "$dateMonth"
-                    val day =
-                        if ("$dateDayOfMonth".length == 1) "0$dateDayOfMonth" else "$dateDayOfMonth"
+                    val day = if ("$dateDayOfMonth".length == 1) "0$dateDayOfMonth" else "$dateDayOfMonth"
                     "$dateYear/$month/$day" //この時点でスラッシュ入りにしてString型としてdateに格納
-
                 } else {
                     ""
                 }
