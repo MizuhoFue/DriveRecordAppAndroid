@@ -19,6 +19,7 @@ import com.example.driveandroid.Constants.Companion.DB_VERSION
 import com.example.driveandroid.Constants.Companion.EXTRA_ACTIVITYNAME
 import com.example.driveandroid.Constants.Companion.EXTRA_FOLDERID
 import com.example.driveandroid.Constants.Companion.FOLDER_INFO
+import com.example.driveandroid.Constants.Companion.PARAGRAPH_INFO
 import kotlinx.android.synthetic.main.activity_folder_detail.*
 
 class FolderDetailActivity : AppCompatActivity() {
@@ -123,25 +124,25 @@ class FolderDetailActivity : AppCompatActivity() {
         } else {
             member6_view.visibility = View.GONE
         }
+
         //メンバー数表示
         member_num_view.text = "$memberNum"
 
-        /////FolderInfoの中身表示終了//////////////
-        //ParagraphInfoの表示↓
-        //ユーザーリストでデーターを追加、仮データ反映
-        val list = Array<String>(10) { "項目" }
+        //ユーザーリストでデーターを追加
+        val folderDetail = selectPara(folderId)
 
         //配列を表示させる
-        val adapter = FolderDetailAdapter(list) //仮データ代入
-        val layoutManager = LinearLayoutManager(this)
+        folderDetail?.let {
+            val adapter = FolderDetailAdapter(it)
+            val layoutManager = LinearLayoutManager(this)
 
-        // アダプターとレイアウトマネージャーをセット folderDetailはRecyclerViewのid
-        folderDetail.layoutManager = layoutManager
-        folderDetail.adapter = adapter
-        folderDetail.setHasFixedSize(true)
+            // アダプターとレイアウトマネージャーをセット folderDetailはRecyclerViewのid
+            folderDetailView.layoutManager = layoutManager
+            folderDetailView.adapter = adapter
+            folderDetailView.setHasFixedSize(true)
+        }
 
-        //金額入力ボタン押したら
-        moneyInsert.setOnClickListener {
+        moneyInsert.setOnClickListener {//新規追加項目ボタン押したら
             //Intent作成 FolderDetailフォルダ詳細からMoneyInsert金額入力に遷移
             val intent = Intent(this@FolderDetailActivity, MoneyInsertActivity::class.java)
             //このフォルダの追加項目なのでfolderidをMoneyInsertへ　finish処理用にActivity名も送る
@@ -160,10 +161,10 @@ class FolderDetailActivity : AppCompatActivity() {
         home.setOnClickListener {//押したら
             finish()
         }
-    }//onResume閉じ
+    } //onResume閉じ
 
     /** selectFolder folderidを元に該当データをFolderInfoテーブルからセレクト
-     * @param folderid:Int
+     * @param folderId:Int
      * @return ArrayList<FolderInfo>
      * */
     private fun selectFolder(folderId: Int): ArrayList<FolderInfo>? {
@@ -200,15 +201,46 @@ class FolderDetailActivity : AppCompatActivity() {
             return folderList
         } catch (exception: Exception) {
             Log.e("SelectData", exception.toString())
-            return null //これでいいかわからないけどnullはコンパイルエラーでreturnできなかった
+            return null
         }
     }
 
     /**selectPara folderidを元に該当データをParagraphInfoテーブルからセレクト
      *
      *@return : ArrayList<ItemToUse>
+     *     ItemToUse型の箱をつくる
      * */
-    private fun selectPara(folderId: Int) {
-        //別ブランチで星野さんが作成中
+    private fun selectPara(folderId: Int): ArrayList<ItemToUse>? {
+        try {
+            val dbHelper = DriveDBHelper(this, DB_NAME, null, DB_VERSION)
+            val database = dbHelper.readableDatabase
+            val folderDetail = ArrayList<ItemToUse>()
+            //select文　ParagraphInfoテーブルセレクト
+            val sql = "SELECT * FROM $PARAGRAPH_INFO WHERE folderid=$folderId" //sql文OK
+            Log.d("SQL実行", sql)
+            //cursorに結果をいれて
+            val cursor =
+                database.rawQuery(sql, null)
+            Log.d("該当件数1のはず", "${cursor.count}")
+            cursor.moveToFirst()
+            if (cursor.count > 0) {
+                while (!cursor.isAfterLast) {
+                    val paragraphInfo = ItemToUse(
+                        cursor.getInt(0),
+                        cursor.getInt(1),
+                        cursor.getString(2),
+                        cursor.getString(3),
+                        cursor.getString(4)
+                    )
+                    folderDetail.add(paragraphInfo) //箱に型を入れる
+                    cursor.moveToNext()
+                }
+            }
+            cursor.close()
+            return folderDetail
+        } catch (exception: Exception) {
+            Log.e("SelectData", exception.toString())
+            return null
+        }
     }
 }

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/folderDetail"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="10dp"
@@ -45,13 +46,12 @@
 
                 <!--金額表示-->
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/paracostView"
+                    android:id="@+id/para_cost_view"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="20dp"
                     android:gravity="center"
-                    android:textSize="20sp"
-                    tools:text="100000" />
+                    android:textSize="20sp" />
 
                 <!--円-->
                 <androidx.appcompat.widget.AppCompatTextView
@@ -95,8 +95,7 @@
                     android:layout_height="match_parent"
                     android:layout_marginEnd="20dp"
                     android:gravity="center"
-                    android:textSize="20sp"
-                    tools:text="金額表示" />
+                    android:textSize="20sp" />
 
                 <!--円-->
                 <androidx.appcompat.widget.AppCompatTextView
@@ -133,15 +132,14 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_marginEnd="10dp"
-                android:textSize="20sp"
-                tools:text="負担者表示" />
+                android:textSize="20sp" />
 
         </RelativeLayout>
 
     </LinearLayout>
 
     <androidx.appcompat.widget.AppCompatImageButton
-        android:id="@+id/trashBox"
+        android:id="@+id/trash_box"
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_alignParentEnd="true"

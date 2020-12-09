@@ -337,12 +337,12 @@ class MoneyInsertActivity : AppCompatActivity() {
     }//selectData閉じ
 
     //ParagraphInfoにinsert TODO ParagraphInfoデータクラスを使ってコンパクトに helperにまとめる
-    fun insertPara(folderid: Int, paraName: String, paraCost: Int, payer: String) {
+    private fun insertPara(folderId: Int, paraName: String, paraCost: Int, payer: String) {
         try {
             val dbHelper = DriveDBHelper(this, DB_NAME, null, DB_VERSION)
             val database = dbHelper.writableDatabase
             val values = ContentValues()
-            values.put("folderid", folderid) //最初に受け取ったfolderid
+            values.put("folderid", folderId) //最初に受け取ったfolderid
             values.put("paraName", paraName)//項目Spinnerダイアログで選択された値
             values.put("paraCost", paraCost) //入力金額
             values.put("payer", payer)       //負担者Spinnerダイアログで選択された値
@@ -351,7 +351,7 @@ class MoneyInsertActivity : AppCompatActivity() {
             //resultで成功か失敗かif文判断?
             //入力した中身を確認
             Log.d(
-                "insertした中身", "folderid:${folderid} paraName:${paraName} paraCost:${paraCost} " +
+                "insertした中身", "folderid:${folderId} paraName:${paraName} paraCost:${paraCost} " +
                         "payer:${payer}"
             )
         } catch (exception: Exception) {
