@@ -138,7 +138,7 @@
 
     </LinearLayout>
 
-    <androidx.appcompat.widget.AppCompatImageButton
+    <ImageView
         android:id="@+id/trash_box"
         android:layout_width="60dp"
         android:layout_height="60dp"
