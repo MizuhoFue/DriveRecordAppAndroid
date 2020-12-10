@@ -1,9 +1,8 @@
 /*
 * FolderListAdapter
 * 更新者：笛木
-* 更新日：2020年12月7日
-* 内容：BindViewHolder内、folderList[position].toString()のtoString()を削除 日付をStringにしたため
-*
+* 更新日：2020年12月10日
+* 内容：deleteリスナー組み込み interface設定 deleteに送るidをdeleteId、detailに送るidをdetailIdとしてfolderList[position].folderIdを代入
 * */
 package com.example.driveandroid
 
@@ -20,6 +19,10 @@ import kotlinx.android.synthetic.main.recyclerview_item.view.*
 class FolderListAdapter(
     private var folderList: ArrayList<FolderInfo>
 ) : RecyclerView.Adapter<FolderListAdapter.CustomViewHolder>() {
+
+    // リスナー格納変数設定
+    lateinit var listener: OnItemClickListener
+
     // ViewHolderクラス
     class CustomViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
         val date = view.date
@@ -46,17 +49,38 @@ class FolderListAdapter(
             date.text =
                 folderList[position].date //String型　すでにスラッシュ入り
             title.text = folderList[position].title
-            //TODO 星野さんがdeleteのリスナー書いてるので参考に別ブランチで作成
-            itemView.setOnClickListener(object : View.OnClickListener {
-                //クリック時の処理 TODO select処理実装
+            //ひとまずログをだしておく
+            Log.d("folderIdの中身をみておく", "${folderList[position].folderId}")
+            //ゴミ箱imageクリック時の処理
+            delete.setOnClickListener(object : View.OnClickListener {
                 override fun onClick(v: View) {
-                    Log.d("folderidの値", "${position + 1}")
+                    val deleteId = folderList[position].folderId //positionのfolderIdを取得
+                    Log.d("deleteするidの値", "$deleteId")
+                    listener.onItemClickListener(view, deleteId)//FolderListのdeleteに送る
+                }
+            })
+
+            itemView.setOnClickListener(object : View.OnClickListener {
+                //クリック時の処理
+                override fun onClick(v: View) {
+                    val detailId = folderList[position].folderId //positionのfolderIdを取得
+                    Log.d("detailに送るidの値", "$detailId")
                     //遷移先
-                    var intent = Intent(v.context, FolderDetailActivity::class.java)
-                    intent.putExtra(EXTRA_FOLDERID, position + 1) //position+1でfolderidだった
+                    val intent = Intent(v.context, FolderDetailActivity::class.java)
+                    intent.putExtra(EXTRA_FOLDERID, detailId) //FolderDetailのselectに送る
                     v.context.startActivity(intent)
                 }
             })
         }
+    }
+
+    //インターフェース作成 listenerにviewとdeleteIdを持たせる
+    interface OnItemClickListener {
+        fun onItemClickListener(view: View, deleteId: Int)
+    }
+
+    // リスナー
+    fun setOnItemClickListener(listener: OnItemClickListener) {
+        this.listener = listener
     }
 }

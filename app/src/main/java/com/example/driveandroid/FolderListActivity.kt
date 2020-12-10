@@ -1,20 +1,23 @@
 /*
 * 画面：フォルダ一覧 FolderList
 * 更新者：笛木
-* 更新日：2020年12月8日
-* 更新内容：selectする時のselectFolderメソッドで日付部分をgetIntからgetStringに privateも付け足し 不要コメント削除
+* 更新日：2020年12月10日
+* 更新内容：ゴミ箱imageViewタップでダイアログ表示、「はい」でid該当データをFolderInfo、ParagraphInfoから削除
 * */
 package com.example.driveandroid
 
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.driveandroid.Constants.Companion.DB_NAME
 import com.example.driveandroid.Constants.Companion.DB_VERSION
 import com.example.driveandroid.Constants.Companion.FOLDER_INFO
+import com.example.driveandroid.Constants.Companion.PARAGRAPH_INFO
 import kotlinx.android.synthetic.main.activity_folder_list.*
 
 class FolderListActivity : AppCompatActivity() {
@@ -44,6 +47,26 @@ class FolderListActivity : AppCompatActivity() {
             folderListView.layoutManager = layoutManager
             folderListView.adapter = adapter
             folderListView.setHasFixedSize(true)
+            adapter.setOnItemClickListener(object : FolderListAdapter.OnItemClickListener {
+                override fun onItemClickListener(view: View, deleteId: Int) {
+                    Log.d("deleteIdとして受け取り", "$deleteId")
+                    //ダイアログを出し、OKだったらdeleteする
+                    val dialog = AlertDialog.Builder(this@FolderListActivity) //thisだとコンパイルエラー
+                        .setMessage("選択した内容を削除してもいいですか?")
+                        .setPositiveButton(R.string.yes) { _, _ ->
+                            //deletePara呼び出し 該当データをParagraphInfoから削除
+                            deletePara(deleteId)
+                            //deleteFolder呼び出し　該当データをFolderInfoから削除
+                            deleteFolder(deleteId)
+                            //画面更新
+                            onResume()
+                        }.setNegativeButton(R.string.no) { _, _ ->
+                            Log.d("いいえを選択", "いいえ")
+                        }
+                        .create() //show()だとクラッシュ
+                    dialog.show()
+                }
+            })
         }
 
         //マップへ遷移
@@ -99,4 +122,37 @@ class FolderListActivity : AppCompatActivity() {
             return null
         }
     }
+
+    /**deletePara folderidを元にParagraphInfoの該当データをdelete
+     * @param deleteId
+     * */
+    private fun deletePara(deleteId: Int) {
+        try {
+            val dbHelper = DriveDBHelper(this, DB_NAME, null, DB_VERSION)
+            val database = dbHelper.writableDatabase
+            val whereClauses = "folderid = ?"
+            val whereArgs = arrayOf(deleteId.toString())
+            database.delete(PARAGRAPH_INFO, whereClauses, whereArgs)
+            Log.d("deletePara通ったfolderid", "$deleteId")
+        } catch (exception: Exception) {
+            Log.d("deletePara", exception.toString())
+        }
+    }//deletePara閉じ
+
+    /** deleteFolder folderidを元にFolderInfoの該当データをdelete
+     * @param deleteId
+     * */
+    private fun deleteFolder(deleteId: Int) {
+        try {
+            val dbHelper = DriveDBHelper(this, DB_NAME, null, DB_VERSION)
+            val database = dbHelper.writableDatabase
+            val whereClauses = "folderid = ?"
+            val whereArgs = arrayOf(deleteId.toString())
+            database.delete(FOLDER_INFO, whereClauses, whereArgs)
+            Log.d("deleteFolder通ったfolderid", "$deleteId")
+
+        } catch (exception: Exception) {
+            Log.d("deleteFolder", exception.toString())
+        }
+    }//deleteFolder閉じ
 }

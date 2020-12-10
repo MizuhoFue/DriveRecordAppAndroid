@@ -1,10 +1,9 @@
 /*FolderCreateActivity フォルダ作成画面
-* folderid　一列登録した情報　全一致のものをセレクトして配列に入れた上でidだけMoneyInsertActivityに送る
+* 一列登録した情報　全一致のものをセレクトして配列に入れた上でidだけMoneyInsertActivityに送る
+* 前回からの変更点：folderIdを入れる配列の初期化はメソッド内で行う
+*                 date、title、member1の初期化代入部分はリフォーマットすると改行が入ってしまいます
 * タスク：（Listの完成後）文字数入力チェックを入れる、insert周りをデータクラス使って整理
-* 前回からの変更点：FolderInfoテーブルに登録するdateをString型に変更、moneyボタンリスナーでのdate0埋め処理もcreateEndと同様にしました
-* member2からmemberに登録がなかった場合nullが入るように変更  isNotBlank→isNullOrBlankチェックに変更 date、title、member1もonResume内で初期化、代入
-* チェック系メソッド化は別ブランチ
-* 更新日：2020年12月9日
+* 更新日：2020年12月10日
 * 更新者：笛木
 * */
 package com.example.driveandroid
@@ -26,9 +25,7 @@ import java.time.LocalDate
 
 class FolderCreateActivity : AppCompatActivity() {
     //Constantsの値を使っているのでDB用変数削除
-    //セレクトメソッド戻り値用
-    private var arrayFolderId: ArrayList<Int> = arrayListOf()
-
+    //セレクトメソッド戻り値はメソッド内で初期化
     //insert、selectの引数用 クラスは頭文字大文字
     data class InsertArray(
         val date: String,
@@ -299,6 +296,7 @@ class FolderCreateActivity : AppCompatActivity() {
             Log.d("SQL実行", sql)
             //クエリ実行 cursorで結果セット受け取り？
             val cursor = database.rawQuery(sql, null)
+            val arrayFolderId = arrayListOf<Int>()
             if (cursor.count > 0) {
                 Log.d("テーブルの登録件数", "${cursor.count}")
                 cursor.moveToFirst()
@@ -306,12 +304,13 @@ class FolderCreateActivity : AppCompatActivity() {
                     arrayFolderId.add(cursor.getInt(0))//idだけでいい　
                     cursor.moveToNext()
                 }
-                cursor.close() //クローズ
             }
+            cursor.close() //クローズ
+            //idが入った配列を返す
+            return arrayFolderId
         } catch (exception: Exception) {
             Log.e("SelectData", exception.toString())
+            return arrayListOf()
         }
-        //idが入った配列を返す
-        return arrayFolderId
     }//selectData閉じ
 }

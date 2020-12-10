@@ -185,7 +185,7 @@ class FolderDetailActivity : AppCompatActivity() {
                     val folderInfo = FolderInfo(
                         cursor.getInt(0),
                         cursor.getString(1),
-                        cursor.getString(2), //getStringに変更
+                        cursor.getString(2),
                         cursor.getString(3),
                         cursor.getString(4),
                         cursor.getString(5),
