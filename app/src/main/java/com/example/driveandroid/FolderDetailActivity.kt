@@ -3,7 +3,7 @@
 *更新者：笛木瑞歩
 *前回からの変更：Createでスラッシュ入りにするのでこちらのスラッシュ表示処理を削除、selectFolderのdate部分をgetStringに
 * memberに登録がなかった場合nullが入るように変更 isNotBlank→isNullOrBlankチェックに変更  変数名folderId キャメルケース チェック系メソッド化は別ブランチ
-*星野さんのもの参考 各金額の一人当たり計算(perParson_costViewを表示)・表示処理追加
+*星野さんのもの参考 各金額の一人当たり計算(perParson_costViewを表示)・表示処理追加 項目のデータがない場合合計金額・一人当たりが0円になるように修正
 */
 package com.example.driveandroid
 
@@ -145,8 +145,10 @@ class FolderDetailActivity : AppCompatActivity() {
             //金額表示用
             var totalCost = 0
             var parParsonTotalCost = 0
+            total_value.text = totalCost.toString()
+            total_per_value.text = parParsonTotalCost.toString()
 
-            adapter.getCostValue(object : FolderDetailAdapter.CostValueListener {
+            adapter.getCostValueListener(object : FolderDetailAdapter.CostValueListener {
                 override fun costValue(view: View, paraCost: Int) {
                     Log.d("受け取ったparaCost表示", "$paraCost")
                     paraCostArray.add(paraCost)
@@ -177,11 +179,13 @@ class FolderDetailActivity : AppCompatActivity() {
                             folderDetail.removeAt(position)
                             Log.d("消したいposition", "$position")
                             paraCostArray.clear() //配列の中身リセット
+                            adapter.notifyDataSetChanged()
                             Log.d("一度paraCostArrayの中身削除", "$paraCostArray")
                             //合計金額系各値0でリセット
                             totalCost = 0
                             parParsonTotalCost = 0
-                            adapter.notifyDataSetChanged() //変更通知
+                            total_value.text = totalCost.toString()
+                            total_per_value.text = parParsonTotalCost.toString()
                             //メッセージ表示の処理別ブランチでマージ済み
                         }.setNegativeButton(R.string.no) { _, _ ->
                             Log.d("いいえを選択", "いいえ")

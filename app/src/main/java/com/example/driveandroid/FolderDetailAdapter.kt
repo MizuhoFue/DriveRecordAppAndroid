@@ -102,7 +102,7 @@ class FolderDetailAdapter(
     }
 
     //paraCostをDetailに渡すリスナー
-    fun getCostValue(costListener: CostValueListener) {
+    fun getCostValueListener(costListener: CostValueListener) {
         this.costListener = costListener
     }
 
