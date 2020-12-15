@@ -58,7 +58,6 @@ class FolderDetailAdapter(
             perPerson_costView.text = perParsonCost.toString()
             Log.d("選択したところのparaCosts", "$paraCost")
             Log.d("人数で割った数字", "$perParsonCost")
-
             costListener.costValue(view, paraCost) //paraCostをDetailに送る
             payerView.text = folderDetail[position].payers
             //ひとまずログをだしておく
