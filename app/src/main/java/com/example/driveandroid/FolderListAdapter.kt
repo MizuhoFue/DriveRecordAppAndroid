@@ -1,8 +1,9 @@
 /*
 * FolderListAdapter
 * 更新者：笛木
-* 更新日：2020年12月10日
-* 内容：deleteリスナー組み込み interface設定 deleteに送るidをdeleteId、detailに送るidをdetailIdとしてfolderList[position].folderIdを代入
+* 更新日：2020年12月14日
+* 内容：deleteリスナー組み込み interface設定 deleteに送るidをdeleteId、detailに送るidをdetailIdとしてfolderList[position].folderIdを代入、
+* リスト更新処理用にpositionもdeleteリスナーに送る
 * */
 package com.example.driveandroid
 
@@ -56,7 +57,7 @@ class FolderListAdapter(
                 override fun onClick(v: View) {
                     val deleteId = folderList[position].folderId //positionのfolderIdを取得
                     Log.d("deleteするidの値", "$deleteId")
-                    listener.onItemClickListener(view, deleteId)//FolderListのdeleteに送る
+                    listener.onItemClickListener(view, deleteId, position)//FolderListのdeleteに送る
                 }
             })
 
@@ -74,9 +75,9 @@ class FolderListAdapter(
         }
     }
 
-    //インターフェース作成 listenerにviewとdeleteIdを持たせる
+    //インターフェース作成 listenerにviewとdeleteId、positionを持たせる
     interface OnItemClickListener {
-        fun onItemClickListener(view: View, deleteId: Int)
+        fun onItemClickListener(view: View, deleteId: Int, position: Int)
     }
 
     // リスナー

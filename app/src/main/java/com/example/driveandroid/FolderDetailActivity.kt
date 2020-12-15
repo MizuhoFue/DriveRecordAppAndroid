@@ -1,9 +1,9 @@
 /*画面：フォルダ詳細
-*更新日：2020年12月9日
+*更新日：2020年12月15日
 *更新者：笛木瑞歩
 *前回からの変更：Createでスラッシュ入りにするのでこちらのスラッシュ表示処理を削除、selectFolderのdate部分をgetStringに
 * memberに登録がなかった場合nullが入るように変更 isNotBlank→isNullOrBlankチェックに変更  変数名folderId キャメルケース チェック系メソッド化は別ブランチ
-*星野さんのもの参考
+*星野さんのもの参考　PR小林さんコメント分修正
 */
 package com.example.driveandroid
 
@@ -182,16 +182,17 @@ class FolderDetailActivity : AppCompatActivity() {
             cursor.moveToFirst()
             if (cursor.count > 0) {
                 while (!cursor.isAfterLast) {
+
                     val folderInfo = FolderInfo(
                         cursor.getInt(0),
                         cursor.getString(1),
                         cursor.getString(2),
                         cursor.getString(3),
-                        cursor.getString(4),
-                        cursor.getString(5),
-                        cursor.getString(6),
-                        cursor.getString(7),
-                        cursor.getString(8)
+                        cursor?.getString(4),
+                        cursor?.getString(5),
+                        cursor?.getString(6),
+                        cursor?.getString(7),
+                        cursor?.getString(8)
                     )
                     folderList.add(folderInfo)
                     cursor.moveToNext()

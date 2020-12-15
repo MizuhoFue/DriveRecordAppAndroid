@@ -1,8 +1,9 @@
 /*
 * 画面：フォルダ一覧 FolderList
 * 更新者：笛木
-* 更新日：2020年12月10日
+* 更新日：2020年12月15日
 * 更新内容：ゴミ箱imageViewタップでダイアログ表示、「はい」でid該当データをFolderInfo、ParagraphInfoから削除
+* リスト更新はonResumeを使わずadapterから該当のデータだけ消す DB系処理メソッドで定数を使用
 * */
 package com.example.driveandroid
 
@@ -18,6 +19,7 @@ import com.example.driveandroid.Constants.Companion.DB_NAME
 import com.example.driveandroid.Constants.Companion.DB_VERSION
 import com.example.driveandroid.Constants.Companion.FOLDER_INFO
 import com.example.driveandroid.Constants.Companion.PARAGRAPH_INFO
+import com.example.driveandroid.Constants.Companion.WHERE_ID
 import kotlinx.android.synthetic.main.activity_folder_list.*
 
 class FolderListActivity : AppCompatActivity() {
@@ -48,7 +50,7 @@ class FolderListActivity : AppCompatActivity() {
             folderListView.adapter = adapter
             folderListView.setHasFixedSize(true)
             adapter.setOnItemClickListener(object : FolderListAdapter.OnItemClickListener {
-                override fun onItemClickListener(view: View, deleteId: Int) {
+                override fun onItemClickListener(view: View, deleteId: Int, position: Int) {
                     Log.d("deleteIdとして受け取り", "$deleteId")
                     //ダイアログを出し、OKだったらdeleteする
                     val dialog = AlertDialog.Builder(this@FolderListActivity) //thisだとコンパイルエラー
@@ -58,8 +60,9 @@ class FolderListActivity : AppCompatActivity() {
                             deletePara(deleteId)
                             //deleteFolder呼び出し　該当データをFolderInfoから削除
                             deleteFolder(deleteId)
-                            //画面更新
-                            onResume()
+                            //画面からも該当データを消す
+                            folderList.removeAt(position)
+                            adapter.notifyDataSetChanged() //変更通知し画面反映
                         }.setNegativeButton(R.string.no) { _, _ ->
                             Log.d("いいえを選択", "いいえ")
                         }
@@ -87,7 +90,7 @@ class FolderListActivity : AppCompatActivity() {
         }
     }
 
-    //FolderInfoテーブルを全件セレクト　戻り値は日付配列とタイトル配列 TODO 後ほどDBHelperにまとめる
+    //FolderInfoテーブルを全件セレクト TODO 後ほどDBHelperにまとめる
     private fun selectFolder(): ArrayList<FolderInfo>? {
         try {
             val dbHelper = DriveDBHelper(this, DB_NAME, null, DB_VERSION)
@@ -104,12 +107,12 @@ class FolderListActivity : AppCompatActivity() {
                 Log.d("テーブルの登録件数", "${cursor.count}")
                 cursor.moveToFirst()
                 while (!cursor.isAfterLast) {
-                    //FolderInfo型クラスを使って結果の値を変数folderInfoに入れる
+                    //FolderInfo型クラスを使って結果の値を変数folderInfoに入れる member2から6は念のためnullチェック
                     val folderInfo = FolderInfo(
                         cursor.getInt(0), cursor.getString(1),
-                        cursor.getString(2), cursor.getString(3), cursor.getString(4),
-                        cursor.getString(5), cursor.getString(6), cursor.getString(7),
-                        cursor.getString(8)
+                        cursor.getString(2), cursor.getString(3), cursor?.getString(4),
+                        cursor?.getString(5), cursor?.getString(6), cursor?.getString(7),
+                        cursor?.getString(8)
                     )
                     folderList.add(folderInfo) //箱に型を入れる
                     cursor.moveToNext()
@@ -130,9 +133,8 @@ class FolderListActivity : AppCompatActivity() {
         try {
             val dbHelper = DriveDBHelper(this, DB_NAME, null, DB_VERSION)
             val database = dbHelper.writableDatabase
-            val whereClauses = "folderid = ?"
             val whereArgs = arrayOf(deleteId.toString())
-            database.delete(PARAGRAPH_INFO, whereClauses, whereArgs)
+            database.delete(PARAGRAPH_INFO, WHERE_ID, whereArgs)
             Log.d("deletePara通ったfolderid", "$deleteId")
         } catch (exception: Exception) {
             Log.d("deletePara", exception.toString())
@@ -146,9 +148,8 @@ class FolderListActivity : AppCompatActivity() {
         try {
             val dbHelper = DriveDBHelper(this, DB_NAME, null, DB_VERSION)
             val database = dbHelper.writableDatabase
-            val whereClauses = "folderid = ?"
             val whereArgs = arrayOf(deleteId.toString())
-            database.delete(FOLDER_INFO, whereClauses, whereArgs)
+            database.delete(FOLDER_INFO, WHERE_ID, whereArgs)
             Log.d("deleteFolder通ったfolderid", "$deleteId")
 
         } catch (exception: Exception) {

@@ -5,10 +5,10 @@
 *ボタンメモ：入力完了：id:inputComp　設定:settings
 *プレースホルダー、金額入力の空白チェック・エラー処理・ダイアログ、カメラを許可しなかった場合の処理
 *変更点：文字列内の変数の書き方修正、selectDataは戻り値変更
-*       member2以降がnullだった場合にもspinnerが大丈夫なようにする=null以外入らないListをつくって返す
+*       Select時にmember1から6までnullチェックした上で戻り値に格納
 *       変数整理は他のブランチで行う
 *更新者：笛木
-*更新日：2020年12月10日
+*更新日：2020年12月15日
 * */
 package com.example.driveandroid
 
@@ -80,8 +80,8 @@ class MoneyInsertActivity : AppCompatActivity() {
         Log.d("受け渡されたfolderid", "$folderId")
         Log.d("どこからMoneyInsertに遷移", fromActivity)
 
-        //このタイミングでidを元にselect  selectメソッド内で空チェックを行う予定 nullなし配列をpayersに格納
-        val payers: List<String> = selectData(folderId)
+        //このタイミングでidを元にselect  selectメソッド内で空チェックを行う予定 nullなし配列をpayerListに格納
+        val payerList: List<String> = selectData(folderId)
 
         //項目スピナー設定 ダイアログ表示、選択項目Spinnerスペースへの表示
         paragraphSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
@@ -103,7 +103,7 @@ class MoneyInsertActivity : AppCompatActivity() {
         }
 
         //アダプターに負担者配列リストを設定 payersはList<String> nullがあると怒られる
-        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, payers)
+        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, payerList)
         //Spinnerにアダプター設定
         payerSpinner.adapter = adapter
 
@@ -142,7 +142,7 @@ class MoneyInsertActivity : AppCompatActivity() {
                         "詳細",
                         DialogInterface.OnClickListener { _, _ ->
                             //ignore
-                            //insert処理を入れる　うまくいかない↓
+                            //insert処理を入れる
                             insertPara(folderId, paraName, paraCost, payer)
                             //FolderCreate→Moneyの場合：startしてfinish()　　
                             // FolderDetail→MoneyInsertの場合：finish()のみ
@@ -166,7 +166,7 @@ class MoneyInsertActivity : AppCompatActivity() {
                         "ホーム",
                         DialogInterface.OnClickListener { _, _ ->
                             //ignore
-                            //insert処理を入れたい　うまくいかない↓
+                            //insert処理を入れたい
                             insertPara(folderId, paraName, paraCost, payer)
                             val intent =
                                 Intent(this@MoneyInsertActivity, FolderListActivity::class.java)
@@ -307,7 +307,7 @@ class MoneyInsertActivity : AppCompatActivity() {
     /////////////////カメラ用メソッド終わり/////////////////////////////////////
     /**
      * @param folderId idを元にセレクト
-     * @return payers:List<String> nullを排除した純粋な負担者のみの配列
+     * @return payerList:List<String> nullを排除した純粋な負担者のみの配列
      * */
     private fun selectData( // TODO FolderInfoデータクラスを使ってhelperにまとめる
         folderId: Int
@@ -319,33 +319,25 @@ class MoneyInsertActivity : AppCompatActivity() {
             //select文　たった今insertした内容と一致するもののfolderidのみ受け取る
             val sql =
                 "SELECT * FROM $FOLDER_INFO WHERE folderid=$folderId"
-            val payerList = arrayListOf<String>()//受け取る用
-            val payers = arrayListOf<String>() //戻り値用
+            val payerList = arrayListOf<String>()//戻り値用を一つ用意
             //クエリ実行 cursorで結果セット受け取り
             val cursor = database.rawQuery(sql, null)
             if (cursor.count > 0) {
                 Log.d("該当件数1のはず：", "${cursor.count}")
                 cursor.moveToFirst()
                 while (!cursor.isAfterLast) {
-                    //memberの値を入れていく
-                    payerList.add(cursor.getString(3))
-                    payerList.add(cursor.getString(4))
-                    payerList.add(cursor.getString(5))
-                    payerList.add(cursor.getString(6))
-                    payerList.add(cursor.getString(7))
-                    payerList.add(cursor.getString(8))
+                    //nullチェックしながらmemberの値を戻り値用payerListに入れていく
+                    //member1も含めてnullチェックなのでindexは3から8
+                    for (index in 3..8) {
+                        if (!cursor.getString(index).isNullOrBlank()) {
+                            payerList.add(cursor.getString(index))
+                        }
+                    }
                     cursor.moveToNext()
-                }
-            }
-            //payerListに入ってる値を一つずつnullチェック
-            for (value in payerList) {
-                //nullじゃない場合はpayersに入れる isNullOrBlankが黄色くなるけど推奨されるisBlankにするとcatchExceptionに飛ぶ
-                if (!value.isNullOrBlank()) {
-                    payers.add(value)
-                }
+                }//while文閉じ
             }
             cursor.close()
-            return payers //負担者配列をreturn
+            return payerList //負担者配列をreturn
         } catch (exception: Exception) {
             Log.e("SelectData", exception.toString())
             return arrayListOf()

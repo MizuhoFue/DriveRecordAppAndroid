@@ -1,9 +1,8 @@
 /*FolderCreateActivity フォルダ作成画面
 * 一列登録した情報　全一致のものをセレクトして配列に入れた上でidだけMoneyInsertActivityに送る
-* 前回からの変更点：folderIdを入れる配列の初期化はメソッド内で行う
-*                 date、title、member1の初期化代入部分はリフォーマットすると改行が入ってしまいます
+* 前回からの変更点： MoneyInsertヘいく際のselectメソッドは全体セレクトして最新の行のfolderidのみ取る仕様に変更
 * タスク：（Listの完成後）文字数入力チェックを入れる、insert周りをデータクラス使って整理
-* 更新日：2020年12月10日
+* 更新日：2020年12月15日
 * 更新者：笛木
 * */
 package com.example.driveandroid
@@ -26,7 +25,7 @@ import java.time.LocalDate
 class FolderCreateActivity : AppCompatActivity() {
     //Constantsの値を使っているのでDB用変数削除
     //セレクトメソッド戻り値はメソッド内で初期化
-    //insert、selectの引数用 クラスは頭文字大文字
+    //insertの引数用 クラスは頭文字大文字
     data class InsertArray(
         val date: String,
         val title: String,
@@ -211,11 +210,11 @@ class FolderCreateActivity : AppCompatActivity() {
             //MoneyInsert用SELECT
             //insertできたか確認したらたった今入れたものをセレクト if(result)?
             val result =
-                selectData(insertInfo)
+                selectFolder() //最新の一行を取得するselectFolderメソッドに変更
             Log.d("result", "$result")
 
             //一個しか入らないので0番目
-            val folderId = result[0]
+            val folderId = result?.get(0)
             Log.d("folderIdの値確認", "$folderId")
 
             val intent = Intent(this@FolderCreateActivity, MoneyInsertActivity::class.java)
@@ -256,7 +255,7 @@ class FolderCreateActivity : AppCompatActivity() {
     ) {
         try {
             val dbHelper =
-                DriveDBHelper(this, DB_NAME, null, DB_VERSION) //この時点でテーブルが作られてる
+                DriveDBHelper(this, DB_NAME, null, DB_VERSION)
             val database = dbHelper.writableDatabase
             val values = ContentValues()
             values.put("date", insertInfo.date)
@@ -280,21 +279,17 @@ class FolderCreateActivity : AppCompatActivity() {
         }
     }
 
-    /**selectData FolderInfo idをselect用メソッド
-     * @param insertInfo insertしたばかりの入力項目
+    //selectDataは削除
+    /**
+     * @return arrayFolderId:ArrayList<Int>? folderidが入った配列
      * */
-    private fun selectData(
-        insertInfo: InsertArray
-    ): ArrayList<Int> {
+    private fun selectFolder(): ArrayList<Int>? {
         try {
             val dbHelper = DriveDBHelper(this, DB_NAME, null, DB_VERSION)
             val database = dbHelper.readableDatabase
-            //select文　たった今insertした内容と一致するもののfolderidのみ受け取る
-            val sql =   //String型の変数はシングルクオテーションで囲むのを忘れずに
-                "SELECT * FROM $FOLDER_INFO WHERE date='${insertInfo.date}' AND title='${insertInfo.title}'AND member1='${insertInfo.member1}' AND " +
-                        "member2='${insertInfo.member2}' AND member3='${insertInfo.member3}' AND member4='${insertInfo.member4}' AND member5='${insertInfo.member5}' AND member6='${insertInfo.member6}'"
-            Log.d("SQL実行", sql)
-            //クエリ実行 cursorで結果セット受け取り？
+            //最後のレコードのみを取るSQL文をつくる
+            val sql = "SELECT * FROM $FOLDER_INFO ORDER BY folderid DESC LIMIT 1 "
+            Log.d("SQL文確認", sql)
             val cursor = database.rawQuery(sql, null)
             val arrayFolderId = arrayListOf<Int>()
             if (cursor.count > 0) {
@@ -306,11 +301,10 @@ class FolderCreateActivity : AppCompatActivity() {
                 }
             }
             cursor.close() //クローズ
-            //idが入った配列を返す
             return arrayFolderId
         } catch (exception: Exception) {
             Log.e("SelectData", exception.toString())
-            return arrayListOf()
+            return null
         }
-    }//selectData閉じ
+    }
 }
