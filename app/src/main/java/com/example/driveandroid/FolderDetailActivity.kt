@@ -3,7 +3,7 @@
 *更新者：笛木瑞歩
 *前回からの変更：Createでスラッシュ入りにするのでこちらのスラッシュ表示処理を削除、selectFolderのdate部分をgetStringに
 * memberに登録がなかった場合nullが入るように変更 isNotBlank→isNullOrBlankチェックに変更  変数名folderId キャメルケース チェック系メソッド化は別ブランチ
-*星野さんのもの参考　PR小林さんコメント分修正
+*星野さんのもの参考 各金額の一人当たり計算(perParson_costViewを表示)・表示処理追加
 */
 package com.example.driveandroid
 
@@ -30,11 +30,9 @@ class FolderDetailActivity : AppCompatActivity() {
     //FolderInfo関連変数はonResume内で初期化
     //以下RecyclerView用変数
     private var paraName = ""   //項目名
-    private var paraCost = 0    //項目の金額 項目によって異なる　
-    private var perParsonCost = 0   //項目ごとの一人当たり金額
-    private var payer = ""      //項目ごとの負担者名　項目によって異なる可能性あり
-    var totalCost = 0       //全ての項目の金額合計
-    var parParsonTotalCost = 0   //全ての合計金額をメンバー人数で割った一人当たりの金額
+
+    //金額表示用
+    private var paraCostArray = arrayListOf<Int>()       //全ての項目の金額合計
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var viewAdapter: RecyclerView.Adapter<*>
@@ -135,13 +133,36 @@ class FolderDetailActivity : AppCompatActivity() {
 
         //配列を表示させる
         folderDetail?.let {
-            val adapter = FolderDetailAdapter(it)
+            val adapter = FolderDetailAdapter(it, memberNum) //memberNumも引数とする
             val layoutManager = LinearLayoutManager(this)
 
             // アダプターとレイアウトマネージャーをセット folderDetailはRecyclerViewのid
             folderDetailView.layoutManager = layoutManager
             folderDetailView.adapter = adapter
             folderDetailView.setHasFixedSize(true)
+
+            //変化する値宣言
+            //金額表示用
+            var totalCost = 0
+            var parParsonTotalCost = 0
+
+            adapter.getCostValue(object : FolderDetailAdapter.CostValueListener {
+                override fun costValue(view: View, paraCost: Int) {
+                    Log.d("受け取ったparaCost表示", "$paraCost")
+                    paraCostArray.add(paraCost)
+                    Log.d("paraCostArrayの中身", "$paraCostArray")
+                    //合計金額をtotalCostに格納
+                    totalCost = paraCostArray.sum()
+                    Log.d("合計金額", "$totalCost") //確認
+                    //合計金額表示
+                    total_value.text = totalCost.toString()
+                    //合計金額の一人当たりを表示
+                    parParsonTotalCost = totalCost / memberNum
+                    Log.d("一人当たり", "$parParsonTotalCost")
+                    total_per_value.text = parParsonTotalCost.toString()//合計金額の一人当たり表示できた
+                }
+            })
+
             //インターフェース
             adapter.setOnItemClickListener(object : FolderDetailAdapter.OnItemClickListener {
                 override fun onItemClickListener(view: View, deleteNum: Int, position: Int) {
@@ -154,7 +175,14 @@ class FolderDetailActivity : AppCompatActivity() {
                             deletePara(deleteNum)
                             //画面からも該当データを消す,更新する
                             folderDetail.removeAt(position)
+                            Log.d("消したいposition", "$position")
+                            paraCostArray.clear() //配列の中身リセット
+                            Log.d("一度paraCostArrayの中身削除", "$paraCostArray")
+                            //合計金額系各値0でリセット
+                            totalCost = 0
+                            parParsonTotalCost = 0
                             adapter.notifyDataSetChanged() //変更通知
+                            //メッセージ表示の処理別ブランチでマージ済み
                         }.setNegativeButton(R.string.no) { _, _ ->
                             Log.d("いいえを選択", "いいえ")
                         }
@@ -172,6 +200,8 @@ class FolderDetailActivity : AppCompatActivity() {
             intent.putExtra(EXTRA_ACTIVITYNAME, this::class.java.simpleName)
             startActivity(intent)
             //クリアタスク、フィニッシュなし・MoneyInsertで戻るボタンを押すと再び詳細が確認できるようになっている
+            //paraCostをリセット
+            paraCostArray.clear()
         }
 
         setting.setOnClickListener {

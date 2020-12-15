@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?><!--フォルダ詳細レイアウト-->
 <!--タスク：リサイクラービューいれる-->
-<!--memberのview、memberNumのviewのidをsnake_caseで修正-->
+<!--moneyInsertへの遷移ボタンをiOSと同様に ボタン名変更、位置変更-->
 <!--更新者：笛木瑞歩-->
-<!--更新日：2020年12月7日-->
+<!--更新日：2020年12月10日-->
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal">
@@ -50,9 +51,7 @@
 
     </androidx.appcompat.widget.Toolbar>
 
-    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="60dp"
@@ -260,17 +259,10 @@
                 android:layout_marginBottom="150dp"
                 android:scrollbars="vertical" />
 
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/moneyInsert"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="@string/money_insert" />
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 android:orientation="horizontal">
 
                 <androidx.appcompat.widget.AppCompatTextView
@@ -283,13 +275,13 @@
                     android:textSize="24sp" />
 
                 <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/total_value"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:textSize="24sp"
-                    tools:text="合計表示" />
-
+                    android:textSize="24sp" />
+                <!--なぜか表示されない-->
                 <androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
@@ -318,6 +310,7 @@
 
                 <!--一人当たり金額表示-->
                 <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/total_per_value"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -347,7 +340,7 @@
                     android:id="@+id/home"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="85dp"
+                    android:layout_weight="1"
                     android:text="@string/home" />
 
                 <!--共有ボタン-->
@@ -355,8 +348,15 @@
                     android:id="@+id/share"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="80dp"
+                    android:layout_weight="1"
                     android:text="@string/share" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/moneyInsert"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/money_insert" />
 
             </LinearLayout>
 

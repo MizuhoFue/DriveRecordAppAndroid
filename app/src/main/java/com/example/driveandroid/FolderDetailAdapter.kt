@@ -1,3 +1,8 @@
+/**
+ * 更新内容：FolderDetailでの金額表示系
+ * 更新者：笛木
+ * 更新日：2020年12月10日〜2020年12月15日 作業 金額表示系の処理追加
+ * */
 package com.example.driveandroid
 
 import android.content.Intent
@@ -11,16 +16,20 @@ import kotlinx.android.synthetic.main.item_to_use.view.*
 
 //金額配列とタイトル配列を表示+Delete処理のゴミ箱imageView
 class FolderDetailAdapter(
-    private val folderDetail: ArrayList<ItemToUse>
+    private val folderDetail: ArrayList<ItemToUse>, private val memberNum: Int//コンストラクタで引数宣言
 ) : RecyclerView.Adapter<FolderDetailAdapter.CustomViewHolder>() {
 
     // リスナー格納変数
     lateinit var listener: OnItemClickListener
 
+    //項目金額をDetailに渡すリスナー準備
+    lateinit var costListener: CostValueListener
+
     // ViewHolderクラス
     class CustomViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
         val paraName = view.paraName
         val paraCostView = view.para_cost_view
+        val perPerson_costView = view.perParson_costView
         val payerView = view.payerView
         val trashBox = view.trash_box
     }
@@ -43,7 +52,14 @@ class FolderDetailAdapter(
         with(holder) {
             paraName.text = folderDetail[position].paraNames
             paraCostView.text = folderDetail[position].paraCosts
-//            perPerson_costView.text = folderDetail[position].paraCosts.toString()
+            //項目金額計算、表示
+            val paraCost = folderDetail[position].paraCosts.toInt()//項目金額を計算用にInt型にする
+            val perParsonCost = paraCost / memberNum//項目一人当たりを出すためにmemberNumで割る
+            perPerson_costView.text = perParsonCost.toString()
+            Log.d("選択したところのparaCosts", "$paraCost")
+            Log.d("人数で割った数字", "$perParsonCost")
+
+            costListener.costValue(view, paraCost) //paraCostをDetailに送る
             payerView.text = folderDetail[position].payers
             //ひとまずログをだしておく
             Log.d("folderIdの中身をみておく", "${folderDetail[position].folderId}")
@@ -80,5 +96,16 @@ class FolderDetailAdapter(
     fun setOnItemClickListener(listener: OnItemClickListener) {
         this.listener = listener
     }
+
+    //paraCostをDetailに渡すインターフェース
+    interface CostValueListener {
+        fun costValue(view: View, paraCost: Int)
+    }
+
+    //paraCostをDetailに渡すリスナー
+    fun getCostValue(costListener: CostValueListener) {
+        this.costListener = costListener
+    }
+
 }
 
