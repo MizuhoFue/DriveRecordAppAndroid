@@ -11,6 +11,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -20,6 +21,7 @@ import com.example.driveandroid.Constants.Companion.EXTRA_ACTIVITYNAME
 import com.example.driveandroid.Constants.Companion.EXTRA_FOLDERID
 import com.example.driveandroid.Constants.Companion.FOLDER_INFO
 import com.example.driveandroid.Constants.Companion.PARAGRAPH_INFO
+import com.example.driveandroid.Constants.Companion.WHERE_PARANUM
 import kotlinx.android.synthetic.main.activity_folder_detail.*
 
 class FolderDetailActivity : AppCompatActivity() {
@@ -140,6 +142,26 @@ class FolderDetailActivity : AppCompatActivity() {
             folderDetailView.layoutManager = layoutManager
             folderDetailView.adapter = adapter
             folderDetailView.setHasFixedSize(true)
+            //インターフェース
+            adapter.setOnItemClickListener(object : FolderDetailAdapter.OnItemClickListener {
+                override fun onItemClickListener(view: View, deleteNum: Int, position: Int) {
+                    Log.d("deleteNumとして受け取り", "$deleteNum")
+                    //ダイアログを出し、OKだったらdeleteする
+                    val dialog = AlertDialog.Builder(this@FolderDetailActivity) //thisだとコンパイルエラー
+                        .setMessage("選択した内容を削除してもいいですか?")
+                        .setPositiveButton(R.string.yes) { _, _ ->
+                            //deletePara呼び出し 該当データをParagraphInfoから削除
+                            deletePara(deleteNum)
+                            //画面からも該当データを消す,更新する
+                            folderDetail.removeAt(position)
+                            adapter.notifyDataSetChanged() //変更通知
+                        }.setNegativeButton(R.string.no) { _, _ ->
+                            Log.d("いいえを選択", "いいえ")
+                        }
+                        .create() //show()だとクラッシュ
+                    dialog.show()
+                }
+            })
         }
 
         moneyInsert.setOnClickListener {//新規追加項目ボタン押したら
@@ -242,6 +264,21 @@ class FolderDetailActivity : AppCompatActivity() {
         } catch (exception: Exception) {
             Log.e("SelectData", exception.toString())
             return null
+        }
+    }
+
+    /**deletePara folderidを元にParagraphInfoの該当データをdelete
+     * @param deleteNum
+     * */
+    private fun deletePara(deleteNum: Int) {
+        try {
+            val dbHelper = DriveDBHelper(this, DB_NAME, null, DB_VERSION)
+            val database = dbHelper.writableDatabase
+            val whereArgs = arrayOf(deleteNum.toString())
+            database.delete(PARAGRAPH_INFO, WHERE_PARANUM, whereArgs)
+            Log.d("deletePara通ったparaNum", "$deleteNum")
+        } catch (exception: Exception) {
+            Log.d("deletePara", exception.toString())
         }
     }
 }

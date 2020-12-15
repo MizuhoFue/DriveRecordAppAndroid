@@ -16,6 +16,7 @@ class Constants {
         const val PARAGRAPH_INFO = "ParagraphInfo"    //テーブル名
         //Listのdeleteメソッド用定数
         const val WHERE_ID = "folderid = ?"
-        //星野さんがDetailのparaNum定数用意
+        //DetailのparaNum定数
+        const val WHERE_PARANUM = "paraNum = ?"
     }
 }
