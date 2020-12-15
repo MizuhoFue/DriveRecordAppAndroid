@@ -25,12 +25,12 @@ class FolderDetailAdapter(
     //項目金額をDetailに渡すリスナー準備
     lateinit var costListener: CostValueListener
 
-    // ViewHolderクラス
+    // ViewHolderクラス idスネークケースに変更
     class CustomViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
-        val paraName = view.paraName
+        val paraName = view.para_name
         val paraCostView = view.para_cost_view
-        val perPerson_costView = view.perParson_costView
-        val payerView = view.payerView
+        val perPerson_costView = view.per_parson_cost_view
+        val payerView = view.payer_view
         val trashBox = view.trash_box
     }
 
@@ -105,6 +105,5 @@ class FolderDetailAdapter(
     fun getCostValueListener(costListener: CostValueListener) {
         this.costListener = costListener
     }
-
 }
 
