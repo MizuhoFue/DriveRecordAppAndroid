@@ -6,6 +6,8 @@
     <string name="yen">円</string>
     <string name="payer_name">負担者</string>
     <string name="inputComplete">入力完了</string>
+    <string name="cost">例：2000</string>
+    <string name="payer_spinner">選択してください</string>
     <!--folderDetail-->
     <string name="date">日付</string>
     <string name="title">タイトル</string>
@@ -28,6 +30,14 @@
     <string name="main">ドラログ</string>
     <string name="move">作成完了</string>
     <string name="money">金額入力</string>
+    <string name="put_title">例：旅行（必須）</string>
+    <string name="put_member1">例：山田太郎（必須）</string>
+    <string name="put_member2">例：神田花子</string>
+    <string name="put_member3">例：新橋二郎</string>
+    <string name="put_member4">例：渋谷静香</string>
+    <string name="put_member5">例：東京三郎</string>
+    <string name="put_member6">例：秋葉凛</string>
+
     <!--FolderList-->
     <string name="day">日付</string>
     <string name="tripname">旅行名</string>

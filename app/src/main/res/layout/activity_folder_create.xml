@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--変更点：日付入力部分をDatePickerボタンに-->
+<?xml version="1.0" encoding="utf-8"?><!--変更点：日付入力部分をDatePickerボタンに-->
 <!--更新者：笛木-->
 <!--更新日：2020年12月2日-->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -55,217 +54,241 @@
 
     </androidx.appcompat.widget.Toolbar>
 
-    <LinearLayout
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_marginTop="30dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginEnd="30dp"
-        android:orientation="horizontal">
+        tools:context="com.example.driveandroid.FolderCreateActivity">
 
-        <TextView
-            android:id="@+id/dateDisplay"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginStart="24dp"
-            android:layout_weight="1"
-            android:text="@string/day"
-            android:textSize="30sp" />
+            android:orientation="vertical">
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/datePick"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="日付を選択する"
-            android:background="@null" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginEnd="30dp"
+                android:orientation="horizontal">
 
-    </LinearLayout>
+                <TextView
+                    android:id="@+id/dateDisplay"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="24dp"
+                    android:layout_weight="1"
+                    android:text="@string/day"
+                    android:textSize="30sp" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginEnd="30dp"
-        android:orientation="horizontal">
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/datePick"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:text="日付を選択する" />
 
-        <TextView
-            android:id="@+id/title_display"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:layout_weight="1"
-            android:text="@string/title"
-            android:textSize="30sp" />
+            </LinearLayout>
 
-        <EditText
-            android:id="@+id/putTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:textSize="18sp"
-            tools:text="" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginEnd="30dp"
+                android:orientation="horizontal">
 
-    </LinearLayout>
+                <TextView
+                    android:id="@+id/title_display"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:layout_weight="1"
+                    android:text="@string/title"
+                    android:textSize="30sp" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginEnd="30dp"
-        android:orientation="horizontal">
+                <EditText
+                    android:id="@+id/putTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:ems="10"
+                    android:hint="@string/put_title"
+                    android:inputType="textPersonName"
+                    android:textSize="18sp"
+                    tools:text="" />
 
-        <TextView
-            android:id="@+id/member"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:layout_marginBottom="5dp"
-            android:layout_weight="1"
-            android:text="@string/member_name"
-            android:textSize="25sp" />
+            </LinearLayout>
 
-        <EditText
-            android:id="@+id/putMember1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            android:layout_marginBottom="5dp"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:textSize="18sp" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginEnd="30dp"
+                android:orientation="horizontal">
 
-    </LinearLayout>
+                <TextView
+                    android:id="@+id/member"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:layout_marginBottom="5dp"
+                    android:layout_weight="1"
+                    android:text="@string/member_name"
+                    android:textSize="25sp" />
 
-    <EditText
-        android:id="@+id/putMember2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="end"
-        android:layout_marginEnd="30dp"
-        android:layout_marginBottom="5dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text=""
-        android:visibility="visible" />
+                <EditText
+                    android:id="@+id/putMember1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:layout_marginBottom="5dp"
+                    android:ems="10"
+                    android:hint="@string/put_member1"
+                    android:inputType="textPersonName"
+                    android:textSize="18sp" />
 
-    <EditText
-        android:id="@+id/putMember3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="end"
-        android:layout_marginEnd="30dp"
-        android:layout_marginBottom="5dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text=""
-        android:visibility="visible" />
+            </LinearLayout>
 
-    <EditText
-        android:id="@+id/putMember4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="end"
-        android:layout_marginEnd="30dp"
-        android:layout_marginBottom="5dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text=""
-        android:visibility="visible" />
+            <EditText
+                android:id="@+id/putMember2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_marginEnd="30dp"
+                android:layout_marginBottom="5dp"
+                android:ems="10"
+                android:hint="@string/put_member2"
+                android:inputType="textPersonName"
+                android:text=""
+                android:visibility="visible" />
 
-    <EditText
-        android:id="@+id/putMember5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="end"
-        android:layout_marginEnd="30dp"
-        android:layout_marginBottom="5dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text=""
-        android:visibility="visible" />
+            <EditText
+                android:id="@+id/putMember3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_marginEnd="30dp"
+                android:layout_marginBottom="5dp"
+                android:ems="10"
+                android:hint="@string/put_member3"
+                android:inputType="textPersonName"
+                android:text=""
+                android:visibility="visible" />
 
-    <EditText
-        android:id="@+id/putMember6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="end"
-        android:layout_marginEnd="30dp"
-        android:layout_marginBottom="5dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text=""
-        android:visibility="visible" />
+            <EditText
+                android:id="@+id/putMember4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_marginEnd="30dp"
+                android:layout_marginBottom="5dp"
+                android:ems="10"
+                android:hint="@string/put_member4"
+                android:inputType="textPersonName"
+                android:text=""
+                android:visibility="visible" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:orientation="horizontal">
+            <EditText
+                android:id="@+id/putMember5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_marginEnd="30dp"
+                android:layout_marginBottom="5dp"
+                android:ems="10"
+                android:hint="@string/put_member5"
+                android:inputType="textPersonName"
+                android:text=""
+                android:visibility="visible" />
 
-        <TextView
-            android:id="@+id/memberCount"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginStart="24dp"
-            android:layout_weight="1"
-            android:text="@string/members"
-            android:textSize="30sp" />
+            <EditText
+                android:id="@+id/putMember6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_marginEnd="30dp"
+                android:layout_marginBottom="5dp"
+                android:ems="10"
+                android:hint="@string/put_member6"
+                android:inputType="textPersonName"
+                android:text=""
+                android:visibility="visible" />
 
-        <TextView
-            android:id="@+id/inputMember"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_gravity="end"
-            android:layout_weight="1"
-            android:textSize="30sp"
-            tools:Text="3" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/memberCount2"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="@string/human"
-            android:textSize="30sp" />
+                <TextView
+                    android:id="@+id/memberCount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="24dp"
+                    android:layout_weight="1"
+                    android:text="@string/members"
+                    android:textSize="30sp" />
 
-    </LinearLayout>
+                <TextView
+                    android:id="@+id/inputMember"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="end"
+                    android:layout_weight="1"
+                    android:textSize="30sp"
+                    tools:Text="3" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/memberCount2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="@string/human"
+                    android:textSize="30sp" />
 
-        <Button
-            android:id="@+id/createEnd"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_marginStart="40dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="5dp"
-            android:layout_weight="1"
-            android:gravity="center_horizontal"
-            android:text="@string/move"
-            android:textSize="25sp" />
+            </LinearLayout>
 
-        <Button
-            android:id="@+id/money"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_marginStart="40dp"
-            android:layout_marginEnd="20dp"
-            android:layout_marginBottom="5dp"
-            android:layout_weight="1"
-            android:gravity="center_horizontal"
-            android:text="@string/money"
-            android:textSize="25sp" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal">
 
-    </LinearLayout>
+                <Button
+                    android:id="@+id/createEnd"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="40dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:text="@string/move"
+                    android:textSize="25sp" />
+
+                <Button
+                    android:id="@+id/money"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="40dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:text="@string/money"
+                    android:textSize="25sp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
 
 </LinearLayout>

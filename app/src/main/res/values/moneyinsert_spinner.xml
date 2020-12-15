@@ -6,10 +6,5 @@
         <item>高速・有料道路代</item>
         <item>駐車場代</item>
         <item>その他</item>
-    </string-array><!--負担者はきっとActivityの方でデータベースから引っ張ると思うのでここのはいらなそう-->
-    <string-array name="payerSpinner">
-        <item>秋葉太郎</item>
-        <item>秋葉次郎</item>
-        <item>秋葉三郎</item>
     </string-array>
 </resources>
