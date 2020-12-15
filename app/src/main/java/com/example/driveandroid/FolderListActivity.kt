@@ -4,6 +4,7 @@
 * 更新日：2020年12月15日
 * 更新内容：ゴミ箱imageViewタップでダイアログ表示、「はい」でid該当データをFolderInfo、ParagraphInfoから削除
 * リスト更新はonResumeを使わずadapterから該当のデータだけ消す DB系処理メソッドで定数を使用
+* 何も登録がなかった場合のメッセージ表示追加
 * */
 package com.example.driveandroid
 
@@ -63,6 +64,9 @@ class FolderListActivity : AppCompatActivity() {
                             //画面からも該当データを消す
                             folderList.removeAt(position)
                             adapter.notifyDataSetChanged() //変更通知し画面反映
+                            if(folderList.isEmpty()){
+                                nothing_message.visibility = View.VISIBLE //登録されているデータがすべて消された場合はメッセージ表示
+                            }
                         }.setNegativeButton(R.string.no) { _, _ ->
                             Log.d("いいえを選択", "いいえ")
                         }
@@ -85,7 +89,6 @@ class FolderListActivity : AppCompatActivity() {
         //フォルダ作成へ遷移　フィニッシュなし
         addFolder.setOnClickListener {
             val intent = Intent(this@FolderListActivity, FolderCreateActivity::class.java)
-            //folderid送りいらないので削除
             startActivity(intent)
         }
     }
@@ -117,6 +120,7 @@ class FolderListActivity : AppCompatActivity() {
                     folderList.add(folderInfo) //箱に型を入れる
                     cursor.moveToNext()
                 }
+                nothing_message.visibility = View.GONE //メッセージを消す
             }
             cursor.close()
             return folderList
@@ -151,7 +155,6 @@ class FolderListActivity : AppCompatActivity() {
             val whereArgs = arrayOf(deleteId.toString())
             database.delete(FOLDER_INFO, WHERE_ID, whereArgs)
             Log.d("deleteFolder通ったfolderid", "$deleteId")
-
         } catch (exception: Exception) {
             Log.d("deleteFolder", exception.toString())
         }

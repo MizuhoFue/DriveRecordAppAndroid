@@ -35,6 +35,7 @@
     <string name="settings">⚙</string>
     <string name="members">人数</string>
     <string name="human">人</string>
+    <string name="nothing_message">ドライブデータの登録がありません</string>
     <!--MapsActivity-->
     <string name="map">地図</string>
     <string name="returnHome">戻る</string>
