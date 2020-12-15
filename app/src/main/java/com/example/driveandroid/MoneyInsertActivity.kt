@@ -4,9 +4,11 @@
 *遷移先：FolderList,FolderDetail ダイアログで選択、登録して遷移、データベース接続
 *ボタンメモ：入力完了：id:inputComp　設定:settings
 *プレースホルダー、金額入力の空白チェック・エラー処理・ダイアログ、カメラを許可しなかった場合の処理
-*今回はリフォーマットの修正のみ、変数整理は他のブランチで行う
+*変更点：文字列内の変数の書き方修正、selectDataは戻り値変更
+*       Select時にmember1から6までnullチェックした上で戻り値に格納
+*       変数整理は他のブランチで行う
 *更新者：笛木
-*更新日：2020年12月2日
+*更新日：2020年12月15日
 * */
 package com.example.driveandroid
 
@@ -50,8 +52,7 @@ class MoneyInsertActivity : AppCompatActivity() {
     private var paraName = ""   //項目名　登録分によって複数あり
     private var paraCost = 0    //項目の金額　登録分によって複数あり
 
-    // 負担者スピナーの配列　アダプター使用　
-    val payerList = arrayListOf<String>()
+    // 負担者スピナーの配列　selectFolder内で初期化に変更　アダプター使用　
 
     //カメラ許可用コード準備
     companion object {
@@ -70,17 +71,17 @@ class MoneyInsertActivity : AppCompatActivity() {
             startActivity(intent)
         }
         //FolderDetail、FolderCreateから渡されたfolderidを変数に入れる
-        val intent = getIntent()
-        val folderid =
+        //getIntent削除
+        val folderId =
             intent.extras?.getInt(EXTRA_FOLDERID) ?: -1 //-1の場合はエラーを出す
         //FolderDetail、FolderCreateのどちらから遷移したかのfromActivityを変数に入れる
         val fromActivity =
             intent.extras?.getString(EXTRA_ACTIVITYNAME) ?: "" //""が入る場合はエラー？
-        Log.d("受け渡されたfolderid", "${folderid}")
-        Log.d("どこから遷移", "{$fromActivity}")
+        Log.d("受け渡されたfolderid", "$folderId")
+        Log.d("どこからMoneyInsertに遷移", fromActivity)
 
-        //このタイミングでidを元にselect  selectメソッド内で空チェックを行う予定
-        val payers = selectData(folderid)
+        //このタイミングでidを元にselect  selectメソッド内で空チェックを行う予定 nullなし配列をpayerListに格納
+        val payerList: List<String> = selectData(folderId)
 
         //項目スピナー設定 ダイアログ表示、選択項目Spinnerスペースへの表示
         paragraphSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
@@ -93,17 +94,18 @@ class MoneyInsertActivity : AppCompatActivity() {
                 //選択された項目名を変数paraNameに代入
                 var spinner1 = parent as? Spinner
                 paraName = spinner1?.selectedItem as? String ?: "" //nullだった場合””を入れる
-                Log.d("paraNameの値", "${paraName}")
+                Log.d("paraNameの値", paraName)
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {
                 //ignore
             }
         }
-        //アダプターに負担者配列リストを設定
-        val Adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, payers)
+
+        //アダプターに負担者配列リストを設定 payersはList<String> nullがあると怒られる
+        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, payerList)
         //Spinnerにアダプター設定
-        payerSpinner.adapter = Adapter
+        payerSpinner.adapter = adapter
 
         //プルダウンをクリックした時ダイアログを表示
         payerSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
@@ -116,21 +118,22 @@ class MoneyInsertActivity : AppCompatActivity() {
                 //選択されたアイテムを負担者payerに代入
                 var spinner2 = parent as? Spinner
                 payer = spinner2?.selectedItem as? String ?: "" //nullだった場合""を入れる
-                Log.d("payerの値", "${payer}")
+                Log.d("payerの値", payer)
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {
                 //ignore
             }
         }
+
         //入力完了を押した際にダイアログを表示
         inputComp.setOnClickListener {//押したら
-            Log.d("inputClick", "${paragraphSpinner}")
+            Log.d("inputClick", "$paragraphSpinner")
 
             //id:costで入力された数値を文字にして数値にする nullと空文字、スペースが入っているとtrue
             if (!cost.text.isNullOrEmpty()) {
                 paraCost = cost.text.toString().toInt()
-                Log.d("項目の金額", "${paraCost}")
+                Log.d("項目の金額", "$paraCost")
 
                 //ダイアログのメッセージ、各ボタンの処理を設定　「詳細」/「ホーム」遷移、入力修正のための「キャンセル」　
                 AlertDialog.Builder(this)
@@ -139,8 +142,8 @@ class MoneyInsertActivity : AppCompatActivity() {
                         "詳細",
                         DialogInterface.OnClickListener { _, _ ->
                             //ignore
-                            //insert処理を入れる　うまくいかない↓
-                            insertPara(folderid, paraName, paraCost, payer)
+                            //insert処理を入れる
+                            insertPara(folderId, paraName, paraCost, payer)
                             //FolderCreate→Moneyの場合：startしてfinish()　　
                             // FolderDetail→MoneyInsertの場合：finish()のみ
                             //Createからの遷移の場合
@@ -149,7 +152,7 @@ class MoneyInsertActivity : AppCompatActivity() {
                                     this@MoneyInsertActivity,
                                     FolderDetailActivity::class.java
                                 )
-                                intent.putExtra(EXTRA_FOLDERID, folderid)
+                                intent.putExtra(EXTRA_FOLDERID, folderId)
                                 intent.putExtra(
                                     EXTRA_ACTIVITYNAME, MoneyInsertActivity::class.java.simpleName
                                 )
@@ -163,8 +166,8 @@ class MoneyInsertActivity : AppCompatActivity() {
                         "ホーム",
                         DialogInterface.OnClickListener { _, _ ->
                             //ignore
-                            //insert処理を入れたい　うまくいかない↓
-                            insertPara(folderid, paraName, paraCost, payer)
+                            //insert処理を入れたい
+                            insertPara(folderId, paraName, paraCost, payer)
                             val intent =
                                 Intent(this@MoneyInsertActivity, FolderListActivity::class.java)
                             //クリアタスクして遷移
@@ -302,38 +305,43 @@ class MoneyInsertActivity : AppCompatActivity() {
     }
 
     /////////////////カメラ用メソッド終わり/////////////////////////////////////
-    fun selectData( // TODO FolderInfoデータクラスを使ってhelperにまとめる
-        folderid: Int
-    ): ArrayList<String> {
+    /**
+     * @param folderId idを元にセレクト
+     * @return payerList:List<String> nullを排除した純粋な負担者のみの配列
+     * */
+    private fun selectData( // TODO FolderInfoデータクラスを使ってhelperにまとめる
+        folderId: Int
+    ): List<String> {
         try {
             val dbHelper = DriveDBHelper(this, DB_NAME, null, DB_VERSION)
             val database = dbHelper.readableDatabase
             val values = ContentValues()
             //select文　たった今insertした内容と一致するもののfolderidのみ受け取る
             val sql =
-                "SELECT * FROM ${FOLDER_INFO} WHERE folderid=${folderid}"
-
+                "SELECT * FROM $FOLDER_INFO WHERE folderid=$folderId"
+            val payerList = arrayListOf<String>()//戻り値用を一つ用意
             //クエリ実行 cursorで結果セット受け取り
             val cursor = database.rawQuery(sql, null)
             if (cursor.count > 0) {
                 Log.d("該当件数1のはず：", "${cursor.count}")
                 cursor.moveToFirst()
                 while (!cursor.isAfterLast) {
-                    payerList.add(cursor.getString(3))//memberの値を入れていく
-                    payerList.add(cursor.getString(4))
-                    payerList.add(cursor.getString(5))
-                    payerList.add(cursor.getString(6))
-                    payerList.add(cursor.getString(7))
-                    payerList.add(cursor.getString(8))
+                    //nullチェックしながらmemberの値を戻り値用payerListに入れていく
+                    //member1も含めてnullチェックなのでindexは3から8
+                    for (index in 3..8) {
+                        if (!cursor.getString(index).isNullOrBlank()) {
+                            payerList.add(cursor.getString(index))
+                        }
+                    }
                     cursor.moveToNext()
-                }
+                }//while文閉じ
             }
             cursor.close()
+            return payerList //負担者配列をreturn
         } catch (exception: Exception) {
             Log.e("SelectData", exception.toString())
+            return arrayListOf()
         }
-        //メンバー全員入れる
-        return payerList
     }//selectData閉じ
 
     //ParagraphInfoにinsert TODO ParagraphInfoデータクラスを使ってコンパクトに helperにまとめる
@@ -351,8 +359,8 @@ class MoneyInsertActivity : AppCompatActivity() {
             //resultで成功か失敗かif文判断?
             //入力した中身を確認
             Log.d(
-                "insertした中身", "folderid:${folderId} paraName:${paraName} paraCost:${paraCost} " +
-                        "payer:${payer}"
+                "insertした中身", "folderid:$folderId paraName:$paraName paraCost:$paraCost " +
+                        "payer:$payer"
             )
         } catch (exception: Exception) {
             Log.e("InsertData", exception.toString())
