@@ -5,14 +5,13 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.driveandroid.Constants.Companion.EXTRA_FOLDERID
 import kotlinx.android.synthetic.main.item_to_use.view.*
 
 //金額配列とタイトル配列を表示+Delete処理のゴミ箱imageView
 class FolderDetailAdapter(
-    private var folderDetail: ArrayList<ItemToUse>
+    private val folderDetail: ArrayList<ItemToUse>
 ) : RecyclerView.Adapter<FolderDetailAdapter.CustomViewHolder>() {
 
     // リスナー格納変数
@@ -22,7 +21,6 @@ class FolderDetailAdapter(
     class CustomViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
         val paraName = view.paraName
         val paraCostView = view.para_cost_view
-        //      val perPerson_costView = view.perParson_costView
         val payerView = view.payerView
         val trashBox = view.trash_box
     }
@@ -53,8 +51,9 @@ class FolderDetailAdapter(
             trashBox.setOnClickListener(object : View.OnClickListener {
                 override fun onClick(v: View) {
                     val deleteId = folderDetail[position].folderId //positionのfolderIdを取得
+                    val deleteNum = folderDetail[position].paraNum //削除する項目
                     Log.d("deleteするidの値", "$deleteId")
-                    listener.onItemClickListener(view, deleteId)//FolderDetailのdeleteに送る
+                    listener.onItemClickListener(view, deleteNum, position)//FolderDetailのdeleteに送る
                 }
             })
 
@@ -73,8 +72,8 @@ class FolderDetailAdapter(
     }
 
     //インターフェース作成 listenerにviewとdeleteIdを持たせる
-    interface OnItemClickListener : AdapterView.OnItemClickListener {
-        fun onItemClickListener(view: View, deleteId: Int)
+    interface OnItemClickListener {
+        fun onItemClickListener(view: View, deleteId: Int, position: Int)
     }
 
     // リスナー
