@@ -9,6 +9,7 @@ package com.example.driveandroid
 
 import android.app.DatePickerDialog
 import android.content.ContentValues
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -109,49 +110,95 @@ class FolderCreateActivity : AppCompatActivity() {
                     "" //日付選択されていない場合空白代入
                 }
 
-            //TODO ここでもう一度チェックして空だった場合はエラ〜メッセージ isEmptyなどで
-            Log.d("選択日付スラッシュ入り", date)
+//            if (!date.isNullOrEmpty()) {
+                Log.d("選択日付スラッシュ入り", date)
 
-            val title =
-                if (!putTitle.text.isNullOrBlank()) putTitle.text.toString() else "" //nullがダメなので空白？
-            Log.d("タイトル名", title)
+                val title =
+                    if (!putTitle.text.isNullOrBlank()) putTitle.text.toString() else "" //nullがダメなので空白？
+//                if (!title.isNullOrEmpty()) {
+                    Log.d("タイトル名", title)
 
-            val member1 =
-                if (!putMember1.text.isNullOrBlank()) putMember1.text.toString() else ""//nullがダメなので空白？
-            Log.d("メンバー1", member1)
+                    val member1 =
+                        if (!putMember1.text.isNullOrBlank()) putMember1.text.toString() else ""//nullがダメなので空白？
+//                    if (!member1.isNullOrEmpty()) {
+                        Log.d("メンバー1", member1)
 
-            //入力されていればmember変数に入力値格納、されていなければnull代入
-            val member2 = if (!putMember2.text.isNullOrBlank()) putMember2.text.toString() else null
-            Log.d("メンバー2", "$member2")
+                        //入力されていればmember変数に入力値格納、されていなければnull代入
+                        val member2 =
+                            if (!putMember2.text.isNullOrBlank()) putMember2.text.toString() else null
+                        Log.d("メンバー2", "$member2")
 
-            val member3 = if (!putMember3.text.isNullOrBlank()) putMember3.text.toString() else null
-            Log.d("メンバー3", "$member3")
+                        val member3 =
+                            if (!putMember3.text.isNullOrBlank()) putMember3.text.toString() else null
+                        Log.d("メンバー3", "$member3")
 
-            val member4 = if (!putMember4.text.isNullOrBlank()) putMember4.text.toString() else null
-            Log.d("メンバー4", "$member4")
+                        val member4 =
+                            if (!putMember4.text.isNullOrBlank()) putMember4.text.toString() else null
+                        Log.d("メンバー4", "$member4")
 
-            val member5 = if (!putMember5.text.isNullOrBlank()) putMember5.text.toString() else null
-            Log.d("メンバー5", "$member5")
+                        val member5 =
+                            if (!putMember5.text.isNullOrBlank()) putMember5.text.toString() else null
+                        Log.d("メンバー5", "$member5")
 
-            val member6 = if (!putMember6.text.isNullOrBlank()) putMember6.text.toString() else null
-            Log.d("メンバー6", "$member6")
+                        val member6 =
+                            if (!putMember6.text.isNullOrBlank()) putMember6.text.toString() else null
+                        Log.d("メンバー6", "$member6")
 
-            //入力チェック終わり TODO このタイミングでエラーメッセージの中身を確認　あったらエラーダイアログ表示
+                        //入力チェック終わり TODO このタイミングでエラーメッセージの中身を確認　あったらエラーダイアログ表示
 
-            //入力、変数に入れた中身を確認
-            Log.d(
-                "入力した中身", "date:$date title:$title member1:$member1" +
-                        "member2:$member2 member3:$member3 member4:$member4 member5:$member5 member6:$member6"
-            )
-            //データクラスを使ってinsertInfoにまとめる
-            val insertInfo =
-                InsertArray(date, title, member1, member2, member3, member4, member5, member6)
-            Log.d("insertInfoの中身", "$insertInfo")
-            //insertメソッド呼び出し
-            insertData(insertInfo)
-            //TODO ここまでをメソッド化予定
-            //リスト遷移後はフォルダ作成を閉じる=startActivityでフォルダ一覧を作成しなくてもよい
-            finish()
+                        //入力、変数に入れた中身を確認
+                        Log.d(
+                            "入力した中身", "date:$date title:$title member1:$member1" +
+                                    "member2:$member2 member3:$member3 member4:$member4 member5:$member5 member6:$member6"
+                        )
+                        //データクラスを使ってinsertInfoにまとめる
+                        val insertInfo =
+                            InsertArray(
+                                date,
+                                title,
+                                member1,
+                                member2,
+                                member3,
+                                member4,
+                                member5,
+                                member6
+                            )
+                        Log.d("insertInfoの中身", "$insertInfo")
+                        //insertメソッド呼び出し
+                        insertData(insertInfo)
+                        //TODO ここまでをメソッド化予定
+                        //リスト遷移後はフォルダ作成を閉じる=startActivityでフォルダ一覧を作成しなくてもよい
+                        finish()
+//                    } else {
+//                        AlertDialog.Builder(this)
+//                            .setMessage("メンバーを入力してください")
+//                            .setPositiveButton(
+//                                "OK",
+//                                DialogInterface.OnClickListener { _, _ ->
+//                                    //ignore
+//                                })
+//                            .show()
+//                    }
+//                } else {
+//                    AlertDialog.Builder(this)
+//                        .setMessage("タイトルを入力してください")
+//                        .setPositiveButton(
+//                            "OK",
+//                            DialogInterface.OnClickListener { _, _ ->
+//                                //ignore
+//                            })
+//                        .show()
+//                }
+//            } else {
+//                AlertDialog.Builder(this)
+//                    .setMessage("日付を入力してください")
+//                    .setPositiveButton(
+//                        "OK",
+//                        DialogInterface.OnClickListener { _, _ ->
+//                            //ignore
+//                        })
+//                    .show()
+//            }
         }
 
         //金額入力が押されたら入力チェック、insert、selectしたものを配列に入れる、

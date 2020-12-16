@@ -179,11 +179,18 @@ class MoneyInsertActivity : AppCompatActivity() {
                         //ignore
                     })
                     .show() //またはcreate() ?
+            } //エラーダイアログ、エラーを確認して入力内容破棄、再入力させる
+            else {
+                AlertDialog.Builder(this)
+                    .setMessage("金額を入力してください")
+                    .setPositiveButton(
+                        "OK",
+                        DialogInterface.OnClickListener { _, _ ->
+                            //ignore
+                        })
+                    .show()
             }
         }
-        //else { エラーダイアログ、エラーを確認して入力内容破棄、再入力させる 後回し
-        //
-        //            }
 
         //カメラボタンをクリックするとそのままカメラ起動
         camera.setOnClickListener {
