@@ -1,18 +1,19 @@
-/*FolderCreateActivity フォルダ作成画面
+/*FolderCreat eActivity フォルダ作成画面
 * 一列登録した情報　全一致のものをセレクトして配列に入れた上でidだけMoneyInsertActivityに送る
 * 前回からの変更点： MoneyInsertヘいく際のselectメソッドは全体セレクトして最新の行のfolderidのみ取る仕様に変更
 * タスク：（Listの完成後）文字数入力チェックを入れる、insert周りをデータクラス使って整理
-* 更新日：2020年12月15日
+* 作業中：onFocusChangeリスナーで各入力項目の文字数、メンバーは人数カウントと表示、星野さんコメントアウト部分調整
+* 更新日：2020年12月17日
 * 更新者：笛木
 * */
 package com.example.driveandroid
 
 import android.app.DatePickerDialog
 import android.content.ContentValues
-import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.example.driveandroid.Constants.Companion.DB_NAME
@@ -50,6 +51,8 @@ class FolderCreateActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_folder_create)
+
+        watchMember.text = 0.toString() //最初から表示しておく用
 
         setting.setOnClickListener {
             val intent = Intent(this@FolderCreateActivity, SupportActivity::class.java)
@@ -92,12 +95,161 @@ class FolderCreateActivity : AppCompatActivity() {
             dialog.show()
         }
 
-        //TODO memberNumをtextWatcherで数えて表示する処理をいれる
+        //putTitleを数える 文字数オーバーはエラーダイアログ
+        putTitle.setOnFocusChangeListener { v, hasFocus ->
+            if (!hasFocus) {
+                (v as? EditText)?.also { editText ->
+                    if (editText.text.length > 10) { //viewクラスをeditTextクラスにキャスト、文字数チェック
+                        val dialog = AlertDialog.Builder(this@FolderCreateActivity)
+                            .setMessage("10文字以内で入力してください。")
+                            .setPositiveButton("OK") { _, _ ->
+                                //OK押したら中身削除
+                                editText.text.clear()
+                            }
+                            .create()
+                        dialog.show()
+                    }
+                }
+            }
+        }
+        //putMember1を数える 10文字以内ならメンバーカウント開始
+        putMember1.setOnFocusChangeListener { v, hasFocus ->
+            if (!hasFocus) {
+                //フォーカスが外れた時に
+                (v as? EditText)?.also { editText ->
+                    if (editText.text.length > 10) { //viewクラスをeditTextクラスにキャスト、文字数チェック
+                        val dialog = AlertDialog.Builder(this@FolderCreateActivity)
+                            .setMessage("10文字以内で入力してください。")
+                            .setPositiveButton("OK") { _, _ ->
+                                //OK押したら中身削除
+                                editText.text.clear()
+                            }
+                            .create()
+                        dialog.show()
+                    }
+                    //memberNumをカウントする
+                    memberNum = 0 //リセット
+                    memberNum = memberCount()
+                }
+                watchMember.text = memberNum.toString()
+            }
+        }
+
+        putMember2.setOnFocusChangeListener { v, hasFocus ->
+            if (!hasFocus) {
+                //フォーカスが外れた時に
+                (v as? EditText)?.also { editText ->
+                    if (editText.text.length > 10) { //viewクラスをeditTextクラスにキャスト、文字数チェック
+                        val dialog = AlertDialog.Builder(this@FolderCreateActivity)
+                            .setMessage("10文字以内で入力してください。")
+                            .setPositiveButton("OK") { _, _ ->
+                                //OK押したら中身削除
+                                editText.text.clear()
+                            }
+                            .create()
+                        dialog.show()
+                    }
+                    //memberNumをカウントする
+                    memberNum = 0 //リセット
+                    memberNum = memberCount()
+                }
+                watchMember.text = memberNum.toString()
+            }
+        }
+
+        putMember3.setOnFocusChangeListener { v, hasFocus ->
+            if (!hasFocus) {
+                //フォーカスが外れた時に
+                (v as? EditText)?.also { editText ->
+                    if (editText.text.length > 10) { //viewクラスをeditTextクラスにキャスト、文字数チェック
+                        val dialog = AlertDialog.Builder(this@FolderCreateActivity)
+                            .setMessage("10文字以内で入力してください。")
+                            .setPositiveButton("OK") { _, _ ->
+                                //OK押したら中身削除
+                                editText.text.clear()
+                            }
+                            .create()
+                        dialog.show()
+                    }
+                    //memberNumをカウントする
+                    memberNum = 0 //リセット
+                    memberNum = memberCount()
+                }
+                watchMember.text = memberNum.toString()
+            }
+        }
+
+        putMember4.setOnFocusChangeListener { v, hasFocus ->
+            if (!hasFocus) {
+                //フォーカスが外れた時に
+                (v as? EditText)?.also { editText ->
+                    if (editText.text.length > 10) { //viewクラスをeditTextクラスにキャスト、文字数チェック
+                        val dialog = AlertDialog.Builder(this@FolderCreateActivity)
+                            .setMessage("10文字以内で入力してください。")
+                            .setPositiveButton("OK") { _, _ ->
+                                //OK押したら中身削除
+                                editText.text.clear()
+                            }
+                            .create()
+                        dialog.show()
+                    }
+                    //memberNumをカウントする
+                    memberNum = 0 //リセット
+                    memberNum = memberCount()
+                }
+                watchMember.text = memberNum.toString()
+            }
+        }
+
+        putMember5.setOnFocusChangeListener { v, hasFocus ->
+            if (!hasFocus) {
+                //フォーカスが外れた時に
+                (v as? EditText)?.also { editText ->
+                    if (editText.text.length > 10) { //viewクラスをeditTextクラスにキャスト、文字数チェック
+                        val dialog = AlertDialog.Builder(this@FolderCreateActivity)
+                            .setMessage("10文字以内で入力してください。")
+                            .setPositiveButton("OK") { _, _ ->
+                                //OK押したら中身削除
+                                editText.text.clear()
+                            }
+                            .create()
+                        dialog.show()
+                    }
+                    //memberNumをカウントする
+                    memberNum = 0 //リセット
+                    memberNum = memberCount()
+                }
+                watchMember.text = memberNum.toString()
+            }
+        }
+
+        putMember6.setOnFocusChangeListener { v, hasFocus ->
+            if (!hasFocus) {
+                //フォーカスが外れた時に
+                (v as? EditText)?.also { editText ->
+                    if (editText.text.length > 10) { //viewクラスをeditTextクラスにキャスト、文字数チェック
+                        val dialog = AlertDialog.Builder(this@FolderCreateActivity)
+                            .setMessage("10文字以内で入力してください。")
+                            .setPositiveButton("OK") { _, _ ->
+                                //OK押したら中身削除
+                                editText.text.clear()
+                            }
+                            .create()
+                        dialog.show()
+                    }
+                    //memberNumをカウントする
+                    memberNum = 0 //リセット
+                    memberNum = memberCount()
+                }
+                watchMember.text = memberNum.toString()
+            }
+        }
+        //member文字数チェック&カウント終了
         //入力完了が押されたらinsert、値受け渡しの必要はないのでホームのフォルダーListに戻る
         createEnd.setOnClickListener {
             //エラーはif文にelseをつけてメッセージ設定?
             //空の場合エラーメッセージを出すdate、titleとmember1 TODO エラーメッセージ用意
-            //DatePickerで入力されたものをDB登録用変数に入れる
+            //DatePickerで入力されたものをDB登録用変数に入れる //エラーチェック、問題なかったら変数に入れる
             val date =
                 if (dateYear != 0 && dateMonth != 0 && dateDayOfMonth != 0) { //ちゃんと日付選択されているならば
                     //変数に格納、一桁の場合は0埋めを行う
@@ -109,96 +261,50 @@ class FolderCreateActivity : AppCompatActivity() {
                 } else {
                     "" //日付選択されていない場合空白代入
                 }
-
 //            if (!date.isNullOrEmpty()) {
-                Log.d("選択日付スラッシュ入り", date)
+            Log.d("選択日付スラッシュ入り", date)
 
-                val title =
-                    if (!putTitle.text.isNullOrBlank()) putTitle.text.toString() else "" //nullがダメなので空白？
+            val title =
+                if (!putTitle.text.isNullOrBlank()) putTitle.text.toString() else "" //nullがダメなので空白？
 //                if (!title.isNullOrEmpty()) {
-                    Log.d("タイトル名", title)
+            Log.d("タイトル名", title)
 
-                    val member1 =
-                        if (!putMember1.text.isNullOrBlank()) putMember1.text.toString() else ""//nullがダメなので空白？
+            val member1 =
+                if (!putMember1.text.isNullOrBlank()) putMember1.text.toString() else ""//nullがダメなので空白？
 //                    if (!member1.isNullOrEmpty()) {
-                        Log.d("メンバー1", member1)
+            Log.d("メンバー1", member1)
 
-                        //入力されていればmember変数に入力値格納、されていなければnull代入
-                        val member2 =
-                            if (!putMember2.text.isNullOrBlank()) putMember2.text.toString() else null
-                        Log.d("メンバー2", "$member2")
+            //入力されていればmember変数に入力値格納、されていなければnull代入
+            val member2 = if (!putMember2.text.isNullOrBlank()) putMember2.text.toString() else null
+            Log.d("メンバー2", "$member2")
 
-                        val member3 =
-                            if (!putMember3.text.isNullOrBlank()) putMember3.text.toString() else null
-                        Log.d("メンバー3", "$member3")
+            val member3 = if (!putMember3.text.isNullOrBlank()) putMember3.text.toString() else null
+            Log.d("メンバー3", "$member3")
 
-                        val member4 =
-                            if (!putMember4.text.isNullOrBlank()) putMember4.text.toString() else null
-                        Log.d("メンバー4", "$member4")
+            val member4 = if (!putMember4.text.isNullOrBlank()) putMember4.text.toString() else null
+            Log.d("メンバー4", "$member4")
 
-                        val member5 =
-                            if (!putMember5.text.isNullOrBlank()) putMember5.text.toString() else null
-                        Log.d("メンバー5", "$member5")
+            val member5 = if (!putMember5.text.isNullOrBlank()) putMember5.text.toString() else null
+            Log.d("メンバー5", "$member5")
 
-                        val member6 =
-                            if (!putMember6.text.isNullOrBlank()) putMember6.text.toString() else null
-                        Log.d("メンバー6", "$member6")
+            val member6 = if (!putMember6.text.isNullOrBlank()) putMember6.text.toString() else null
+            Log.d("メンバー6", "$member6")
 
-                        //入力チェック終わり TODO このタイミングでエラーメッセージの中身を確認　あったらエラーダイアログ表示
-
-                        //入力、変数に入れた中身を確認
-                        Log.d(
-                            "入力した中身", "date:$date title:$title member1:$member1" +
-                                    "member2:$member2 member3:$member3 member4:$member4 member5:$member5 member6:$member6"
-                        )
-                        //データクラスを使ってinsertInfoにまとめる
-                        val insertInfo =
-                            InsertArray(
-                                date,
-                                title,
-                                member1,
-                                member2,
-                                member3,
-                                member4,
-                                member5,
-                                member6
-                            )
-                        Log.d("insertInfoの中身", "$insertInfo")
-                        //insertメソッド呼び出し
-                        insertData(insertInfo)
-                        //TODO ここまでをメソッド化予定
-                        //リスト遷移後はフォルダ作成を閉じる=startActivityでフォルダ一覧を作成しなくてもよい
-                        finish()
-//                    } else {
-//                        AlertDialog.Builder(this)
-//                            .setMessage("メンバーを入力してください")
-//                            .setPositiveButton(
-//                                "OK",
-//                                DialogInterface.OnClickListener { _, _ ->
-//                                    //ignore
-//                                })
-//                            .show()
-//                    }
-//                } else {
-//                    AlertDialog.Builder(this)
-//                        .setMessage("タイトルを入力してください")
-//                        .setPositiveButton(
-//                            "OK",
-//                            DialogInterface.OnClickListener { _, _ ->
-//                                //ignore
-//                            })
-//                        .show()
-//                }
-//            } else {
-//                AlertDialog.Builder(this)
-//                    .setMessage("日付を入力してください")
-//                    .setPositiveButton(
-//                        "OK",
-//                        DialogInterface.OnClickListener { _, _ ->
-//                            //ignore
-//                        })
-//                    .show()
-//            }
+            //入力チェック終わり TODO このタイミングでエラーメッセージの中身を確認　あったらエラーダイアログ表示
+            //入力、変数に入れた中身を確認
+            Log.d(
+                "入力した中身", "date:$date title:$title member1:$member1" +
+                        "member2:$member2 member3:$member3 member4:$member4 member5:$member5 member6:$member6"
+            )
+            //データクラスを使ってinsertInfoにまとめる
+            val insertInfo =
+                InsertArray(date, title, member1, member2, member3, member4, member5, member6)
+            Log.d("insertInfoの中身", "$insertInfo")
+            //insertメソッド呼び出し
+            insertData(insertInfo)
+            //TODO ここまでをメソッド化予定
+            //リスト遷移後はフォルダ作成を閉じる=startActivityでフォルダ一覧を作成しなくてもよい
+            finish()
         }
 
         //金額入力が押されたら入力チェック、insert、selectしたものを配列に入れる、
@@ -229,16 +335,20 @@ class FolderCreateActivity : AppCompatActivity() {
             val member2 = if (!putMember2.text.isNullOrBlank()) putMember2.text.toString() else null
             Log.d("メンバー2", "$member2")
 
-            val member3 = if (!putMember3.text.isNullOrBlank()) putMember3.text.toString() else null
+            val member3 =
+                if (!putMember3.text.isNullOrBlank()) putMember3.text.toString() else null
             Log.d("メンバー3", "$member3")
 
-            val member4 = if (!putMember4.text.isNullOrBlank()) putMember4.text.toString() else null
+            val member4 =
+                if (!putMember4.text.isNullOrBlank()) putMember4.text.toString() else null
             Log.d("メンバー4", "$member4")
 
-            val member5 = if (!putMember5.text.isNullOrBlank()) putMember5.text.toString() else null
+            val member5 =
+                if (!putMember5.text.isNullOrBlank()) putMember5.text.toString() else null
             Log.d("メンバー5", "$member5")
 
-            val member6 = if (!putMember6.text.isNullOrBlank()) putMember6.text.toString() else null
+            val member6 =
+                if (!putMember6.text.isNullOrBlank()) putMember6.text.toString() else null
             Log.d("メンバー6", "$member6")
 
             //TODO このタイミングでエラーメッセージをチェック　中身があったらエラーダイアログ表示
@@ -259,7 +369,6 @@ class FolderCreateActivity : AppCompatActivity() {
             val result =
                 selectFolder() //最新の一行を取得するselectFolderメソッドに変更
             Log.d("result", "$result")
-
             //一個しか入らないので0番目
             val folderId = result?.get(0)
             Log.d("folderIdの値確認", "$folderId")
@@ -293,6 +402,31 @@ class FolderCreateActivity : AppCompatActivity() {
 //        val checkArray=checkArray(date,member1,member2,member3,member4,member5,member6)
 //        return checkArray
 //    }
+
+    /**
+     * @return 入力カウントしたメンバーの数
+     * */
+    private fun memberCount(): Int {
+        if (!putMember1.text.isNullOrEmpty()) {
+            memberNum++
+        }
+        if (!putMember2.text.isNullOrEmpty()) {
+            memberNum++
+        }
+        if (!putMember3.text.isNullOrEmpty()) {
+            memberNum++
+        }
+        if (!putMember4.text.isNullOrEmpty()) {
+            memberNum++
+        }
+        if (!putMember5.text.isNullOrEmpty()) {
+            memberNum++
+        }
+        if (!putMember6.text.isNullOrEmpty()) {
+            memberNum++
+        }
+        return memberNum
+    }
 
     /**insertData FolderInfo insert用メソッド
      * @param insertInfo 入力項目
