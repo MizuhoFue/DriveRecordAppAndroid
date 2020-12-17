@@ -318,6 +318,8 @@ class FolderCreateActivity : AppCompatActivity() {
                 .setPositiveButton("OK") { _, _ ->
                     //OK押したら中身削除
                     editText.text.clear()
+                    memberNum = memberCount()
+                    watchMember.text = memberNum.toString()
                 }
                 .create()
             dialog.show()
