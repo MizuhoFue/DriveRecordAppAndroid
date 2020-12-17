@@ -52,7 +52,7 @@ class FolderCreateActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_folder_create)
 
-        watchMember.text = 0.toString() //最初から表示しておく用
+        watchMember.text = "0" //最初から表示しておく用
 
         setting.setOnClickListener {
             val intent = Intent(this@FolderCreateActivity, SupportActivity::class.java)
