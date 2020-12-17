@@ -99,16 +99,7 @@ class FolderCreateActivity : AppCompatActivity() {
         putTitle.setOnFocusChangeListener { v, hasFocus ->
             if (!hasFocus) {
                 (v as? EditText)?.also { editText ->
-                    if (editText.text.length > 10) { //viewクラスをeditTextクラスにキャスト、文字数チェック
-                        val dialog = AlertDialog.Builder(this@FolderCreateActivity)
-                            .setMessage("10文字以内で入力してください。")
-                            .setPositiveButton("OK") { _, _ ->
-                                //OK押したら中身削除
-                                editText.text.clear()
-                            }
-                            .create()
-                        dialog.show()
-                    }
+                    textCheck(editText)
                 }
             }
         }
@@ -117,18 +108,7 @@ class FolderCreateActivity : AppCompatActivity() {
             if (!hasFocus) {
                 //フォーカスが外れた時に
                 (v as? EditText)?.also { editText ->
-                    if (editText.text.length > 10) { //viewクラスをeditTextクラスにキャスト、文字数チェック
-                        val dialog = AlertDialog.Builder(this@FolderCreateActivity)
-                            .setMessage("10文字以内で入力してください。")
-                            .setPositiveButton("OK") { _, _ ->
-                                //OK押したら中身削除
-                                editText.text.clear()
-                            }
-                            .create()
-                        dialog.show()
-                    }
-                    //memberNumをカウントする
-                    memberNum = 0 //リセット
+                    textCheck(editText)
                     memberNum = memberCount()
                 }
                 watchMember.text = memberNum.toString()
@@ -139,18 +119,7 @@ class FolderCreateActivity : AppCompatActivity() {
             if (!hasFocus) {
                 //フォーカスが外れた時に
                 (v as? EditText)?.also { editText ->
-                    if (editText.text.length > 10) { //viewクラスをeditTextクラスにキャスト、文字数チェック
-                        val dialog = AlertDialog.Builder(this@FolderCreateActivity)
-                            .setMessage("10文字以内で入力してください。")
-                            .setPositiveButton("OK") { _, _ ->
-                                //OK押したら中身削除
-                                editText.text.clear()
-                            }
-                            .create()
-                        dialog.show()
-                    }
-                    //memberNumをカウントする
-                    memberNum = 0 //リセット
+                    textCheck(editText)
                     memberNum = memberCount()
                 }
                 watchMember.text = memberNum.toString()
@@ -161,18 +130,7 @@ class FolderCreateActivity : AppCompatActivity() {
             if (!hasFocus) {
                 //フォーカスが外れた時に
                 (v as? EditText)?.also { editText ->
-                    if (editText.text.length > 10) { //viewクラスをeditTextクラスにキャスト、文字数チェック
-                        val dialog = AlertDialog.Builder(this@FolderCreateActivity)
-                            .setMessage("10文字以内で入力してください。")
-                            .setPositiveButton("OK") { _, _ ->
-                                //OK押したら中身削除
-                                editText.text.clear()
-                            }
-                            .create()
-                        dialog.show()
-                    }
-                    //memberNumをカウントする
-                    memberNum = 0 //リセット
+                    textCheck(editText)
                     memberNum = memberCount()
                 }
                 watchMember.text = memberNum.toString()
@@ -183,18 +141,7 @@ class FolderCreateActivity : AppCompatActivity() {
             if (!hasFocus) {
                 //フォーカスが外れた時に
                 (v as? EditText)?.also { editText ->
-                    if (editText.text.length > 10) { //viewクラスをeditTextクラスにキャスト、文字数チェック
-                        val dialog = AlertDialog.Builder(this@FolderCreateActivity)
-                            .setMessage("10文字以内で入力してください。")
-                            .setPositiveButton("OK") { _, _ ->
-                                //OK押したら中身削除
-                                editText.text.clear()
-                            }
-                            .create()
-                        dialog.show()
-                    }
-                    //memberNumをカウントする
-                    memberNum = 0 //リセット
+                    textCheck(editText)
                     memberNum = memberCount()
                 }
                 watchMember.text = memberNum.toString()
@@ -205,18 +152,7 @@ class FolderCreateActivity : AppCompatActivity() {
             if (!hasFocus) {
                 //フォーカスが外れた時に
                 (v as? EditText)?.also { editText ->
-                    if (editText.text.length > 10) { //viewクラスをeditTextクラスにキャスト、文字数チェック
-                        val dialog = AlertDialog.Builder(this@FolderCreateActivity)
-                            .setMessage("10文字以内で入力してください。")
-                            .setPositiveButton("OK") { _, _ ->
-                                //OK押したら中身削除
-                                editText.text.clear()
-                            }
-                            .create()
-                        dialog.show()
-                    }
-                    //memberNumをカウントする
-                    memberNum = 0 //リセット
+                    textCheck(editText)
                     memberNum = memberCount()
                 }
                 watchMember.text = memberNum.toString()
@@ -227,18 +163,7 @@ class FolderCreateActivity : AppCompatActivity() {
             if (!hasFocus) {
                 //フォーカスが外れた時に
                 (v as? EditText)?.also { editText ->
-                    if (editText.text.length > 10) { //viewクラスをeditTextクラスにキャスト、文字数チェック
-                        val dialog = AlertDialog.Builder(this@FolderCreateActivity)
-                            .setMessage("10文字以内で入力してください。")
-                            .setPositiveButton("OK") { _, _ ->
-                                //OK押したら中身削除
-                                editText.text.clear()
-                            }
-                            .create()
-                        dialog.show()
-                    }
-                    //memberNumをカウントする
-                    memberNum = 0 //リセット
+                    textCheck(editText)
                     memberNum = memberCount()
                 }
                 watchMember.text = memberNum.toString()
@@ -383,16 +308,32 @@ class FolderCreateActivity : AppCompatActivity() {
         }
     }
 
-    //ここでeditableで引数設定
-//    fun checkData(
-//        putDate: Editable,
-//        putTitle: Editable,
-//        putMember1: Editable,
-//        putMember2: Editable,
-//        putMember3: Editable,
-//        putMember4: Editable,
-//        putMember5: Editable,
-//        putMemeber6: Editable  //isNullOrEmpty
+    /**
+     *10文字以上の入力があった場合ダイアログを出す
+     * */
+    private fun textCheck(editText: EditText) {
+        if (editText.text.length > 10) { //viewクラスをeditTextクラスにキャスト、文字数チェック
+            val dialog = AlertDialog.Builder(this@FolderCreateActivity)
+                .setMessage("10文字以内で入力してください。")
+                .setPositiveButton("OK") { _, _ ->
+                    //OK押したら中身削除
+                    editText.text.clear()
+                }
+                .create()
+            dialog.show()
+        }
+    }
+    /**
+     *
+     * */
+//   private fun checkData(
+//       putTitle: Editable,
+//       putMember1: Editable,
+//       putMember2: Editable,
+//       putMember3: Editable,
+//       putMember4: Editable,
+//       putMember5: Editable,
+//       putMemeber6: Editable  //isNullOrEmpty
 //    ):checkArray {
 //        //textがコンパイルエラーになる　length?　一旦保留、ParagraphInfo優先
 //        if(!putDate.length.) {
@@ -407,6 +348,7 @@ class FolderCreateActivity : AppCompatActivity() {
      * @return 入力カウントしたメンバーの数
      * */
     private fun memberCount(): Int {
+        memberNum = 0
         if (!putMember1.text.isNullOrEmpty()) {
             memberNum++
         }
