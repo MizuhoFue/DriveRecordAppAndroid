@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?><!--変更点：日付入力部分をDatePickerボタンに-->
+<?xml version="1.0" encoding="utf-8"?><!--変更点：editText箇所InputLayoutの追加-->
 <!--更新者：笛木-->
-<!--更新日：2020年12月2日-->
+<!--更新日：2020年12月17日-->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -77,7 +77,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginStart="24dp"
                     android:layout_weight="1"
                     android:text="@string/day"
                     android:textSize="30sp" />
@@ -103,21 +102,28 @@
                     android:id="@+id/title_display"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="bottom"
+                    android:layout_gravity="center"
                     android:layout_weight="1"
                     android:text="@string/title"
                     android:textSize="30sp" />
 
-                <EditText
-                    android:id="@+id/putTitle"
+                <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="end"
-                    android:ems="10"
-                    android:hint="@string/put_title"
-                    android:inputType="textPersonName"
-                    android:textSize="18sp"
-                    tools:text="" />
+                    app:counterEnabled="true"
+                    app:counterMaxLength="10">
+
+                    <EditText
+                        android:id="@+id/putTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end"
+                        android:ems="10"
+                        android:hint="@string/put_title"
+                        android:inputType="text"
+                        android:textSize="18sp" />
+
+                </com.google.android.material.textfield.TextInputLayout>
 
             </LinearLayout>
 
@@ -132,89 +138,185 @@
                     android:id="@+id/member"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="bottom"
+                    android:layout_gravity="center"
                     android:layout_marginBottom="5dp"
                     android:layout_weight="1"
                     android:text="@string/member_name"
                     android:textSize="25sp" />
 
-                <EditText
-                    android:id="@+id/putMember1"
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/layout_1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="end"
-                    android:layout_marginBottom="5dp"
-                    android:ems="10"
-                    android:hint="@string/put_member1"
-                    android:inputType="textPersonName"
-                    android:textSize="18sp" />
+                    app:counterEnabled="true"
+                    app:counterMaxLength="10">
+
+                    <EditText
+                        android:id="@+id/putMember1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end"
+                        android:layout_marginBottom="5dp"
+                        android:ems="10"
+                        android:hint="@string/put_member1"
+                        android:inputType="textPersonName"
+                        android:textSize="18sp" />
+
+                </com.google.android.material.textfield.TextInputLayout>
 
             </LinearLayout>
 
-            <EditText
-                android:id="@+id/putMember2"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="end"
+                android:layout_marginStart="24dp"
                 android:layout_marginEnd="30dp"
-                android:layout_marginBottom="5dp"
-                android:ems="10"
-                android:hint="@string/put_member2"
-                android:inputType="textPersonName"
-                android:text=""
-                android:visibility="visible" />
+                android:orientation="horizontal">
 
-            <EditText
-                android:id="@+id/putMember3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end"
-                android:layout_marginEnd="30dp"
-                android:layout_marginBottom="5dp"
-                android:ems="10"
-                android:hint="@string/put_member3"
-                android:inputType="textPersonName"
-                android:text=""
-                android:visibility="visible" />
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:layout_weight="1"
+                    app:counterEnabled="true"
+                    app:counterMaxLength="10">
 
-            <EditText
-                android:id="@+id/putMember4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end"
-                android:layout_marginEnd="30dp"
-                android:layout_marginBottom="5dp"
-                android:ems="10"
-                android:hint="@string/put_member4"
-                android:inputType="textPersonName"
-                android:text=""
-                android:visibility="visible" />
+                    <EditText
+                        android:id="@+id/putMember2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end"
+                        android:layout_marginBottom="5dp"
+                        android:ems="10"
+                        android:hint="@string/put_member2"
+                        android:inputType="textPersonName"
+                        android:visibility="visible" />
 
-            <EditText
-                android:id="@+id/putMember5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end"
-                android:layout_marginEnd="30dp"
-                android:layout_marginBottom="5dp"
-                android:ems="10"
-                android:hint="@string/put_member5"
-                android:inputType="textPersonName"
-                android:text=""
-                android:visibility="visible" />
+                </com.google.android.material.textfield.TextInputLayout>
 
-            <EditText
-                android:id="@+id/putMember6"
-                android:layout_width="wrap_content"
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="end"
+                android:layout_marginStart="24dp"
                 android:layout_marginEnd="30dp"
-                android:layout_marginBottom="5dp"
-                android:ems="10"
-                android:hint="@string/put_member6"
-                android:inputType="textPersonName"
-                android:text=""
-                android:visibility="visible" />
+                android:orientation="horizontal">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_gravity="end"
+                    app:counterEnabled="true"
+                    app:counterMaxLength="10">
+
+                    <EditText
+                        android:id="@+id/putMember3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end"
+                        android:layout_marginBottom="5dp"
+                        android:ems="10"
+                        android:hint="@string/put_member3"
+                        android:inputType="textPersonName"
+                        android:visibility="visible" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginEnd="30dp"
+                android:orientation="horizontal">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_gravity="end"
+                    app:counterEnabled="true"
+                    app:counterMaxLength="10">
+
+                    <EditText
+                        android:id="@+id/putMember4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end"
+                        android:layout_marginBottom="5dp"
+                        android:ems="10"
+                        android:hint="@string/put_member4"
+                        android:inputType="textPersonName"
+                        android:text=""
+                        android:visibility="visible" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginEnd="30dp"
+                android:orientation="horizontal">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_gravity="end"
+                    app:counterEnabled="true"
+                    app:counterMaxLength="10">
+
+                    <EditText
+                        android:id="@+id/putMember5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end"
+                        android:layout_marginBottom="5dp"
+                        android:ems="10"
+                        android:hint="@string/put_member5"
+                        android:inputType="textPersonName"
+                        android:visibility="visible" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginEnd="30dp"
+                android:orientation="horizontal">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_gravity="end"
+                    app:counterEnabled="true"
+                    app:counterMaxLength="10">
+
+                    <EditText
+                        android:id="@+id/putMember6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end"
+                        android:layout_marginBottom="5dp"
+                        android:ems="10"
+                        android:hint="@string/put_member6"
+                        android:inputType="textPersonName"
+                        android:text=""
+                        android:visibility="visible" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -230,9 +332,9 @@
                     android:layout_weight="1"
                     android:text="@string/members"
                     android:textSize="30sp" />
-
+                <!--id名変えました-->
                 <TextView
-                    android:id="@+id/inputMember"
+                    android:id="@+id/watchMember"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_gravity="end"
