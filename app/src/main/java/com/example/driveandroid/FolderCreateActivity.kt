@@ -1,4 +1,4 @@
-/*FolderCreat eActivity フォルダ作成画面
+/*FolderCreateActivity フォルダ作成画面
 * 一列登録した情報　全一致のものをセレクトして配列に入れた上でidだけMoneyInsertActivityに送る
 * 前回からの変更点： MoneyInsertヘいく際のselectメソッドは全体セレクトして最新の行のfolderidのみ取る仕様に変更
 * タスク：（Listの完成後）文字数入力チェックを入れる、insert周りをデータクラス使って整理
