@@ -224,10 +224,13 @@ class FolderDetailActivity : AppCompatActivity() {
             val share = StringBuilder().apply {
                 append("日付 $date \n")
                 append("タイトル $title \n")
-                append(
-                    "メンバー名 \n" +
-                            "$member1 \n $member2 \n $member3 \n $member4 \n $member5 \n $member6 \n \n"
-                )
+                append("メンバー名 \n")
+                append("$member1 \n")
+                append("$member2 \n")
+                append("$member3 \n")
+                append("$member4 \n")
+                append("$member5 \n")
+                append("$member6 \n \n")
                 //使用項目の配列
                 itemToUseList?.forEach {
                     //使用項目別の一人当たりの金額
