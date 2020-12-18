@@ -129,10 +129,10 @@ class FolderDetailActivity : AppCompatActivity() {
         member_num_view.text = "$memberNum"
 
         //ユーザーリストでデーターを追加
-        val folderDetail = selectPara(folderId)
+        val itemToUseList = selectPara(folderId)
 
         //配列を表示させる
-        folderDetail?.let {
+        itemToUseList?.let {
             val adapter = FolderDetailAdapter(it, memberNum) //memberNumも引数とする
             val layoutManager = LinearLayoutManager(this)
 
@@ -176,7 +176,7 @@ class FolderDetailActivity : AppCompatActivity() {
                             //deletePara呼び出し 該当データをParagraphInfoから削除
                             deletePara(deleteNum)
                             //画面からも該当データを消す,更新する
-                            folderDetail.removeAt(position)
+                            itemToUseList.removeAt(position)
                             Log.d("消したいposition", "$position")
                             paraCostArray.clear() //配列の中身リセット
                             adapter.notifyDataSetChanged()
@@ -217,6 +217,46 @@ class FolderDetailActivity : AppCompatActivity() {
         home.setOnClickListener {//押したら
             finish()
         }
+
+        //共有ボタン
+        share.setOnClickListener {
+            //StringBuilderで文字連結
+            val share = StringBuilder().apply {
+                append("日付 $date \n")
+                append("タイトル $title \n")
+                append("メンバー名 \n")
+                append("$member1 \n")
+                append("$member2 \n")
+                append("$member3 \n")
+                append("$member4 \n")
+                append("$member5 \n")
+                append("$member6 \n \n")
+                //使用項目の配列
+                itemToUseList?.forEach {
+                    //使用項目別の一人当たりの金額
+                    val parParsonCost = it.paraCosts.toInt() / memberNum
+                    append("使用項目 ${it.paraNames}\n")
+                    append("金額 ${it.paraCosts} 円 \n")
+                    append("一人当たり $parParsonCost 円\n")
+                    append("負担者 ${it.payers} \n \n")
+                }
+                append("合計金額 ${paraCostArray.sum()} 円\n")
+                append("一人当たり ${paraCostArray.sum() / memberNum} 円")
+            }
+
+            //共有処理
+            val sendIntent = Intent().apply {
+                action = Intent.ACTION_SEND
+                putExtra(
+                    Intent.EXTRA_TEXT, share.toString()
+                )
+                putExtra(EXTRA_ACTIVITYNAME, this::class.java.simpleName)
+                type = "text/plain"
+            }
+            val shareIntent = Intent.createChooser(sendIntent, null)
+            startActivity(shareIntent)
+        }
+
     } //onResume閉じ
 
     /** selectFolder folderidを元に該当データをFolderInfoテーブルからセレクト
