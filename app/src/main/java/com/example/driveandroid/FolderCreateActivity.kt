@@ -395,7 +395,6 @@ class FolderCreateActivity : AppCompatActivity() {
             } else {
                 ""
             }
-
         } else if (insertInfo.member4 == null) {
             if (!insertInfo.member5.isNullOrEmpty() || !insertInfo.member6.isNullOrEmpty()) {
                 "上からメンバー名を入力してください"
