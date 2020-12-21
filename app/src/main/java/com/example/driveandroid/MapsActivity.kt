@@ -50,6 +50,18 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 REQUEST_CODE_LOCATION
             )
         }
+        //タイトルラベルの左側のナビゲーションアイテムの設置
+        drive_toolbar.setNavigationIcon(android.R.drawable.ic_menu_directions)
+        //ナビゲーションアイテムのリスナー
+        drive_toolbar.setNavigationOnClickListener {
+            val intent = Intent(this@MapsActivity, FolderListActivity::class.java)
+            startActivity(intent)
+        }
+    }
+
+    //Resume処理(使用許可後画面更新のため)
+    override fun onResume() {
+        super.onResume()
 
         //融合された位置予測プロバイダ クライアントのインスタンス
         fusedLocationClient = FusedLocationProviderClient(this)
@@ -90,14 +102,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             Looper.myLooper()
         )
 
-        //タイトルラベルの左側のナビゲーションアイテムの設置
-        drive_toolbar.setNavigationIcon(android.R.drawable.ic_menu_directions)
-        //ナビゲーションアイテムのリスナー
-        drive_toolbar.setNavigationOnClickListener {
-            val intent = Intent(this@MapsActivity, FolderListActivity::class.java)
-            startActivity(intent)
-        }
-
         val mapFragment = supportFragmentManager
             .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
@@ -115,9 +119,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 // 許可された場合
                 Toast.makeText(this, "許可されました。", Toast.LENGTH_SHORT).show()
-                val intent = Intent(this@MapsActivity, this::class.java)
-                startActivity(intent)
-                finish()
             } else {
                 // 拒否された場合
                 Toast.makeText(this, "拒否されました。", Toast.LENGTH_SHORT).show()
