@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><!--フォーマット整理と不要コード削除、カメラ用コードを付け足しました。笛木より-->
+<?xml version="1.0" encoding="utf-8"?><!--ライセンス表示用ツールバーを設定しました　笛木より-->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.driveandroid">
 
@@ -55,6 +55,9 @@
         <activity
             android:name=".PolicyActivity"
             android:label="@string/main" />
+        <activity
+            android:theme="@style/Theme.AppCompat.Light.DarkActionBar"
+            android:name="com.google.android.gms.oss.licenses.OssLicensesMenuActivity" />
     </application>
 
 </manifest>
