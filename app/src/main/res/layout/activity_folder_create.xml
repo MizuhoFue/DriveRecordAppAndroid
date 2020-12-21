@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?><!--変更点：editText箇所InputLayoutの追加-->
+<?xml version="1.0" encoding="utf-8"?><!--変更点：日付・タイトル・メンバー名の文字の大きさを小さく-->
 <!--更新者：笛木-->
-<!--更新日：2020年12月17日-->
+<!--更新日：2020年12月21日-->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -79,7 +79,7 @@
                     android:layout_gravity="center"
                     android:layout_weight="1"
                     android:text="@string/day"
-                    android:textSize="30sp" />
+                    android:textSize="20sp" />
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/datePick"
@@ -105,7 +105,7 @@
                     android:layout_gravity="center"
                     android:layout_weight="1"
                     android:text="@string/title"
-                    android:textSize="30sp" />
+                    android:textSize="20sp" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="wrap_content"
@@ -142,7 +142,7 @@
                     android:layout_marginBottom="5dp"
                     android:layout_weight="1"
                     android:text="@string/member_name"
-                    android:textSize="25sp" />
+                    android:textSize="18sp" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/layout_1"
