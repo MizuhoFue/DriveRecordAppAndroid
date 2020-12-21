@@ -1,6 +1,6 @@
 /*FolderCreateActivity フォルダ作成画面
 * 一列登録した情報　全一致のものをセレクトして配列に入れた上でidだけMoneyInsertActivityに送る
-* 前回からの変更点： 完了系ボタン押した後の空白チェック、エラーダイアログ表示追加 共通処理メソッド化
+* 前回からの変更点： 完了系ボタン押した後の空白チェック、エラーダイアログ表示追加 共通処理メソッド化 小林さんコメント分修正
 * タスク：メンバー入力で10文字をこえたままフォーカスを変えずに完了系を押すとそのままinsertできてしまう
 * 更新日：2020年12月21日
 * 更新者：笛木
@@ -359,12 +359,16 @@ class FolderCreateActivity : AppCompatActivity() {
             if (!putMember6.text.isNullOrBlank()) putMember6.text.toString() else null
         Log.d("メンバー6", "$member6")
 
-        val valueList = arrayListOf<InsertArray>()
-
-        val checkArray =
-            InsertArray(date, title, member1, member2, member3, member4, member5, member6)
-        valueList.add(checkArray)
-        return checkArray //return
+        return InsertArray( //return
+            date,
+            title,
+            member1,
+            member2,
+            member3,
+            member4,
+            member5,
+            member6
+        )
     }
 
     /**insertする前の空白エラーチェック
