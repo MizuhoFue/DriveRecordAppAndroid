@@ -57,8 +57,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         // どのような取得方法を要求
         val locationRequest = LocationRequest().apply {
             // 精度重視(電力大)と省電力重視(精度低)を両立するため2種類の更新間隔を指定
-            // 今回は公式のサンプル通りにする。
-            interval = 10000                                   // 最遅の更新間隔(但し正確ではない。)
+            interval = 10000                                   // 最遅の更新間隔
             fastestInterval = 5000                             // 最短の更新間隔
             priority = LocationRequest.PRIORITY_HIGH_ACCURACY  // 精度重視
         }
@@ -83,13 +82,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 Manifest.permission.ACCESS_COARSE_LOCATION
             ) != PackageManager.PERMISSION_GRANTED
         ) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
             return
         }
         fusedLocationClient.requestLocationUpdates(
