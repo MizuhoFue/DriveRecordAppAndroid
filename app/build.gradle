@@ -3,6 +3,8 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 //Roomで使うアノテーションを使えるプラグインを追加
 apply plugin: 'kotlin-kapt'
+//ライセンス表示用
+apply plugin: 'com.google.android.gms.oss-licenses-plugin'
 
 android {
     compileSdkVersion 30
@@ -76,4 +78,6 @@ dependencies {
     //noinspection GradleCompatible
     implementation 'com.android.support:appcompat-v7:28.0.0'
 
+    //ライセンス表示用
+    implementation 'com.google.android.gms:play-services-oss-licenses:17.0.0'
 }

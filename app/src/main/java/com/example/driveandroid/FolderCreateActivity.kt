@@ -1,9 +1,8 @@
 /*FolderCreateActivity フォルダ作成画面
 * 一列登録した情報　全一致のものをセレクトして配列に入れた上でidだけMoneyInsertActivityに送る
-* 前回からの変更点： MoneyInsertヘいく際のselectメソッドは全体セレクトして最新の行のfolderidのみ取る仕様に変更
-* タスク：（Listの完成後）文字数入力チェックを入れる、insert周りをデータクラス使って整理
-* 作業中：onFocusChangeリスナーで各入力項目の文字数、メンバーは人数カウントと表示、星野さんコメントアウト部分調整
-* 更新日：2020年12月17日
+* 前回からの変更点： 完了系ボタン押した後の空白チェック、エラーダイアログ表示追加 共通処理メソッド化 小林さんコメント分修正
+* タスク：メンバー入力で10文字をこえたままフォーカスを変えずに完了系を押すとそのままinsertできてしまう
+* 更新日：2020年12月21日
 * 更新者：笛木
 * */
 package com.example.driveandroid
@@ -172,143 +171,108 @@ class FolderCreateActivity : AppCompatActivity() {
         //member文字数チェック&カウント終了
         //入力完了が押されたらinsert、値受け渡しの必要はないのでホームのフォルダーListに戻る
         createEnd.setOnClickListener {
-            //エラーはif文にelseをつけてメッセージ設定?
-            //空の場合エラーメッセージを出すdate、titleとmember1 TODO エラーメッセージ用意
-            //DatePickerで入力されたものをDB登録用変数に入れる //エラーチェック、問題なかったら変数に入れる
-            val date =
-                if (dateYear != 0 && dateMonth != 0 && dateDayOfMonth != 0) { //ちゃんと日付選択されているならば
-                    //変数に格納、一桁の場合は0埋めを行う
-                    val month = if ("$dateMonth".length == 1) "0$dateMonth" else "$dateMonth"
-                    val day =
-                        if ("$dateDayOfMonth".length == 1) "0$dateDayOfMonth" else "$dateDayOfMonth"
-                    //この時点でスラッシュ入りにしてString型としてdateに格納
-                    "$dateYear/$month/$day"
-                } else {
-                    "" //日付選択されていない場合空白代入
-                }
-//            if (!date.isNullOrEmpty()) {
-            Log.d("選択日付スラッシュ入り", date)
+            //各入力項目をデータクラスに格納
+            val insertInfo = inputCheck()
+            //return errCheckでerrMsg
+            //空白チェック　エラーがある場合は戻り値が""ではない
+            val errMsg = errorCheck(insertInfo)
 
-            val title =
-                if (!putTitle.text.isNullOrBlank()) putTitle.text.toString() else "" //nullがダメなので空白？
-//                if (!title.isNullOrEmpty()) {
-            Log.d("タイトル名", title)
-
-            val member1 =
-                if (!putMember1.text.isNullOrBlank()) putMember1.text.toString() else ""//nullがダメなので空白？
-//                    if (!member1.isNullOrEmpty()) {
-            Log.d("メンバー1", member1)
-
-            //入力されていればmember変数に入力値格納、されていなければnull代入
-            val member2 = if (!putMember2.text.isNullOrBlank()) putMember2.text.toString() else null
-            Log.d("メンバー2", "$member2")
-
-            val member3 = if (!putMember3.text.isNullOrBlank()) putMember3.text.toString() else null
-            Log.d("メンバー3", "$member3")
-
-            val member4 = if (!putMember4.text.isNullOrBlank()) putMember4.text.toString() else null
-            Log.d("メンバー4", "$member4")
-
-            val member5 = if (!putMember5.text.isNullOrBlank()) putMember5.text.toString() else null
-            Log.d("メンバー5", "$member5")
-
-            val member6 = if (!putMember6.text.isNullOrBlank()) putMember6.text.toString() else null
-            Log.d("メンバー6", "$member6")
-
-            //入力チェック終わり TODO このタイミングでエラーメッセージの中身を確認　あったらエラーダイアログ表示
-            //入力、変数に入れた中身を確認
-            Log.d(
-                "入力した中身", "date:$date title:$title member1:$member1" +
-                        "member2:$member2 member3:$member3 member4:$member4 member5:$member5 member6:$member6"
-            )
-            //データクラスを使ってinsertInfoにまとめる
-            val insertInfo =
-                InsertArray(date, title, member1, member2, member3, member4, member5, member6)
-            Log.d("insertInfoの中身", "$insertInfo")
-            //insertメソッド呼び出し
-            insertData(insertInfo)
-            //TODO ここまでをメソッド化予定
-            //リスト遷移後はフォルダ作成を閉じる=startActivityでフォルダ一覧を作成しなくてもよい
-            finish()
+            //エラー確認
+            if (errMsg != "") {
+                val dialog = AlertDialog.Builder(this)
+                    .setMessage(errMsg)
+                    .setPositiveButton("OK") { _, _ ->
+                        //ignore
+                    }
+                    .create()
+                dialog.show()
+            } else {//エラーなし、ダイアログ表示もない場合はinsert
+                //入力、変数に入れた中身を確認
+                //データクラスを使ってinsertInfoにまとめる
+                Log.d("insertするinsertInfoの中身", "$insertInfo")
+                //insertメソッド呼び出し
+                insertData(insertInfo)
+                //TODO ここまでをメソッド化予定 どこまでまとめる？
+                //リスト遷移後はフォルダ作成を閉じる=startActivityでフォルダ一覧を作成しなくてもよい
+                finish()
+            }
         }
 
         //金額入力が押されたら入力チェック、insert、selectしたものを配列に入れる、
         money.setOnClickListener {
-            //入力チェック エラーはelseでメッセージ設定 上記inputCompとエラーチェック、insertまでの流れは同じ
-            val date =
-                if (dateYear != 0 && dateMonth != 0 && dateDayOfMonth != 0) {//ちゃんと日付選択されているならば
-                    //変数に格納、一桁の場合は0埋めを行う
-                    val month = if ("$dateMonth".length == 1) "0$dateMonth" else "$dateMonth"
-                    val day =
-                        if ("$dateDayOfMonth".length == 1) "0$dateDayOfMonth" else "$dateDayOfMonth"
-                    "$dateYear/$month/$day" //この時点でスラッシュ入りにしてString型としてdateに格納
-                } else {
-                    ""
-                }
-            //TODO ここでもう一度チェックして空だった場合はエラ〜メッセージ isEmptyなどで
-            Log.d("日付スラッシュ入り", date)
+            //各入力項目をデータクラスに格納
+            val insertInfo = inputCheck()
+            //空白チェック　エラーがある場合は戻り値が""ではない
+            val errMsg = errorCheck(insertInfo)
 
-            val title =
-                if (!putTitle.text.isNullOrBlank()) putTitle.text.toString() else "" //nullがダメなので空白？
-            Log.d("タイトル名", title)
+            //入力チェック終わり エラー確認
+            if (errMsg != "") {
+                val dialog = AlertDialog.Builder(this)
+                    .setMessage(errMsg)
+                    .setPositiveButton("OK") { _, _ ->
+                        //ignore
+                    }
+                    .create()
+                dialog.show()
+            } else { //エラーなし、エラーダイアログ表示がない場合は
+                //insertメソッド呼び出し
+                insertData(insertInfo)
 
-            val member1 =
-                if (!putMember1.text.isNullOrBlank()) putMember1.text.toString() else "" //nullがダメなので空白？
-            Log.d("メンバー1", member1)
+                //MoneyInsert用SELECT
+                //insertできたか確認したらたった今入れたものをセレクト if(result)?
+                val result =
+                    selectFolder() //最新の一行を取得するselectFolderメソッドに変更
+                Log.d("result", "$result")
 
-            //入力されていればmember変数に入力値格納、されていなければnull代入
-            val member2 = if (!putMember2.text.isNullOrBlank()) putMember2.text.toString() else null
-            Log.d("メンバー2", "$member2")
-
-            val member3 =
-                if (!putMember3.text.isNullOrBlank()) putMember3.text.toString() else null
-            Log.d("メンバー3", "$member3")
-
-            val member4 =
-                if (!putMember4.text.isNullOrBlank()) putMember4.text.toString() else null
-            Log.d("メンバー4", "$member4")
-
-            val member5 =
-                if (!putMember5.text.isNullOrBlank()) putMember5.text.toString() else null
-            Log.d("メンバー5", "$member5")
-
-            val member6 =
-                if (!putMember6.text.isNullOrBlank()) putMember6.text.toString() else null
-            Log.d("メンバー6", "$member6")
-
-            //TODO このタイミングでエラーメッセージをチェック　中身があったらエラーダイアログ表示
-            //入力した中身を確認
-            Log.d(
-                "入力した中身", "date:$date title:$title member1:$member1" +
-                        "member2:$member2 member3:$member3 member4:$member4 member5:$member5 member6:$member6"
-            )
-            //データクラスを使ってinsertInfoにまとめる
-            val insertInfo =
-                InsertArray(date, title, member1, member2, member3, member4, member5, member6)
-            Log.d("insertInfoの中身", "$insertInfo")
-            //insertメソッド呼び出し
-            insertData(insertInfo)
-            //TODO　ここまでをメソッド化予定
-            //MoneyInsert用SELECT
-            //insertできたか確認したらたった今入れたものをセレクト if(result)?
-            val result =
-                selectFolder() //最新の一行を取得するselectFolderメソッドに変更
-            Log.d("result", "$result")
-            //一個しか入らないので0番目
-            val folderId = result?.get(0)
-            Log.d("folderIdの値確認", "$folderId")
-
-            val intent = Intent(this@FolderCreateActivity, MoneyInsertActivity::class.java)
-            //idとActivity名をMoneyInsertに送る
-            intent.putExtra(EXTRA_FOLDERID, folderId)
-            intent.putExtra(EXTRA_ACTIVITYNAME, this::class.java.simpleName)
-            startActivity(intent)
-            //クリアタスクなし・金額入力画面遷移後はフォルダ作成をフィニッシュ
-            finish()
+                //一個しか入らないので0番目
+                val folderId = result?.get(0)
+                Log.d("folderIdの値確認", "$folderId")
+                val intent = Intent(this@FolderCreateActivity, MoneyInsertActivity::class.java)
+                //idとActivity名をMoneyInsertに送る
+                intent.putExtra(EXTRA_FOLDERID, folderId)
+                intent.putExtra(EXTRA_ACTIVITYNAME, this::class.java.simpleName)
+                startActivity(intent)
+                //クリアタスクなし・金額入力画面遷移後はフォルダ作成をフィニッシュ
+                finish()
+            }
         }
     }
 
     /**
+     * dateのnullチェック、その他の値のnullチェックをするcheckDataを呼び出す
+     *@return  入力する全ての値をInsertArray型ArrayListにまとめる
+     *
+     * */
+    private fun inputCheck(): InsertArray {
+        //入力チェック エラーはelseでメッセージ設定 上記inputCompとエラーチェック、insertまでの流れは同じ
+        val date =
+            if (dateYear != 0 && dateMonth != 0 && dateDayOfMonth != 0) {//ちゃんと日付選択されているならば
+                //変数に格納、一桁の場合は0埋めを行う
+                val month = if ("$dateMonth".length == 1) "0$dateMonth" else "$dateMonth"
+                val day =
+                    if ("$dateDayOfMonth".length == 1) "0$dateDayOfMonth" else "$dateDayOfMonth"
+                "$dateYear/$month/$day" //この時点でスラッシュ入りにしてString型としてdateに格納
+            } else {
+                ""
+            }
+
+        //TODO ここでもう一度チェックして空だった場合はエラ〜メッセージ isEmptyなどで
+        Log.d("日付スラッシュ入り", date)
+
+        //nullチェック dateだけStringか空白確定の状態で引数に入れる
+        return checkData(
+            date,
+            putTitle,
+            putMember1,
+            putMember2,
+            putMember3,
+            putMember4,
+            putMember5,
+            putMember6
+        )
+    }
+
+    /**　文字数チェック
      *10文字以上の入力があった場合ダイアログを出す
      * */
     private fun textCheck(editText: EditText) {
@@ -325,28 +289,8 @@ class FolderCreateActivity : AppCompatActivity() {
             dialog.show()
         }
     }
-    /**
-     *
-     * */
-//   private fun checkData(
-//       putTitle: Editable,
-//       putMember1: Editable,
-//       putMember2: Editable,
-//       putMember3: Editable,
-//       putMember4: Editable,
-//       putMember5: Editable,
-//       putMemeber6: Editable  //isNullOrEmpty
-//    ):checkArray {
-//        //textがコンパイルエラーになる　length?　一旦保留、ParagraphInfo優先
-//        if(!putDate.length.) {
-//            date = putDate.length.toString().toInt()
-//            Log.d("日付の値", "${date}")
-//        }
-//        val checkArray=checkArray(date,member1,member2,member3,member4,member5,member6)
-//        return checkArray
-//    }
 
-    /**
+    /** メンバーカウント用
      * @return 入力カウントしたメンバーの数
      * */
     private fun memberCount(): Int {
@@ -372,7 +316,107 @@ class FolderCreateActivity : AppCompatActivity() {
         return memberNum
     }
 
-    /**insertData FolderInfo insert用メソッド
+    /** 各EditTextをnullチェックし変数に入れる、　insertArray型変数にセット
+     * inputCheckの中で呼び出し
+     * @return  checkArray<InsertArray>
+     * */
+    private fun checkData(
+        date: String,
+        putTitle: EditText,
+        putMember1: EditText,
+        putMember2: EditText,
+        putMember3: EditText,
+        putMember4: EditText,
+        putMember5: EditText,
+        putMember6: EditText  //isNullOrEmpty
+    ): InsertArray {
+        //date以外の値を各変数に代入
+        val title =
+            if (!putTitle.text.isNullOrBlank()) putTitle.text.toString() else "" //nullがダメなので空白？
+        Log.d("タイトル名", title)
+
+        val member1 =
+            if (!putMember1.text.isNullOrBlank()) putMember1.text.toString() else "" //nullがダメなので空白？
+        Log.d("メンバー1", member1)
+
+        //入力されていればmember変数に入力値格納、されていなければnull代入
+        val member2 = if (!putMember2.text.isNullOrBlank()) putMember2.text.toString() else null
+        Log.d("メンバー2", "$member2")
+
+        val member3 =
+            if (!putMember3.text.isNullOrBlank()) putMember3.text.toString() else null
+        Log.d("メンバー3", "$member3")
+
+        val member4 =
+            if (!putMember4.text.isNullOrBlank()) putMember4.text.toString() else null
+        Log.d("メンバー4", "$member4")
+
+        val member5 =
+            if (!putMember5.text.isNullOrBlank()) putMember5.text.toString() else null
+        Log.d("メンバー5", "$member5")
+
+        val member6 =
+            if (!putMember6.text.isNullOrBlank()) putMember6.text.toString() else null
+        Log.d("メンバー6", "$member6")
+
+        return InsertArray( //return
+            date,
+            title,
+            member1,
+            member2,
+            member3,
+            member4,
+            member5,
+            member6
+        )
+    }
+
+    /**insertする前の空白エラーチェック
+     *@return errMsg:String エラーメッセージor空白
+     * */
+    private fun errorCheck(insertInfo: InsertArray): String {
+
+        return if (insertInfo.date.isEmpty()) {
+            "日付を入力してください"
+        } else if (insertInfo.title.isEmpty()) {
+            "タイトルを入力してください"
+        } else if (insertInfo.member1.isEmpty()) {
+            //member1が空文字の状態でmember2から6に値が入っていた場合は
+            if (!insertInfo.member2.isNullOrEmpty() || !insertInfo.member3.isNullOrEmpty() || !insertInfo.member4.isNullOrEmpty() || !insertInfo.member5.isNullOrEmpty() || !insertInfo.member6.isNullOrEmpty()) {
+                "上からメンバー名を入力してください"
+            } else {
+                "メンバー名を入力してください"
+            }
+        } else if (insertInfo.member2 == null) {
+            if (!insertInfo.member3.isNullOrEmpty() || !insertInfo.member4.isNullOrEmpty() || !insertInfo.member5.isNullOrEmpty() || !insertInfo.member6.isNullOrEmpty()) {
+                "上からメンバー名を入力してください"
+            } else {
+                ""
+            }
+        } else if (insertInfo.member3 == null) {
+            if (!insertInfo.member4.isNullOrEmpty() || !insertInfo.member5.isNullOrEmpty() || !insertInfo.member6.isNullOrEmpty()) {
+                "上からメンバー名を入力してください"
+            } else {
+                ""
+            }
+        } else if (insertInfo.member4 == null) {
+            if (!insertInfo.member5.isNullOrEmpty() || !insertInfo.member6.isNullOrEmpty()) {
+                "上からメンバー名を入力してください"
+            } else {
+                ""
+            }
+        } else if (insertInfo.member5 == null) {
+            if (!insertInfo.member6.isNullOrEmpty()) {
+                "上からメンバー名を入力してください"
+            } else {
+                ""
+            }
+        } else {
+            ""
+        }
+    }
+
+    /**insertData FolderInfoにinsert用メソッド
      * @param insertInfo 入力項目
      */
     private fun insertData(
@@ -405,7 +449,7 @@ class FolderCreateActivity : AppCompatActivity() {
     }
 
     //selectDataは削除
-    /**
+    /** FolderInfoセレクト
      * @return arrayFolderId:ArrayList<Int>? folderidが入った配列
      * */
     private fun selectFolder(): ArrayList<Int>? {
