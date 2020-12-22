@@ -48,6 +48,14 @@
 
     </androidx.appcompat.widget.Toolbar>
 
+    <!--登録がなかった時のメッセージを配置 真ん中に配置　centerInParentのみで設定できる-->
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/nothing_message"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:text="@string/nothing_message"
+        android:layout_centerInParent="true"/>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/folderListView"
         android:layout_width="match_parent"
@@ -56,15 +64,6 @@
         android:layout_marginBottom="100dp"
         android:scrollbars="vertical" />
 
-    <!--登録がなかった時のメッセージを配置-->
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/nothing_message"
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        android:layout_marginTop="300dp"
-        android:layout_marginStart="100dp"
-        android:text="@string/nothing_message"
-        android:gravity="center" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/addFolder"
