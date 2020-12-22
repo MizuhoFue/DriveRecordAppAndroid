@@ -226,11 +226,21 @@ class FolderDetailActivity : AppCompatActivity() {
                 append("タイトル $title \n")
                 append("メンバー名 \n")
                 append("$member1 \n")
-                append("$member2 \n")
-                append("$member3 \n")
-                append("$member4 \n")
-                append("$member5 \n")
-                append("$member6 \n \n")
+                if (!member2.isNullOrEmpty()) {
+                    append("$member2 \n")
+                }
+                if (!member3.isNullOrEmpty()) {
+                    append("$member3 \n")
+                }
+                if (!member4.isNullOrEmpty()) {
+                    append("$member4 \n")
+                }
+                if (!member5.isNullOrEmpty()) {
+                    append("$member5 \n")
+                }
+                if (!member6.isNullOrEmpty()) {
+                    append("$member6 \n \n")
+                }
                 //使用項目の配列
                 itemToUseList?.forEach {
                     //使用項目別の一人当たりの金額
