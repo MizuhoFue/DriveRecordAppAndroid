@@ -15,7 +15,6 @@
     AB:9C:AE:A8:C8:D4:1C:97:9B:C3:80:EE:2E:43:D9:D0:81:F1:AA:E8
 
     keytool -list -v -keystore ~/.android/debug.keystore -alias androiddebugkey -storepass android -keypass android
-
     keytool -list -v -keystore your_keystore_name -alias your_alias_name
 
     Alternatively, follow the directions here:
