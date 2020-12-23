@@ -3,6 +3,7 @@
 *整理：入力された値を変数に入れてSQL実行　一度に登録できるのは1項目
 *遷移先：FolderList,FolderDetail ダイアログで選択、登録して遷移、データベース接続
 *変更点：カメラ周り　許可しなかった場合の処理調整、コメント整理
+*小林さんコメント分修正
 *更新者：笛木
 *更新日：2020年12月23日
 * */
@@ -233,14 +234,14 @@ class MoneyInsertActivity : AppCompatActivity() {
         }
     }
 
-    //カメラ許可 TODO 許可しなかった場合の処理
+    //カメラ許可 二個目の許可をWRITE・・・・に変更
     private fun checkPermission(): Boolean {
         val cameraPermission = PackageManager.PERMISSION_GRANTED ==
                 ContextCompat.checkSelfPermission(applicationContext, Manifest.permission.CAMERA)
         val extraStoragePermission = PackageManager.PERMISSION_GRANTED ==
                 ContextCompat.checkSelfPermission(
                     applicationContext,
-                    Manifest.permission.CAMERA
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE
                 ) //端末の設定を返す
         return cameraPermission && extraStoragePermission
     }
@@ -301,12 +302,7 @@ class MoneyInsertActivity : AppCompatActivity() {
         } else {
             isGranted = false
         }
-
-        if (isGranted) {
-            takePicture()
-        } else {
-            //削除　ここでgrantCameraPermission()すると再び許可のダイアログを出すようになるので不適当
-        }
+        if (isGranted) takePicture()
     }
 
     /////////////////カメラ用メソッド終わり/////////////////////////////////////
