@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?><!--変更点：日付・タイトル・メンバー名の文字の大きさを小さく-->
+<?xml version="1.0" encoding="utf-8"?><!--変更点：背景タップ可能に・focusDown付け足し-->
 <!--更新者：笛木-->
-<!--更新日：2020年12月21日-->
+<!--更新日：2020年12月23日-->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -9,6 +9,8 @@
     android:layout_height="match_parent"
     android:background="#F9FBFA"
     android:gravity="center_horizontal"
+    android:focusableInTouchMode="true"
+    android:focusable="true"
     android:orientation="vertical"
     tools:context="com.example.driveandroid.FolderCreateActivity">
 
@@ -121,7 +123,8 @@
                         android:ems="10"
                         android:hint="@string/put_title"
                         android:inputType="text"
-                        android:textSize="18sp" />
+                        android:textSize="18sp"
+                        android:nextFocusDown="@id/putMember1" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -160,7 +163,8 @@
                         android:ems="10"
                         android:hint="@string/put_member1"
                         android:inputType="textPersonName"
-                        android:textSize="18sp" />
+                        android:textSize="18sp"
+                        android:nextFocusDown="@id/putMember2" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -190,7 +194,8 @@
                         android:ems="10"
                         android:hint="@string/put_member2"
                         android:inputType="textPersonName"
-                        android:visibility="visible" />
+                        android:visibility="visible"
+                        android:nextFocusDown="@id/putMember3" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -220,7 +225,8 @@
                         android:ems="10"
                         android:hint="@string/put_member3"
                         android:inputType="textPersonName"
-                        android:visibility="visible" />
+                        android:visibility="visible"
+                        android:nextFocusDown="@id/putMember4" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -251,7 +257,8 @@
                         android:hint="@string/put_member4"
                         android:inputType="textPersonName"
                         android:text=""
-                        android:visibility="visible" />
+                        android:visibility="visible"
+                        android:nextFocusDown="@id/putMember5" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -281,7 +288,8 @@
                         android:ems="10"
                         android:hint="@string/put_member5"
                         android:inputType="textPersonName"
-                        android:visibility="visible" />
+                        android:visibility="visible"
+                        android:nextFocusDown="@id/putMember6" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
