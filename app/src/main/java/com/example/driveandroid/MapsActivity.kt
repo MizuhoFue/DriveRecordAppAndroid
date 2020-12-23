@@ -4,7 +4,6 @@ import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
-import android.os.Looper
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
@@ -20,7 +19,6 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.LatLngBounds
-import com.google.android.gms.maps.model.MarkerOptions
 import kotlinx.android.synthetic.main.activity_maps.*
 
 @Suppress("DEPRECATION")
@@ -74,38 +72,19 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             priority = LocationRequest.PRIORITY_HIGH_ACCURACY  // 精度重視
         }
 
-        // コールバック
+        // コールバック、現在地表示
         val locationCallback = object : LocationCallback() {
             override fun onLocationResult(locationResult: LocationResult?) {
-                // 更新直後の位置が格納されているはず
+                // 更新直後の位置が格納
                 val location = locationResult?.lastLocation ?: return
                 val currentLocation = LatLng(location.latitude, location.longitude)
-                mMap.addMarker(MarkerOptions().position(currentLocation).title("現在地はここです"))
                 mMap.moveCamera(newLatLng(currentLocation))
             }
         }
-
-        // 位置情報を更新
-        if (ActivityCompat.checkSelfPermission(
-                this,
-                Manifest.permission.ACCESS_FINE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
-                this,
-                Manifest.permission.ACCESS_COARSE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED
-        ) {
-            return
-        }
-        fusedLocationClient.requestLocationUpdates(
-            locationRequest,
-            locationCallback,
-            Looper.myLooper()
-        )
-
         val mapFragment = supportFragmentManager
             .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
-    }
+    } //onResume閉じ
 
     //ユーザーの選択結果を受け取る
     override fun onRequestPermissionsResult(
@@ -129,6 +108,20 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     //東京駅を表示する
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
+
+        //現在地表示ボタン
+        if (ActivityCompat.checkSelfPermission(
+                this,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+                this,
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            return
+        }
+        mMap.setMyLocationEnabled(true)
+
         //起動時に東京駅表示
         zoomMap(35.681283, 139.766092)
     }
