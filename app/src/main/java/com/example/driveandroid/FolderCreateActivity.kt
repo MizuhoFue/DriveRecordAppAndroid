@@ -1,8 +1,8 @@
 /*FolderCreateActivity フォルダ作成画面
 * 一列登録した情報　全一致のものをセレクトして配列に入れた上でidだけMoneyInsertActivityに送る
-* 前回からの変更点： 完了系ボタン押した後の空白チェック、エラーダイアログ表示追加 共通処理メソッド化 小林さんコメント分修正
-* タスク：メンバー入力で10文字をこえたままフォーカスを変えずに完了系を押すとそのままinsertできてしまう
-* 更新日：2020年12月21日
+* 前回からの変更点：人数カウントはtextWatcher、文字数チェックはフォーカスが映った時、完了系ボタンが押された時の二回行う
+* 背景タップでフォーカスを変える処理追加
+* 更新日：2020年12月23日
 * 更新者：笛木
 * */
 package com.example.driveandroid
@@ -12,9 +12,11 @@ import android.content.ContentValues
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.MotionEvent
 import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.widget.doAfterTextChanged
 import com.example.driveandroid.Constants.Companion.DB_NAME
 import com.example.driveandroid.Constants.Companion.DB_VERSION
 import com.example.driveandroid.Constants.Companion.EXTRA_ACTIVITYNAME
@@ -53,10 +55,14 @@ class FolderCreateActivity : AppCompatActivity() {
 
         watchMember.text = "0" //最初から表示しておく用
 
+        //editTextの配列
+        val editArray =
+            listOf(putTitle, putMember1, putMember2, putMember3, putMember4, putMember5, putMember6)
         setting.setOnClickListener {
             val intent = Intent(this@FolderCreateActivity, SupportActivity::class.java)
             startActivity(intent)
         }
+
         //日付入力DatePicker
         datePick.setOnClickListener {
             //現在の年月日を求めて初期値とする
@@ -64,7 +70,7 @@ class FolderCreateActivity : AppCompatActivity() {
             Log.d("今の年月日", "$onlyDate")
             val datePickerDialog = DatePickerDialog(
                 this,
-                DatePickerDialog.OnDateSetListener() { view, year, month, dayOfMonth ->
+                DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
                     datePick.text = "$year/${month + 1}/$dayOfMonth" //ボタンのところに表示
                     dateYear = year
                     dateMonth = month + 1
@@ -94,83 +100,123 @@ class FolderCreateActivity : AppCompatActivity() {
             dialog.show()
         }
 
-        //putTitleを数える 文字数オーバーはエラーダイアログ
-        putTitle.setOnFocusChangeListener { v, hasFocus ->
-            if (!hasFocus) {
-                (v as? EditText)?.also { editText ->
-                    textCheck(editText)
+        putTitle.apply {
+            //putTitleを数える 文字数オーバーはエラーダイアログ
+            setOnFocusChangeListener { v, hasFocus ->
+                if (!hasFocus) {
+                    (v as? EditText)?.also { editText ->
+                        textCheck(editText)
+                    }
                 }
             }
+
         }
-        //putMember1を数える 10文字以内ならメンバーカウント開始
-        putMember1.setOnFocusChangeListener { v, hasFocus ->
-            if (!hasFocus) {
-                //フォーカスが外れた時に
-                (v as? EditText)?.also { editText ->
-                    textCheck(editText)
-                    memberNum = memberCount()
-                }
+        //人数カウント、memberNum反映
+        putMember1.apply {
+            doAfterTextChanged { editable ->
+                memberNum = memberCount()
                 watchMember.text = memberNum.toString()
+            }
+
+            setOnFocusChangeListener { v, hasFocus ->
+                if (!hasFocus) {
+                    //フォーカスが外れた時に文字数チェック
+                    (v as? EditText)?.also { editText ->
+                        textCheck(editText)
+                    }
+                }
             }
         }
 
-        putMember2.setOnFocusChangeListener { v, hasFocus ->
-            if (!hasFocus) {
-                //フォーカスが外れた時に
-                (v as? EditText)?.also { editText ->
-                    textCheck(editText)
-                    memberNum = memberCount()
-                }
+        putMember2.apply {
+            doAfterTextChanged { editable ->
+                memberNum = memberCount()
                 watchMember.text = memberNum.toString()
+            }
+
+            setOnFocusChangeListener { v, hasFocus ->
+                if (!hasFocus) {
+                    //フォーカスが外れた時に文字数チェック
+                    (v as? EditText)?.also { editText ->
+                        textCheck(editText)
+                    }
+                }
             }
         }
 
-        putMember3.setOnFocusChangeListener { v, hasFocus ->
-            if (!hasFocus) {
-                //フォーカスが外れた時に
-                (v as? EditText)?.also { editText ->
-                    textCheck(editText)
-                    memberNum = memberCount()
-                }
+        putMember3.apply {
+            doAfterTextChanged { editable ->
+                memberNum = memberCount()
                 watchMember.text = memberNum.toString()
+            }
+
+            setOnFocusChangeListener { v, hasFocus ->
+                if (!hasFocus) {
+                    //フォーカスが外れた時に文字数チェック
+                    (v as? EditText)?.also { editText ->
+                        textCheck(editText)
+                    }
+                }
             }
         }
 
-        putMember4.setOnFocusChangeListener { v, hasFocus ->
-            if (!hasFocus) {
-                //フォーカスが外れた時に
-                (v as? EditText)?.also { editText ->
-                    textCheck(editText)
-                    memberNum = memberCount()
-                }
+        putMember4.apply {
+            doAfterTextChanged { editable ->
+                memberNum = memberCount()
                 watchMember.text = memberNum.toString()
+            }
+
+            setOnFocusChangeListener { v, hasFocus ->
+                if (!hasFocus) {
+                    //フォーカスが外れた時に文字数チェック
+                    (v as? EditText)?.also { editText ->
+                        textCheck(editText)
+                    }
+                }
             }
         }
 
-        putMember5.setOnFocusChangeListener { v, hasFocus ->
-            if (!hasFocus) {
-                //フォーカスが外れた時に
-                (v as? EditText)?.also { editText ->
-                    textCheck(editText)
-                    memberNum = memberCount()
-                }
+        putMember5.apply {
+            doAfterTextChanged { editable ->
+                memberNum = memberCount()
                 watchMember.text = memberNum.toString()
+            }
+
+            setOnFocusChangeListener { v, hasFocus ->
+                if (!hasFocus) {
+                    //フォーカスが外れた時に文字数チェック
+                    (v as? EditText)?.also { editText ->
+                        textCheck(editText)
+                    }
+                }
             }
         }
 
-        putMember6.setOnFocusChangeListener { v, hasFocus ->
-            if (!hasFocus) {
-                //フォーカスが外れた時に
-                (v as? EditText)?.also { editText ->
-                    textCheck(editText)
-                    memberNum = memberCount()
-                }
+        putMember6.apply {
+            doAfterTextChanged { editable ->
+                memberNum = memberCount()
                 watchMember.text = memberNum.toString()
             }
+
+            setOnFocusChangeListener { v, hasFocus ->
+                if (!hasFocus) {
+                    //フォーカスが外れた時に文字数チェック
+                    (v as? EditText)?.also { editText ->
+                        textCheck(editText)
+                    }
+                }
+            }
         }
+
         //member文字数チェック&カウント終了
         //入力完了が押されたらinsert、値受け渡しの必要はないのでホームのフォルダーListに戻る
         createEnd.setOnClickListener {
+            //textCheck　10文字再チェック
+            editArray.forEach {
+                if (!textCheck(it)) {
+                    return@setOnClickListener //
+                }
+            }
             //各入力項目をデータクラスに格納
             val insertInfo = inputCheck()
             //return errCheckでerrMsg
@@ -200,6 +246,12 @@ class FolderCreateActivity : AppCompatActivity() {
 
         //金額入力が押されたら入力チェック、insert、selectしたものを配列に入れる、
         money.setOnClickListener {
+            //textCheck　10文字再チェック
+            editArray.forEach {
+                if (!textCheck(it)) {
+                    return@setOnClickListener
+                }
+            }
             //各入力項目をデータクラスに格納
             val insertInfo = inputCheck()
             //空白チェック　エラーがある場合は戻り値が""ではない
@@ -275,45 +327,35 @@ class FolderCreateActivity : AppCompatActivity() {
     /**　文字数チェック
      *10文字以上の入力があった場合ダイアログを出す
      * */
-    private fun textCheck(editText: EditText) {
-        if (editText.text.length > 10) { //viewクラスをeditTextクラスにキャスト、文字数チェック
+    private fun textCheck(editText: EditText): Boolean {
+        return if (editText.text.length > 10) { //viewクラスをeditTextクラスにキャスト、文字数チェック
             val dialog = AlertDialog.Builder(this@FolderCreateActivity)
                 .setMessage("10文字以内で入力してください。")
                 .setPositiveButton("OK") { _, _ ->
                     //OK押したら中身削除
                     editText.text.clear()
-                    memberNum = memberCount()
-                    watchMember.text = memberNum.toString()
                 }
                 .create()
             dialog.show()
+            false
+        } else {
+            true
         }
     }
 
     /** メンバーカウント用
-     * @return 入力カウントしたメンバーの数
+     * @return メンバーを入れた配列でnull、""空白を除いた要素の数=メンバーの人数
      * */
     private fun memberCount(): Int {
-        memberNum = 0
-        if (!putMember1.text.isNullOrEmpty()) {
-            memberNum++
-        }
-        if (!putMember2.text.isNullOrEmpty()) {
-            memberNum++
-        }
-        if (!putMember3.text.isNullOrEmpty()) {
-            memberNum++
-        }
-        if (!putMember4.text.isNullOrEmpty()) {
-            memberNum++
-        }
-        if (!putMember5.text.isNullOrEmpty()) {
-            memberNum++
-        }
-        if (!putMember6.text.isNullOrEmpty()) {
-            memberNum++
-        }
-        return memberNum
+        val inputMemberList = listOfNotNull(
+            putMember1.text,
+            putMember2.text,
+            putMember3.text,
+            putMember4.text,
+            putMember5.text,
+            putMember6.text
+        )
+        return inputMemberList.filterNot { it.toString() == "" }.size
     }
 
     /** 各EditTextをnullチェックし変数に入れる、　insertArray型変数にセット
@@ -475,5 +517,11 @@ class FolderCreateActivity : AppCompatActivity() {
             Log.e("SelectData", exception.toString())
             return null
         }
+    }
+
+    //背景タップでeditTextのフォーカスが外れるようにする
+    override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
+        FolderCreate.requestFocus()
+        return super.dispatchTouchEvent(ev)
     }
 }
