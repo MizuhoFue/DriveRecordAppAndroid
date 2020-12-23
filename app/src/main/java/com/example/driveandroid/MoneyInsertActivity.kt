@@ -2,13 +2,9 @@
 *画面名：MoneyInsertActivity 金額入力画面　使用した金額や使用用途の入力・登録を行う　
 *整理：入力された値を変数に入れてSQL実行　一度に登録できるのは1項目
 *遷移先：FolderList,FolderDetail ダイアログで選択、登録して遷移、データベース接続
-*ボタンメモ：入力完了：id:inputComp　設定:settings
-*プレースホルダー、金額入力の空白チェック・エラー処理・ダイアログ、カメラを許可しなかった場合の処理
-*変更点：文字列内の変数の書き方修正、selectDataは戻り値変更
-*       Select時にmember1から6までnullチェックした上で戻り値に格納
-*       変数整理は他のブランチで行う
+*変更点：カメラ周り　許可しなかった場合の処理調整、コメント整理
 *更新者：笛木
-*更新日：2020年12月15日
+*更新日：2020年12月23日
 * */
 package com.example.driveandroid
 
@@ -53,7 +49,6 @@ class MoneyInsertActivity : AppCompatActivity() {
     private var paraCost = 0    //項目の金額　登録分によって複数あり
 
     // 負担者スピナーの配列　selectFolder内で初期化に変更　アダプター使用　
-
     //カメラ許可用コード準備
     companion object {
         const val CAMERA_REQUEST_CODE = 1
@@ -71,7 +66,6 @@ class MoneyInsertActivity : AppCompatActivity() {
             startActivity(intent)
         }
         //FolderDetail、FolderCreateから渡されたfolderidを変数に入れる
-        //getIntent削除
         val folderId =
             intent.extras?.getInt(EXTRA_FOLDERID) ?: -1 //-1の場合はエラーを出す
         //FolderDetail、FolderCreateのどちらから遷移したかのfromActivityを変数に入れる
@@ -244,7 +238,10 @@ class MoneyInsertActivity : AppCompatActivity() {
         val cameraPermission = PackageManager.PERMISSION_GRANTED ==
                 ContextCompat.checkSelfPermission(applicationContext, Manifest.permission.CAMERA)
         val extraStoragePermission = PackageManager.PERMISSION_GRANTED ==
-                ContextCompat.checkSelfPermission(applicationContext, Manifest.permission.CAMERA)
+                ContextCompat.checkSelfPermission(
+                    applicationContext,
+                    Manifest.permission.CAMERA
+                ) //端末の設定を返す
         return cameraPermission && extraStoragePermission
     }
 
@@ -284,13 +281,14 @@ class MoneyInsertActivity : AppCompatActivity() {
         }
     }
 
+    //ダイアログの結果を受け取りはいかいいえを判定してisGrantedのtrue/falseを入れる
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<out String>,
         grantResults: IntArray
     ) {
         var isGranted = true
-        if (requestCode == MoneyInsertActivity.CAMERA_PERMISSION_REQUEST_CODE) {
+        if (requestCode == CAMERA_PERMISSION_REQUEST_CODE) {
             if (grantResults.isNotEmpty()) {
                 grantResults.forEach {
                     if (it != PackageManager.PERMISSION_GRANTED) {
@@ -307,7 +305,7 @@ class MoneyInsertActivity : AppCompatActivity() {
         if (isGranted) {
             takePicture()
         } else {
-            grantCameraPermission()
+            //削除　ここでgrantCameraPermission()すると再び許可のダイアログを出すようになるので不適当
         }
     }
 
