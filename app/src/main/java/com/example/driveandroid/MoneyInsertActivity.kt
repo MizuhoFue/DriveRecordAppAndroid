@@ -2,10 +2,9 @@
 *画面名：MoneyInsertActivity 金額入力画面　使用した金額や使用用途の入力・登録を行う　
 *整理：入力された値を変数に入れてSQL実行　一度に登録できるのは1項目
 *遷移先：FolderList,FolderDetail ダイアログで選択、登録して遷移、データベース接続
-*変更点：カメラ周り　許可しなかった場合の処理調整、コメント整理
-*小林さんコメント分修正
+*変更点：背景タッチでフォーカスオフを追加
 *更新者：笛木
-*更新日：2020年12月23日
+*更新日：2020年12月24日
 * */
 package com.example.driveandroid
 
@@ -20,6 +19,7 @@ import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
 import android.util.Log
+import android.view.MotionEvent
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
@@ -366,5 +366,11 @@ class MoneyInsertActivity : AppCompatActivity() {
         } catch (exception: Exception) {
             Log.e("InsertData", exception.toString())
         }
+    }
+
+    //背景タップでeditTextのフォーカスが外れるようにする
+    override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
+        MoneyInsert.requestFocus()
+        return super.dispatchTouchEvent(ev)
     }
 }

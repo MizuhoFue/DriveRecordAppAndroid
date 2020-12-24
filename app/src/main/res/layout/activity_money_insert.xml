@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?><!--MoneyInsertのレイアウト-->
-<!--task-->
-<!--更新日：2020年11月25日-->
+<!--背景タップのためにidとfocusable追加-->
+<!--更新日：2020年12月24日-->
 <!--更新者：笛木瑞歩-->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/MoneyInsert"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:focusableInTouchMode="true"
+    android:focusable="true"
     android:orientation="vertical"
     tools:context="com.example.driveandroid.MoneyInsertActivity">
 
