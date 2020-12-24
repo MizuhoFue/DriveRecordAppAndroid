@@ -1,9 +1,7 @@
 /*画面：フォルダ詳細
-*更新日：2020年12月15日
+*更新日：2020年12月24日
 *更新者：笛木瑞歩
-*前回からの変更：Createでスラッシュ入りにするのでこちらのスラッシュ表示処理を削除、selectFolderのdate部分をgetStringに
-* memberに登録がなかった場合nullが入るように変更 isNotBlank→isNullOrBlankチェックに変更  変数名folderId キャメルケース チェック系メソッド化は別ブランチ
-*星野さんのもの参考 各金額の一人当たり計算(perParson_costViewを表示)・表示処理追加 項目のデータがない場合合計金額・一人当たりが0円になるように修正
+*前回からの変更：使用項目に登録がない場合はrecyclerViewの領域をつめる
 */
 package com.example.driveandroid
 
@@ -342,6 +340,9 @@ class FolderDetailActivity : AppCompatActivity() {
                     folderDetail.add(paragraphInfo) //箱に型を入れる
                     cursor.moveToNext()
                 }
+                folderDetailView.visibility=View.VISIBLE
+            }else{
+                folderDetailView.visibility=View.GONE
             }
             cursor.close()
             return folderDetail
