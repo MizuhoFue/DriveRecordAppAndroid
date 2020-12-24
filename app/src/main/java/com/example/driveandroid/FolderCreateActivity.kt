@@ -212,7 +212,7 @@ class FolderCreateActivity : AppCompatActivity() {
             //textCheck　10文字再チェック
             editArray.forEach {
                 if (!textCheck(it)) {
-                    return@setOnClickListener //
+                    return@setOnClickListener
                 }
             }
             //各入力項目をデータクラスに格納
