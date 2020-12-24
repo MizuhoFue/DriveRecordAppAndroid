@@ -1,8 +1,8 @@
 /*FolderCreateActivity フォルダ作成画面
 * 一列登録した情報　全一致のものをセレクトして配列に入れた上でidだけMoneyInsertActivityに送る
 * 前回からの変更点：人数カウントはtextWatcher、文字数チェックはフォーカスが映った時、完了系ボタンが押された時の二回行う
-* 背景タップでフォーカスを変える処理追加
-* 更新日：2020年12月23日
+* 背景タップでフォーカスを変える処理追加 小林さんコメント分修正
+* 更新日：2020年12月24日
 * 更新者：笛木
 * */
 package com.example.driveandroid
@@ -100,19 +100,18 @@ class FolderCreateActivity : AppCompatActivity() {
             dialog.show()
         }
 
-        putTitle.apply {
-            //putTitleを数える 文字数オーバーはエラーダイアログ
-            setOnFocusChangeListener { v, hasFocus ->
-                if (!hasFocus) {
-                    (v as? EditText)?.also { editText ->
-                        textCheck(editText)
-                    }
+        //putTitleを数える 文字数オーバーはエラーダイアログ
+        putTitle.setOnFocusChangeListener { v, hasFocus ->
+            if (!hasFocus) {
+                (v as? EditText)?.also { editText ->
+                    textCheck(editText)
                 }
             }
         }
+
         //人数カウント、memberNum反映
         putMember1.apply {
-            doAfterTextChanged { editable ->
+            doAfterTextChanged { _ ->
                 memberNum = memberCount()
                 watchMember.text = memberNum.toString()
             }
@@ -128,7 +127,7 @@ class FolderCreateActivity : AppCompatActivity() {
         }
 
         putMember2.apply {
-            doAfterTextChanged { editable ->
+            doAfterTextChanged { _ ->
                 memberNum = memberCount()
                 watchMember.text = memberNum.toString()
             }
@@ -144,7 +143,7 @@ class FolderCreateActivity : AppCompatActivity() {
         }
 
         putMember3.apply {
-            doAfterTextChanged { editable ->
+            doAfterTextChanged { _ ->
                 memberNum = memberCount()
                 watchMember.text = memberNum.toString()
             }
@@ -160,7 +159,7 @@ class FolderCreateActivity : AppCompatActivity() {
         }
 
         putMember4.apply {
-            doAfterTextChanged { editable ->
+            doAfterTextChanged { _ ->
                 memberNum = memberCount()
                 watchMember.text = memberNum.toString()
             }
@@ -176,7 +175,7 @@ class FolderCreateActivity : AppCompatActivity() {
         }
 
         putMember5.apply {
-            doAfterTextChanged { editable ->
+            doAfterTextChanged { _ ->
                 memberNum = memberCount()
                 watchMember.text = memberNum.toString()
             }
@@ -192,7 +191,7 @@ class FolderCreateActivity : AppCompatActivity() {
         }
 
         putMember6.apply {
-            doAfterTextChanged { editable ->
+            doAfterTextChanged { _ ->
                 memberNum = memberCount()
                 watchMember.text = memberNum.toString()
             }
@@ -237,7 +236,6 @@ class FolderCreateActivity : AppCompatActivity() {
                 Log.d("insertするinsertInfoの中身", "$insertInfo")
                 //insertメソッド呼び出し
                 insertData(insertInfo)
-                //TODO ここまでをメソッド化予定 どこまでまとめる？
                 //リスト遷移後はフォルダ作成を閉じる=startActivityでフォルダ一覧を作成しなくてもよい
                 finish()
             }
@@ -306,8 +304,6 @@ class FolderCreateActivity : AppCompatActivity() {
             } else {
                 ""
             }
-
-        //TODO ここでもう一度チェックして空だった場合はエラ〜メッセージ isEmptyなどで
         Log.d("日付スラッシュ入り", date)
 
         //nullチェック dateだけStringか空白確定の状態で引数に入れる
@@ -327,7 +323,7 @@ class FolderCreateActivity : AppCompatActivity() {
      *10文字以上の入力があった場合ダイアログを出す
      * */
     private fun textCheck(editText: EditText): Boolean {
-        return if (editText.text.length > 10) { //viewクラスをeditTextクラスにキャスト、文字数チェック
+        return if (editText.text.length > 10) {
             val dialog = AlertDialog.Builder(this@FolderCreateActivity)
                 .setMessage("10文字以内で入力してください。")
                 .setPositiveButton("OK") { _, _ ->
@@ -346,7 +342,7 @@ class FolderCreateActivity : AppCompatActivity() {
      * @return メンバーを入れた配列でnull、""空白を除いた要素の数=メンバーの人数
      * */
     private fun memberCount(): Int {
-        val inputMemberList = listOfNotNull(
+        val inputMemberList = listOf(
             putMember1.text,
             putMember2.text,
             putMember3.text,
