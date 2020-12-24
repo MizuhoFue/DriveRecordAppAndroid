@@ -313,7 +313,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:textSize="24sp"/>
+                    android:textSize="24sp" />
 
                 <!--円-->
                 <androidx.appcompat.widget.AppCompatTextView

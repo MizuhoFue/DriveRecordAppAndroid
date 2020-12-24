@@ -340,9 +340,6 @@ class FolderDetailActivity : AppCompatActivity() {
                     folderDetail.add(paragraphInfo) //箱に型を入れる
                     cursor.moveToNext()
                 }
-                folderDetailView.visibility=View.VISIBLE
-            }else{
-                folderDetailView.visibility=View.GONE
             }
             cursor.close()
             return folderDetail
