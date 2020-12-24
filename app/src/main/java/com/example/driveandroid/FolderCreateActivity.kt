@@ -109,7 +109,6 @@ class FolderCreateActivity : AppCompatActivity() {
                     }
                 }
             }
-
         }
         //人数カウント、memberNum反映
         putMember1.apply {
