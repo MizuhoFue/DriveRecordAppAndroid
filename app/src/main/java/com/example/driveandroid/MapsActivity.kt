@@ -22,7 +22,6 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.LatLngBounds
 import kotlinx.android.synthetic.main.activity_maps.*
 
-
 @Suppress("DEPRECATION")
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
