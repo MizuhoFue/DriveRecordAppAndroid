@@ -6,4 +6,5 @@
     <!--ダイアログのボタンについてもこの色が使われている。TODO style.xmlと合わせてダイアログ用の色を別途必要-->
     <!--アプリの背景 親レイアウト（LinearかRelative）の中でbackground="@color/backGround"で反映-->
     <color name="backGround">#F5F5F5</color>
+    <color name="support_border">#91989F</color>
 </resources>
