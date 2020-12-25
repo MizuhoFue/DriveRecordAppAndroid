@@ -4,6 +4,7 @@ import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.os.Looper
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
@@ -36,7 +37,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_maps)
 
-        //許可されなかったら
+        //許可されてなかったらダイアログ表示
         if (ContextCompat.checkSelfPermission(
                 this,
                 Manifest.permission.ACCESS_FINE_LOCATION
@@ -48,6 +49,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 REQUEST_CODE_LOCATION
             )
         }
+
         //タイトルラベルの左側のナビゲーションアイテムの設置
         drive_toolbar.setNavigationIcon(android.R.drawable.ic_menu_directions)
         //ナビゲーションアイテムのリスナー
@@ -57,12 +59,9 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         }
     }
 
-    //Resume処理(使用許可後画面更新のため)
-    override fun onResume() {
-        super.onResume()
-
-        //融合された位置予測プロバイダ クライアントのインスタンス
-        fusedLocationClient = FusedLocationProviderClient(this)
+    //google map起動
+    override fun onMapReady(googleMap: GoogleMap) {
+        mMap = googleMap
 
         // どのような取得方法を要求
         val locationRequest = LocationRequest().apply {
@@ -75,16 +74,51 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         // コールバック、現在地表示
         val locationCallback = object : LocationCallback() {
             override fun onLocationResult(locationResult: LocationResult?) {
+
                 // 更新直後の位置が格納
                 val location = locationResult?.lastLocation ?: return
-                val currentLocation = LatLng(location.latitude, location.longitude)
+                val currentLocation = LatLng(location.latitude, location.longitude) //現在地
                 mMap.moveCamera(newLatLng(currentLocation))
+
+                zoomMap(location.latitude, location.longitude)
+
+                // 初回起動でしか位置情報を取得しないので、位置情報の定期取得を止める
+                //(地図画面操作中に現在地に自動で戻ってしまう処理をなくす)
+                fusedLocationClient.removeLocationUpdates(this)
             }
         }
-        val mapFragment = supportFragmentManager
-            .findFragmentById(R.id.map) as SupportMapFragment
-        mapFragment.getMapAsync(this)
-    } //onResume閉じ
+
+        // 位置情報を更新
+        if (ActivityCompat.checkSelfPermission(
+                this,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+                this,
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            return
+        }
+        //現在地定期取得
+        fusedLocationClient.requestLocationUpdates(
+            locationRequest,
+            locationCallback,
+            Looper.myLooper()
+        )
+
+        //現在地表示ボタン
+        if (ActivityCompat.checkSelfPermission(
+                this,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+                this,
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            return
+        }
+        mMap.setMyLocationEnabled(true)
+    }
 
     //ユーザーの選択結果を受け取る
     override fun onRequestPermissionsResult(
@@ -101,30 +135,23 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             } else {
                 // 拒否された場合
                 Toast.makeText(this, "拒否されました。", Toast.LENGTH_SHORT).show()
+                //東京駅表示
+                zoomMap(35.681167, 139.767052)
             }
         }
     }
 
-    //東京駅を表示する
-    override fun onMapReady(googleMap: GoogleMap) {
-        mMap = googleMap
+    //Resume処理(使用許可後画面更新のため)
+    override fun onResume() {
+        super.onResume()
 
-        //現在地表示ボタン
-        if (ActivityCompat.checkSelfPermission(
-                this,
-                Manifest.permission.ACCESS_FINE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
-                this,
-                Manifest.permission.ACCESS_COARSE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED
-        ) {
-            return
-        }
-        mMap.setMyLocationEnabled(true)
+        //融合された位置予測プロバイダ クライアントのインスタンス
+        fusedLocationClient = FusedLocationProviderClient(this)
 
-        //起動時に東京駅表示
-        zoomMap(35.681283, 139.766092)
-    }
+        val mapFragment = supportFragmentManager
+            .findFragmentById(R.id.map) as SupportMapFragment
+        mapFragment.getMapAsync(this)
+    } //onResume閉じ
 
     //地図の拡大
     private fun zoomMap(latitude: Double, longitude: Double) {
