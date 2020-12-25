@@ -7,6 +7,8 @@ import androidx.appcompat.app.AppCompatActivity
 
 class SplashActivity : AppCompatActivity() {
 
+
+
     private val handler = Handler()
     private val runnable = Runnable {
 
@@ -22,7 +24,8 @@ class SplashActivity : AppCompatActivity() {
         setContentView(R.layout.activity_splash)
 
         // スプラッシュ表示1000ms(1秒)後にrunnableを呼んでMeinActivityへ遷移させる
-        handler.postDelayed(runnable, 1000)
+        //iOSと合わせて3秒にする
+        handler.postDelayed(runnable, 3000)
     }
 
     override fun onStop() {
