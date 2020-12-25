@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#6200EE</color>
-    <color name="colorPrimaryDark">#3700B3</color>
-    <color name="colorAccent">#03DAC5</color>
+    <color name="colorPrimary">#29A6FF</color>
+    <color name="colorPrimaryDark">#29A6FF</color>
+    <color name="colorAccent">#FFFFFF</color>
+    <!--ダイアログのボタンについてもこの色が使われている。TODO style.xmlと合わせてダイアログ用の色を別途必要-->
+    <!--アプリの背景 親レイアウト（LinearかRelative）の中でbackground="@color/backGround"で反映-->
+    <color name="backGround">#F5F5F5</color>
 </resources>
