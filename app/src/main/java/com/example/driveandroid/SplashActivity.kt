@@ -6,9 +6,7 @@ import android.os.Handler
 import androidx.appcompat.app.AppCompatActivity
 
 class SplashActivity : AppCompatActivity() {
-
-
-
+    
     private val handler = Handler()
     private val runnable = Runnable {
 
