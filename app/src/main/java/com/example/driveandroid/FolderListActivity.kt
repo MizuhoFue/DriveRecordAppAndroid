@@ -1,10 +1,8 @@
 /*
 * 画面：フォルダ一覧 FolderList
 * 更新者：笛木
-* 更新日：2020年12月15日
-* 更新内容：ゴミ箱imageViewタップでダイアログ表示、「はい」でid該当データをFolderInfo、ParagraphInfoから削除
-* リスト更新はonResumeを使わずadapterから該当のデータだけ消す DB系処理メソッドで定数を使用
-* 何も登録がなかった場合のメッセージ表示追加
+* 更新日：2020年12月28日
+* 更新内容：ダイアログの色
 * */
 package com.example.driveandroid
 
@@ -54,7 +52,7 @@ class FolderListActivity : AppCompatActivity() {
                 override fun onItemClickListener(view: View, deleteId: Int, position: Int) {
                     Log.d("deleteIdとして受け取り", "$deleteId")
                     //ダイアログを出し、OKだったらdeleteする  はいといいえの場所を入れ替え
-                    val dialog = AlertDialog.Builder(this@FolderListActivity) //thisだとコンパイルエラー
+                    val dialog = AlertDialog.Builder(this@FolderListActivity,R.style.MyAlertColor) //thisだとコンパイルエラー
                         .setMessage("選択した内容を削除してもいいですか?")
                         .setPositiveButton(R.string.no) { _, _ ->
                             Log.d("いいえを選択", "いいえ")

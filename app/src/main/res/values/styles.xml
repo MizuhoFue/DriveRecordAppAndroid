@@ -1,10 +1,14 @@
 <resources>
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <!-- Customize your theme here. -->
+        <!-- Customize your theme here. ツールバーの色設定 -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:alertDialogTheme">@style/MyAlertColor</item>
     </style>
-
+    <!--ダイアログのメインカラー設定-->
+    <style name="MyAlertColor" parent="Theme.AppCompat.Light.Dialog">
+        <item name="colorAccent">@color/dialog_color</item>
+    </style>
 </resources>
