@@ -86,14 +86,14 @@ class FolderCreateActivity : AppCompatActivity() {
         //ナビゲーションアイテムのリスナー
         drive_toolbar.setNavigationOnClickListener {
 
-            // BuilderからAlertDialogを作成
+            // BuilderからAlertDialogを作成 はい、いいえの配置を変えるため処理も入れ替え
             val dialog = AlertDialog.Builder(this)
                 .setTitle(R.string.finish_message) // タイトル
-                .setPositiveButton(R.string.yes) { dialog, which -> // OK
-                    finish()
-                }
-                .setNegativeButton(R.string.no) { dialog, which -> //no
+                .setPositiveButton(R.string.no) { _, _ -> // no
                     Intent(this@FolderCreateActivity, this::class.java)
+                }
+                .setNegativeButton(R.string.yes) { _, _ -> //yes
+                    finish()
                 }
                 .create()
             // AlertDialogを表示

@@ -162,14 +162,16 @@ class FolderDetailActivity : AppCompatActivity() {
                 }
             })
 
-            //インターフェース
+            //インターフェース はいといいえの配置を入れ替え＝処理を入れ替え
             adapter.setOnItemClickListener(object : FolderDetailAdapter.OnItemClickListener {
                 override fun onItemClickListener(view: View, deleteNum: Int, position: Int) {
                     Log.d("deleteNumとして受け取り", "$deleteNum")
                     //ダイアログを出し、OKだったらdeleteする
                     val dialog = AlertDialog.Builder(this@FolderDetailActivity) //thisだとコンパイルエラー
                         .setMessage("選択した内容を削除してもいいですか?")
-                        .setPositiveButton(R.string.yes) { _, _ ->
+                        .setPositiveButton(R.string.no) { _, _ ->
+                            Log.d("いいえを選択", "いいえ")
+                        }.setNegativeButton(R.string.yes) { _, _ -> //はいを選択
                             //deletePara呼び出し 該当データをParagraphInfoから削除
                             deletePara(deleteNum)
                             //画面からも該当データを消す,更新する
@@ -184,8 +186,6 @@ class FolderDetailActivity : AppCompatActivity() {
                             total_value.text = totalCost.toString()
                             total_per_value.text = parParsonTotalCost.toString()
                             //メッセージ表示の処理別ブランチでマージ済み
-                        }.setNegativeButton(R.string.no) { _, _ ->
-                            Log.d("いいえを選択", "いいえ")
                         }
                         .create() //show()だとクラッシュ
                     dialog.show()

@@ -202,15 +202,15 @@ class MoneyInsertActivity : AppCompatActivity() {
         drive_toolbar.setNavigationIcon(android.R.drawable.ic_delete)
         //ナビゲーションアイテムのリスナー
         drive_toolbar.setNavigationOnClickListener {
-            // BuilderからAlertDialogを作成
+            // BuilderからAlertDialogを作成 はいといいえの場所を入れ替え=処理入れ替え
             val dialog = AlertDialog.Builder(this)
                 .setTitle(R.string.finish_message) // タイトル
-                .setPositiveButton(R.string.yes) { dialog, which -> // OK
+                .setPositiveButton(R.string.no) { _, _ -> // いいえ
+                    Intent(this@MoneyInsertActivity, this::class.java)
+                }
+                .setNegativeButton(R.string.yes) { _, _ -> //はい
                     //moveTaskToBack(true)
                     finish()
-                }
-                .setNegativeButton(R.string.no) { dialog, which -> //no
-                    Intent(this@MoneyInsertActivity, this::class.java)
                 }
                 .create()
             // AlertDialogを表示
