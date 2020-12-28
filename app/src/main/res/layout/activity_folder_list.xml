@@ -48,13 +48,28 @@
 
     </androidx.appcompat.widget.Toolbar>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="fitEnd"
+            android:src="@drawable/drive_bgimg" />
+
+    </LinearLayout>
+
     <!--登録がなかった時のメッセージを配置 真ん中に配置　centerInParentのみで設定できる-->
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/nothing_message"
-        android:layout_height="wrap_content"
         android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="80dp"
         android:text="@string/nothing_message"
-        android:layout_centerInParent="true"/>
+        android:textColor="@color/colorAnnotation" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/folderListView"
@@ -64,28 +79,35 @@
         android:layout_marginBottom="100dp"
         android:scrollbars="vertical" />
 
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/addFolder"
+    <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginEnd="30dp"
-        android:layout_marginBottom="30dp"
-        app:backgroundTint="#FBF9F9"
-        app:fabSize="auto"
-        app:maxImageSize="50dp"
-        app:srcCompat="@android:drawable/ic_menu_add" />
+        android:layout_alignParentBottom="true">
 
-    <Button
-        android:id="@+id/returnMap"
+        <ImageView
+            android:id="@+id/addFolder"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="100dp"
+            android:src="@drawable/plus_bt" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="30dp"
-        android:layout_marginBottom="30dp"
-        android:text="@string/go_map"
-        android:textSize="30sp" />
+        android:layout_centerInParent="true">
+
+        <ImageView
+            android:id="@+id/returnMap"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="30dp"
+            android:src="@drawable/map_bt" />
+
+    </RelativeLayout>
 
 </RelativeLayout>
