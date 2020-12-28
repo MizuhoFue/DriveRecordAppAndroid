@@ -5,6 +5,7 @@
         <item>ガソリン代</item>
         <item>高速・有料道路代</item>
         <item>駐車場代</item>
+        <item>飲食代</item>
         <item>その他</item>
     </string-array>
 </resources>

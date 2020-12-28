@@ -74,7 +74,9 @@ class MoneyInsertActivity : AppCompatActivity() {
             intent.extras?.getString(EXTRA_ACTIVITYNAME) ?: "" //""が入る場合はエラー？
         Log.d("受け渡されたfolderid", "$folderId")
         Log.d("どこからMoneyInsertに遷移", fromActivity)
-
+        //ツールバーの×を押したときのメッセージを確定させる FolderCreateからの遷移の場合は「ホーム画面に戻る」/Detailからの場合は「詳細に戻る」
+        val toolbarTitle =
+            if (fromActivity.equals(FolderCreateActivity::class.java.simpleName)) "登録せずにホーム画面に戻りますか？" else "登録せずに詳細画面に戻りますか？"
         //このタイミングでidを元にselect  selectメソッド内で空チェックを行う予定 nullなし配列をpayerListに格納
         val payerList: List<String> = selectData(folderId)
 
@@ -204,7 +206,7 @@ class MoneyInsertActivity : AppCompatActivity() {
         drive_toolbar.setNavigationOnClickListener {
             // BuilderからAlertDialogを作成 はいといいえの場所を入れ替え=処理入れ替え
             val dialog = AlertDialog.Builder(this)
-                .setTitle(R.string.finish_message) // タイトル
+                .setTitle(toolbarTitle) // タイトルセット
                 .setPositiveButton(R.string.no) { _, _ -> // いいえ
                     Intent(this@MoneyInsertActivity, this::class.java)
                 }
