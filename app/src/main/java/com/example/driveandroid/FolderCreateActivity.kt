@@ -1,8 +1,7 @@
 /*FolderCreateActivity フォルダ作成画面
 * 一列登録した情報　全一致のものをセレクトして配列に入れた上でidだけMoneyInsertActivityに送る
-* 前回からの変更点：人数カウントはtextWatcher、文字数チェックはフォーカスが映った時、完了系ボタンが押された時の二回行う
-* 背景タップでフォーカスを変える処理追加 小林さんコメント分修正
-* 更新日：2020年12月24日
+* 前回からの変更点：ダイアログの色
+* 更新日：2020年12月28日
 * 更新者：笛木
 * */
 package com.example.driveandroid
@@ -69,7 +68,7 @@ class FolderCreateActivity : AppCompatActivity() {
             val onlyDate = LocalDate.now()
             Log.d("今の年月日", "$onlyDate")
             val datePickerDialog = DatePickerDialog(
-                this,
+                this,R.style.MyAlertColor,
                 DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
                     datePick.text = "$year/${month + 1}/$dayOfMonth" //ボタンのところに表示
                     dateYear = year
@@ -87,7 +86,7 @@ class FolderCreateActivity : AppCompatActivity() {
         drive_toolbar.setNavigationOnClickListener {
 
             // BuilderからAlertDialogを作成 はい、いいえの配置を変えるため処理も入れ替え
-            val dialog = AlertDialog.Builder(this)
+            val dialog = AlertDialog.Builder(this,R.style.MyAlertColor)
                 .setTitle(R.string.finish_message) // タイトル
                 .setPositiveButton(R.string.no) { _, _ -> // no
                     Intent(this@FolderCreateActivity, this::class.java)
@@ -223,7 +222,7 @@ class FolderCreateActivity : AppCompatActivity() {
 
             //エラー確認
             if (errMsg != "") {
-                val dialog = AlertDialog.Builder(this)
+                val dialog = AlertDialog.Builder(this,R.style.MyAlertColor)
                     .setMessage(errMsg)
                     .setPositiveButton("OK") { _, _ ->
                         //ignore
@@ -256,7 +255,7 @@ class FolderCreateActivity : AppCompatActivity() {
 
             //入力チェック終わり エラー確認
             if (errMsg != "") {
-                val dialog = AlertDialog.Builder(this)
+                val dialog = AlertDialog.Builder(this,R.style.MyAlertColor)
                     .setMessage(errMsg)
                     .setPositiveButton("OK") { _, _ ->
                         //ignore
@@ -324,7 +323,7 @@ class FolderCreateActivity : AppCompatActivity() {
      * */
     private fun textCheck(editText: EditText): Boolean {
         return if (editText.text.length > 10) {
-            val dialog = AlertDialog.Builder(this@FolderCreateActivity)
+            val dialog = AlertDialog.Builder(this@FolderCreateActivity,R.style.MyAlertColor)
                 .setMessage("10文字以内で入力してください。")
                 .setPositiveButton("OK") { _, _ ->
                     //OK押したら中身削除
