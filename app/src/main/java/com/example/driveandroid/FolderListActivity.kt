@@ -53,10 +53,12 @@ class FolderListActivity : AppCompatActivity() {
             adapter.setOnItemClickListener(object : FolderListAdapter.OnItemClickListener {
                 override fun onItemClickListener(view: View, deleteId: Int, position: Int) {
                     Log.d("deleteIdとして受け取り", "$deleteId")
-                    //ダイアログを出し、OKだったらdeleteする
+                    //ダイアログを出し、OKだったらdeleteする  はいといいえの場所を入れ替え
                     val dialog = AlertDialog.Builder(this@FolderListActivity) //thisだとコンパイルエラー
                         .setMessage("選択した内容を削除してもいいですか?")
-                        .setPositiveButton(R.string.yes) { _, _ ->
+                        .setPositiveButton(R.string.no) { _, _ ->
+                            Log.d("いいえを選択", "いいえ")
+                        }.setNegativeButton(R.string.yes) { _, _ ->
                             //deletePara呼び出し 該当データをParagraphInfoから削除
                             deletePara(deleteId)
                             //deleteFolder呼び出し　該当データをFolderInfoから削除
@@ -64,11 +66,10 @@ class FolderListActivity : AppCompatActivity() {
                             //画面からも該当データを消す
                             folderList.removeAt(position)
                             adapter.notifyDataSetChanged() //変更通知し画面反映
-                            if(folderList.isEmpty()){
-                                nothing_message.visibility = View.VISIBLE //登録されているデータがすべて消された場合はメッセージ表示
+                            if (folderList.isEmpty()) {
+                                nothing_message.visibility =
+                                    View.VISIBLE //登録されているデータがすべて消された場合はメッセージ表示
                             }
-                        }.setNegativeButton(R.string.no) { _, _ ->
-                            Log.d("いいえを選択", "いいえ")
                         }
                         .create() //show()だとクラッシュ
                     dialog.show()
