@@ -1,5 +1,5 @@
 /*画面：フォルダ詳細
-*更新日：2020年12月15日
+*更新日：2020年12月28日
 *更新者：笛木瑞歩
 */
 package com.example.driveandroid
@@ -167,7 +167,7 @@ class FolderDetailActivity : AppCompatActivity() {
                 override fun onItemClickListener(view: View, deleteNum: Int, position: Int) {
                     Log.d("deleteNumとして受け取り", "$deleteNum")
                     //ダイアログを出し、OKだったらdeleteする
-                    val dialog = AlertDialog.Builder(this@FolderDetailActivity) //thisだとコンパイルエラー
+                    val dialog = AlertDialog.Builder(this@FolderDetailActivity,R.style.MyAlertColor) //thisだとコンパイルエラー
                         .setMessage("選択した内容を削除してもいいですか?")
                         .setPositiveButton(R.string.no) { _, _ ->
                             Log.d("いいえを選択", "いいえ")

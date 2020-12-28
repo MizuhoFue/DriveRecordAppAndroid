@@ -2,9 +2,9 @@
 *画面名：MoneyInsertActivity 金額入力画面　使用した金額や使用用途の入力・登録を行う　
 *整理：入力された値を変数に入れてSQL実行　一度に登録できるのは1項目
 *遷移先：FolderList,FolderDetail ダイアログで選択、登録して遷移、データベース接続
-*変更点：背景タッチでフォーカスオフを追加
+*変更点：ダイアログの色
 *更新者：笛木
-*更新日：2020年12月24日
+*更新日：2020年12月28日
 * */
 package com.example.driveandroid
 
@@ -133,7 +133,7 @@ class MoneyInsertActivity : AppCompatActivity() {
                 Log.d("項目の金額", "$paraCost")
 
                 //ダイアログのメッセージ、各ボタンの処理を設定　「詳細」/「ホーム」遷移、入力修正のための「キャンセル」　
-                AlertDialog.Builder(this)
+                AlertDialog.Builder(this,R.style.MyAlertColor)
                     .setMessage("どちらに移動しますか？")
                     .setPositiveButton(
                         "詳細",
@@ -178,7 +178,7 @@ class MoneyInsertActivity : AppCompatActivity() {
                     .show() //またはcreate() ?
             } //エラーダイアログ、エラーを確認して入力内容破棄、再入力させる
             else {
-                AlertDialog.Builder(this)
+                AlertDialog.Builder(this,R.style.MyAlertColor)
                     .setMessage("金額を入力してください")
                     .setPositiveButton(
                         "OK",
@@ -205,7 +205,7 @@ class MoneyInsertActivity : AppCompatActivity() {
         //ナビゲーションアイテムのリスナー
         drive_toolbar.setNavigationOnClickListener {
             // BuilderからAlertDialogを作成 はいといいえの場所を入れ替え=処理入れ替え
-            val dialog = AlertDialog.Builder(this)
+            val dialog = AlertDialog.Builder(this,R.style.MyAlertColor)
                 .setTitle(toolbarTitle) // タイトルセット
                 .setPositiveButton(R.string.no) { _, _ -> // いいえ
                     Intent(this@MoneyInsertActivity, this::class.java)
