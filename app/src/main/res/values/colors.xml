@@ -7,7 +7,10 @@
     <color name="backGround">#F5F5F5</color>
     <color name="support_border">#91989F</color>
     <color name="colorBlack">#333333</color>
-    <color name="colorWhite">#ffffff</color>
     <color name="colorAnnotation">#666666</color>
     <color name="dialog_color">#181819</color>
+    <color name="policy_title">#b4ff8c</color>
+    <color name="deep_blue">#491ae8</color>
+    <color name="pink">#fe92f1</color>
+    <color name="green">#1ae892</color>
 </resources>
