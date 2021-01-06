@@ -16,6 +16,24 @@
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:layout_marginBottom="5dp">
+
+            <ImageButton
+                android:id="@+id/close_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                app:backgroundTint="#0000"
+                app:fabSize="auto"
+                app:maxImageSize="20dp"
+                app:srcCompat="@drawable/ic_close_icon" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_gravity="center">
 
             <TextView

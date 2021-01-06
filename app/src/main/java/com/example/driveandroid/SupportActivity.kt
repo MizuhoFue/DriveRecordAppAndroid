@@ -28,10 +28,8 @@ class SupportActivity : AppCompatActivity() {
             val intent = Intent(this@SupportActivity, PolicyActivity::class.java)
             startActivity(intent)
         }
-        //タイトルラベルの左側のナビゲーションアイテムの設置 ツールバーのid変えました
-        drive_toolbars.setNavigationIcon(android.R.drawable.ic_menu_directions)
-        //ナビゲーションアイテムのリスナー
-        drive_toolbars.setNavigationOnClickListener {
+
+        return_home.setOnClickListener {
             finish()
         }
     }

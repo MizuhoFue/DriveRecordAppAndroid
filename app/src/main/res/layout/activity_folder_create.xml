@@ -8,9 +8,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#F9FBFA"
-    android:gravity="center_horizontal"
-    android:focusableInTouchMode="true"
     android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:gravity="center_horizontal"
     android:orientation="vertical"
     tools:context="com.example.driveandroid.FolderCreateActivity">
 
@@ -21,6 +21,24 @@
         android:background="?attr/colorPrimary"
         app:theme="@style/ThemeOverlay.AppCompat.ActionBar"
         app:titleTextColor="@color/colorPrimary">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:layout_marginBottom="3dp">
+
+            <ImageButton
+                android:id="@+id/close_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                app:backgroundTint="#0000"
+                app:fabSize="auto"
+                app:maxImageSize="20dp"
+                app:srcCompat="@drawable/ic_close_icon" />
+
+        </RelativeLayout>
 
         <RelativeLayout
             android:layout_width="wrap_content"
@@ -40,7 +58,8 @@
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="right">
+            android:layout_gravity="right"
+            android:layout_marginEnd="5dp">
 
             <ImageButton
                 android:id="@+id/setting"
@@ -50,7 +69,7 @@
                 app:backgroundTint="#0000"
                 app:fabSize="auto"
                 app:maxImageSize="20dp"
-                app:srcCompat="@android:drawable/ic_menu_manage" />
+                app:srcCompat="@drawable/ic_info_w_icon" />
 
         </RelativeLayout>
 
@@ -123,8 +142,8 @@
                         android:ems="10"
                         android:hint="@string/put_title"
                         android:inputType="text"
-                        android:textSize="18sp"
-                        android:nextFocusDown="@id/putMember1" />
+                        android:nextFocusDown="@id/putMember1"
+                        android:textSize="18sp" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -163,8 +182,8 @@
                         android:ems="10"
                         android:hint="@string/put_member1"
                         android:inputType="textPersonName"
-                        android:textSize="18sp"
-                        android:nextFocusDown="@id/putMember2" />
+                        android:nextFocusDown="@id/putMember2"
+                        android:textSize="18sp" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -194,8 +213,8 @@
                         android:ems="10"
                         android:hint="@string/put_member2"
                         android:inputType="textPersonName"
-                        android:visibility="visible"
-                        android:nextFocusDown="@id/putMember3" />
+                        android:nextFocusDown="@id/putMember3"
+                        android:visibility="visible" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -211,8 +230,8 @@
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:layout_gravity="end"
+                    android:layout_weight="1"
                     app:counterEnabled="true"
                     app:counterMaxLength="10">
 
@@ -225,8 +244,8 @@
                         android:ems="10"
                         android:hint="@string/put_member3"
                         android:inputType="textPersonName"
-                        android:visibility="visible"
-                        android:nextFocusDown="@id/putMember4" />
+                        android:nextFocusDown="@id/putMember4"
+                        android:visibility="visible" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -242,8 +261,8 @@
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:layout_gravity="end"
+                    android:layout_weight="1"
                     app:counterEnabled="true"
                     app:counterMaxLength="10">
 
@@ -256,9 +275,9 @@
                         android:ems="10"
                         android:hint="@string/put_member4"
                         android:inputType="textPersonName"
+                        android:nextFocusDown="@id/putMember5"
                         android:text=""
-                        android:visibility="visible"
-                        android:nextFocusDown="@id/putMember5" />
+                        android:visibility="visible" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -274,8 +293,8 @@
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:layout_gravity="end"
+                    android:layout_weight="1"
                     app:counterEnabled="true"
                     app:counterMaxLength="10">
 
@@ -288,8 +307,8 @@
                         android:ems="10"
                         android:hint="@string/put_member5"
                         android:inputType="textPersonName"
-                        android:visibility="visible"
-                        android:nextFocusDown="@id/putMember6" />
+                        android:nextFocusDown="@id/putMember6"
+                        android:visibility="visible" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -305,8 +324,8 @@
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:layout_gravity="end"
+                    android:layout_weight="1"
                     app:counterEnabled="true"
                     app:counterMaxLength="10">
 
