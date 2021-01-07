@@ -19,7 +19,10 @@ import com.example.driveandroid.Constants.Companion.EXTRA_FOLDERID
 import com.example.driveandroid.Constants.Companion.FOLDER_INFO
 import com.example.driveandroid.Constants.Companion.PARAGRAPH_INFO
 import com.example.driveandroid.Constants.Companion.WHERE_PARANUM
+import kotlinx.android.synthetic.main.activity_folder_create.*
 import kotlinx.android.synthetic.main.activity_folder_detail.*
+import kotlinx.android.synthetic.main.activity_folder_detail.close_button
+import kotlinx.android.synthetic.main.activity_folder_detail.setting
 
 class FolderDetailActivity : AppCompatActivity() {
 
@@ -210,7 +213,23 @@ class FolderDetailActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        //ホームへ戻る
+        //ナビゲーションアイテムのリスナー
+        close_button.setOnClickListener {
+            // BuilderからAlertDialogを作成 はい、いいえの配置を変えるため処理も入れ替え
+            val dialog = AlertDialog.Builder(this,R.style.MyAlertColor)
+                .setTitle(R.string.finish_message) // タイトル
+                .setPositiveButton(R.string.no) { _, _ -> // no
+                    Intent(this@FolderDetailActivity, this::class.java)
+                }
+                .setNegativeButton(R.string.yes) { _, _ -> //yes
+                    finish()
+                }
+                .create()
+            // AlertDialogを表示
+            dialog.show()
+        }
+
+        //ホームへ戻る,作成完了する
         home.setOnClickListener {//押したら
             finish()
         }

@@ -16,9 +16,27 @@
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:layout_marginBottom="5dp">
+
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/close_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                app:backgroundTint="#0000"
+                app:fabSize="auto"
+                app:maxImageSize="20dp"
+                app:srcCompat="@drawable/ic_close_icon" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_gravity="center">
 
-            <TextView
+            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/toolbar_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -42,7 +60,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <TextView
+            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/convention"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -51,7 +69,7 @@
                 android:layout_marginEnd="25dp"
                 android:text="@string/policy" />
 
-            <TextView
+            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/title_1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -71,13 +89,13 @@
                 android:layout_marginBottom="10dp"
                 android:orientation="horizontal">
 
-                <TextView
+                <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/number_1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/number_1" />
 
-                <TextView
+                <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/policy_1_1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -94,13 +112,13 @@
                 android:layout_marginBottom="10dp"
                 android:orientation="horizontal">
 
-                <TextView
+                <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/number_2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/number_2" />
 
-                <TextView
+                <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/policy_1_2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -117,13 +135,13 @@
                 android:layout_marginBottom="10dp"
                 android:orientation="horizontal">
 
-                <TextView
+                <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/number_3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/number_3" />
 
-                <TextView
+                <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/policy_1_3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -132,7 +150,7 @@
 
             </LinearLayout>
 
-            <TextView
+            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/title_2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -143,7 +161,7 @@
                 android:text="@string/title_2"
                 android:textSize="20dp" />
 
-            <TextView
+            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/policy_2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -161,13 +179,13 @@
                 android:layout_marginBottom="10dp"
                 android:orientation="horizontal">
 
-                <TextView
+                <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/number_2_1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/number_1" />
 
-                <TextView
+                <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/policy_2_1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -184,13 +202,13 @@
                 android:layout_marginBottom="10dp"
                 android:orientation="horizontal">
 
-                <TextView
+                <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/number_2_2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/number_2" />
 
-                <TextView
+                <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/policy_2_2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -207,13 +225,13 @@
                 android:layout_marginBottom="10dp"
                 android:orientation="horizontal">
 
-                <TextView
+                <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/number_2_3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/number_3" />
 
-                <TextView
+                <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/policy_2_3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -230,13 +248,13 @@
                 android:layout_marginBottom="10dp"
                 android:orientation="horizontal">
 
-                <TextView
+                <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/number_2_4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/number_4" />
 
-                <TextView
+                <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/policy_2_4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -253,13 +271,13 @@
                 android:layout_marginBottom="10dp"
                 android:orientation="horizontal">
 
-                <TextView
+                <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/number_2_5"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/number_5" />
 
-                <TextView
+                <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/policy_2_5"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -276,13 +294,13 @@
                 android:layout_marginBottom="10dp"
                 android:orientation="horizontal">
 
-                <TextView
+                <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/number_2_6"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/number_6" />
 
-                <TextView
+                <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/policy_2_6"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -299,13 +317,13 @@
                 android:layout_marginBottom="10dp"
                 android:orientation="horizontal">
 
-                <TextView
+                <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/number_2_7"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/number_7" />
 
-                <TextView
+                <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/policy_2_7"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -322,13 +340,13 @@
                 android:layout_marginBottom="10dp"
                 android:orientation="horizontal">
 
-                <TextView
+                <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/number_2_8"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/number_8" />
 
-                <TextView
+                <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/policy_2_8"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -345,13 +363,13 @@
                 android:layout_marginBottom="10dp"
                 android:orientation="horizontal">
 
-                <TextView
+                <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/number_2_9"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/number_9" />
 
-                <TextView
+                <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/policy_2_9"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -368,13 +386,13 @@
                 android:layout_marginBottom="10dp"
                 android:orientation="horizontal">
 
-                <TextView
+                <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/number_2_10"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/number_10" />
 
-                <TextView
+                <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/policy_2_10"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -391,13 +409,13 @@
                 android:layout_marginBottom="10dp"
                 android:orientation="horizontal">
 
-                <TextView
+                <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/number_2_11"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/number_11" />
 
-                <TextView
+                <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/policy_2_11"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -414,13 +432,13 @@
                 android:layout_marginBottom="10dp"
                 android:orientation="horizontal">
 
-                <TextView
+                <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/number_2_12"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/number_12" />
 
-                <TextView
+                <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/policy_2_12"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -437,13 +455,13 @@
                 android:layout_marginBottom="10dp"
                 android:orientation="horizontal">
 
-                <TextView
+                <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/number_2_13"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/number_13" />
 
-                <TextView
+                <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/policy_2_13"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -460,13 +478,13 @@
                 android:layout_marginBottom="10dp"
                 android:orientation="horizontal">
 
-                <TextView
+                <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/number_2_14"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/number_14" />
 
-                <TextView
+                <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/policy_2_14"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -475,7 +493,7 @@
 
             </LinearLayout>
 
-            <TextView
+            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/title_3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -495,13 +513,13 @@
                 android:layout_marginBottom="10dp"
                 android:orientation="horizontal">
 
-                <TextView
+                <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/number_3_1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/number_1" />
 
-                <TextView
+                <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/policy_3_1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -518,14 +536,14 @@
                 android:layout_marginBottom="10dp"
                 android:orientation="horizontal">
 
-                <TextView
+                <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/number_3_1a"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/number_a"
                     android:textSize="10dp" />
 
-                <TextView
+                <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/policy_3_1a"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -543,20 +561,20 @@
                 android:layout_marginBottom="10dp"
                 android:orientation="horizontal">
 
-                <TextView
+                <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/number_3_1b"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/number_b"
                     android:textSize="10dp" />
 
-                <TextView
+                <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/policy_3_1b"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:text="@string/policy_3_1b"
-                    android:textSize="10sp" />
+                    android:textSize="10dp" />
 
             </LinearLayout>
 
@@ -568,20 +586,20 @@
                 android:layout_marginBottom="10dp"
                 android:orientation="horizontal">
 
-                <TextView
+                <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/number_3_1c"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/number_c"
                     android:textSize="10dp" />
 
-                <TextView
+                <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/policy_3_1c"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:text="@string/policy_3_1c"
-                    android:textSize="10sp" />
+                    android:textSize="10dp" />
 
             </LinearLayout>
 
@@ -593,14 +611,14 @@
                 android:layout_marginBottom="10dp"
                 android:orientation="horizontal">
 
-                <TextView
+                <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/number_3_1d"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/number_d"
                     android:textSize="10dp" />
 
-                <TextView
+                <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/policy_3_1d"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -618,13 +636,13 @@
                 android:layout_marginBottom="10dp"
                 android:orientation="horizontal">
 
-                <TextView
+                <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/number_3_2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/number_2" />
 
-                <TextView
+                <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/policy_3_2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -633,7 +651,7 @@
 
             </LinearLayout>
 
-            <TextView
+            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/title_4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -653,13 +671,13 @@
                 android:layout_marginBottom="10dp"
                 android:orientation="horizontal">
 
-                <TextView
+                <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/number_4_1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/number_1" />
 
-                <TextView
+                <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/policy_4_1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -676,14 +694,14 @@
                 android:layout_marginBottom="10dp"
                 android:orientation="horizontal">
 
-                <TextView
+                <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/number_4_1a"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/number_a"
                     android:textSize="10dp" />
 
-                <TextView
+                <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/policy_4_1a"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -701,14 +719,14 @@
                 android:layout_marginBottom="10dp"
                 android:orientation="horizontal">
 
-                <TextView
+                <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/number_4_1b"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/number_b"
                     android:textSize="10dp" />
 
-                <TextView
+                <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/policy_4_1b"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -726,20 +744,20 @@
                 android:layout_marginBottom="10dp"
                 android:orientation="horizontal">
 
-                <TextView
+                <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/number_4_1c"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/number_c"
                     android:textSize="10dp" />
 
-                <TextView
+                <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/policy_4_1c"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:text="@string/policy_4_1c"
-                    android:textSize="10sp" />
+                    android:textSize="10dp" />
 
             </LinearLayout>
 
@@ -751,20 +769,20 @@
                 android:layout_marginBottom="10dp"
                 android:orientation="horizontal">
 
-                <TextView
+                <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/number_4_1d"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/number_d"
                     android:textSize="10dp" />
 
-                <TextView
+                <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/policy_4_1d"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:text="@string/policy_4_1d"
-                    android:textSize="10sp" />
+                    android:textSize="10dp" />
 
             </LinearLayout>
 
@@ -776,13 +794,13 @@
                 android:layout_marginBottom="10dp"
                 android:orientation="horizontal">
 
-                <TextView
+                <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/number_4_2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/number_2" />
 
-                <TextView
+                <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/policy_4_2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -791,7 +809,7 @@
 
             </LinearLayout>
 
-            <TextView
+            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/title_5"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -811,13 +829,13 @@
                 android:layout_marginBottom="10dp"
                 android:orientation="horizontal">
 
-                <TextView
+                <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/number_5_1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/number_1" />
 
-                <TextView
+                <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/policy_5_1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -834,13 +852,13 @@
                 android:layout_marginBottom="10dp"
                 android:orientation="horizontal">
 
-                <TextView
+                <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/number_5_2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/number_2" />
 
-                <TextView
+                <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/policy_5_2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -857,13 +875,13 @@
                 android:layout_marginBottom="10dp"
                 android:orientation="horizontal">
 
-                <TextView
+                <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/number_5_3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/number_3" />
 
-                <TextView
+                <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/policy_5_3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -880,13 +898,13 @@
                 android:layout_marginBottom="10dp"
                 android:orientation="horizontal">
 
-                <TextView
+                <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/number_5_4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/number_4" />
 
-                <TextView
+                <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/policy_5_4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -895,7 +913,7 @@
 
             </LinearLayout>
 
-            <TextView
+            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/title_6"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -906,7 +924,7 @@
                 android:text="@string/title_6"
                 android:textSize="20dp" />
 
-            <TextView
+            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/policy_6"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -916,7 +934,7 @@
                 android:layout_marginBottom="10dp"
                 android:text="@string/policy_6" />
 
-            <TextView
+            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/title_7"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -927,7 +945,7 @@
                 android:text="@string/title_7"
                 android:textSize="20dp" />
 
-            <TextView
+            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/policy_7"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -937,7 +955,7 @@
                 android:layout_marginBottom="10dp"
                 android:text="@string/policy_7" />
 
-            <TextView
+            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/title_8"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -948,7 +966,7 @@
                 android:text="@string/title_8"
                 android:textSize="20dp" />
 
-            <TextView
+            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/policy_8"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -958,7 +976,7 @@
                 android:layout_marginBottom="10dp"
                 android:text="@string/policy_8" />
 
-            <TextView
+            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/policy_8_url_sentence"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -968,7 +986,7 @@
                 android:text="@string/policy_8_url_sentence"
                 android:textSize="10dp" />
 
-            <TextView
+            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/policy_8_url"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -978,7 +996,7 @@
                 android:textColorLink="@color/deep_blue"
                 android:textSize="10dp" />
 
-            <TextView
+            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/title_9"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -989,7 +1007,7 @@
                 android:text="@string/title_9"
                 android:textSize="20dp" />
 
-            <TextView
+            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/policy_9"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -999,7 +1017,7 @@
                 android:layout_marginBottom="10dp"
                 android:text="@string/policy_9" />
 
-            <TextView
+            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/title_10"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -1010,7 +1028,7 @@
                 android:text="@string/title_10"
                 android:textSize="20dp" />
 
-            <TextView
+            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/policy_10"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -1020,7 +1038,7 @@
                 android:layout_marginBottom="10dp"
                 android:text="@string/policy_10" />
 
-            <TextView
+            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/title_11"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -1040,13 +1058,13 @@
                 android:layout_marginBottom="10dp"
                 android:orientation="horizontal">
 
-                <TextView
+                <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/number_11_1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/number_1" />
 
-                <TextView
+                <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/policy_11_1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -1063,13 +1081,13 @@
                 android:layout_marginBottom="10dp"
                 android:orientation="horizontal">
 
-                <TextView
+                <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/number_11_2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/number_2" />
 
-                <TextView
+                <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/policy_11_2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -1078,7 +1096,7 @@
 
             </LinearLayout>
 
-            <TextView
+            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/policy_end"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

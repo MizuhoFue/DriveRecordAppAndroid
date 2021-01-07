@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     tools:context="com.example.driveandroid.DaoActivity">
 
-    <TextView
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/textView18"
         android:layout_width="167dp"
         android:layout_height="70dp"

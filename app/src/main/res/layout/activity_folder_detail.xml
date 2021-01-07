@@ -20,9 +20,27 @@
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:layout_marginBottom="3dp">
+
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/close_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                app:backgroundTint="#0000"
+                app:fabSize="auto"
+                app:maxImageSize="20dp"
+                app:srcCompat="@drawable/ic_close_icon" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_gravity="center">
 
-            <TextView
+            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/toolbar_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -35,16 +53,17 @@
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="right">
+            android:layout_gravity="right"
+            android:layout_marginEnd="5dp">
 
-            <ImageButton
+            <androidx.appcompat.widget.AppCompatImageButton
                 android:id="@+id/setting"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:backgroundTint="#0000"
                 app:fabSize="auto"
-                app:maxImageSize="50dp"
-                app:srcCompat="@android:drawable/ic_menu_manage" />
+                app:maxImageSize="20dp"
+                app:srcCompat="@drawable/ic_info_w_icon" />
 
         </RelativeLayout>
 
@@ -240,7 +259,7 @@
                 tools:text="千代田葉子さん" />
 
             <!--使用項目-->
-            <TextView
+            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/usedParagraph"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

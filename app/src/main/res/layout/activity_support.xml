@@ -4,8 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center_horizontal"
-    android:orientation="vertical"
-    android:background="@color/backGround">
+    android:background="@color/backGround"
+    android:orientation="vertical">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/drive_toolbars"
@@ -18,9 +18,25 @@
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="left">
+
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/return_home"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:backgroundTint="#0000"
+                app:fabSize="auto"
+                app:maxImageSize="20dp"
+                app:srcCompat="@drawable/ic_return_icon" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_gravity="center">
 
-            <TextView
+            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/toolbar_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -35,54 +51,54 @@
     <androidx.appcompat.widget.AppCompatImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_info_b_icon"
         android:layout_gravity="center"
-        android:layout_marginTop="40dp" />
+        android:layout_marginTop="40dp"
+        android:src="@drawable/ic_info_b_icon" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/policies"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:layout_marginTop="40dp"
         android:layout_marginBottom="10dp"
-        android:layout_gravity="center"
         android:background="@null"
-        android:textSize="25dp"
-        android:text="@string/rules" />
+        android:text="@string/rules"
+        android:textSize="25dp" />
 
     <!--ライン追加-->
     <View
         android:layout_width="wrap_content"
         android:layout_height="1dp"
-        android:background="@color/support_border"
+        android:layout_gravity="center"
         android:layout_marginStart="30dp"
         android:layout_marginEnd="30dp"
-        android:layout_gravity="center" />
+        android:background="@color/support_border" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/license"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:layout_marginTop="20dp"
         android:layout_marginBottom="10dp"
-        android:layout_gravity="center"
         android:background="@null"
-        android:textSize="25dp"
-        android:text="@string/license" />
+        android:text="@string/license"
+        android:textSize="25dp" />
 
     <!--ライン追加 widthいじるより左右にマージンいれる-->
     <View
         android:layout_width="wrap_content"
         android:layout_height="1dp"
-        android:background="@color/support_border"
+        android:layout_gravity="center"
         android:layout_marginStart="30dp"
         android:layout_marginEnd="30dp"
-        android:layout_gravity="center" />
+        android:background="@color/support_border" />
 
     <androidx.appcompat.widget.AppCompatImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@drawable/car_tent"
-        android:scaleType="fitCenter" />
+        android:scaleType="fitCenter"
+        android:src="@drawable/car_tent" />
 
 </LinearLayout>
