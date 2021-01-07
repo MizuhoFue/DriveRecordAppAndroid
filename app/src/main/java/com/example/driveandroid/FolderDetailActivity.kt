@@ -215,7 +215,6 @@ class FolderDetailActivity : AppCompatActivity() {
 
         //ナビゲーションアイテムのリスナー
         close_button.setOnClickListener {
-
             // BuilderからAlertDialogを作成 はい、いいえの配置を変えるため処理も入れ替え
             val dialog = AlertDialog.Builder(this,R.style.MyAlertColor)
                 .setTitle(R.string.finish_message) // タイトル
