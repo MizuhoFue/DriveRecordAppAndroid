@@ -80,10 +80,8 @@ class FolderCreateActivity : AppCompatActivity() {
             datePickerDialog.show()
         }
 
-        //タイトルラベルの左側のナビゲーションアイテムの設置
-        drive_toolbar.setNavigationIcon(android.R.drawable.ic_delete)
         //ナビゲーションアイテムのリスナー
-        drive_toolbar.setNavigationOnClickListener {
+        close_button.setOnClickListener {
 
             // BuilderからAlertDialogを作成 はい、いいえの配置を変えるため処理も入れ替え
             val dialog = AlertDialog.Builder(this,R.style.MyAlertColor)

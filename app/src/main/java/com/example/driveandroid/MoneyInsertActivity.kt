@@ -200,10 +200,9 @@ class MoneyInsertActivity : AppCompatActivity() {
                 }
             } ?: Toast.makeText(this, "カメラを扱うアプリがありません", Toast.LENGTH_LONG).show()
         }
-        //タイトルラベルの左側のナビゲーションアイテムの設置
-        drive_toolbar.setNavigationIcon(android.R.drawable.ic_delete)
+
         //ナビゲーションアイテムのリスナー
-        drive_toolbar.setNavigationOnClickListener {
+        close_button.setOnClickListener {
             // BuilderからAlertDialogを作成 はいといいえの場所を入れ替え=処理入れ替え
             val dialog = AlertDialog.Builder(this,R.style.MyAlertColor)
                 .setTitle(toolbarTitle) // タイトルセット

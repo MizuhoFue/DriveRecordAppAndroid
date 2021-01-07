@@ -50,11 +50,13 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             )
         }
 
-        //タイトルラベルの左側のナビゲーションアイテムの設置
-        drive_toolbar.setNavigationIcon(android.R.drawable.ic_menu_directions)
         //ナビゲーションアイテムのリスナー
-        drive_toolbar.setNavigationOnClickListener {
+        return_home.setOnClickListener {
             val intent = Intent(this@MapsActivity, FolderListActivity::class.java)
+            startActivity(intent)
+        }
+        settings.setOnClickListener {
+            val intent = Intent(this@MapsActivity, SupportActivity::class.java)
             startActivity(intent)
         }
     }
