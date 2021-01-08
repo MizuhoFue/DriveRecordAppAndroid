@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?><!--変更点：背景タップ可能に・focusDown付け足し-->
 <!--更新者：笛木-->
 <!--更新日：2020年12月23日-->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/FolderCreate"
@@ -11,7 +11,6 @@
     android:focusable="true"
     android:focusableInTouchMode="true"
     android:gravity="center_horizontal"
-    android:orientation="vertical"
     tools:context="com.example.driveandroid.FolderCreateActivity">
 
     <androidx.appcompat.widget.Toolbar
@@ -75,21 +74,64 @@
 
     </androidx.appcompat.widget.Toolbar>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="50dp"
+        android:background="@color/backGround"
+        android:orientation="horizontal">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="fitEnd"
+            android:src="@drawable/road_bgimg" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="60dp"
+        android:layout_marginEnd="20dp"
+        android:background="@color/colorAccent"
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/title_1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            android:paddingStart="25dp"
+            android:paddingTop="7dp"
+            android:paddingBottom="7dp"
+            android:text="@string/folder_create"
+            android:textColor="@color/colorAccent"
+            android:textSize="20dp" />
+
+    </LinearLayout>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="30dp">
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="100dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="150dp"
+        android:scrollbarStyle="insideOverlay">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/colorAccent"
             android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginEnd="30dp"
                 android:orientation="horizontal">
 
@@ -100,7 +142,8 @@
                     android:layout_gravity="center"
                     android:layout_weight="1"
                     android:text="@string/day"
-                    android:textSize="20sp" />
+                    android:textColor="@color/colorBlack"
+                    android:textSize="15dp" />
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/datePick"
@@ -111,6 +154,16 @@
                     android:text="日付を選択する" />
 
             </LinearLayout>
+
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="1dp"
+                android:layout_gravity="center"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="10dp"
+                android:background="@color/border" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -126,7 +179,8 @@
                     android:layout_gravity="center"
                     android:layout_weight="1"
                     android:text="@string/title"
-                    android:textSize="20sp" />
+                    android:textColor="@color/colorBlack"
+                    android:textSize="15sp" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="wrap_content"
@@ -143,11 +197,21 @@
                         android:hint="@string/put_title"
                         android:inputType="text"
                         android:nextFocusDown="@id/putMember1"
-                        android:textSize="18sp" />
+                        android:textSize="15sp" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
             </LinearLayout>
+
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="1dp"
+                android:layout_gravity="center"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="10dp"
+                android:background="@color/border" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -164,7 +228,8 @@
                     android:layout_marginBottom="5dp"
                     android:layout_weight="1"
                     android:text="@string/member_name"
-                    android:textSize="18sp" />
+                    android:textColor="@color/colorBlack"
+                    android:textSize="15sp" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/layout_1"
@@ -183,7 +248,7 @@
                         android:hint="@string/put_member1"
                         android:inputType="textPersonName"
                         android:nextFocusDown="@id/putMember2"
-                        android:textSize="18sp" />
+                        android:textSize="15sp" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -214,6 +279,7 @@
                         android:hint="@string/put_member2"
                         android:inputType="textPersonName"
                         android:nextFocusDown="@id/putMember3"
+                        android:textSize="15sp"
                         android:visibility="visible" />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -245,6 +311,7 @@
                         android:hint="@string/put_member3"
                         android:inputType="textPersonName"
                         android:nextFocusDown="@id/putMember4"
+                        android:textSize="15sp"
                         android:visibility="visible" />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -277,6 +344,7 @@
                         android:inputType="textPersonName"
                         android:nextFocusDown="@id/putMember5"
                         android:text=""
+                        android:textSize="15sp"
                         android:visibility="visible" />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -308,6 +376,7 @@
                         android:hint="@string/put_member5"
                         android:inputType="textPersonName"
                         android:nextFocusDown="@id/putMember6"
+                        android:textSize="15sp"
                         android:visibility="visible" />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -339,11 +408,21 @@
                         android:hint="@string/put_member6"
                         android:inputType="textPersonName"
                         android:text=""
+                        android:textSize="15sp"
                         android:visibility="visible" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
             </LinearLayout>
+
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="1dp"
+                android:layout_gravity="center"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="20dp"
+                android:background="@color/border" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -358,7 +437,7 @@
                     android:layout_marginStart="24dp"
                     android:layout_weight="1"
                     android:text="@string/members"
-                    android:textSize="30sp" />
+                    android:textSize="15sp" />
                 <!--id名変えました-->
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/watchMember"
@@ -366,55 +445,61 @@
                     android:layout_height="match_parent"
                     android:layout_gravity="end"
                     android:layout_weight="1"
-                    android:textSize="30sp"
+                    android:textSize="15sp"
                     tools:Text="3" />
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/memberCount2"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
+                    android:layout_weight="0.5"
                     android:text="@string/human"
-                    android:textSize="30sp" />
+                    android:textSize="20sp" />
 
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:orientation="horizontal">
-
-                <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/createEnd"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:layout_marginStart="40dp"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginBottom="5dp"
-                    android:layout_weight="1"
-                    android:gravity="center_horizontal"
-                    android:text="@string/move"
-                    android:textSize="25sp" />
-
-                <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/money"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:layout_marginStart="40dp"
-                    android:layout_marginEnd="20dp"
-                    android:layout_marginBottom="5dp"
-                    android:layout_weight="1"
-                    android:gravity="center_horizontal"
-                    android:text="@string/money"
-                    android:textSize="25sp" />
-
-            </LinearLayout>
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="1dp"
+                android:layout_gravity="center"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="20dp"
+                android:background="@color/border" />
 
         </LinearLayout>
 
     </ScrollView>
 
-</LinearLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:gravity="center">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/createEnd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="70dp"
+            android:src="@drawable/save_bt" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:gravity="center">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/money"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:src="@drawable/money_bt" />
+
+    </RelativeLayout>
+
+</RelativeLayout>

@@ -13,7 +13,7 @@
     <string name="title">タイトル</string>
     <string name="member_num">人数</string>
     <string name="member_numPara">人</string>
-    <string name="member_name">メンバー名</string>
+    <string name="member_name">メンバー</string>
     <string name="paragraph_used">使用項目</string>
     <string name="perParson">1人当たり</string>
     <string name="trashbox">ゴミ箱</string>
@@ -28,8 +28,6 @@
     <!--FolderCreate-->
     <string name="button">ドラログ</string>
     <string name="main">ドラログ</string>
-    <string name="move">作成完了</string>
-    <string name="money">金額入力</string>
     <string name="put_title">例：旅行（必須）</string>
     <string name="put_member1">例：山田太郎（必須）</string>
     <string name="put_member2">例：神田花子</string>
@@ -37,6 +35,7 @@
     <string name="put_member4">例：渋谷静香</string>
     <string name="put_member5">例：東京三郎</string>
     <string name="put_member6">例：秋葉凛</string>
+    <string name="folder_create">フォルダ作成</string>
 
     <!--FolderList-->
     <string name="day">日付</string>
