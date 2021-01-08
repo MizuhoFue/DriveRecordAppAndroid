@@ -5,7 +5,7 @@
     <color name="colorAccent">#FFFFFF</color>
     <!--アプリの背景 親レイアウト（LinearかRelative）の中でbackground="@color/backGround"で反映-->
     <color name="backGround">#F5F5F5</color>
-    <color name="support_border">#91989F</color>
+    <color name="border">#91989F</color>
     <color name="colorBlack">#333333</color>
     <color name="colorAnnotation">#666666</color>
     <color name="dialog_color">#181819</color>
