@@ -1,16 +1,14 @@
-<?xml version="1.0" encoding="utf-8"?><!--MoneyInsertのレイアウト-->
-<!--背景タップのためにidとfocusable追加-->
-<!--更新日：2020年12月24日-->
-<!--更新者：笛木瑞歩-->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/MoneyInsert"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/backGround"
     android:focusable="true"
     android:focusableInTouchMode="true"
-    android:orientation="vertical"
+    android:gravity="center_horizontal"
     tools:context="com.example.driveandroid.MoneyInsertActivity">
 
     <androidx.appcompat.widget.Toolbar
@@ -21,174 +19,243 @@
         app:theme="@style/ThemeOverlay.AppCompat.ActionBar"
         app:titleTextColor="@color/colorPrimary">
 
-        <RelativeLayout
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/close_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
             android:layout_gravity="left"
-            android:layout_marginBottom="5dp">
+            android:layout_marginBottom="5dp"
+            app:backgroundTint="#0000"
+            app:fabSize="auto"
+            app:maxImageSize="20dp"
+            app:srcCompat="@drawable/ic_close_icon" />
 
-            <androidx.appcompat.widget.AppCompatImageButton
-                android:id="@+id/close_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                app:backgroundTint="#0000"
-                app:fabSize="auto"
-                app:maxImageSize="20dp"
-                app:srcCompat="@drawable/ic_close_icon" />
-
-        </RelativeLayout>
-
-        <RelativeLayout
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/toolbar_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center">
+            android:layout_gravity="center"
+            android:text="@string/app_name"
+            android:textColor="@color/colorAccent"
+            android:textSize="20dp" />
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/toolbar_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/app_name"
-                android:textColor="@color/colorAccent"
-                android:textSize="20dp" />
-
-        </RelativeLayout>
-
-        <RelativeLayout
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/settings"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
             android:layout_gravity="right"
-            android:layout_marginEnd="5dp">
-
-            <androidx.appcompat.widget.AppCompatImageButton
-                android:id="@+id/settings"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                app:backgroundTint="#0000"
-                app:fabSize="auto"
-                app:maxImageSize="20dp"
-                app:srcCompat="@drawable/ic_info_w_icon" />
-
-        </RelativeLayout>
+            android:layout_marginEnd="5dp"
+            app:backgroundTint="#0000"
+            app:fabSize="auto"
+            app:maxImageSize="20dp"
+            app:srcCompat="@drawable/ic_info_w_icon" />
 
     </androidx.appcompat.widget.Toolbar>
 
+    <androidx.appcompat.widget.AppCompatImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="50dp"
+        android:scaleType="fitEnd"
+        android:src="@drawable/road_bgimg" />
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginTop="60dp"
-        android:orientation="horizontal">
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="70dp"
+        android:layout_marginEnd="20dp"
+        android:background="@color/colorPrimary"
+        android:orientation="horizontal"
+        android:paddingStart="25dp"
+        android:paddingTop="7dp"
+        android:paddingBottom="7dp">
 
-        <!--項目名-->
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_yen_icon" />
+
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/paragraph_name"
+            android:id="@+id/title_1"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_marginStart="50dp"
-            android:layout_marginEnd="70dp"
-            android:gravity="center"
-            android:text="@string/paragraph_name"
-            android:textSize="28sp" />
-
-        <!--スピナー-->
-        <androidx.appcompat.widget.AppCompatSpinner
-            android:id="@+id/paragraphSpinner"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:entries="@array/paragraphSpinner"
-            android:gravity="center"
-            android:prompt="@string/payer_spinner"
-            android:spinnerMode="dialog" />
+            android:layout_marginStart="10dp"
+            android:text="@string/money_insert"
+            android:textColor="@color/colorAccent"
+            android:textSize="20dp" />
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginTop="60dp"
-        android:orientation="horizontal">
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="110dp"
+        android:layout_marginEnd="20dp"
+        android:background="@color/colorAccent"
+        android:orientation="vertical">
 
-        <!--金額-->
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/cost_name"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="15dp"
+            android:orientation="horizontal">
+
+            <!--項目名-->
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/paragraph_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_weight="1"
+                android:gravity="left"
+                android:text="@string/paragraph_name"
+                android:textColor="@color/colorBlack"
+                android:textSize="20sp" />
+
+            <!--スピナー-->
+            <androidx.appcompat.widget.AppCompatSpinner
+                android:id="@+id/paragraphSpinner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:entries="@array/paragraphSpinner"
+                android:gravity="end"
+                android:prompt="@string/payer_spinner"
+                android:spinnerMode="dialog"
+                android:textColor="@color/colorBlack" />
+
+        </LinearLayout>
+
+        <View
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginStart="50dp"
-            android:layout_marginEnd="60dp"
-            android:gravity="center"
-            android:text="@string/cost_name"
-            android:textSize="28sp" />
+            android:layout_height="1dp"
+            android:layout_gravity="center"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="20dp"
+            android:background="@color/border" />
 
-        <!--金額入力部分-->
-        <androidx.appcompat.widget.AppCompatEditText
-            android:id="@+id/cost"
-            android:layout_width="130dp"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:hint="@string/cost"
-            android:inputType="number"
-            android:textSize="28sp" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal">
 
-        <!--円-->
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/yen"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginStart="40dp"
-            android:gravity="center"
-            android:text="@string/yen"
-            android:textSize="28sp" />
+            <!--金額-->
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/cost_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_weight="1"
+                android:gravity="left"
+                android:text="@string/cost_name"
+                android:textColor="@color/colorBlack"
+                android:textSize="20sp" />
 
-    </LinearLayout>
+            <!--金額入力部分-->
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/cost"
+                android:layout_width="130dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.2"
+                android:gravity="center"
+                android:hint="@string/cost"
+                android:inputType="number"
+                android:textColor="@color/colorBlack"
+                android:textSize="20sp" />
 
-    <!--カメラボタン-->
-    <androidx.appcompat.widget.AppCompatImageButton
-        android:id="@+id/camera"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_marginStart="290dp"
-        android:layout_marginTop="60dp"
-        android:background="@null"
-        android:src="@drawable/camerabutton_orange_mdpi" />
+            <!--円-->
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/yen"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="20dp"
+                android:layout_weight="0.1"
+                android:gravity="center"
+                android:text="@string/yen"
+                android:textColor="@color/colorBlack"
+                android:textSize="20sp" />
 
+        </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginTop="40dp"
-        android:orientation="horizontal">
-
-        <!--負担者-->
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/payer_name"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginStart="50dp"
-            android:layout_marginEnd="70dp"
-            android:gravity="center"
-            android:text="@string/payer_name"
-            android:textSize="28sp" />
-
-        <!--負担者スピナー-->
-        <androidx.appcompat.widget.AppCompatSpinner
-            android:id="@+id/payerSpinner"
+        <!--カメラボタン-->
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/camera"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:prompt="@string/payer_spinner"
-            android:spinnerMode="dialog" />
+            android:layout_gravity="end"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="15dp"
+            android:background="@null"
+            android:src="@drawable/camera_bt" />
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:layout_gravity="center"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="20dp"
+            android:background="@color/border" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal">
+
+            <!--負担者-->
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/payer_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_weight="1"
+                android:gravity="left"
+                android:text="@string/payer_name"
+                android:textColor="@color/colorBlack"
+                android:textSize="20sp" />
+
+            <!--負担者スピナー-->
+            <androidx.appcompat.widget.AppCompatSpinner
+                android:id="@+id/payerSpinner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:prompt="@string/payer_spinner"
+                android:spinnerMode="dialog"
+                android:textColor="@color/colorBlack" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:layout_gravity="center"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="30dp"
+            android:background="@color/border" />
 
     </LinearLayout>
 
     <!--入力完了ボタン-->
-    <androidx.appcompat.widget.AppCompatButton
+    <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/inputComp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="120dp"
-        android:gravity="center"
-        android:text="@string/inputComplete" />
+        android:layout_alignParentBottom="true"
+        android:layout_centerInParent="true"
+        android:layout_marginBottom="30dp"
+        android:src="@drawable/done_bt" />
 
-</LinearLayout>
+</RelativeLayout>

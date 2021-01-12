@@ -1,11 +1,10 @@
 <resources>
     <!--MoneyInsert-->
     <string name="app_name">ドラログ</string>
-    <string name="paragraph_name">項目</string>
+    <string name="paragraph_name">費用項目</string>
     <string name="cost_name">金額</string>
     <string name="yen">円</string>
     <string name="payer_name">負担者</string>
-    <string name="inputComplete">入力完了</string>
     <string name="cost">例：2000</string>
     <string name="payer_spinner">選択してください</string>
     <!--folderDetail-->
