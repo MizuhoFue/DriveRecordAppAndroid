@@ -38,11 +38,20 @@
 
         <activity
             android:name=".MapsActivity"
-            android:label="@string/title_activity_maps" />
-        <activity android:name=".DaoActivity" />
-        <activity android:name=".FolderDetailActivity" />
-        <activity android:name=".FolderListActivity" />
-        <activity android:name=".SplashActivity">
+            android:label="@string/title_activity_maps"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".DaoActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".FolderDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".FolderListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".SplashActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -50,14 +59,19 @@
         </activity>
         <activity
             android:name=".FolderCreateActivity"
-            android:label="@string/main" />
-        <activity android:name=".SupportActivity" />
+            android:label="@string/main"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".SupportActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".PolicyActivity"
-            android:label="@string/main" />
+            android:label="@string/main"
+            android:screenOrientation="portrait" />
         <activity
-            android:theme="@style/Theme.AppCompat.Light.DarkActionBar"
-            android:name="com.google.android.gms.oss.licenses.OssLicensesMenuActivity" />
+            android:name="com.google.android.gms.oss.licenses.OssLicensesMenuActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.DarkActionBar" />
     </application>
 
 </manifest>
