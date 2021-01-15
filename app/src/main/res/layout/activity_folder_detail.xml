@@ -1,7 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><!--フォルダ詳細レイアウト-->
-<!--領域をつめたときのことを考慮してRecyclerViewのmarginBottomなど調整-->
-<!--更新者：笛木瑞歩-->
-<!--更新日：2020年12月24日-->
+<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -17,257 +14,368 @@
         app:theme="@style/ThemeOverlay.AppCompat.ActionBar"
         app:titleTextColor="@color/colorPrimary">
 
-        <RelativeLayout
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/close_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
             android:layout_gravity="left"
-            android:layout_marginBottom="3dp">
+            android:layout_marginBottom="3dp"
+            app:backgroundTint="#0000"
+            app:fabSize="auto"
+            app:maxImageSize="20dp"
+            app:srcCompat="@drawable/ic_close_icon" />
 
-            <androidx.appcompat.widget.AppCompatImageButton
-                android:id="@+id/close_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                app:backgroundTint="#0000"
-                app:fabSize="auto"
-                app:maxImageSize="20dp"
-                app:srcCompat="@drawable/ic_close_icon" />
-
-        </RelativeLayout>
-
-        <RelativeLayout
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/toolbar_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center">
+            android:layout_gravity="center"
+            android:text="@string/app_name"
+            android:textColor="@color/colorAccent"
+            android:textSize="20dp" />
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/toolbar_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/app_name"
-                android:textColor="@color/colorAccent"
-                android:textSize="20dp" />
-
-        </RelativeLayout>
-
-        <RelativeLayout
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/setting"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="right"
-            android:layout_marginEnd="5dp">
-
-            <androidx.appcompat.widget.AppCompatImageButton
-                android:id="@+id/setting"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:backgroundTint="#0000"
-                app:fabSize="auto"
-                app:maxImageSize="20dp"
-                app:srcCompat="@drawable/ic_info_w_icon" />
-
-        </RelativeLayout>
+            android:layout_marginEnd="5dp"
+            app:backgroundTint="#0000"
+            app:fabSize="auto"
+            app:maxImageSize="20dp"
+            app:srcCompat="@drawable/ic_info_w_icon" />
 
     </androidx.appcompat.widget.Toolbar>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="50dp"
+        android:scaleType="fitEnd"
+        android:src="@drawable/road_bgimg" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="70dp"
+        android:layout_marginEnd="20dp"
+        android:background="@color/deep_blue"
+        android:orientation="horizontal"
+        android:paddingStart="15dp"
+        android:paddingTop="7dp"
+        android:paddingBottom="7dp">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/titleView"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="left"
+            android:layout_weight="1"
+            android:textColor="@color/colorAccent"
+            android:textSize="20sp"
+            tools:text="タイトル" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="5dp"
+            android:layout_gravity="right"
+            android:layout_weight="0.1"
+            android:src="@drawable/ic_write_icon" />
+
+    </LinearLayout>
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="60dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="110dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="150dp"
+        android:scrollbarStyle="insideOverlay"
         tools:context="com.example.driveandroid.FolderDetailActivity">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/colorAccent"
             android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginTop="40dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="20dp"
                 android:orientation="horizontal">
 
                 <!--日付-->
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/date_name"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginStart="50dp"
-                    android:layout_marginEnd="70dp"
-                    android:gravity="center"
-                    android:text="@string/date"
-                    android:textSize="24sp" />
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:text="@string/day"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="15dp" />
 
                 <!--日付表示 -->
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/dateView"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.1"
                     android:gravity="center"
-                    android:textSize="24sp"
+                    android:textSize="20dp"
                     tools:text="日付表示" />
 
             </LinearLayout>
 
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="1dp"
+                android:layout_gravity="center"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="20dp"
+                android:background="@color/border" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:orientation="horizontal">
-
-                <!--タイトル-->
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/title_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginStart="50dp"
-                    android:layout_marginEnd="20dp"
-                    android:gravity="center"
-                    android:text="@string/title"
-                    android:textSize="24sp" />
-
-                <!--タイトル表示-->
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/titleView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="20dp"
-                    android:textSize="24sp"
-                    tools:text="あいうえおかきくけ" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="30dp"
                 android:orientation="horizontal">
 
                 <!--人数-->
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/member_numName"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginStart="50dp"
-                    android:layout_marginEnd="70dp"
-                    android:gravity="center"
-                    android:text="@string/member_num"
-                    android:textSize="24sp" />
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:text="@string/members"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="15dp" />
 
                 <!--人数表示-->
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/member_num_view"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginEnd="30dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.3"
                     android:gravity="center"
-                    android:textSize="28sp"
+                    android:textSize="20dp"
                     tools:text="人数表示" />
 
                 <!--人-->
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/member_paraName"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.1"
                     android:gravity="center"
                     android:text="@string/member_numPara"
-                    android:textSize="24sp" />
+                    android:textSize="15dp" />
 
             </LinearLayout>
 
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="1dp"
+                android:layout_gravity="center"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="20dp"
+                android:background="@color/border" />
+
+            <!--メンバー名-->
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/member_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="20dp"
+                android:text="@string/member_name"
+                android:textColor="@color/colorBlack"
+                android:textSize="15dp" />
+
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginTop="30dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="20dp"
                 android:orientation="horizontal">
 
-                <!--メンバー名-->
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/member_name"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_marginStart="45dp"
-                    android:gravity="center"
-                    android:text="@string/member_name"
-                    android:textSize="24sp" />
+                    android:text="@string/point"
+                    android:textSize="20sp" />
 
                 <!--メンバー名表示-->
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/member1_view"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_marginStart="50dp"
-                    android:layout_marginEnd="20dp"
-                    android:gravity="center"
                     android:textSize="20sp"
-                    tools:text="神田太郎さん" />
+                    tools:text="メンバー１" />
 
             </LinearLayout>
 
-            <!--メンバー2-->
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/member2_view"
-                android:layout_width="wrap_content"
-                android:layout_height="50dp"
-                android:layout_marginStart="215dp"
+            <LinearLayout
+                android:id="@+id/point2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
                 android:layout_marginTop="20dp"
-                android:gravity="center"
-                android:textSize="20sp"
-                tools:text="シム太郎さん" />
+                android:layout_marginEnd="20dp"
+                android:orientation="horizontal">
 
-            <!--メンバー3-->
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/member3_view"
-                android:layout_width="wrap_content"
-                android:layout_height="50dp"
-                android:layout_marginStart="215dp"
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="@string/point"
+                    android:textSize="20sp" />
+
+                <!--メンバー2-->
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/member2_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:textSize="20sp"
+                    tools:text="メンバー２" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/point3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
                 android:layout_marginTop="20dp"
-                android:gravity="center"
-                android:textSize="20sp"
-                tools:text="秋葉三郎さん" />
+                android:layout_marginEnd="20dp"
+                android:orientation="horizontal">
 
-            <!--メンバー4-->
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/member4_view"
-                android:layout_width="wrap_content"
-                android:layout_height="50dp"
-                android:layout_marginStart="215dp"
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="@string/point"
+                    android:textSize="20sp" />
+
+                <!--メンバー3-->
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/member3_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:textSize="20sp"
+                    tools:text="メンバー３" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/point4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
                 android:layout_marginTop="20dp"
-                android:gravity="center"
-                android:textSize="20sp"
-                tools:text="新橋花子さん" />
+                android:layout_marginEnd="20dp"
+                android:orientation="horizontal">
 
-            <!--メンバー5-->
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/member5_view"
-                android:layout_width="wrap_content"
-                android:layout_height="50dp"
-                android:layout_marginStart="215dp"
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="@string/point"
+                    android:textSize="20sp" />
+
+                <!--メンバー4-->
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/member4_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:textSize="20sp"
+                    tools:text="メンバー４" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/point5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
                 android:layout_marginTop="20dp"
-                android:gravity="center"
-                android:textSize="20sp"
-                tools:text="渋谷さくらさん" />
+                android:layout_marginEnd="20dp"
+                android:orientation="horizontal">
 
-            <!--メンバー6-->
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/member6_view"
-                android:layout_width="wrap_content"
-                android:layout_height="50dp"
-                android:layout_marginStart="215dp"
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="@string/point"
+                    android:textSize="20sp" />
+
+                <!--メンバー5-->
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/member5_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:textSize="20sp"
+                    tools:text="メンバー５" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/point6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
                 android:layout_marginTop="20dp"
-                android:gravity="center"
-                android:textSize="20sp"
-                tools:text="千代田葉子さん" />
+                android:layout_marginEnd="20dp"
+                android:orientation="horizontal">
 
-            <!--使用項目-->
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="@string/point"
+                    android:textSize="20sp" />
+
+                <!--メンバー6-->
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/member6_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:textSize="20sp"
+                    tools:text="メンバー６" />
+
+            </LinearLayout>
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/car_line"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:src="@drawable/ic_car_line" />
+
+            <!--金額項目-->
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/usedParagraph"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="50dp"
-                android:layout_marginTop="25dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="20dp"
                 android:gravity="center"
                 android:text="@string/paragraph_used"
-                android:textSize="24sp" />
+                android:textSize="15sp" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/folderDetailView"
@@ -278,106 +386,122 @@
                 android:scrollbars="vertical" />
 
             <LinearLayout
+                android:id="@+id/total"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginTop="10dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="60dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="60dp"
                 android:orientation="horizontal">
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/total_name"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:layout_gravity="left"
                     android:layout_weight="1"
-                    android:gravity="center"
                     android:text="@string/total_name"
-                    android:textSize="24sp" />
+                    android:textColor="@color/colorBlack"
+                    android:textSize="15dp" />
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/total_value"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:textSize="24sp" />
+                    android:layout_gravity="end"
+                    android:layout_marginEnd="5dp"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="20dp"
+                    tools:text="1111" />
+
                 <!--円-->
                 <androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center"
+                    android:layout_gravity="end"
                     android:text="@string/yen"
-                    android:textSize="24sp" />
+                    android:textColor="@color/colorBlack"
+                    android:textSize="20dp" />
 
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/per"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginTop="10dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="60dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="60dp"
                 android:orientation="horizontal">
 
                 <!--一人当たり-->
                 <androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:layout_gravity="left"
                     android:layout_weight="1"
-                    android:gravity="center"
                     android:text="@string/perParson"
-                    android:textSize="24sp" />
+                    android:textColor="@color/colorBlack"
+                    android:textSize="15dp" />
 
                 <!--一人当たり金額表示-->
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/total_per_value"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:textSize="24sp" />
+                    android:layout_gravity="end"
+                    android:layout_marginEnd="5dp"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="20dp"
+                    tools:text="111" />
 
                 <!--円-->
                 <androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center"
+                    android:layout_gravity="end"
                     android:text="@string/yen"
-                    android:textSize="24sp" />
+                    android:textColor="@color/colorBlack"
+                    android:textSize="20dp" />
 
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginTop="30dp"
-                android:orientation="horizontal">
-
-                <!--ホームボタン-->
-                <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/home"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/home" />
-
-                <!--共有ボタン-->
-                <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/share"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/share" />
-
-                <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/moneyInsert"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/money_insert" />
-
-            </LinearLayout>
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/moneyInsert"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:src="@drawable/money_bt" />
 
         </LinearLayout>
 
     </ScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="bottom"
+        android:orientation="vertical">
+
+        <!--共有ボタン-->
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/home"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="7dp"
+            android:src="@drawable/share_bt" />
+
+        <!--作成完了ボタン-->
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/share"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="20dp"
+            android:src="@drawable/close_bt" />
+
+    </LinearLayout>
 
 </RelativeLayout>
