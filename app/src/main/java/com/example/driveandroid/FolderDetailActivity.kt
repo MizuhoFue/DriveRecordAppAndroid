@@ -23,6 +23,8 @@ import kotlinx.android.synthetic.main.activity_folder_create.*
 import kotlinx.android.synthetic.main.activity_folder_detail.*
 import kotlinx.android.synthetic.main.activity_folder_detail.close_button
 import kotlinx.android.synthetic.main.activity_folder_detail.setting
+import kotlinx.android.synthetic.main.activity_money_insert.*
+import kotlinx.android.synthetic.main.item_to_use.*
 
 class FolderDetailActivity : AppCompatActivity() {
 
@@ -94,35 +96,36 @@ class FolderDetailActivity : AppCompatActivity() {
             memberNum++
             member2_view.text = member2
         } else {
-            member2_view.visibility = View.GONE
+            //・と空のメンバーを非表示、領域詰め
+            point2.visibility = View.GONE
         }
 
         if (!member3.isNullOrBlank()) {
             memberNum++
             member3_view.text = member3
         } else {
-            member3_view.visibility = View.GONE
+            point3.visibility = View.GONE
         }
 
         if (!member4.isNullOrBlank()) {
             memberNum++
             member4_view.text = member4
         } else {
-            member4_view.visibility = View.GONE
+            point4.visibility = View.GONE
         }
 
         if (!member5.isNullOrBlank()) {
             memberNum++
             member5_view.text = member5
         } else {
-            member5_view.visibility = View.GONE
+            point5.visibility = View.GONE
         }
 
         if (!member6.isNullOrBlank()) {
             memberNum++
             member6_view.text = member6
         } else {
-            member6_view.visibility = View.GONE
+            point6.visibility = View.GONE
         }
 
         //メンバー数表示
@@ -145,8 +148,6 @@ class FolderDetailActivity : AppCompatActivity() {
             //金額表示用
             var totalCost = 0
             var parParsonTotalCost = 0
-            total_value.text = totalCost.toString()
-            total_per_value.text = parParsonTotalCost.toString()
 
             adapter.getCostValueListener(object : FolderDetailAdapter.CostValueListener {
                 override fun costValue(view: View, paraCost: Int) {
@@ -161,7 +162,7 @@ class FolderDetailActivity : AppCompatActivity() {
                     //合計金額の一人当たりを表示
                     parParsonTotalCost = totalCost / memberNum
                     Log.d("一人当たり", "$parParsonTotalCost")
-                    total_per_value.text = parParsonTotalCost.toString()//合計金額の一人当たり表示できた
+                    total_per_value.text = parParsonTotalCost.toString()
                 }
             })
 
@@ -170,7 +171,10 @@ class FolderDetailActivity : AppCompatActivity() {
                 override fun onItemClickListener(view: View, deleteNum: Int, position: Int) {
                     Log.d("deleteNumとして受け取り", "$deleteNum")
                     //ダイアログを出し、OKだったらdeleteする
-                    val dialog = AlertDialog.Builder(this@FolderDetailActivity,R.style.MyAlertColor) //thisだとコンパイルエラー
+                    val dialog = AlertDialog.Builder(
+                        this@FolderDetailActivity,
+                        R.style.MyAlertColor
+                    ) //thisだとコンパイルエラー
                         .setMessage("選択した内容を削除してもいいですか?")
                         .setPositiveButton(R.string.no) { _, _ ->
                             Log.d("いいえを選択", "いいえ")
@@ -216,7 +220,7 @@ class FolderDetailActivity : AppCompatActivity() {
         //ナビゲーションアイテムのリスナー
         close_button.setOnClickListener {
             // BuilderからAlertDialogを作成 はい、いいえの配置を変えるため処理も入れ替え
-            val dialog = AlertDialog.Builder(this,R.style.MyAlertColor)
+            val dialog = AlertDialog.Builder(this, R.style.MyAlertColor)
                 .setTitle(R.string.finish_message) // タイトル
                 .setPositiveButton(R.string.no) { _, _ -> // no
                     Intent(this@FolderDetailActivity, this::class.java)
@@ -358,6 +362,13 @@ class FolderDetailActivity : AppCompatActivity() {
                     folderDetail.add(paragraphInfo) //箱に型を入れる
                     cursor.moveToNext()
                 }
+            } else {
+                //paragraphinfoの中身が空の場合、金額項目の画面を表示しない
+                car_line.visibility = View.GONE
+                usedParagraph.visibility = View.GONE
+                folderDetailView.visibility = View.GONE
+                total.visibility = View.GONE
+                per.visibility = View.GONE
             }
             cursor.close()
             return folderDetail
