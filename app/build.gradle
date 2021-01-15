@@ -5,6 +5,7 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 //ライセンス表示用
 apply plugin: 'com.google.android.gms.oss-licenses-plugin'
+apply plugin: 'deploygate'
 
 android {
     compileSdkVersion 30
