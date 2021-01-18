@@ -80,8 +80,8 @@
         <androidx.appcompat.widget.AppCompatImageView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_marginEnd="5dp"
             android:layout_gravity="right"
+            android:layout_marginEnd="5dp"
             android:layout_weight="0.1"
             android:src="@drawable/ic_write_icon" />
 
@@ -372,7 +372,7 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="20dp"
-                android:layout_marginBottom="20dp"
+                android:layout_marginBottom="5dp"
                 android:gravity="center"
                 android:text="@string/paragraph_used"
                 android:textSize="15sp" />
@@ -381,8 +381,8 @@
                 android:id="@+id/folderDetailView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
-                android:layout_marginBottom="40dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
                 android:scrollbars="vertical" />
 
             <LinearLayout
@@ -439,7 +439,7 @@
                     android:layout_height="match_parent"
                     android:layout_gravity="left"
                     android:layout_weight="1"
-                    android:text="@string/perParson"
+                    android:text="@string/per_parson"
                     android:textColor="@color/colorBlack"
                     android:textSize="15dp" />
 
@@ -486,7 +486,7 @@
 
         <!--共有ボタン-->
         <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/home"
+            android:id="@+id/share"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -495,7 +495,7 @@
 
         <!--作成完了ボタン-->
         <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/share"
+            android:id="@+id/home"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
