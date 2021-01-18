@@ -90,7 +90,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="35dp"
             android:gravity="center"
-            android:text="@string/perParson"
+            android:text="@string/per_parson2"
             android:textSize="15sp" />
 
         <LinearLayout

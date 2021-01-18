@@ -439,7 +439,7 @@
                     android:layout_height="match_parent"
                     android:layout_gravity="left"
                     android:layout_weight="1"
-                    android:text="@string/perParson"
+                    android:text="@string/per_parson"
                     android:textColor="@color/colorBlack"
                     android:textSize="15dp" />
 
