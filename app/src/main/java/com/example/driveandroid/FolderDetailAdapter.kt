@@ -31,7 +31,7 @@ class FolderDetailAdapter(
         val paraCostView = view.para_cost_view
         val perPerson_costView = view.per_parson_cost_view
         val payerView = view.payer_view
-        val trashBox = view.trash_box
+        //val trashBox = view.trash_box　//今回はなし
     }
 
     // getItemCount onCreateViewHolder onBindViewHolderを実装
@@ -62,15 +62,15 @@ class FolderDetailAdapter(
             payerView.text = folderDetail[position].payers
             //ひとまずログをだしておく
             Log.d("folderIdの中身をみておく", "${folderDetail[position].folderId}")
-            //ゴミ箱クリック時
-            trashBox.setOnClickListener(object : View.OnClickListener {
-                override fun onClick(v: View) {
-                    val deleteId = folderDetail[position].folderId //positionのfolderIdを取得
-                    val deleteNum = folderDetail[position].paraNum //削除する項目
-                    Log.d("deleteするidの値", "$deleteId")
-                    listener.onItemClickListener(view, deleteNum, position)//FolderDetailのdeleteに送る
-                }
-            })
+            //ゴミ箱クリック時　今回は項目ごとの削除がないのでコメントアウト
+//            trashBox.setOnClickListener(object : View.OnClickListener {
+//                override fun onClick(v: View) {
+//                    val deleteId = folderDetail[position].folderId //positionのfolderIdを取得
+//                    val deleteNum = folderDetail[position].paraNum //削除する項目
+//                    Log.d("deleteするidの値", "$deleteId")
+//                    listener.onItemClickListener(view, deleteNum, position)//FolderDetailのdeleteに送る
+//                }
+//            })
 
             itemView.setOnClickListener(object : View.OnClickListener {
                 //クリック時の処理
