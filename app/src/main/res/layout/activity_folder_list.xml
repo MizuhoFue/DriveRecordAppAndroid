@@ -18,6 +18,21 @@
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:layout_marginBottom="5dp">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/addFolder"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:src="@drawable/add_folder" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_gravity="center">
 
             <androidx.appcompat.widget.AppCompatTextView
@@ -43,7 +58,7 @@
                 app:backgroundTint="#0000"
                 app:fabSize="auto"
                 app:maxImageSize="20dp"
-                app:srcCompat="@drawable/ic_info_w_icon"/>
+                app:srcCompat="@drawable/ic_info_w_icon" />
 
         </RelativeLayout>
 
@@ -88,13 +103,6 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true">
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/addFolder"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="20dp"
-            android:layout_marginBottom="100dp"
-            android:src="@drawable/plus_bt" />
 
     </RelativeLayout>
 
