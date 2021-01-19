@@ -236,6 +236,7 @@
     <string name="policy_end">
         以上
     </string>
+    <string name="url_dialog">外部サイトにリンクしますか？</string>
 
     <string name="title_activity_maps">Map</string><!--CameraActivity-->
     <string name="launch_camera">カメラ</string>
