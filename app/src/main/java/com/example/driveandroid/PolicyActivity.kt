@@ -53,9 +53,9 @@ class PolicyActivity : AppCompatActivity() {
             .setMessage(R.string.url_dialog)
             .setPositiveButton(R.string.yes) { _, _ ->
                 val urlStr = Uri.parse(urlData.toString())
-                val Intent = Intent(Intent.ACTION_VIEW, (Uri.parse(urlStr.toString())))
-                Intent.putExtra("alert", true)
-                startActivity(Intent)
+                val intent = Intent(Intent.ACTION_VIEW, (Uri.parse(urlStr.toString())))
+                intent.putExtra("alert", true)
+                startActivity(intent)
             }
             .setNegativeButton(R.string.no, null)
             .show()
