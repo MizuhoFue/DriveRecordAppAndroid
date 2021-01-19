@@ -15,20 +15,17 @@
         app:theme="@style/ThemeOverlay.AppCompat.ActionBar"
         app:titleTextColor="@color/colorPrimary">
 
-        <RelativeLayout
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/addFolder"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="left"
-            android:layout_marginBottom="5dp">
-
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/addFolder"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@null"
-                android:src="@drawable/add_folder" />
-
-        </RelativeLayout>
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="5dp"
+            app:backgroundTint="#0000"
+            app:fabSize="auto"
+            app:maxImageSize="20dp"
+            android:src="@drawable/add_folder" />
 
         <RelativeLayout
             android:layout_width="wrap_content"
