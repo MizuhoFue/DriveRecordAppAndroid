@@ -115,16 +115,16 @@
                 android:gravity="left"
                 android:text="@string/paragraph_name"
                 android:textColor="@color/colorBlack"
-                android:textSize="20sp" />
+                android:textSize="13sp" />
 
             <!--スピナー-->
             <androidx.appcompat.widget.AppCompatSpinner
                 android:id="@+id/paragraphSpinner"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="20dp"
+                android:layout_weight="0.1"
                 android:entries="@array/paragraphSpinner"
-                android:gravity="end"
+                android:gravity="center"
                 android:prompt="@string/payer_spinner"
                 android:spinnerMode="dialog"
                 android:textColor="@color/colorBlack" />
@@ -156,7 +156,7 @@
                 android:gravity="left"
                 android:text="@string/cost_name"
                 android:textColor="@color/colorBlack"
-                android:textSize="20sp" />
+                android:textSize="13sp" />
 
             <!--金額入力部分-->
             <androidx.appcompat.widget.AppCompatEditText
@@ -220,7 +220,7 @@
                 android:gravity="left"
                 android:text="@string/payer_name"
                 android:textColor="@color/colorBlack"
-                android:textSize="20sp" />
+                android:textSize="13sp" />
 
             <!--負担者スピナー-->
             <androidx.appcompat.widget.AppCompatSpinner
@@ -228,7 +228,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="20dp"
-                android:layout_weight="1"
+                android:layout_weight="0.1"
                 android:gravity="center"
                 android:prompt="@string/payer_spinner"
                 android:spinnerMode="dialog"
