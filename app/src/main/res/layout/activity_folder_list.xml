@@ -19,13 +19,13 @@
             android:id="@+id/addFolder"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="left"
             android:layout_alignParentBottom="true"
+            android:layout_gravity="left"
             android:layout_marginBottom="5dp"
+            android:src="@drawable/add_folder"
             app:backgroundTint="#0000"
             app:fabSize="auto"
-            app:maxImageSize="20dp"
-            android:src="@drawable/add_folder" />
+            app:maxImageSize="20dp" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/toolbar_title"
@@ -70,10 +70,11 @@
         android:id="@+id/nothing_message"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="80dp"
+        android:layout_centerInParent="true"
+        android:gravity="center"
         android:text="@string/nothing_message"
-        android:textColor="@color/colorAnnotation" />
+        android:textColor="@color/colorAnnotation"
+        android:textSize="20dp" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/folderListView"
