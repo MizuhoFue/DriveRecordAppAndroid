@@ -5,13 +5,11 @@
  * */
 package com.example.driveandroid
 
-import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.driveandroid.Constants.Companion.EXTRA_FOLDERID
 import kotlinx.android.synthetic.main.item_to_use.view.*
 
 //金額配列とタイトル配列を表示+Delete処理のゴミ箱imageView
@@ -31,7 +29,7 @@ class FolderDetailAdapter(
         val paraCostView = view.para_cost_view
         val perPerson_costView = view.per_parson_cost_view
         val payerView = view.payer_view
-        //val trashBox = view.trash_box　//今回はなし
+        val trash_box = view.trash_box
     }
 
     // getItemCount onCreateViewHolder onBindViewHolderを実装
@@ -62,25 +60,13 @@ class FolderDetailAdapter(
             payerView.text = folderDetail[position].payers
             //ひとまずログをだしておく
             Log.d("folderIdの中身をみておく", "${folderDetail[position].folderId}")
-            //ゴミ箱クリック時　今回は項目ごとの削除がないのでコメントアウト
-//            trashBox.setOnClickListener(object : View.OnClickListener {
-//                override fun onClick(v: View) {
-//                    val deleteId = folderDetail[position].folderId //positionのfolderIdを取得
-//                    val deleteNum = folderDetail[position].paraNum //削除する項目
-//                    Log.d("deleteするidの値", "$deleteId")
-//                    listener.onItemClickListener(view, deleteNum, position)//FolderDetailのdeleteに送る
-//                }
-//            })
-
-            itemView.setOnClickListener(object : View.OnClickListener {
-                //クリック時の処理
+            //ゴミ箱クリック時　
+            trash_box.setOnClickListener(object : View.OnClickListener {
                 override fun onClick(v: View) {
-                    val detailId = folderDetail[position].folderId //positionのfolderIdを取得
-                    Log.d("detailに送るidの値", "$detailId")
-                    //遷移先
-                    val intent = Intent(v.context, FolderDetailActivity::class.java)
-                    intent.putExtra(EXTRA_FOLDERID, detailId) //FolderDetailのselectに送る
-                    v.context.startActivity(intent)
+                    val deleteId = folderDetail[position].folderId //positionのfolderIdを取得
+                    val deleteNum = folderDetail[position].paraNum //削除する項目
+                    Log.d("deleteするidの値", "$deleteId")
+                    listener.onItemClickListener(view, deleteNum, position)//FolderDetailのdeleteに送る
                 }
             })
         }
