@@ -160,6 +160,8 @@
                         android:ems="10"
                         android:hint="@string/put_title"
                         android:inputType="text"
+                        android:cursorVisible="true"
+                        android:textCursorDrawable="@null"
                         android:nextFocusDown="@id/putMember1"
                         android:textSize="15sp" />
 
@@ -211,6 +213,8 @@
                         android:ems="10"
                         android:hint="@string/put_member1"
                         android:inputType="textPersonName"
+                        android:cursorVisible="true"
+                        android:textCursorDrawable="@null"
                         android:nextFocusDown="@id/putMember2"
                         android:textSize="15sp" />
 
@@ -242,6 +246,8 @@
                         android:ems="10"
                         android:hint="@string/put_member2"
                         android:inputType="textPersonName"
+                        android:cursorVisible="true"
+                        android:textCursorDrawable="@null"
                         android:nextFocusDown="@id/putMember3"
                         android:textSize="15sp"
                         android:visibility="visible" />
@@ -274,6 +280,8 @@
                         android:ems="10"
                         android:hint="@string/put_member3"
                         android:inputType="textPersonName"
+                        android:cursorVisible="true"
+                        android:textCursorDrawable="@null"
                         android:nextFocusDown="@id/putMember4"
                         android:textSize="15sp"
                         android:visibility="visible" />
@@ -306,6 +314,8 @@
                         android:ems="10"
                         android:hint="@string/put_member4"
                         android:inputType="textPersonName"
+                        android:cursorVisible="true"
+                        android:textCursorDrawable="@null"
                         android:nextFocusDown="@id/putMember5"
                         android:text=""
                         android:textSize="15sp"
@@ -339,6 +349,8 @@
                         android:ems="10"
                         android:hint="@string/put_member5"
                         android:inputType="textPersonName"
+                        android:cursorVisible="true"
+                        android:textCursorDrawable="@null"
                         android:nextFocusDown="@id/putMember6"
                         android:textSize="15sp"
                         android:visibility="visible" />
@@ -371,6 +383,8 @@
                         android:ems="10"
                         android:hint="@string/put_member6"
                         android:inputType="textPersonName"
+                        android:cursorVisible="true"
+                        android:textCursorDrawable="@null"
                         android:text=""
                         android:textSize="15sp"
                         android:visibility="visible" />
@@ -402,7 +416,7 @@
                     android:layout_weight="1"
                     android:text="@string/members"
                     android:textSize="15sp" />
-                <!--id名変えました-->
+
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/watchMember"
                     android:layout_width="wrap_content"
