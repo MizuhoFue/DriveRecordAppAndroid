@@ -167,6 +167,8 @@
                 android:gravity="center"
                 android:hint="@string/cost"
                 android:inputType="number"
+                android:cursorVisible="true"
+                android:textCursorDrawable="@null"
                 android:textColor="@color/colorBlack"
                 android:textSize="20sp" />
 
