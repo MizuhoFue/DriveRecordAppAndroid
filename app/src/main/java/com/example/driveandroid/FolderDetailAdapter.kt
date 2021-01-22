@@ -52,8 +52,9 @@ class FolderDetailAdapter(
             paraCostView.text = folderDetail[position].paraCosts
             //項目金額計算、表示
             val paraCost = folderDetail[position].paraCosts.toInt()//項目金額を計算用にInt型にする
+            paraCostView.text = "%,d".format(paraCost) //3桁区切り
             val perParsonCost = paraCost / memberNum//項目一人当たりを出すためにmemberNumで割る
-            perPerson_costView.text = perParsonCost.toString()
+            perPerson_costView.text = "%,d".format(perParsonCost) //3桁区切り
             Log.d("選択したところのparaCosts", "$paraCost")
             Log.d("人数で割った数字", "$perParsonCost")
             costListener.costValue(view, paraCost) //paraCostをDetailに送る
