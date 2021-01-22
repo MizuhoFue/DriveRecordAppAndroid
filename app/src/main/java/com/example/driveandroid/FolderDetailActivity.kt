@@ -158,11 +158,11 @@ class FolderDetailActivity : AppCompatActivity() {
                     totalCost = paraCostArray.sum()
                     Log.d("合計金額", "$totalCost") //確認
                     //合計金額表示
-                    total_value.text = totalCost.toString()
+                    total_value.text = "%,d".format(totalCost) //3桁ずつカンマ区切りにする
                     //合計金額の一人当たりを表示
                     parParsonTotalCost = totalCost / memberNum
                     Log.d("一人当たり", "$parParsonTotalCost")
-                    total_per_value.text = parParsonTotalCost.toString()
+                    total_per_value.text = "%,d".format(parParsonTotalCost) //カンマ区切り
                 }
             })
 
