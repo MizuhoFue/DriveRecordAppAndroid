@@ -111,6 +111,7 @@
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/datePick"
+                    android:datePickerMode="spinner"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
