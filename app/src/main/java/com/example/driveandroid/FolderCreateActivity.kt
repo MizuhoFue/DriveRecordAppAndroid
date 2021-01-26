@@ -68,8 +68,7 @@ class FolderCreateActivity : AppCompatActivity() {
         datePick.setOnClickListener {
             //現在の年月日を求めて初期値とする
             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-                val onlyDate =
-                    LocalDate.now()
+                val onlyDate = LocalDate.now()
                 Log.d("今の年月日", "$onlyDate")
                 val datePickerDialog = DatePickerDialog(
                     this, R.style.MyAlertColor,
