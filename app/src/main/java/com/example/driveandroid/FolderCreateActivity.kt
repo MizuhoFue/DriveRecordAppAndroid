@@ -7,6 +7,7 @@
 package com.example.driveandroid
 
 import android.app.DatePickerDialog
+import android.app.DatePickerDialog.OnDateSetListener
 import android.content.ContentValues
 import android.content.Intent
 import android.os.Bundle
@@ -23,6 +24,7 @@ import com.example.driveandroid.Constants.Companion.EXTRA_FOLDERID
 import com.example.driveandroid.Constants.Companion.FOLDER_INFO
 import kotlinx.android.synthetic.main.activity_folder_create.*
 import java.time.LocalDate
+import java.util.*
 
 class FolderCreateActivity : AppCompatActivity() {
     //Constantsの値を使っているのでDB用変数削除
@@ -65,26 +67,59 @@ class FolderCreateActivity : AppCompatActivity() {
         //日付入力DatePicker
         datePick.setOnClickListener {
             //現在の年月日を求めて初期値とする
-            val onlyDate = LocalDate.now()
-            Log.d("今の年月日", "$onlyDate")
-            val datePickerDialog = DatePickerDialog(
-                this,R.style.MyAlertColor,
-                DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
-                    datePick.text = "$year/${month + 1}/$dayOfMonth" //ボタンのところに表示
-                    dateYear = year
-                    dateMonth = month + 1
-                    dateDayOfMonth = dayOfMonth
-                    Log.d("選択した年月日", "$dateYear,$dateMonth,$dateDayOfMonth")
-                }, onlyDate.year, onlyDate.monthValue - 1, onlyDate.dayOfMonth //初期値セット
-            )
-            datePickerDialog.show()
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                val onlyDate = LocalDate.now()
+                Log.d("今の年月日", "$onlyDate")
+                val datePickerDialog = DatePickerDialog(
+                    this, R.style.MyAlertColor,
+                    { view, year, month, dayOfMonth ->
+                        datePick.text = "$year/${month + 1}/$dayOfMonth" //ボタンのところに表示
+                        dateYear = year
+                        dateMonth = month + 1
+                        dateDayOfMonth = dayOfMonth
+                        Log.d("選択した年月日", "$dateYear,$dateMonth,$dateDayOfMonth")
+                    }, onlyDate.year, onlyDate.monthValue - 1, onlyDate.dayOfMonth //初期値セット
+                )
+                datePickerDialog.show()
+            } else { //上記で対応していない端末は、カレンダーから取得
+                val datePickerDialog: DatePickerDialog
+                //日付設定時のリスナ登録
+                OnDateSetListener { datePicker, year, monthOfYear, dayOfMonth -> //ログ出力
+                    Log.d(
+                        "DatePicker",
+                        "year:$year monthOfYear:$monthOfYear dayOfMonth:$dayOfMonth"
+                    )
+                }
+                //日付情報の初期設定
+                val calendar = Calendar.getInstance()
+                val year = calendar[Calendar.YEAR]
+                val monthOfYear = calendar[Calendar.MONTH]
+                val dayOfMonth = calendar[Calendar.DAY_OF_MONTH]
+                //日付設定ダイアログの作成
+                datePickerDialog =
+                    DatePickerDialog(
+                        this,
+                        R.style.MyAlertColor,
+                        { DateSetListener,
+                          year,
+                          monthOfYear,
+                          dayOfMonth ->
+                            datePick.text = "$year/${monthOfYear + 1}/$dayOfMonth" //ボタンのところに表示
+                            dateYear = year
+                            dateMonth = monthOfYear + 1
+                            dateDayOfMonth = dayOfMonth
+                        }, year, monthOfYear, dayOfMonth //初期値セット
+                    )
+                //日付設定ダイアログの表示
+                datePickerDialog.show()
+            }
         }
 
         //ナビゲーションアイテムのリスナー
         close_button.setOnClickListener {
 
             // BuilderからAlertDialogを作成 はい、いいえの配置を変えるため処理も入れ替え
-            val dialog = AlertDialog.Builder(this,R.style.MyAlertColor)
+            val dialog = AlertDialog.Builder(this, R.style.MyAlertColor)
                 .setTitle(R.string.finish_message) // タイトル
                 .setPositiveButton(R.string.no) { _, _ -> // no
                     Intent(this@FolderCreateActivity, this::class.java)
@@ -220,7 +255,7 @@ class FolderCreateActivity : AppCompatActivity() {
 
             //エラー確認
             if (errMsg != "") {
-                val dialog = AlertDialog.Builder(this,R.style.MyAlertColor)
+                val dialog = AlertDialog.Builder(this, R.style.MyAlertColor)
                     .setMessage(errMsg)
                     .setPositiveButton("OK") { _, _ ->
                         //ignore
@@ -253,7 +288,7 @@ class FolderCreateActivity : AppCompatActivity() {
 
             //入力チェック終わり エラー確認
             if (errMsg != "") {
-                val dialog = AlertDialog.Builder(this,R.style.MyAlertColor)
+                val dialog = AlertDialog.Builder(this, R.style.MyAlertColor)
                     .setMessage(errMsg)
                     .setPositiveButton("OK") { _, _ ->
                         //ignore
@@ -321,7 +356,7 @@ class FolderCreateActivity : AppCompatActivity() {
      * */
     private fun textCheck(editText: EditText): Boolean {
         return if (editText.text.length > 10) {
-            val dialog = AlertDialog.Builder(this@FolderCreateActivity,R.style.MyAlertColor)
+            val dialog = AlertDialog.Builder(this@FolderCreateActivity, R.style.MyAlertColor)
                 .setMessage("10文字以内で入力してください。")
                 .setPositiveButton("OK") { _, _ ->
                     //OK押したら中身削除
