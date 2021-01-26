@@ -263,15 +263,18 @@ class FolderDetailActivity : AppCompatActivity() {
                 }
                 //使用項目の配列
                 itemToUseList?.forEach {
+                    val totalParaCosts = "%,d".format(it.paraCosts.toInt())
                     //使用項目別の一人当たりの金額
-                    val parParsonCost = it.paraCosts.toInt() / memberNum
+                    val parParsonCost = "%,d".format(it.paraCosts.toInt() / memberNum)
                     append("使用項目 ${it.paraNames}\n")
-                    append("金額 ${it.paraCosts} 円 \n")
+                    append("金額 $totalParaCosts 円 \n")
                     append("一人当たり $parParsonCost 円\n")
                     append("負担者 ${it.payers} \n \n")
                 }
-                append("合計金額 ${paraCostArray.sum()} 円\n")
-                append("一人当たり ${paraCostArray.sum() / memberNum} 円")
+                val totalArray = "%,d".format(paraCostArray.sum())
+                val totalParArray = "%,d".format(paraCostArray.sum() / memberNum)
+                append("合計金額 $totalArray 円\n")
+                append("一人当たり $totalParArray 円")
             }
 
             //共有処理
