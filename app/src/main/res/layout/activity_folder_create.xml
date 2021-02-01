@@ -111,12 +111,13 @@
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/datePick"
-                    android:datePickerMode="spinner"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="@null"
-                    android:text="日付を選択する" />
+                    android:datePickerMode="spinner"
+                    android:text="日付を選択する"
+                    android:textSize="15dp" />
 
             </LinearLayout>
 
@@ -158,12 +159,12 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="end"
+                        android:cursorVisible="true"
                         android:ems="10"
                         android:hint="@string/put_title"
                         android:inputType="text"
-                        android:cursorVisible="true"
-                        android:textCursorDrawable="@null"
                         android:nextFocusDown="@id/putMember1"
+                        android:textCursorDrawable="@null"
                         android:textSize="15sp" />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -211,12 +212,12 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="end"
                         android:layout_marginBottom="5dp"
+                        android:cursorVisible="true"
                         android:ems="10"
                         android:hint="@string/put_member1"
                         android:inputType="textPersonName"
-                        android:cursorVisible="true"
-                        android:textCursorDrawable="@null"
                         android:nextFocusDown="@id/putMember2"
+                        android:textCursorDrawable="@null"
                         android:textSize="15sp" />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -244,12 +245,12 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="end"
                         android:layout_marginBottom="5dp"
+                        android:cursorVisible="true"
                         android:ems="10"
                         android:hint="@string/put_member2"
                         android:inputType="textPersonName"
-                        android:cursorVisible="true"
-                        android:textCursorDrawable="@null"
                         android:nextFocusDown="@id/putMember3"
+                        android:textCursorDrawable="@null"
                         android:textSize="15sp"
                         android:visibility="visible" />
 
@@ -278,12 +279,12 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="end"
                         android:layout_marginBottom="5dp"
+                        android:cursorVisible="true"
                         android:ems="10"
                         android:hint="@string/put_member3"
                         android:inputType="textPersonName"
-                        android:cursorVisible="true"
-                        android:textCursorDrawable="@null"
                         android:nextFocusDown="@id/putMember4"
+                        android:textCursorDrawable="@null"
                         android:textSize="15sp"
                         android:visibility="visible" />
 
@@ -312,13 +313,13 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="end"
                         android:layout_marginBottom="5dp"
+                        android:cursorVisible="true"
                         android:ems="10"
                         android:hint="@string/put_member4"
                         android:inputType="textPersonName"
-                        android:cursorVisible="true"
-                        android:textCursorDrawable="@null"
                         android:nextFocusDown="@id/putMember5"
                         android:text=""
+                        android:textCursorDrawable="@null"
                         android:textSize="15sp"
                         android:visibility="visible" />
 
@@ -347,12 +348,12 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="end"
                         android:layout_marginBottom="5dp"
+                        android:cursorVisible="true"
                         android:ems="10"
                         android:hint="@string/put_member5"
                         android:inputType="textPersonName"
-                        android:cursorVisible="true"
-                        android:textCursorDrawable="@null"
                         android:nextFocusDown="@id/putMember6"
+                        android:textCursorDrawable="@null"
                         android:textSize="15sp"
                         android:visibility="visible" />
 
@@ -381,12 +382,12 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="end"
                         android:layout_marginBottom="5dp"
+                        android:cursorVisible="true"
                         android:ems="10"
                         android:hint="@string/put_member6"
                         android:inputType="textPersonName"
-                        android:cursorVisible="true"
-                        android:textCursorDrawable="@null"
                         android:text=""
+                        android:textCursorDrawable="@null"
                         android:textSize="15sp"
                         android:visibility="visible" />
 
