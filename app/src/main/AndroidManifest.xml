@@ -19,7 +19,8 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        android:fitsSystemWindows="true">
         <activity android:name=".MoneyInsertActivity" />
         <!--カメラ保存用処理 supportとつくものは基本的に古いらしい-->
         <provider
@@ -60,7 +61,8 @@
         <activity
             android:name=".FolderCreateActivity"
             android:label="@string/main"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" /> <!-- レイアウトを崩さないようにする -->
         <activity
             android:name=".SupportActivity"
             android:screenOrientation="portrait" />
