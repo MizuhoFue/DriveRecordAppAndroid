@@ -274,6 +274,9 @@ class FolderDetailActivity : AppCompatActivity() {
                     append("一人当たり $parParsonCost 円\n")
                     append("負担者 ${it.payers} \n \n")
                 }
+                if (paraCostArray.sum() == 0) {
+                    append("使用項目\n未登録\n\n")
+                }
                 val totalArray = "%,d".format(paraCostArray.sum())
                 val totalParArray = "%,d".format(paraCostArray.sum() / memberNum)
                 append("合計金額 $totalArray 円\n")
