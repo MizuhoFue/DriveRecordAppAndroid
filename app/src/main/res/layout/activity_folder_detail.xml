@@ -87,20 +87,22 @@
 
     </LinearLayout>
 
-    <ScrollView
+    <!-- recyclerviewですべてのアイテムを表示し、スクロールできないようにする
+        (親ビュー(ScrollView)だけをスクロール) -->
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginStart="20dp"
         android:layout_marginTop="110dp"
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="150dp"
+        android:background="@drawable/border"
         android:scrollbarStyle="insideOverlay"
         tools:context="com.example.driveandroid.FolderDetailActivity">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorAccent"
             android:orientation="vertical">
 
             <LinearLayout
@@ -383,7 +385,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
-                android:scrollbars="vertical" />
+                android:overScrollMode="never" />
 
             <LinearLayout
                 android:id="@+id/total"
@@ -476,7 +478,7 @@
 
         </LinearLayout>
 
-    </ScrollView>
+    </androidx.core.widget.NestedScrollView>
 
     <LinearLayout
         android:layout_width="match_parent"

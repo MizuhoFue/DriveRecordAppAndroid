@@ -148,6 +148,8 @@ class FolderDetailActivity : AppCompatActivity() {
             //金額表示用
             var totalCost = 0
             var parParsonTotalCost = 0
+            total_value.text = totalCost.toString()
+            total_per_value.text = parParsonTotalCost.toString()
 
             adapter.getCostValueListener(object : FolderDetailAdapter.CostValueListener {
                 override fun costValue(view: View, paraCost: Int) {
@@ -261,6 +263,7 @@ class FolderDetailActivity : AppCompatActivity() {
                 if (!member6.isNullOrEmpty()) {
                     append("$member6 \n \n")
                 }
+                append("\n")
                 //使用項目の配列
                 itemToUseList?.forEach {
                     val totalParaCosts = "%,d".format(it.paraCosts.toInt())
@@ -270,6 +273,9 @@ class FolderDetailActivity : AppCompatActivity() {
                     append("金額 $totalParaCosts 円 \n")
                     append("一人当たり $parParsonCost 円\n")
                     append("負担者 ${it.payers} \n \n")
+                }
+                if (paraCostArray.sum() == 0) {
+                    append("使用項目\n未登録\n\n")
                 }
                 val totalArray = "%,d".format(paraCostArray.sum())
                 val totalParArray = "%,d".format(paraCostArray.sum() / memberNum)
@@ -365,14 +371,15 @@ class FolderDetailActivity : AppCompatActivity() {
                     folderDetail.add(paragraphInfo) //箱に型を入れる
                     cursor.moveToNext()
                 }
-            } else {
-                //paragraphinfoの中身が空の場合、金額項目の画面を表示しない
-                car_line.visibility = View.GONE
-                usedParagraph.visibility = View.GONE
-                folderDetailView.visibility = View.GONE
-                total.visibility = View.GONE
-                per.visibility = View.GONE
             }
+//            else {
+//                //paragraphinfoの中身が空の場合、金額項目の画面を表示しない
+//                car_line.visibility = View.GONE
+//                usedParagraph.visibility = View.GONE
+//                folderDetailView.visibility = View.GONE
+//                total.visibility = View.GONE
+//                per.visibility = View.GONE
+//            }
             cursor.close()
             return folderDetail
         } catch (exception: Exception) {
