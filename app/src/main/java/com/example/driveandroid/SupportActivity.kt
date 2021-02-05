@@ -29,6 +29,11 @@ class SupportActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        version.setOnClickListener {
+            val intent = Intent(this@SupportActivity, VersionActivity::class.java)
+            startActivity(intent)
+        }
+
         return_home.setOnClickListener {
             finish()
         }

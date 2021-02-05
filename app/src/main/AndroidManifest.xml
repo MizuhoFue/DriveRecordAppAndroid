@@ -72,6 +72,9 @@
             android:label="@string/main"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".VersionActivity"
+            android:screenOrientation="portrait" />
+        <activity
             android:name="com.google.android.gms.oss.licenses.OssLicensesMenuActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.DarkActionBar" />
