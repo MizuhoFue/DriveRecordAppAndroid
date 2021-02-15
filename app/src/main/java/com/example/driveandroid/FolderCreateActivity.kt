@@ -9,10 +9,13 @@ package com.example.driveandroid
 import android.app.DatePickerDialog
 import android.app.DatePickerDialog.OnDateSetListener
 import android.content.ContentValues
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.MotionEvent
+import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -147,7 +150,6 @@ class FolderCreateActivity : AppCompatActivity() {
                 memberNum = memberCount()
                 watchMember.text = memberNum.toString()
             }
-
             setOnFocusChangeListener { v, hasFocus ->
                 if (!hasFocus) {
                     //フォーカスが外れた時に文字数チェック
@@ -230,6 +232,13 @@ class FolderCreateActivity : AppCompatActivity() {
 
             setOnFocusChangeListener { v, hasFocus ->
                 if (!hasFocus) {
+                    //キーボードを閉じる
+                    val inputManager =
+                        getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                    inputManager.hideSoftInputFromWindow(
+                        FolderCreate.windowToken,
+                        InputMethodManager.HIDE_NOT_ALWAYS
+                    )
                     //フォーカスが外れた時に文字数チェック
                     (v as? EditText)?.also { editText ->
                         textCheck(editText)
@@ -361,6 +370,8 @@ class FolderCreateActivity : AppCompatActivity() {
                 .setPositiveButton("OK") { _, _ ->
                     //OK押したら中身削除
                     editText.text.clear()
+                    //次の項目にフォーカスが移らないようにする
+                    editText.requestFocus(View.FOCUS_UP)
                 }
                 .create()
             dialog.show()
