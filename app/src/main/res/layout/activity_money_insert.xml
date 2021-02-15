@@ -20,7 +20,7 @@
         app:titleTextColor="@color/colorPrimary">
 
         <androidx.appcompat.widget.AppCompatImageButton
-            android:id="@+id/close_button"
+            android:id="@+id/close_button1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
@@ -161,16 +161,20 @@
             <!--金額入力部分-->
             <androidx.appcompat.widget.AppCompatEditText
                 android:id="@+id/cost"
-                android:layout_width="130dp"
-                android:layout_height="match_parent"
-                android:layout_weight="0.2"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
                 android:cursorVisible="true"
+                android:digits="0123456789"
+                android:ems="6"
                 android:gravity="center"
                 android:hint="@string/cost"
+                android:imeOptions="actionNext"
                 android:inputType="number"
                 android:textColor="@color/colorBlack"
                 android:textCursorDrawable="@null"
-                android:textSize="20sp" />
+                android:textSize="15sp"
+                app:counterEnabled="true"
+                app:counterMaxLength="6" />
 
             <!--円-->
             <androidx.appcompat.widget.AppCompatTextView
@@ -192,7 +196,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="10dp"
             android:layout_marginEnd="15dp"
             android:background="@null"
             android:src="@drawable/camera_bt" />

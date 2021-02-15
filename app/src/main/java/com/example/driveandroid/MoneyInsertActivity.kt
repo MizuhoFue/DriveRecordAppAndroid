@@ -1,11 +1,3 @@
-/*FolderCreate、FolderDetailから遷移
-*画面名：MoneyInsertActivity 金額入力画面　使用した金額や使用用途の入力・登録を行う　
-*整理：入力された値を変数に入れてSQL実行　一度に登録できるのは1項目
-*遷移先：FolderList,FolderDetail ダイアログで選択、登録して遷移、データベース接続
-*変更点：ダイアログの色
-*更新者：笛木
-*更新日：2020年12月28日
-* */
 package com.example.driveandroid
 
 import android.Manifest
@@ -21,10 +13,8 @@ import android.provider.MediaStore
 import android.util.Log
 import android.view.MotionEvent
 import android.view.View
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.Spinner
-import android.widget.Toast
+import android.view.inputmethod.InputMethodManager
+import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
@@ -36,18 +26,22 @@ import com.example.driveandroid.Constants.Companion.EXTRA_ACTIVITYNAME
 import com.example.driveandroid.Constants.Companion.EXTRA_FOLDERID
 import com.example.driveandroid.Constants.Companion.FOLDER_INFO
 import com.example.driveandroid.Constants.Companion.PARAGRAPH_INFO
-import kotlinx.android.synthetic.main.activity_folder_create.drive_toolbar
+import kotlinx.android.synthetic.main.activity_folder_create.*
+import kotlinx.android.synthetic.main.activity_folder_detail.*
 import kotlinx.android.synthetic.main.activity_money_insert.*
+import kotlinx.android.synthetic.main.item_to_use.*
 import java.io.File
 import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.ArrayList
 
 class MoneyInsertActivity : AppCompatActivity() {
 
     private var payer = ""  //負担者名、項目ごとに異なる可能性あり
     private var paraName = ""   //項目名　登録分によって複数あり
     private var paraCost = 0    //項目の金額　登録分によって複数あり
+    private var paraCostArray = arrayListOf<Int>()       //全ての項目の金額合計
 
     // 負担者スピナーの配列　selectFolder内で初期化に変更　アダプター使用　
     //カメラ許可用コード準備
@@ -126,14 +120,46 @@ class MoneyInsertActivity : AppCompatActivity() {
         //入力完了を押した際にダイアログを表示
         inputComp.setOnClickListener {//押したら
             Log.d("inputClick", "$paragraphSpinner")
-
             //id:costで入力された数値を文字にして数値にする nullと空文字、スペースが入っているとtrue
             if (!cost.text.isNullOrEmpty()) {
                 paraCost = cost.text.toString().toInt()
                 Log.d("項目の金額", "$paraCost")
 
+//                //変化する値宣言
+//                //金額表示用
+//                var totalCost = 0
+//
+//                adapter.getCostValueListener(object : FolderDetailAdapter.CostValueListener {
+//                    override fun costValue(view: View, paraCost: Int) {
+//                        Log.d("受け取ったparaCost表示", "$paraCost")
+//                        paraCostArray.add(paraCost)
+//                        Log.d("paraCostArrayの中身", "$paraCostArray")
+//                        //合計金額をtotalCostに格納
+//                        totalCost = paraCostArray.sum()
+//                        Log.d("合計金額", "$totalCost") //確認
+//
+//                        if (paraCostArray.sum() > 999999) {
+//                            val dialog =
+//                                AlertDialog.Builder(
+//                                    this@MoneyInsertActivity,
+//                                    R.style.MyAlertColor
+//                                )
+//                                    .setMessage("上限100万円を超えています。再入力してください。")
+//                                    .setPositiveButton("OK") { _, _ ->
+//                                    }
+//                                    .create()
+//                            dialog.show()
+//                        }
+//                    }
+//                })
+
+                //6桁超えてエラーダイアログ表示後
+                if (paraCost > 999999) {
+                    return@setOnClickListener
+                }
+
                 //ダイアログのメッセージ、各ボタンの処理を設定　「詳細」/「ホーム」遷移、入力修正のための「キャンセル」　
-                AlertDialog.Builder(this,R.style.MyAlertColor)
+                AlertDialog.Builder(this, R.style.MyAlertColor)
                     .setMessage("どちらに移動しますか？")
                     .setPositiveButton(
                         "詳細",
@@ -151,7 +177,8 @@ class MoneyInsertActivity : AppCompatActivity() {
                                 )
                                 intent.putExtra(EXTRA_FOLDERID, folderId)
                                 intent.putExtra(
-                                    EXTRA_ACTIVITYNAME, MoneyInsertActivity::class.java.simpleName
+                                    EXTRA_ACTIVITYNAME,
+                                    MoneyInsertActivity::class.java.simpleName
                                 )
                                 startActivity(intent)
                                 finish()
@@ -166,7 +193,10 @@ class MoneyInsertActivity : AppCompatActivity() {
                             //insert処理を入れたい
                             insertPara(folderId, paraName, paraCost, payer)
                             val intent =
-                                Intent(this@MoneyInsertActivity, FolderListActivity::class.java)
+                                Intent(
+                                    this@MoneyInsertActivity,
+                                    FolderListActivity::class.java
+                                )
                             //クリアタスクして遷移
                             intent.flags =
                                 Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
@@ -176,9 +206,10 @@ class MoneyInsertActivity : AppCompatActivity() {
                         //ignore
                     })
                     .show() //またはcreate() ?
-            } //エラーダイアログ、エラーを確認して入力内容破棄、再入力させる
+            }
+            //エラーダイアログ、エラーを確認して入力内容破棄、再入力させる
             else {
-                AlertDialog.Builder(this,R.style.MyAlertColor)
+                AlertDialog.Builder(this, R.style.MyAlertColor)
                     .setMessage("金額を入力してください")
                     .setPositiveButton(
                         "OK",
@@ -202,9 +233,9 @@ class MoneyInsertActivity : AppCompatActivity() {
         }
 
         //ナビゲーションアイテムのリスナー
-        close_button.setOnClickListener {
+        close_button1.setOnClickListener {
             // BuilderからAlertDialogを作成 はいといいえの場所を入れ替え=処理入れ替え
-            val dialog = AlertDialog.Builder(this,R.style.MyAlertColor)
+            val dialog = AlertDialog.Builder(this, R.style.MyAlertColor)
                 .setTitle(toolbarTitle) // タイトルセット
                 .setPositiveButton(R.string.no) { _, _ -> // いいえ
                     Intent(this@MoneyInsertActivity, this::class.java)
@@ -216,6 +247,35 @@ class MoneyInsertActivity : AppCompatActivity() {
                 .create()
             // AlertDialogを表示
             dialog.show()
+        }
+
+        //costを数える 文字数オーバーはエラーダイアログ
+        cost.setOnFocusChangeListener { v, hasFocus ->
+            if (!hasFocus) {
+                //キーボードを閉じる
+                val inputManager =
+                    getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+                inputManager.hideSoftInputFromWindow(
+                    MoneyInsert.windowToken,
+                    InputMethodManager.HIDE_NOT_ALWAYS
+                )
+
+                (v as? EditText)?.also { editText ->
+                    if (editText.text.length > 6) {
+                        val dialog =
+                            AlertDialog.Builder(this@MoneyInsertActivity, R.style.MyAlertColor)
+                                .setMessage("上限100万円を超えています。再入力してください。")
+                                .setPositiveButton("OK") { _, _ ->
+                                    //OK押したら中身削除
+                                    editText.text.clear()
+                                    //次の項目にフォーカスが移らないようにする
+                                    editText.requestFocus(View.FOCUS_UP)
+                                }
+                                .create()
+                        dialog.show()
+                    }
+                }
+            }
         }
     }
 
@@ -305,8 +365,7 @@ class MoneyInsertActivity : AppCompatActivity() {
         }
         if (isGranted) takePicture()
     }
-
-    /////////////////カメラ用メソッド終わり/////////////////////////////////////
+/////////////////カメラ用メソッド終わり/////////////////////////////////////
     /**
      * @param folderId idを元にセレクト
      * @return payerList:List<String> nullを排除した純粋な負担者のみの配列
@@ -373,5 +432,95 @@ class MoneyInsertActivity : AppCompatActivity() {
     override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
         MoneyInsert.requestFocus()
         return super.dispatchTouchEvent(ev)
+    }
+
+    /** selectFolder folderidを元に該当データをFolderInfoテーブルからセレクト
+     * @param folderId:Int
+     * @return ArrayList<FolderInfo>
+     * */
+    private fun selectFolder(folderId: Int): ArrayList<FolderInfo>? {
+        try {
+            val dbHelper = DriveDBHelper(this, DB_NAME, null, DB_VERSION)
+            val database = dbHelper.readableDatabase
+            val folderList = ArrayList<FolderInfo>() //FolderInfo型の箱をつくる
+            //select文　FolderInfoテーブルセレクト
+            val sql = "SELECT * FROM $FOLDER_INFO WHERE folderid=$folderId" //sql文OK
+            Log.d("SQL実行", sql)
+            //cursorに結果をいれて
+            val cursor =
+                database.rawQuery(sql, null)
+            Log.d("該当件数1のはず", "${cursor.count}")
+            cursor.moveToFirst()
+            if (cursor.count > 0) {
+                while (!cursor.isAfterLast) {
+
+                    val folderInfo = FolderInfo(
+                        cursor.getInt(0),
+                        cursor.getString(1),
+                        cursor.getString(2),
+                        cursor.getString(3),
+                        cursor?.getString(4),
+                        cursor?.getString(5),
+                        cursor?.getString(6),
+                        cursor?.getString(7),
+                        cursor?.getString(8)
+                    )
+                    folderList.add(folderInfo)
+                    cursor.moveToNext()
+                }
+            }
+            cursor.close()
+            return folderList
+        } catch (exception: Exception) {
+            Log.e("SelectData", exception.toString())
+            return null
+        }
+    }
+
+    /**selectPara folderidを元に該当データをParagraphInfoテーブルからセレクト
+     *
+     *@return : ArrayList<ItemToUse>
+     *     ItemToUse型の箱をつくる
+     * */
+    private fun selectPara(folderId: Int): ArrayList<ItemToUse>? {
+        try {
+            val dbHelper = DriveDBHelper(this, DB_NAME, null, DB_VERSION)
+            val database = dbHelper.readableDatabase
+            val folderDetail = ArrayList<ItemToUse>()
+            //select文　ParagraphInfoテーブルセレクト
+            val sql = "SELECT * FROM $PARAGRAPH_INFO WHERE folderid=$folderId" //sql文OK
+            Log.d("SQL実行", sql)
+            //cursorに結果をいれて
+            val cursor =
+                database.rawQuery(sql, null)
+            Log.d("該当件数1のはず", "${cursor.count}")
+            cursor.moveToFirst()
+            if (cursor.count > 0) {
+                while (!cursor.isAfterLast) {
+                    val paragraphInfo = ItemToUse(
+                        cursor.getInt(0),
+                        cursor.getInt(1),
+                        cursor.getString(2),
+                        cursor.getString(3),
+                        cursor.getString(4)
+                    )
+                    folderDetail.add(paragraphInfo) //箱に型を入れる
+                    cursor.moveToNext()
+                }
+            }
+//            else {
+//                //paragraphinfoの中身が空の場合、金額項目の画面を表示しない
+//                car_line.visibility = View.GONE
+//                usedParagraph.visibility = View.GONE
+//                folderDetailView.visibility = View.GONE
+//                total.visibility = View.GONE
+//                per.visibility = View.GONE
+//            }
+            cursor.close()
+            return folderDetail
+        } catch (exception: Exception) {
+            Log.e("SelectData", exception.toString())
+            return null
+        }
     }
 }

@@ -5,7 +5,7 @@
     <string name="cost_name">金額</string>
     <string name="yen">円</string>
     <string name="payer_name">負担者</string>
-    <string name="cost">例：2000</string>
+    <string name="cost">例：2000 (上限：999999)</string>
     <string name="payer_spinner">選択してください</string>
     <!--folderDetail-->
     <string name="date">日付</string>
