@@ -14,11 +14,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.driveandroid.Constants.Companion.DB_NAME
 import com.example.driveandroid.Constants.Companion.DB_VERSION
-import com.example.driveandroid.Constants.Companion.EXTRA_ACTIVITYNAME
-import com.example.driveandroid.Constants.Companion.EXTRA_FOLDERID
+import com.example.driveandroid.Constants.Companion.EXTRA_ACTIVITY_NAME
+import com.example.driveandroid.Constants.Companion.EXTRA_FOLDER_ID
 import com.example.driveandroid.Constants.Companion.FOLDER_INFO
 import com.example.driveandroid.Constants.Companion.PARAGRAPH_INFO
-import com.example.driveandroid.Constants.Companion.WHERE_PARANUM
+import com.example.driveandroid.Constants.Companion.WHERE_PARA_NUM
 import kotlinx.android.synthetic.main.activity_folder_create.*
 import kotlinx.android.synthetic.main.activity_folder_detail.*
 import kotlinx.android.synthetic.main.activity_folder_detail.close_button
@@ -54,9 +54,9 @@ class FolderDetailActivity : AppCompatActivity() {
 
         //FolderListまたはMoneyInsertから渡されたfolderid、遷移元ファイル名を変数に入れる
         val folderId =
-            intent.extras?.getInt(EXTRA_FOLDERID) ?: -1 // 0だと0番目の配列と被るため-1に設定
+            intent.extras?.getInt(EXTRA_FOLDER_ID) ?: -1 // 0だと0番目の配列と被るため-1に設定
         val fromActivity =
-            intent.extras?.getString(EXTRA_ACTIVITYNAME) ?: "" //""が入る場合はエラー？
+            intent.extras?.getString(EXTRA_ACTIVITY_NAME) ?: "" //""が入る場合はエラー？
         Log.d("どこから遷移", fromActivity)
         Log.d("受け取ったfolderid", "$folderId")
 
@@ -206,8 +206,8 @@ class FolderDetailActivity : AppCompatActivity() {
             //Intent作成 FolderDetailフォルダ詳細からMoneyInsert金額入力に遷移
             val intent = Intent(this@FolderDetailActivity, MoneyInsertActivity::class.java)
             //このフォルダの追加項目なのでfolderidをMoneyInsertへ　finish処理用にActivity名も送る
-            intent.putExtra(EXTRA_FOLDERID, folderId)
-            intent.putExtra(EXTRA_ACTIVITYNAME, this::class.java.simpleName)
+            intent.putExtra(EXTRA_FOLDER_ID, folderId)
+            intent.putExtra(EXTRA_ACTIVITY_NAME, this::class.java.simpleName)
             startActivity(intent)
             //クリアタスク、フィニッシュなし・MoneyInsertで戻るボタンを押すと再び詳細が確認できるようになっている
             //paraCostをリセット
@@ -223,7 +223,7 @@ class FolderDetailActivity : AppCompatActivity() {
         close_button.setOnClickListener {
             // BuilderからAlertDialogを作成 はい、いいえの配置を変えるため処理も入れ替え
             val dialog = AlertDialog.Builder(this, R.style.MyAlertColor)
-                .setTitle(R.string.finish_message) // タイトル
+                .setTitle(R.string.finish_message_money) // タイトル
                 .setPositiveButton(R.string.no) { _, _ -> // no
                     Intent(this@FolderDetailActivity, this::class.java)
                 }
@@ -289,7 +289,7 @@ class FolderDetailActivity : AppCompatActivity() {
                 putExtra(
                     Intent.EXTRA_TEXT, share.toString()
                 )
-                putExtra(EXTRA_ACTIVITYNAME, this::class.java.simpleName)
+                putExtra(EXTRA_ACTIVITY_NAME, this::class.java.simpleName)
                 type = "text/plain"
             }
             val shareIntent = Intent.createChooser(sendIntent, null)
@@ -396,7 +396,7 @@ class FolderDetailActivity : AppCompatActivity() {
             val dbHelper = DriveDBHelper(this, DB_NAME, null, DB_VERSION)
             val database = dbHelper.writableDatabase
             val whereArgs = arrayOf(deleteNum.toString())
-            database.delete(PARAGRAPH_INFO, WHERE_PARANUM, whereArgs)
+            database.delete(PARAGRAPH_INFO, WHERE_PARA_NUM, whereArgs)
             Log.d("deletePara通ったparaNum", "$deleteNum")
         } catch (exception: Exception) {
             Log.d("deletePara", exception.toString())

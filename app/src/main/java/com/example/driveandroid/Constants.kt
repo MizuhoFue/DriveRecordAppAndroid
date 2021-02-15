@@ -7,8 +7,8 @@ package com.example.driveandroid
 
 class Constants {
     companion object {
-        const val EXTRA_FOLDERID = "extra_folderid"
-        const val EXTRA_ACTIVITYNAME = "extra_foldername"
+        const val EXTRA_FOLDER_ID = "extra_folder_id"
+        const val EXTRA_ACTIVITY_NAME = "extra_folder_name"
         //DB用変数用意
         const val DB_NAME: String = "drivedb"  //DB名
         const val DB_VERSION: Int = 1  //変わることはあるのか
@@ -17,6 +17,6 @@ class Constants {
         //Listのdeleteメソッド用定数
         const val WHERE_ID = "folderid = ?"
         //DetailのparaNum定数
-        const val WHERE_PARANUM = "paraNum = ?"
+        const val WHERE_PARA_NUM = "paraNum = ?"
     }
 }

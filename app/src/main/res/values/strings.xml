@@ -5,7 +5,7 @@
     <string name="cost_name">金額</string>
     <string name="yen">円</string>
     <string name="payer_name">負担者</string>
-    <string name="cost">例：2000</string>
+    <string name="cost">例：2000 (上限：999999)</string>
     <string name="payer_spinner">選択してください</string>
     <!--folderDetail-->
     <string name="date">日付</string>
@@ -248,6 +248,7 @@
 
     <!--×のダイアログ-->
     <string name="finish_message">登録せずにホーム画面に戻りますか？</string>
+    <string name="finish_message_money">金額項目を登録せずにホーム画面に戻りますか？</string>
     <string name="yes">はい</string>
     <string name="no">いいえ</string>
 

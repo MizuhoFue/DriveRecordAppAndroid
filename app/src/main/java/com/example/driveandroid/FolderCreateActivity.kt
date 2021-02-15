@@ -22,8 +22,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.doAfterTextChanged
 import com.example.driveandroid.Constants.Companion.DB_NAME
 import com.example.driveandroid.Constants.Companion.DB_VERSION
-import com.example.driveandroid.Constants.Companion.EXTRA_ACTIVITYNAME
-import com.example.driveandroid.Constants.Companion.EXTRA_FOLDERID
+import com.example.driveandroid.Constants.Companion.EXTRA_ACTIVITY_NAME
+import com.example.driveandroid.Constants.Companion.EXTRA_FOLDER_ID
 import com.example.driveandroid.Constants.Companion.FOLDER_INFO
 import kotlinx.android.synthetic.main.activity_folder_create.*
 import java.time.LocalDate
@@ -319,8 +319,8 @@ class FolderCreateActivity : AppCompatActivity() {
                 Log.d("folderIdの値確認", "$folderId")
                 val intent = Intent(this@FolderCreateActivity, MoneyInsertActivity::class.java)
                 //idとActivity名をMoneyInsertに送る
-                intent.putExtra(EXTRA_FOLDERID, folderId)
-                intent.putExtra(EXTRA_ACTIVITYNAME, this::class.java.simpleName)
+                intent.putExtra(EXTRA_FOLDER_ID, folderId)
+                intent.putExtra(EXTRA_ACTIVITY_NAME, this::class.java.simpleName)
                 startActivity(intent)
                 //クリアタスクなし・金額入力画面遷移後はフォルダ作成をフィニッシュ
                 finish()
