@@ -13,7 +13,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.driveandroid.Constants.Companion.EXTRA_FOLDERID
+import com.example.driveandroid.Constants.Companion.EXTRA_FOLDER_ID
 import kotlinx.android.synthetic.main.recyclerview_item.view.*
 
 //日付配列とタイトル配列を表示+Delete処理のゴミ箱imageView
@@ -68,7 +68,7 @@ class FolderListAdapter(
                     Log.d("detailに送るidの値", "$detailId")
                     //遷移先
                     val intent = Intent(v.context, FolderDetailActivity::class.java)
-                    intent.putExtra(EXTRA_FOLDERID, detailId) //FolderDetailのselectに送る
+                    intent.putExtra(EXTRA_FOLDER_ID, detailId) //FolderDetailのselectに送る
                     v.context.startActivity(intent)
                 }
             })

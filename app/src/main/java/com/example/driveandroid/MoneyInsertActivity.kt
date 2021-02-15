@@ -23,7 +23,7 @@ import androidx.core.content.FileProvider
 import com.example.driveandroid.Constants.Companion.DB_NAME
 import com.example.driveandroid.Constants.Companion.DB_VERSION
 import com.example.driveandroid.Constants.Companion.EXTRA_ACTIVITY_NAME
-import com.example.driveandroid.Constants.Companion.EXTRA_FOLDERID
+import com.example.driveandroid.Constants.Companion.EXTRA_FOLDER_ID
 import com.example.driveandroid.Constants.Companion.FOLDER_INFO
 import com.example.driveandroid.Constants.Companion.PARAGRAPH_INFO
 import kotlinx.android.synthetic.main.activity_folder_create.*
@@ -62,7 +62,7 @@ class MoneyInsertActivity : AppCompatActivity() {
         }
         //FolderDetail、FolderCreateから渡されたfolderidを変数に入れる
         val folderId =
-            intent.extras?.getInt(EXTRA_FOLDERID) ?: -1 //-1の場合はエラーを出す
+            intent.extras?.getInt(EXTRA_FOLDER_ID) ?: -1 //-1の場合はエラーを出す
         //FolderDetail、FolderCreateのどちらから遷移したかのfromActivityを変数に入れる
         val fromActivity =
             intent.extras?.getString(EXTRA_ACTIVITY_NAME) ?: "" //""が入る場合はエラー？
@@ -175,7 +175,7 @@ class MoneyInsertActivity : AppCompatActivity() {
                                     this@MoneyInsertActivity,
                                     FolderDetailActivity::class.java
                                 )
-                                intent.putExtra(EXTRA_FOLDERID, folderId)
+                                intent.putExtra(EXTRA_FOLDER_ID, folderId)
                                 intent.putExtra(
                                     EXTRA_ACTIVITY_NAME,
                                     MoneyInsertActivity::class.java.simpleName
