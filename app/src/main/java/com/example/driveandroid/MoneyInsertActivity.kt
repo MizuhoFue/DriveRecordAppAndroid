@@ -70,7 +70,7 @@ class MoneyInsertActivity : AppCompatActivity() {
         Log.d("どこからMoneyInsertに遷移", fromActivity)
         //ツールバーの×を押したときのメッセージを確定させる FolderCreateからの遷移の場合は「ホーム画面に戻る」/Detailからの場合は「詳細に戻る」
         val toolbarTitle =
-            if (fromActivity.equals(FolderCreateActivity::class.java.simpleName)) "登録せずにホーム画面に戻りますか？" else "登録せずに詳細画面に戻りますか？"
+            if (fromActivity.equals(FolderCreateActivity::class.java.simpleName)) "金額項目を登録せずにホーム画面に戻りますか？" else "金額項目を登録せずに詳細画面に戻りますか？"
         //このタイミングでidを元にselect  selectメソッド内で空チェックを行う予定 nullなし配列をpayerListに格納
         val payerList: List<String> = selectData(folderId)
 
