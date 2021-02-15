@@ -22,7 +22,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import com.example.driveandroid.Constants.Companion.DB_NAME
 import com.example.driveandroid.Constants.Companion.DB_VERSION
-import com.example.driveandroid.Constants.Companion.EXTRA_ACTIVITYNAME
+import com.example.driveandroid.Constants.Companion.EXTRA_ACTIVITY_NAME
 import com.example.driveandroid.Constants.Companion.EXTRA_FOLDERID
 import com.example.driveandroid.Constants.Companion.FOLDER_INFO
 import com.example.driveandroid.Constants.Companion.PARAGRAPH_INFO
@@ -65,7 +65,7 @@ class MoneyInsertActivity : AppCompatActivity() {
             intent.extras?.getInt(EXTRA_FOLDERID) ?: -1 //-1の場合はエラーを出す
         //FolderDetail、FolderCreateのどちらから遷移したかのfromActivityを変数に入れる
         val fromActivity =
-            intent.extras?.getString(EXTRA_ACTIVITYNAME) ?: "" //""が入る場合はエラー？
+            intent.extras?.getString(EXTRA_ACTIVITY_NAME) ?: "" //""が入る場合はエラー？
         Log.d("受け渡されたfolderid", "$folderId")
         Log.d("どこからMoneyInsertに遷移", fromActivity)
         //ツールバーの×を押したときのメッセージを確定させる FolderCreateからの遷移の場合は「ホーム画面に戻る」/Detailからの場合は「詳細に戻る」
@@ -177,7 +177,7 @@ class MoneyInsertActivity : AppCompatActivity() {
                                 )
                                 intent.putExtra(EXTRA_FOLDERID, folderId)
                                 intent.putExtra(
-                                    EXTRA_ACTIVITYNAME,
+                                    EXTRA_ACTIVITY_NAME,
                                     MoneyInsertActivity::class.java.simpleName
                                 )
                                 startActivity(intent)
