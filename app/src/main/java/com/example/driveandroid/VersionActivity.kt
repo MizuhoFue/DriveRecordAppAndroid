@@ -2,7 +2,7 @@ package com.example.driveandroid
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.example.driveandroid.BuildConfig.VERSION_NAME
+import com.example.driveandroid.BuildConfig.VERSION_CODE
 import kotlinx.android.synthetic.main.activity_version.*
 
 class VersionActivity : AppCompatActivity() {
@@ -15,6 +15,6 @@ class VersionActivity : AppCompatActivity() {
             finish()
         }
         //version
-        version_view.text = VERSION_NAME
+        version_view.text = VERSION_CODE.toString()
     }
 }
