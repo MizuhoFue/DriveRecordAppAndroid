@@ -83,12 +83,12 @@
         android:layout_marginTop="100dp"
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="150dp"
+        android:background="@drawable/border"
         android:scrollbarStyle="insideOverlay">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorAccent"
             android:orientation="vertical">
 
             <LinearLayout
@@ -384,9 +384,9 @@
                         android:layout_marginBottom="5dp"
                         android:cursorVisible="true"
                         android:ems="10"
+                        android:focusableInTouchMode="true"
                         android:hint="@string/put_member6"
                         android:imeOptions="actionNext"
-                        android:focusableInTouchMode="true"
                         android:inputType="textPersonName"
                         android:text=""
                         android:textCursorDrawable="@null"
