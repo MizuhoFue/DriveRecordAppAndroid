@@ -217,6 +217,7 @@ class FolderDetailActivity : AppCompatActivity() {
         setting.setOnClickListener {
             val intent = Intent(this@FolderDetailActivity, SupportActivity::class.java)
             startActivity(intent)
+            paraCostArray.clear()
         }
 
         //ナビゲーションアイテムのリスナー
@@ -294,6 +295,7 @@ class FolderDetailActivity : AppCompatActivity() {
             }
             val shareIntent = Intent.createChooser(sendIntent, null)
             startActivity(shareIntent)
+            paraCostArray.clear()
         }
 
     } //onResume閉じ
