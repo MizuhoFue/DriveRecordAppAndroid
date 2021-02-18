@@ -23,7 +23,7 @@ class SupportActivity : AppCompatActivity() {
 
         guide.setOnClickListener {
             // ダイアログを表示する
-            val dialog = AlertDialog.Builder(this, R.style.MyAlertColor)
+            AlertDialog.Builder(this, R.style.MyAlertColor)
                 .setMessage(R.string.url_dialog)
                 .setPositiveButton(R.string.yes) { _, _ ->
                     val urlStr =
@@ -35,8 +35,8 @@ class SupportActivity : AppCompatActivity() {
                     Intent(this@SupportActivity, this::class.java)
                 }
                 .create()
-            // AlertDialogを表示
-            dialog.show()
+                // AlertDialogを表示
+                .show()
         }
 
         license.setOnClickListener {
