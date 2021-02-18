@@ -56,6 +56,7 @@
     <!--SupportActivity-->
     <string name="rules">利用規約</string>
     <string name="license">ライセンス</string>
+    <string name="guide">利用方法</string>
     <string name="version">バージョン情報</string>
     <!--PolicyActivity-->
     <string name="policy">
