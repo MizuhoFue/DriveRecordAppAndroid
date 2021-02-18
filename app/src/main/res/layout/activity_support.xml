@@ -85,7 +85,27 @@
             android:text="@string/license"
             android:textSize="25dp" />
 
-        <!--ライン追加 widthいじるより左右にマージンいれる-->
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:layout_gravity="center"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+            android:background="@color/border" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/guide"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="10dp"
+            android:background="@null"
+            android:clickable="true"
+            android:text="@string/guide"
+            android:textColorLink="@color/colorBlack"
+            android:textSize="25dp" />
+
         <View
             android:layout_width="wrap_content"
             android:layout_height="1dp"
