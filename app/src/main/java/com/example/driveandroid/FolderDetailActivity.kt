@@ -8,6 +8,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -25,6 +26,7 @@ import kotlinx.android.synthetic.main.activity_folder_detail.close_button
 import kotlinx.android.synthetic.main.activity_folder_detail.setting
 import kotlinx.android.synthetic.main.activity_money_insert.*
 import kotlinx.android.synthetic.main.item_to_use.*
+
 
 class FolderDetailActivity : AppCompatActivity() {
 
@@ -46,6 +48,12 @@ class FolderDetailActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_folder_detail)
+    }
+
+    override fun onUserLeaveHint() {
+        //ホームボタンが押された時や、他のアプリが起動した時に呼ばれる
+        //戻るボタンが押された場合には呼ばれない
+        paraCostArray.clear()
     }
 
     //Resume処理
