@@ -27,7 +27,7 @@ class SupportActivity : AppCompatActivity() {
                 .setMessage(R.string.url_dialog)
                 .setPositiveButton(R.string.yes) { _, _ ->
                     val urlStr =
-                        Uri.parse("https://documentcloud.adobe.com/link/review?uri=urn:aaid:scds:US:ef60fdff-7982-4cb4-af38-89c6f35e6049")
+                        Uri.parse("http://www.cimtech.co.jp/apl/dlog/guide.pdf")
                     val intent = Intent(Intent.ACTION_VIEW, urlStr)
                     startActivity(intent)
                 }
