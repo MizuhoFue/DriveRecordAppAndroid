@@ -27,7 +27,6 @@ import kotlinx.android.synthetic.main.activity_folder_detail.setting
 import kotlinx.android.synthetic.main.activity_money_insert.*
 import kotlinx.android.synthetic.main.item_to_use.*
 
-
 class FolderDetailActivity : AppCompatActivity() {
 
     //DB用変数用意
