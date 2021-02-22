@@ -48,6 +48,12 @@ class FolderDetailActivity : AppCompatActivity() {
         setContentView(R.layout.activity_folder_detail)
     }
 
+    override fun onUserLeaveHint() {
+        //ホームボタンが押された時や、他のアプリが起動した時に呼ばれる
+        //戻るボタンが押された場合には呼ばれない
+        paraCostArray.clear()
+    }
+
     //Resume処理
     override fun onResume() {
         super.onResume()
