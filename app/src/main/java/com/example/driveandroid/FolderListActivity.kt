@@ -75,11 +75,11 @@ class FolderListActivity : AppCompatActivity() {
             })
         }
 
-        //マップへ遷移
-        returnMap.setOnClickListener {
-            val intent = Intent(this@FolderListActivity, MapsActivity::class.java)
-            startActivity(intent)
-        }
+//        //マップへ遷移
+//        returnMap.setOnClickListener {
+//            val intent = Intent(this@FolderListActivity, MapsActivity::class.java)
+//            startActivity(intent)
+//        }
         //サポート画面へ遷移
         setting.setOnClickListener {
             val intent = Intent(this@FolderListActivity, SupportActivity::class.java)
