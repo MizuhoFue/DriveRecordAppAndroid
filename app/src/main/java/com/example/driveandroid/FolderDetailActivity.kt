@@ -54,6 +54,12 @@ class FolderDetailActivity : AppCompatActivity() {
         paraCostArray.clear()
     }
 
+    //端末を再起動した際
+    override fun onRestart() {
+        super.onRestart()
+        paraCostArray.clear()
+    }
+
     //Resume処理
     override fun onResume() {
         super.onResume()
