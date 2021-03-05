@@ -6,12 +6,12 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" /> <!-- カメラ用 -->
-    <uses-feature android:name="android.hardware.camera.any" />
-    <uses-permission android:name="android.permission.CAMERA" />
-    <uses-feature
-        android:name="android.hardware.camera"
-        android:required="true" /> <!-- 端末カメラ起動 -->
+<!--    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" /> &lt;!&ndash; カメラ用 &ndash;&gt;-->
+<!--    <uses-feature android:name="android.hardware.camera.any" />-->
+<!--    <uses-permission android:name="android.permission.CAMERA" />-->
+<!--    <uses-feature-->
+<!--        android:name="android.hardware.camera"-->
+<!--        android:required="true" /> &lt;!&ndash; 端末カメラ起動 &ndash;&gt;-->
 
     <application
         android:allowBackup="true"
@@ -21,16 +21,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <!--カメラ保存用処理 supportとつくものは基本的に古いらしい-->
-        <provider
-            android:name="androidx.core.content.FileProvider"
-            android:authorities="com.example.driveandroid"
-            android:exported="false"
-            android:grantUriPermissions="true">
-            <meta-data
-                android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths" />
-        </provider>
+<!--        &lt;!&ndash;カメラ保存用処理 supportとつくものは基本的に古いらしい&ndash;&gt;-->
+<!--        <provider-->
+<!--            android:name="androidx.core.content.FileProvider"-->
+<!--            android:authorities="com.example.driveandroid"-->
+<!--            android:exported="false"-->
+<!--            android:grantUriPermissions="true">-->
+<!--            <meta-data-->
+<!--                android:name="android.support.FILE_PROVIDER_PATHS"-->
+<!--                android:resource="@xml/file_paths" />-->
+<!--        </provider>-->
         <activity
             android:name=".MoneyInsertActivity"
             android:screenOrientation="portrait" />
