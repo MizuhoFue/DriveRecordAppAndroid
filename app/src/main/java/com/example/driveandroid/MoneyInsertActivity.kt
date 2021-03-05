@@ -1,15 +1,9 @@
 package com.example.driveandroid
 
-import android.Manifest
-import android.app.Activity
 import android.content.ContentValues
 import android.content.DialogInterface
 import android.content.Intent
-import android.content.pm.PackageManager
-import android.net.Uri
 import android.os.Bundle
-import android.os.Environment
-import android.provider.MediaStore
 import android.util.Log
 import android.view.MotionEvent
 import android.view.View
@@ -17,9 +11,6 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
-import androidx.core.content.FileProvider
 import com.example.driveandroid.Constants.Companion.DB_NAME
 import com.example.driveandroid.Constants.Companion.DB_VERSION
 import com.example.driveandroid.Constants.Companion.EXTRA_ACTIVITY_NAME
@@ -30,9 +21,6 @@ import kotlinx.android.synthetic.main.activity_folder_create.*
 import kotlinx.android.synthetic.main.activity_folder_detail.*
 import kotlinx.android.synthetic.main.activity_money_insert.*
 import kotlinx.android.synthetic.main.item_to_use.*
-import java.io.File
-import java.io.IOException
-import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -43,14 +31,14 @@ class MoneyInsertActivity : AppCompatActivity() {
     private var paraCost = 0    //項目の金額　登録分によって複数あり
     private var paraCostArray = arrayListOf<Int>()       //全ての項目の金額合計
 
-    // 負担者スピナーの配列　selectFolder内で初期化に変更　アダプター使用　
-    //カメラ許可用コード準備
-    companion object {
-        const val CAMERA_REQUEST_CODE = 1
-        const val CAMERA_PERMISSION_REQUEST_CODE = 2
-    }
+//    // 負担者スピナーの配列　selectFolder内で初期化に変更　アダプター使用　
+//    //カメラ許可用コード準備
+//    companion object {
+//        const val CAMERA_REQUEST_CODE = 1
+//        const val CAMERA_PERMISSION_REQUEST_CODE = 2
+//    }
 
-    lateinit var currentPhotoPath: String
+//    lateinit var currentPhotoPath: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
