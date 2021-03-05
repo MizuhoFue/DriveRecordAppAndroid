@@ -220,17 +220,17 @@ class MoneyInsertActivity : AppCompatActivity() {
             }
         }
 
-        //カメラボタンをクリックするとそのままカメラ起動
-        camera.setOnClickListener {
-            // カメラ機能を実装したアプリが存在するかチェック
-            Intent(MediaStore.ACTION_IMAGE_CAPTURE).resolveActivity(packageManager)?.let {
-                if (checkPermission()) {
-                    takePicture()
-                } else {
-                    grantCameraPermission()
-                }
-            } ?: Toast.makeText(this, "カメラを扱うアプリがありません", Toast.LENGTH_LONG).show()
-        }
+//        //カメラボタンをクリックするとそのままカメラ起動
+//        camera.setOnClickListener {
+//            // カメラ機能を実装したアプリが存在するかチェック
+//            Intent(MediaStore.ACTION_IMAGE_CAPTURE).resolveActivity(packageManager)?.let {
+//                if (checkPermission()) {
+//                    takePicture()
+//                } else {
+//                    grantCameraPermission()
+//                }
+//            } ?: Toast.makeText(this, "カメラを扱うアプリがありません", Toast.LENGTH_LONG).show()
+//        }
 
         //ナビゲーションアイテムのリスナー
         close_button1.setOnClickListener {
@@ -280,91 +280,91 @@ class MoneyInsertActivity : AppCompatActivity() {
     }
 
     /////////カメラ用メソッド////////////////////////////
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == CAMERA_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
-            Log.d("メッセージ", "カメラ保存できた")
-
-            val contentValues = ContentValues().apply {
-                put(MediaStore.Images.Media.MIME_TYPE, "image/jpeg")
-                put("_data", currentPhotoPath)
-            }
-            contentResolver.insert(
-                MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues
-            )
-        }
-    }
-
-    //カメラ許可 二個目の許可をWRITE・・・・に変更
-    private fun checkPermission(): Boolean {
-        val cameraPermission = PackageManager.PERMISSION_GRANTED ==
-                ContextCompat.checkSelfPermission(applicationContext, Manifest.permission.CAMERA)
-        val extraStoragePermission = PackageManager.PERMISSION_GRANTED ==
-                ContextCompat.checkSelfPermission(
-                    applicationContext,
-                    Manifest.permission.WRITE_EXTERNAL_STORAGE
-                ) //端末の設定を返す
-        return cameraPermission && extraStoragePermission
-    }
-
-    private fun takePicture() {
-        val photoFile: File? = try {
-            createImageFile()
-        } catch (ex: IOException) {
-            null
-        }
-        photoFile?.also {
-            val photoURI: Uri = FileProvider.getUriForFile(
-                this,
-                "com.example.driveandroid",
-                it
-            )
-            val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE).apply {
-                addCategory(Intent.CATEGORY_DEFAULT)
-                putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
-            }
-            startActivityForResult(intent, CAMERA_REQUEST_CODE)
-        }
-    }
-
-    private fun grantCameraPermission() =
-        ActivityCompat.requestPermissions(
-            this,
-            arrayOf(Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE),
-            CAMERA_PERMISSION_REQUEST_CODE
-        )
-
-    private fun createImageFile(): File {
-        val timeStamp = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.JAPAN).format(Date())
-        val imageFileName = "JPEG_${timeStamp}_"
-        val storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES)
-        return File.createTempFile(imageFileName, ".jpg", storageDir).apply {
-            currentPhotoPath = absolutePath
-        }
-    }
-
-    //ダイアログの結果を受け取りはいかいいえを判定してisGrantedのtrue/falseを入れる
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
-        var isGranted = true
-        if (requestCode == CAMERA_PERMISSION_REQUEST_CODE) {
-            if (grantResults.isNotEmpty()) {
-                grantResults.forEach {
-                    if (it != PackageManager.PERMISSION_GRANTED) {
-                        isGranted = false
-                    }
-                }
-            } else {
-                isGranted = false
-            }
-        } else {
-            isGranted = false
-        }
-        if (isGranted) takePicture()
-    }
+//    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+//        super.onActivityResult(requestCode, resultCode, data)
+//        if (requestCode == CAMERA_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
+//            Log.d("メッセージ", "カメラ保存できた")
+//
+//            val contentValues = ContentValues().apply {
+//                put(MediaStore.Images.Media.MIME_TYPE, "image/jpeg")
+//                put("_data", currentPhotoPath)
+//            }
+//            contentResolver.insert(
+//                MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues
+//            )
+//        }
+//    }
+//
+//    //カメラ許可 二個目の許可をWRITE・・・・に変更
+//    private fun checkPermission(): Boolean {
+//        val cameraPermission = PackageManager.PERMISSION_GRANTED ==
+//                ContextCompat.checkSelfPermission(applicationContext, Manifest.permission.CAMERA)
+//        val extraStoragePermission = PackageManager.PERMISSION_GRANTED ==
+//                ContextCompat.checkSelfPermission(
+//                    applicationContext,
+//                    Manifest.permission.WRITE_EXTERNAL_STORAGE
+//                ) //端末の設定を返す
+//        return cameraPermission && extraStoragePermission
+//    }
+//
+//    private fun takePicture() {
+//        val photoFile: File? = try {
+//            createImageFile()
+//        } catch (ex: IOException) {
+//            null
+//        }
+//        photoFile?.also {
+//            val photoURI: Uri = FileProvider.getUriForFile(
+//                this,
+//                "com.example.driveandroid",
+//                it
+//            )
+//            val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE).apply {
+//                addCategory(Intent.CATEGORY_DEFAULT)
+//                putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
+//            }
+//            startActivityForResult(intent, CAMERA_REQUEST_CODE)
+//        }
+//    }
+//
+//    private fun grantCameraPermission() =
+//        ActivityCompat.requestPermissions(
+//            this,
+//            arrayOf(Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE),
+//            CAMERA_PERMISSION_REQUEST_CODE
+//        )
+//
+//    private fun createImageFile(): File {
+//        val timeStamp = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.JAPAN).format(Date())
+//        val imageFileName = "JPEG_${timeStamp}_"
+//        val storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES)
+//        return File.createTempFile(imageFileName, ".jpg", storageDir).apply {
+//            currentPhotoPath = absolutePath
+//        }
+//    }
+//
+//    //ダイアログの結果を受け取りはいかいいえを判定してisGrantedのtrue/falseを入れる
+//    override fun onRequestPermissionsResult(
+//        requestCode: Int,
+//        permissions: Array<out String>,
+//        grantResults: IntArray
+//    ) {
+//        var isGranted = true
+//        if (requestCode == CAMERA_PERMISSION_REQUEST_CODE) {
+//            if (grantResults.isNotEmpty()) {
+//                grantResults.forEach {
+//                    if (it != PackageManager.PERMISSION_GRANTED) {
+//                        isGranted = false
+//                    }
+//                }
+//            } else {
+//                isGranted = false
+//            }
+//        } else {
+//            isGranted = false
+//        }
+//        if (isGranted) takePicture()
+//    }
 /////////////////カメラ用メソッド終わり/////////////////////////////////////
     /**
      * @param folderId idを元にセレクト
