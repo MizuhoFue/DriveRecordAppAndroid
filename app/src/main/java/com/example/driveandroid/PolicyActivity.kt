@@ -51,13 +51,13 @@ class PolicyActivity : AppCompatActivity() {
         val urlData = intent?.data
         AlertDialog.Builder(this, R.style.MyAlertColor)
             .setMessage(R.string.url_dialog)
-            .setPositiveButton(R.string.yes) { _, _ ->
+            .setPositiveButton(R.string.no, null)
+            .setNegativeButton(R.string.yes) { _, _ ->
                 val urlStr = Uri.parse(urlData.toString())
                 val intent = Intent(Intent.ACTION_VIEW, (Uri.parse(urlStr.toString())))
                 intent.putExtra("alert", true)
                 startActivity(intent)
             }
-            .setNegativeButton(R.string.no, null)
             .show()
     }
 }
