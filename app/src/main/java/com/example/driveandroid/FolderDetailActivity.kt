@@ -284,7 +284,7 @@ class FolderDetailActivity : AppCompatActivity() {
                     val parParsonCost = "%,d".format(it.paraCosts.toInt() / memberNum)
                     append("使用項目 ${it.paraNames}\n")
                     append("金額 $totalParaCosts 円 \n")
-                    append("一人当たり $parParsonCost 円\n")
+                    append("1人当たり $parParsonCost 円\n")
                     append("負担者 ${it.payers} \n \n")
                 }
                 if (paraCostArray.sum() == 0) {
@@ -293,7 +293,7 @@ class FolderDetailActivity : AppCompatActivity() {
                 val totalArray = "%,d".format(paraCostArray.sum())
                 val totalParArray = "%,d".format(paraCostArray.sum() / memberNum)
                 append("合計金額 $totalArray 円\n")
-                append("一人当たり $totalParArray 円")
+                append("1人当たり $totalParArray 円")
             }
 
             //共有処理
