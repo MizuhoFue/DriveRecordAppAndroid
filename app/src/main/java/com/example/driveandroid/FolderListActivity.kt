@@ -54,9 +54,9 @@ class FolderListActivity : AppCompatActivity() {
                     //ダイアログを出し、OKだったらdeleteする  はいといいえの場所を入れ替え
                     val dialog = AlertDialog.Builder(this@FolderListActivity,R.style.MyAlertColor) //thisだとコンパイルエラー
                         .setMessage("選択した内容を削除してもいいですか?")
-                        .setPositiveButton(R.string.no) { _, _ ->
+                        .setNegativeButton(R.string.no) { _, _ ->
                             Log.d("いいえを選択", "いいえ")
-                        }.setNegativeButton(R.string.yes) { _, _ ->
+                        }.setPositiveButton(R.string.yes) { _, _ ->
                             //deletePara呼び出し 該当データをParagraphInfoから削除
                             deletePara(deleteId)
                             //deleteFolder呼び出し　該当データをFolderInfoから削除

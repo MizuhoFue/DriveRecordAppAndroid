@@ -124,11 +124,11 @@ class FolderCreateActivity : AppCompatActivity() {
             // BuilderからAlertDialogを作成 はい、いいえの配置を変えるため処理も入れ替え
             val dialog = AlertDialog.Builder(this, R.style.MyAlertColor)
                 .setTitle(R.string.finish_message) // タイトル
-                .setPositiveButton(R.string.no) { _, _ -> // no
-                    Intent(this@FolderCreateActivity, this::class.java)
-                }
-                .setNegativeButton(R.string.yes) { _, _ -> //yes
+                .setPositiveButton(R.string.yes) { _, _ ->
                     finish()
+                }
+                .setNegativeButton(R.string.no) { _, _ ->
+                    Intent(this@FolderCreateActivity, this::class.java)
                 }
                 .create()
             // AlertDialogを表示
