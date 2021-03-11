@@ -24,10 +24,10 @@ class SupportActivity : AppCompatActivity() {
             // ダイアログを表示する
             AlertDialog.Builder(this, R.style.MyAlertColor)
                 .setMessage(R.string.url_dialog)
-                .setPositiveButton(R.string.no) { _, _ ->
+                .setNegativeButton(R.string.no) { _, _ ->
                     Intent(this@SupportActivity, this::class.java)
                 }
-                .setNegativeButton(R.string.yes) { _, _ ->
+                .setPositiveButton(R.string.yes) { _, _ ->
                     val urlStr =
                         Uri.parse("http://www.cimtech.co.jp/apl/dlog/guide.pdf")
                     val intent = Intent(Intent.ACTION_VIEW, urlStr)

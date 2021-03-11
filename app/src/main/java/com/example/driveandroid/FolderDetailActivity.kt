@@ -190,9 +190,9 @@ class FolderDetailActivity : AppCompatActivity() {
                         R.style.MyAlertColor
                     ) //thisだとコンパイルエラー
                         .setMessage("選択した内容を削除してもいいですか?")
-                        .setPositiveButton(R.string.no) { _, _ ->
+                        .setNegativeButton(R.string.no) { _, _ ->
                             Log.d("いいえを選択", "いいえ")
-                        }.setNegativeButton(R.string.yes) { _, _ -> //はいを選択
+                        }.setPositiveButton(R.string.yes) { _, _ -> //はいを選択
                             //deletePara呼び出し 該当データをParagraphInfoから削除
                             deletePara(deleteNum)
                             //画面からも該当データを消す,更新する
@@ -237,11 +237,11 @@ class FolderDetailActivity : AppCompatActivity() {
             // BuilderからAlertDialogを作成 はい、いいえの配置を変えるため処理も入れ替え
             val dialog = AlertDialog.Builder(this, R.style.MyAlertColor)
                 .setTitle(R.string.finish_message_money) // タイトル
-                .setPositiveButton(R.string.no) { _, _ -> // no
-                    Intent(this@FolderDetailActivity, this::class.java)
-                }
-                .setNegativeButton(R.string.yes) { _, _ -> //yes
+                .setPositiveButton(R.string.yes) { _, _ ->
                     finish()
+                }
+                .setNegativeButton(R.string.no) { _, _ ->
+                    Intent(this@FolderDetailActivity, this::class.java)
                 }
                 .create()
             // AlertDialogを表示

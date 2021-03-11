@@ -225,10 +225,10 @@ class MoneyInsertActivity : AppCompatActivity() {
             // BuilderからAlertDialogを作成 はいといいえの場所を入れ替え=処理入れ替え
             val dialog = AlertDialog.Builder(this, R.style.MyAlertColor)
                 .setTitle(toolbarTitle) // タイトルセット
-                .setPositiveButton(R.string.no) { _, _ -> // いいえ
+                .setNegativeButton(R.string.no) { _, _ -> // いいえ
                     Intent(this@MoneyInsertActivity, this::class.java)
                 }
-                .setNegativeButton(R.string.yes) { _, _ -> //はい
+                .setPositiveButton(R.string.yes) { _, _ -> //はい
                     //moveTaskToBack(true)
                     finish()
                 }
