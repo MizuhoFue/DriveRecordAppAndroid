@@ -5,7 +5,7 @@
     android:id="@+id/result"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.driveandroid.DaoActivity">
+    tools:context="com.cimtech.driveandroid.DaoActivity">
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/textView18"

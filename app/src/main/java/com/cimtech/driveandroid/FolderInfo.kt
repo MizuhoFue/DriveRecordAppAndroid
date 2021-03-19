@@ -1,6 +1,6 @@
 //FolderInfoデータクラスfolderidをnullableにする？
 //dateをString型に変更
-package com.example.driveandroid
+package com.cimtech.driveandroid
 
 data class FolderInfo(
     val folderId: Int,

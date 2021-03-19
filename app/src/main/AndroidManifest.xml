@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?><!--ライセンス表示用ツールバーを設定しました　笛木より-->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.driveandroid">
+    package="com.cimtech.driveandroid">
 
 <!--    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />-->
     <uses-permission android:name="android.permission.INTERNET" />
@@ -32,7 +32,7 @@
 <!--                android:resource="@xml/file_paths" />-->
 <!--        </provider>-->
         <activity
-            android:name=".MoneyInsertActivity"
+            android:name="com.cimtech.driveandroid.MoneyInsertActivity"
             android:screenOrientation="portrait" />
 <!--        <meta-data-->
 <!--            android:name="com.google.android.maps.v2.API_KEY"-->
@@ -43,16 +43,16 @@
 <!--            android:label="@string/title_activity_maps"-->
 <!--            android:screenOrientation="portrait" />-->
         <activity
-            android:name=".DaoActivity"
+            android:name="com.cimtech.driveandroid.DaoActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".FolderDetailActivity"
+            android:name="com.cimtech.driveandroid.FolderDetailActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".FolderListActivity"
+            android:name="com.cimtech.driveandroid.FolderListActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".SplashActivity"
+            android:name="com.cimtech.driveandroid.SplashActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -60,19 +60,19 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".FolderCreateActivity"
+            android:name="com.cimtech.driveandroid.FolderCreateActivity"
             android:label="@string/main"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" /> <!-- レイアウトを崩さないようにする -->
         <activity
-            android:name=".SupportActivity"
+            android:name="com.cimtech.driveandroid.SupportActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".PolicyActivity"
+            android:name="com.cimtech.driveandroid.PolicyActivity"
             android:label="@string/main"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".VersionActivity"
+            android:name="com.cimtech.driveandroid.VersionActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name="com.google.android.gms.oss.licenses.OssLicensesMenuActivity"

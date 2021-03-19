@@ -2,7 +2,7 @@
 *更新日：2020年12月28日
 *更新者：笛木瑞歩
 */
-package com.example.driveandroid
+package com.cimtech.driveandroid
 
 import android.content.Intent
 import android.os.Bundle
@@ -12,13 +12,13 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.driveandroid.Constants.Companion.DB_NAME
-import com.example.driveandroid.Constants.Companion.DB_VERSION
-import com.example.driveandroid.Constants.Companion.EXTRA_ACTIVITY_NAME
-import com.example.driveandroid.Constants.Companion.EXTRA_FOLDER_ID
-import com.example.driveandroid.Constants.Companion.FOLDER_INFO
-import com.example.driveandroid.Constants.Companion.PARAGRAPH_INFO
-import com.example.driveandroid.Constants.Companion.WHERE_PARA_NUM
+import com.cimtech.driveandroid.Constants.Companion.DB_NAME
+import com.cimtech.driveandroid.Constants.Companion.DB_VERSION
+import com.cimtech.driveandroid.Constants.Companion.EXTRA_ACTIVITY_NAME
+import com.cimtech.driveandroid.Constants.Companion.EXTRA_FOLDER_ID
+import com.cimtech.driveandroid.Constants.Companion.FOLDER_INFO
+import com.cimtech.driveandroid.Constants.Companion.PARAGRAPH_INFO
+import com.cimtech.driveandroid.Constants.Companion.WHERE_PARA_NUM
 import kotlinx.android.synthetic.main.activity_folder_create.*
 import kotlinx.android.synthetic.main.activity_folder_detail.*
 import kotlinx.android.synthetic.main.activity_folder_detail.close_button
