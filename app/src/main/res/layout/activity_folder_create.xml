@@ -9,7 +9,7 @@
     android:focusable="true"
     android:focusableInTouchMode="true"
     android:gravity="center_horizontal"
-    tools:context="com.example.driveandroid.FolderCreateActivity">
+    tools:context="com.cimtech.driveandroid.FolderCreateActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/drive_toolbar"

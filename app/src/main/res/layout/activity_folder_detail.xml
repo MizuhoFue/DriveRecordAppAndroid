@@ -98,7 +98,7 @@
         android:layout_marginBottom="150dp"
         android:background="@drawable/border"
         android:scrollbarStyle="insideOverlay"
-        tools:context="com.example.driveandroid.FolderDetailActivity">
+        tools:context="com.cimtech.driveandroid.FolderDetailActivity">
 
         <LinearLayout
             android:layout_width="match_parent"

@@ -4,7 +4,7 @@
 * 作成者：笛木
 * 更新日：20201019
 * */
-package com.example.driveandroid
+package com.cimtech.driveandroid
 
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase

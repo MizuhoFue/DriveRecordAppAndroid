@@ -3,7 +3,7 @@
  * 更新者：笛木
  * 更新日：2020年12月10日〜2020年12月15日 作業 金額表示系の処理追加
  * */
-package com.example.driveandroid
+package com.cimtech.driveandroid
 
 import android.util.Log
 import android.view.LayoutInflater
@@ -93,4 +93,3 @@ class FolderDetailAdapter(
         this.costListener = costListener
     }
 }
-

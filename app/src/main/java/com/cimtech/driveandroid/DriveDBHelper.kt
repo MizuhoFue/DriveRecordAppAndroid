@@ -4,7 +4,7 @@
 * 更新日：2020年12月7日
 * 状況：FolderInfoテーブルの日付dateの型をtext(15)に変更
 * */
-package com.example.driveandroid
+package com.cimtech.driveandroid
 
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
@@ -32,4 +32,3 @@ class DriveDBHelper(
         }
     }
 }
-

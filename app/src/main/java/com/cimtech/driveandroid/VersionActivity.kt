@@ -1,8 +1,8 @@
-package com.example.driveandroid
+package com.cimtech.driveandroid
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.example.driveandroid.BuildConfig.VERSION_NAME
+import com.cimtech.driveandroid.BuildConfig.VERSION_NAME
 import kotlinx.android.synthetic.main.activity_version.*
 
 class VersionActivity : AppCompatActivity() {

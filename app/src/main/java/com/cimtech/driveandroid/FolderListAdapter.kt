@@ -5,7 +5,7 @@
 * 内容：deleteリスナー組み込み interface設定 deleteに送るidをdeleteId、detailに送るidをdetailIdとしてfolderList[position].folderIdを代入、
 * リスト更新処理用にpositionもdeleteリスナーに送る
 * */
-package com.example.driveandroid
+package com.cimtech.driveandroid
 
 import android.content.Intent
 import android.util.Log
@@ -13,7 +13,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.driveandroid.Constants.Companion.EXTRA_FOLDER_ID
+import com.cimtech.driveandroid.Constants.Companion.EXTRA_FOLDER_ID
 import kotlinx.android.synthetic.main.recyclerview_item.view.*
 
 //日付配列とタイトル配列を表示+Delete処理のゴミ箱imageView

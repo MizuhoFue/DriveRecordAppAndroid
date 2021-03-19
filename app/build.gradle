@@ -10,8 +10,8 @@ apply plugin: 'deploygate'
 android {
     signingConfigs {
         config {
-            storeFile file('/Users/mikuhoshino/Desktop/Key.jks')
-            keyAlias 'key0'
+            storeFile file('/Users/mikuhoshino/Documents/AndroidStudio/KeyStore/drivekey.jks')
+            keyAlias 'drivekey'
             storePassword 'sonimo'
             keyPassword 'sonimo'
         }
@@ -20,12 +20,13 @@ android {
     buildToolsVersion "30.0.2"
 
     defaultConfig {
-        applicationId "com.example.driveandroid"
+        applicationId "com.cimtech.driveandroid"
         minSdkVersion 23
         targetSdkVersion 30
         versionCode 1
         versionName "1.0.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        signingConfig signingConfigs.config
     }
 
     buildTypes {

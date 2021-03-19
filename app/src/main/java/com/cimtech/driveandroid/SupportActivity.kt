@@ -4,7 +4,7 @@
 * 更新日：2020年12月21日
 * 更新者：笛木
 * */
-package com.example.driveandroid
+package com.cimtech.driveandroid
 
 import android.content.Intent
 import android.net.Uri

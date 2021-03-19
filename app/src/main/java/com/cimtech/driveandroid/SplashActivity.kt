@@ -1,4 +1,4 @@
-package com.example.driveandroid
+package com.cimtech.driveandroid
 
 import android.content.Intent
 import android.os.Bundle

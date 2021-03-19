@@ -1,4 +1,4 @@
-package com.example.driveandroid
+package com.cimtech.driveandroid
 
 import android.content.ContentValues
 import android.content.DialogInterface
@@ -11,12 +11,12 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import com.example.driveandroid.Constants.Companion.DB_NAME
-import com.example.driveandroid.Constants.Companion.DB_VERSION
-import com.example.driveandroid.Constants.Companion.EXTRA_ACTIVITY_NAME
-import com.example.driveandroid.Constants.Companion.EXTRA_FOLDER_ID
-import com.example.driveandroid.Constants.Companion.FOLDER_INFO
-import com.example.driveandroid.Constants.Companion.PARAGRAPH_INFO
+import com.cimtech.driveandroid.Constants.Companion.DB_NAME
+import com.cimtech.driveandroid.Constants.Companion.DB_VERSION
+import com.cimtech.driveandroid.Constants.Companion.EXTRA_ACTIVITY_NAME
+import com.cimtech.driveandroid.Constants.Companion.EXTRA_FOLDER_ID
+import com.cimtech.driveandroid.Constants.Companion.FOLDER_INFO
+import com.cimtech.driveandroid.Constants.Companion.PARAGRAPH_INFO
 import kotlinx.android.synthetic.main.activity_folder_create.*
 import kotlinx.android.synthetic.main.activity_folder_detail.*
 import kotlinx.android.synthetic.main.activity_money_insert.*

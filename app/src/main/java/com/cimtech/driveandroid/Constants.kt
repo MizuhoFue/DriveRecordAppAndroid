@@ -3,7 +3,7 @@
 * 更新日：12月15日
 * 更新者：笛木
 * */
-package com.example.driveandroid
+package com.cimtech.driveandroid
 
 class Constants {
     companion object {

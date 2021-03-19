@@ -4,7 +4,7 @@
 * 更新日：2020年12月28日
 * 更新内容：ダイアログの色
 * */
-package com.example.driveandroid
+package com.cimtech.driveandroid
 
 import android.content.Intent
 import android.os.Bundle
@@ -14,11 +14,11 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.driveandroid.Constants.Companion.DB_NAME
-import com.example.driveandroid.Constants.Companion.DB_VERSION
-import com.example.driveandroid.Constants.Companion.FOLDER_INFO
-import com.example.driveandroid.Constants.Companion.PARAGRAPH_INFO
-import com.example.driveandroid.Constants.Companion.WHERE_ID
+import com.cimtech.driveandroid.Constants.Companion.DB_NAME
+import com.cimtech.driveandroid.Constants.Companion.DB_VERSION
+import com.cimtech.driveandroid.Constants.Companion.FOLDER_INFO
+import com.cimtech.driveandroid.Constants.Companion.PARAGRAPH_INFO
+import com.cimtech.driveandroid.Constants.Companion.WHERE_ID
 import kotlinx.android.synthetic.main.activity_folder_list.*
 
 class FolderListActivity : AppCompatActivity() {

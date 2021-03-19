@@ -4,7 +4,7 @@
 * 更新日：2020年12月28日
 * 更新者：笛木
 * */
-package com.example.driveandroid
+package com.cimtech.driveandroid
 
 import android.app.DatePickerDialog
 import android.app.DatePickerDialog.OnDateSetListener
@@ -20,11 +20,11 @@ import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.doAfterTextChanged
-import com.example.driveandroid.Constants.Companion.DB_NAME
-import com.example.driveandroid.Constants.Companion.DB_VERSION
-import com.example.driveandroid.Constants.Companion.EXTRA_ACTIVITY_NAME
-import com.example.driveandroid.Constants.Companion.EXTRA_FOLDER_ID
-import com.example.driveandroid.Constants.Companion.FOLDER_INFO
+import com.cimtech.driveandroid.Constants.Companion.DB_NAME
+import com.cimtech.driveandroid.Constants.Companion.DB_VERSION
+import com.cimtech.driveandroid.Constants.Companion.EXTRA_ACTIVITY_NAME
+import com.cimtech.driveandroid.Constants.Companion.EXTRA_FOLDER_ID
+import com.cimtech.driveandroid.Constants.Companion.FOLDER_INFO
 import kotlinx.android.synthetic.main.activity_folder_create.*
 import java.time.LocalDate
 import java.util.*
